@@ -9,7 +9,7 @@ module SCSSLint
         opts.banner = 'Usage: scss-lint [scss-files]'
       end.parse!(args)
 
-      files = SCSSLint.extract_files_from(opts.empty? ? 'css' : opts)
+      files = SCSSLint.extract_files_from(opts)
 
       runner = Runner.new
       begin
