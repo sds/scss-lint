@@ -2,7 +2,7 @@ require 'sass'
 
 module SCSSLint
   class Engine
-    ENGINE_OPTIONS = { syntax: :scss }
+    ENGINE_OPTIONS = { cache: false, syntax: :scss }
 
     def initialize(scss_or_filename)
       if File.exists?(scss_or_filename)
