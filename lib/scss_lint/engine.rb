@@ -4,7 +4,7 @@ module SCSSLint
   class Engine
     ENGINE_OPTIONS = { cache: false, syntax: :scss }
 
-    attr_reader :contents, :tree
+    attr_reader :contents, :lines, :tree
 
     def initialize(scss_or_filename)
       if File.exists?(scss_or_filename)
@@ -15,6 +15,7 @@ module SCSSLint
         @contents = scss_or_filename
       end
 
+      @lines = @contents.split("\n")
       @tree = @engine.to_tree
     end
   end
