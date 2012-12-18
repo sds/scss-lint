@@ -25,6 +25,8 @@ module SCSSLint
       LinterRegistry.linters.each do |linter|
         @lints += linter.run(engine)
       end
+    rescue Sass::SyntaxError => ex
+      @lints << Lint.new(ex.sass_filename, ex.sass_line, ex.to_s)
     end
 
     def lints?

@@ -2,9 +2,9 @@ module SCSSLint
   class Lint
     attr_reader :filename, :line, :description
 
-    def initialize(node, description)
-      @filename = node.filename
-      @line = node.line
+    def initialize(filename, line, description)
+      @filename = filename
+      @line = line
       @description = description
     end
   end

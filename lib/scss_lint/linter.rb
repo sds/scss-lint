@@ -8,7 +8,7 @@ module SCSSLint
       end
 
       def create_lint(node)
-        Lint.new(node, description)
+        Lint.new(node.filename, node.line, description)
       end
 
       def description
