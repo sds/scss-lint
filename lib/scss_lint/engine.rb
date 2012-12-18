@@ -4,7 +4,7 @@ module SCSSLint
   class Engine
     ENGINE_OPTIONS = { cache: false, syntax: :scss }
 
-    attr_reader :contents
+    attr_reader :contents, :tree
 
     def initialize(scss_or_filename)
       if File.exists?(scss_or_filename)
@@ -14,10 +14,8 @@ module SCSSLint
         @engine = Sass::Engine.new(scss_or_filename, ENGINE_OPTIONS)
         @contents = scss_or_filename
       end
-    end
 
-    def tree
-      @engine.to_tree
+      @tree = @engine.to_tree
     end
   end
 end
