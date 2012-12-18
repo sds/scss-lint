@@ -23,7 +23,7 @@ module SCSSLint
     end
 
     def report_lints(lints)
-      lints.each do |lint|
+      lints.sort_by { |l| [l.filename, l.line] }.each do |lint|
         if lint.filename
           print "#{lint.filename}:".yellow
         else
