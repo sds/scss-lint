@@ -23,7 +23,7 @@ module SCSSLint
     private
 
       def check_property_format(prop_node, line)
-        return create_lint(prop_node) unless line =~ /^\s*[\w-]+: [^\s][^;]*;/
+        return create_lint(prop_node) unless line =~ /^\s*[\w-]+: \S[^;]*(?<!\s);/
       end
     end
   end

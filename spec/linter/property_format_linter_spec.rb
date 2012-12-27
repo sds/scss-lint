@@ -89,6 +89,22 @@ describe SCSSLint::Linter::PropertyFormatLinter do
     end
   end
 
+  context 'when a property declaration has spaces before the semicolon' do
+    let(:css) { <<-EOS }
+      p {
+        color: #fff ;
+      }
+    EOS
+
+    it 'returns a lint' do
+      subject.count.should == 1
+    end
+
+    it 'returns the correct line for the lint' do
+      subject.first.line.should == 2
+    end
+  end
+
   context 'when a property declaration spans two lines' do
     let(:css) { <<-EOS }
       p {
