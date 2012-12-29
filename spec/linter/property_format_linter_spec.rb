@@ -157,4 +157,36 @@ describe SCSSLint::Linter::PropertyFormatLinter do
       subject.first.line.should == 4
     end
   end
+
+  context 'with a nested property' do
+    context 'when there is a value on the namespace' do
+      let(:css) { <<-EOS }
+        p {
+          font: 2px/3px {
+            family: sans-serif;
+            weight: bold;
+          }
+        }
+      EOS
+
+      it 'returns no lints' do
+        subject.should be_empty
+      end
+    end
+
+    context 'when there is no value on the namespace' do
+      let(:css) { <<-EOS }
+        p {
+          font: {
+            family: sans-serif;
+            size: 18px;
+          }
+        }
+      EOS
+
+      it 'returns no lints' do
+        subject.should be_empty
+      end
+    end
+  end
 end
