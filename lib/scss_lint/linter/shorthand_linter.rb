@@ -30,18 +30,17 @@ module SCSSLint
 
       def valid_shorthand?(shorthand)
         values = shorthand.split(/\s+/)
+        top, right, bottom, left = values
 
-        if values[0] == values[1] &&
-           values[1] == values[2] &&
-           values[2] == values[3]
+        if top == right && right == bottom && bottom == left
           false
-        elsif values[0] == values[1] && values[2].nil? && values[3].nil?
+        elsif top == right && bottom.nil? && left.nil?
           false
-        elsif values[0] == values[2] && values[1] == values[3]
+        elsif top == bottom && right == left
           false
-        elsif values[0] == values[2] && values[3].nil?
+        elsif top == bottom && left.nil?
           false
-        elsif values[1] == values[3]
+        elsif right == left
           false
         else
           true
