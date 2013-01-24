@@ -50,6 +50,22 @@ describe SCSSLint::Linter::ShorthandLinter do
       end
     end
 
+    context 'has exactly two identical values' do
+      let(:css) { <<-EOS }
+        p {
+          padding: 10px 10px;
+        }
+      EOS
+
+      it 'returns a lint' do
+        subject.count.should == 1
+      end
+
+      it 'reports correct lines for each lint' do
+        subject.first.line.should == 2
+      end
+    end
+
     context 'has its first two values repeated' do
       let(:css) { <<-EOS }
         p {
