@@ -17,7 +17,8 @@ module SCSSLint
 
       def description
         'Property declarations should always be on one line of the form ' <<
-        '`name: value;` or `name: [value] {`'
+        '`name: value;` or `name: [value] {` ' <<
+        '(are you missing a trailing semi-colon?)'
       end
 
     private
