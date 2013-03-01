@@ -21,6 +21,10 @@ module SCSSLint
           puts "#{opts.program_name} #{VERSION}"
           exit
         end
+
+        opts.on("-x", "--lintxml", "Outputs the results in Lint XML format") do |v|
+          options[:xml] = true
+        end
       end
 
       begin
@@ -37,15 +41,30 @@ module SCSSLint
       run(options)
     end
 
-    def report_lints(lints)
-      lints.sort_by { |l| [l.filename, l.line] }.each do |lint|
-        if lint.filename
-          print "#{lint.filename}:".yellow
-        else
-          print 'line'.yellow
+    def report_lints(lints, options)
+      if options[:xml]
+        prev_filename = nil
+        puts '<?xml version="1.0" encoding="utf-8"?><lint>'
+        lints.sort_by { |l| [l.filename, l.line] }.each do |lint|
+          if lint.filename != prev_filename
+            if not prev_filename.nil?
+              puts '</file>'
+            end
+            puts "<file name='#{lint.filename}'>"
+            prev_filename = lint.filename
+          end
+          puts "<issue line='#{lint.line}' severity='warning' reason='#{lint.description}' />"
         end
-
-        puts "#{lint.line} - #{lint.description}"
+        puts '</file></lint>'
+      else
+        lints.sort_by { |l| [l.filename, l.line] }.each do |lint|
+          if lint.filename
+            print "#{lint.filename}:".yellow
+          else
+            print 'line'.yellow
+          end
+          puts "#{lint.line} - #{lint.description}"
+        end
       end
     end
 
