@@ -9,7 +9,12 @@ rules established by the team at [Causes.com](http://causes.com).
 
 ## Usage
 
-Run `scss-lint` from the command line by passing it files you want to lint:
+Run `scss-lint` from the command-line by passing in a directory (or multiple
+directories) to recursively scan:
+
+    scss-lint app/assets/stylesheets/
+
+You can also specify a list of files explicitly:
 
     scss-lint app/assets/stylesheets/**/*.css.scss
 
