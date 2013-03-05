@@ -17,7 +17,7 @@ module SCSSLint
       files = []
       list.each do |file|
         Find.find(file) do |f|
-          files << f
+          files << f unless FileTest.directory?(f)
         end
       end
       files.uniq
