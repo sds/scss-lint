@@ -1,3 +1,10 @@
+0.5.5 (unreleased)
+
+* Only lint files with `css` or `scss` extensions
+* Fix recursive directory scanning
+* Fix specs on Sass gem >= 3.2.6 (shorthand_linter was failing)
+* Add changelog (the thing you're reading)
+
 0.5.2
 
 * Version bump to remove erroneously added untracked files from gem
