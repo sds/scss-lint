@@ -17,10 +17,19 @@ module SCSSLint
       files = []
       list.each do |file|
         Find.find(file) do |f|
-          files << f unless FileTest.directory?(f)
+          files << f if scssish_file?(f)
         end
       end
       files.uniq
+    end
+
+  private
+
+    VALID_EXTENSIONS = %w[.css .scss]
+    def scssish_file?(file)
+      return false unless FileTest.file?(file)
+
+      VALID_EXTENSIONS.include?(File.extname(file))
     end
   end
 end
