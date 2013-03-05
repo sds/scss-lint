@@ -22,8 +22,7 @@ module SCSSLint
     private
 
       def check_valid_shorthand_value(prop_node)
-        if prop_node.value.is_a?(Sass::Script::String) &&
-           prop_node.value.to_s.strip =~ /\A(\S+\s+\S+(\s+\S+){0,2})\Z/
+        if prop_node.value.to_s.strip =~ /\A(\S+\s+\S+(\s+\S+){0,2})\Z/
           return create_lint(prop_node) unless valid_shorthand?($1)
         end
       end
