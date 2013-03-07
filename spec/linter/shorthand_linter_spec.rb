@@ -66,6 +66,18 @@ describe SCSSLint::Linter::ShorthandLinter do
       end
     end
 
+    context 'appears to have two identical values, but cannot be shorthanded' do
+      let(:css) { <<-EOS }
+        p:before {
+          content: ' ';
+        }
+      EOS
+
+      it 'returns no lints' do
+        subject.should be_empty
+      end
+    end
+
     context 'has its first two values repeated' do
       let(:css) { <<-EOS }
         p {

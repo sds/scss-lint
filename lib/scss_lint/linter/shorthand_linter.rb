@@ -20,8 +20,18 @@ module SCSSLint
       end
 
     private
+      SHORTHANDABLE_PROPERTIES = %w[border-color
+                                    border-radius
+                                    border-style
+                                    border-width
+                                    margin
+                                    padding]
 
       def check_valid_shorthand_value(prop_node)
+        unless SHORTHANDABLE_PROPERTIES.include? prop_node.name.first.to_s
+          return
+        end
+
         if prop_node.value.to_s.strip =~ /\A(\S+\s+\S+(\s+\S+){0,2})\Z/
           return create_lint(prop_node) unless valid_shorthand?($1)
         end
