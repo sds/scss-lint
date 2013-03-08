@@ -41,21 +41,26 @@ module SCSSLint
       run(options)
     end
 
+    def xml_output(lints)
+      prev_filename = nil
+      res = '<?xml version="1.0" encoding="utf-8"?><lint>'
+      lints.sort_by { |l| [l.filename, l.line] }.each do |lint|
+        if lint.filename != prev_filename
+          if not prev_filename.nil?
+            res << '</file>'
+          end
+          res << "<file name='#{lint.filename}'>"
+          prev_filename = lint.filename
+        end
+        res << "<issue line='#{lint.line}' severity='warning' reason='#{lint.description}' />"
+      end
+      res << '</file></lint>'
+      res
+    end
+
     def report_lints(lints, options)
       if options[:xml]
-        prev_filename = nil
-        puts '<?xml version="1.0" encoding="utf-8"?><lint>'
-        lints.sort_by { |l| [l.filename, l.line] }.each do |lint|
-          if lint.filename != prev_filename
-            if not prev_filename.nil?
-              puts '</file>'
-            end
-            puts "<file name='#{lint.filename}'>"
-            prev_filename = lint.filename
-          end
-          puts "<issue line='#{lint.line}' severity='warning' reason='#{lint.description}' />"
-        end
-        puts '</file></lint>'
+        puts xml_output(lints)
       else
         lints.sort_by { |l| [l.filename, l.line] }.each do |lint|
           if lint.filename
@@ -76,8 +81,7 @@ module SCSSLint
       runner = Runner.new
       begin
         runner.run files
-        report_lints(runner.lints)
-        exit 1 if runner.lints?
+        report_lints(runner.lints, options)
       rescue NoFilesError => ex
         puts ex.message
         exit -1
