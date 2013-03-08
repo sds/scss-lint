@@ -6,6 +6,7 @@ module SCSSLint
   autoload :LinterRegistry, 'scss_lint/linter_registry'
   autoload :Linter, 'scss_lint/linter'
   autoload :Runner, 'scss_lint/runner'
+  autoload :CLI, 'scss_lint/cli'
 
   # Load all linters
   Dir[File.expand_path('scss_lint/linter/*.rb', File.dirname(__FILE__))].each do |file|
@@ -13,11 +14,12 @@ module SCSSLint
   end
 
   class << self
-    def extract_files_from(list)
+    def extract_files_from(list, exclude)
       files = []
       list.each do |file|
         Find.find(file) do |f|
-          files << f if scssish_file?(f)
+          fn = File.basename(f)
+          files << f if scssish_file?(f) and not exclude.include?(fn)
         end
       end
       files.uniq

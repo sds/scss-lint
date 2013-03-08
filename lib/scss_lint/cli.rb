@@ -21,6 +21,16 @@ module SCSSLint
           puts "#{opts.program_name} #{VERSION}"
           exit
         end
+
+        opts.on("-x", "--lintxml", "Outputs the results in Lint XML format") do
+          options[:xml] = true
+        end
+
+        options[:exclude] = []
+        opts.on("-e", "--exclude file1,file2,file3", Array,
+                "List of file names to exclude") do |l|
+          options[:exclude] = l
+        end
       end
 
       begin
@@ -37,28 +47,47 @@ module SCSSLint
       run(options)
     end
 
-    def report_lints(lints)
+    def xml_output(lints)
+      prev_filename = nil
+      res = '<?xml version="1.0" encoding="utf-8"?><lint>'
       lints.sort_by { |l| [l.filename, l.line] }.each do |lint|
-        if lint.filename
-          print "#{lint.filename}:".yellow
-        else
-          print 'line'.yellow
+        if lint.filename != prev_filename
+          if not prev_filename.nil?
+            res << '</file>'
+          end
+          res << "<file name='#{lint.filename}'>"
+          prev_filename = lint.filename
         end
+        res << "<issue line='#{lint.line}' severity='warning' reason='#{lint.description}' />"
+      end
+      res << '</file></lint>'
+      res
+    end
 
-        puts "#{lint.line} - #{lint.description}"
+    def report_lints(lints, options)
+      if options[:xml]
+        puts xml_output(lints)
+      else
+        lints.sort_by { |l| [l.filename, l.line] }.each do |lint|
+          if lint.filename
+            print "#{lint.filename}:".yellow
+          else
+            print 'line'.yellow
+          end
+          puts "#{lint.line} - #{lint.description}"
+        end
       end
     end
 
   private
 
     def run(options)
-      files = SCSSLint.extract_files_from(options[:files])
+      files = SCSSLint.extract_files_from(options[:files], options[:exclude])
 
       runner = Runner.new
       begin
         runner.run files
-        report_lints(runner.lints)
-        exit 1 if runner.lints?
+        report_lints(runner.lints, options)
       rescue NoFilesError => ex
         puts ex.message
         exit -1
