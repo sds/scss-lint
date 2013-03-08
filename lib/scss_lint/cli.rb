@@ -22,8 +22,14 @@ module SCSSLint
           exit
         end
 
-        opts.on("-x", "--lintxml", "Outputs the results in Lint XML format") do |v|
+        opts.on("-x", "--lintxml", "Outputs the results in Lint XML format") do
           options[:xml] = true
+        end
+
+        options[:exclude] = []
+        opts.on("-e", "--exclude file1,file2,file3", Array,
+                "List of file names to exclude") do |l|
+          options[:exclude] = l
         end
       end
 
@@ -76,7 +82,7 @@ module SCSSLint
   private
 
     def run(options)
-      files = SCSSLint.extract_files_from(options[:files])
+      files = SCSSLint.extract_files_from(options[:files], options[:exclude])
 
       runner = Runner.new
       begin

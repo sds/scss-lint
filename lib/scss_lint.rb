@@ -14,11 +14,12 @@ module SCSSLint
   end
 
   class << self
-    def extract_files_from(list)
+    def extract_files_from(list, exclude)
       files = []
       list.each do |file|
         Find.find(file) do |f|
-          files << f if scssish_file?(f)
+          fn = File.basename(f)
+          files << f if scssish_file?(f) and not exclude.include?(fn)
         end
       end
       files.uniq

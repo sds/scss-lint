@@ -22,7 +22,19 @@ describe SCSSLint::CLI do
     subject { SCSSLint::CLI.new args }
 
     it 'raises an error' do
-      expect { subject }.to raise_error
+      lambda { subject }.should raise_error(SystemExit)
+    end
+  end
+
+  context 'when files are passed but excluded' do
+    let(:args) { files + ['-e', 'dummy1.scss,dummy2.scss'] }
+    subject { SCSSLint::CLI.new args }
+
+    it "doesn't do nothing" do
+      STDOUT.should_not_receive(:puts).with(
+        "2 - Properties should be sorted in alphabetical order"
+      )
+      lambda { subject }.should raise_error(SystemExit)
     end
   end
 
