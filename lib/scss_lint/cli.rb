@@ -13,6 +13,11 @@ module SCSSLint
         opts.separator ''
         opts.separator 'Common options:'
 
+        opts.on('-e', '--exclude file,...', Array,
+                'List of file names to exclude') do |files|
+          options[:excluded_files] = files
+        end
+
         opts.on_tail('-h', '--help', 'Show this message') do
           options[:command] = [:print_help, opts.help]
         end
@@ -41,11 +46,9 @@ module SCSSLint
         send *command
       end
 
-      files = SCSSLint.extract_files_from(options[:files])
-
       runner = Runner.new
       begin
-        runner.run files
+        runner.run(find_files)
         report_lints(runner.lints)
         halt 1 if runner.lints?
       rescue NoFilesError => ex
@@ -55,6 +58,14 @@ module SCSSLint
     end
 
   private
+
+    def find_files
+      excluded_files = options.fetch(:excluded_files, [])
+
+      SCSSLint.extract_files_from(options[:files]).reject do |file|
+        excluded_files.include?(file)
+      end
+    end
 
     def report_lints(lints)
       sorted_lints = lints.sort_by { |l| [l.filename, l.line] }

@@ -6,6 +6,7 @@
 * Add changelog (the thing you're reading)
 * Add command-line flags (e.g. --version, --help)
 * Add --xml flag for outputting XML
+* Add --exclude flag for excluding SCSS files from being linted
 
 0.5.2
 

@@ -8,9 +8,11 @@ module SCSSLint
   class Runner
     attr_reader :lints
 
-    def run(files = [])
+    def initialize
       @lints = []
+    end
 
+    def run(files = [])
       raise NoFilesError.new('No SCSS files specified') if files.empty?
       raise NoLintersError.new('No linters specified') if LinterRegistry.linters.empty?
 

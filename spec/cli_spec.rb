@@ -26,6 +26,15 @@ describe SCSSLint::CLI do
       # Keep running tests
     end
 
+    context 'when the excluded files flag is set' do
+      let(:options) { ['-e', 'file1.scss,file3.scss'] }
+
+      it 'does not lint those files' do
+        SCSSLint::Runner.any_instance.should_receive(:run).with(['file2.scss'])
+        safe_run
+      end
+    end
+
     context 'when the help flag is set' do
       let(:options) { ['-h'] }
 
