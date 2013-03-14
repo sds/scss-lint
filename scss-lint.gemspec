@@ -19,5 +19,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'colorize'
   s.add_dependency 'sass'
 
+  s.add_development_dependency 'nokogiri'
   s.add_development_dependency 'rspec'
 end
