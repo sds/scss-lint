@@ -5,10 +5,16 @@ module SCSSLint
   autoload :Lint, 'scss_lint/lint'
   autoload :LinterRegistry, 'scss_lint/linter_registry'
   autoload :Linter, 'scss_lint/linter'
+  autoload :Reporter, 'scss_lint/reporter'
   autoload :Runner, 'scss_lint/runner'
 
   # Load all linters
   Dir[File.expand_path('scss_lint/linter/*.rb', File.dirname(__FILE__))].each do |file|
+    require file
+  end
+
+  # Load all reporters
+  Dir[File.expand_path('scss_lint/reporter/*.rb', File.dirname(__FILE__))].each do |file|
     require file
   end
 

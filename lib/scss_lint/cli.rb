@@ -1,5 +1,4 @@
 require 'scss_lint'
-require 'colorize'
 require 'optparse'
 
 module SCSSLint
@@ -37,18 +36,6 @@ module SCSSLint
       run(options)
     end
 
-    def report_lints(lints)
-      lints.sort_by { |l| [l.filename, l.line] }.each do |lint|
-        if lint.filename
-          print "#{lint.filename}:".yellow
-        else
-          print 'line'.yellow
-        end
-
-        puts "#{lint.line} - #{lint.description}"
-      end
-    end
-
   private
 
     def run(options)
@@ -63,6 +50,11 @@ module SCSSLint
         puts ex.message
         exit -1
       end
+    end
+
+    def report_lints(lints)
+      sorted_lints = lints.sort_by { |l| [l.filename, l.line] }
+      puts Reporter::DefaultReporter.new(sorted_lints).report_lints
     end
   end
 end
