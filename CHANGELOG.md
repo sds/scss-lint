@@ -5,6 +5,7 @@
 * Fix specs on Sass gem >= 3.2.6 (shorthand_linter was failing)
 * Add changelog (the thing you're reading)
 * Add command-line flags (e.g. --version, --help)
+* Add --xml flag for outputting XML
 
 0.5.2
 

@@ -44,6 +44,15 @@ describe SCSSLint::CLI do
       end
     end
 
+    context 'when the XML flag is set' do
+      let(:options) { ['-x'] }
+
+      it 'uses the XML reporter' do
+        SCSSLint::Reporter::XMLReporter.any_instance.should_receive(:report_lints)
+        safe_run
+      end
+    end
+
     context 'when an invalid option is specified' do
       let(:options) { ['--non-existant-option'] }
 

@@ -20,6 +20,10 @@ module SCSSLint
         opts.on_tail('-v', '--version', 'Show version') do
           options[:command] = [:print_version, opts.program_name, VERSION]
         end
+
+        opts.on('-x', '--xml', 'Output the results in XML format') do
+          options[:reporter] = SCSSLint::Reporter::XMLReporter
+        end
       end
 
       begin
