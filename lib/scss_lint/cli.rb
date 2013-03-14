@@ -3,8 +3,10 @@ require 'optparse'
 
 module SCSSLint
   class CLI
+    attr_accessor :options
+
     def initialize(args)
-      options = {}
+      @options = {}
       parser = OptionParser.new do |opts|
         opts.banner = "Usage: #{opts.program_name} [options] [scss-files]"
 
@@ -12,49 +14,64 @@ module SCSSLint
         opts.separator 'Common options:'
 
         opts.on_tail('-h', '--help', 'Show this message') do
-          puts opts.help
-          exit
+          options[:command] = [:print_help, opts.help]
         end
 
         opts.on_tail('-v', '--version', 'Show version') do
-          puts "#{opts.program_name} #{VERSION}"
-          exit
+          options[:command] = [:print_version, opts.program_name, VERSION]
         end
       end
 
       begin
         parser.parse!(args)
+
+        # Take the rest of the arguments as files/directories
+        options[:files] = args
       rescue OptionParser::InvalidOption => ex
-        puts ex, ''
-        puts parser.help
-        exit
+        options[:command] = [:print_help, parser.help, ex]
       end
-
-      # Take the rest of the arguments as files/directories
-      options[:files] = args
-
-      run(options)
     end
 
-  private
+    def run
+      if command = options[:command]
+        send *command
+      end
 
-    def run(options)
       files = SCSSLint.extract_files_from(options[:files])
 
       runner = Runner.new
       begin
         runner.run files
         report_lints(runner.lints)
-        exit 1 if runner.lints?
+        halt 1 if runner.lints?
       rescue NoFilesError => ex
         puts ex.message
-        exit -1
+        halt -1
       end
     end
 
+  private
+
     def report_lints(lints)
       sorted_lints = lints.sort_by { |l| [l.filename, l.line] }
-      puts Reporter::DefaultReporter.new(sorted_lints).report_lints
+      reporter = options.fetch(:reporter, Reporter::DefaultReporter).new(sorted_lints)
+      puts reporter.report_lints
+    end
+
+    def print_help(help_message, err = nil)
+      puts err, '' if err
+      puts help_message
+      halt
+    end
+
+    def print_version(program_name, version)
+      puts "#{program_name} #{version}"
+      halt
+    end
+
+    # Used for ease-of testing
+    def halt(exit_status = 0)
+      exit exit_status
     end
   end
 end

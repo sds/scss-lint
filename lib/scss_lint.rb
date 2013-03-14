@@ -1,6 +1,7 @@
 require 'find'
 
 module SCSSLint
+  autoload :CLI, 'scss_lint/cli'
   autoload :Engine, 'scss_lint/engine'
   autoload :Lint, 'scss_lint/lint'
   autoload :LinterRegistry, 'scss_lint/linter_registry'
