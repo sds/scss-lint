@@ -7,6 +7,7 @@
 * Add command-line flags (e.g. --version, --help)
 * Add --xml flag for outputting XML
 * Add --exclude flag for excluding SCSS files from being linted
+* Add --ignore-linters flag to skip lints produced by certain linters
 
 0.5.2
 

@@ -6,15 +6,22 @@ module SCSSLint
   class NoLintersError < StandardError; end
 
   class Runner
-    attr_reader :lints
+    attr_reader :linters, :lints
 
-    def initialize
+    def initialize(options = {})
       @lints = []
+
+      ignored_linters = LinterRegistry.
+        extract_linters_from(options.fetch(:ignored_linters, []))
+
+      @linters = LinterRegistry.linters.reject do |linter|
+        ignored_linters.include?(linter)
+      end
     end
 
     def run(files = [])
       raise NoFilesError.new('No SCSS files specified') if files.empty?
-      raise NoLintersError.new('No linters specified') if LinterRegistry.linters.empty?
+      raise NoLintersError.new('No linters specified') if linters.empty?
 
       files.each do |file|
         find_lints(file)
@@ -24,7 +31,7 @@ module SCSSLint
     def find_lints(file)
       engine = Engine.new(file)
 
-      LinterRegistry.linters.each do |linter|
+      linters.each do |linter|
         @lints += linter.run(engine)
       end
     rescue Sass::SyntaxError => ex

@@ -13,6 +13,14 @@ describe SCSSLint::CLI do
     it 'sets options[:files] with the list of files' do
       subject.options[:files].should =~ files
     end
+
+    context 'when the ignore lints flag is set' do
+      let(:options) { ['-i', 'some_linter_name'] }
+
+      it 'passes in the :ignored_linters option to the runner' do
+        subject.options[:ignored_linters].should == ['some_linter_name']
+      end
+    end
   end
 
   describe '#run' do

@@ -18,6 +18,11 @@ module SCSSLint
           options[:excluded_files] = files
         end
 
+        opts.on('-i', '--ignore-linter linter,...', Array,
+                "Specify which linters you don't want to run") do |linters|
+          options[:ignored_linters] = linters
+        end
+
         opts.on_tail('-h', '--help', 'Show this message') do
           options[:command] = [:print_help, opts.help]
         end
@@ -46,12 +51,12 @@ module SCSSLint
         send *command
       end
 
-      runner = Runner.new
       begin
+        runner = Runner.new(options)
         runner.run(find_files)
         report_lints(runner.lints)
         halt 1 if runner.lints?
-      rescue NoFilesError => ex
+      rescue NoFilesError, NoSuchLinter => ex
         puts ex.message
         halt -1
       end

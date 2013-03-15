@@ -1,7 +1,25 @@
 require 'spec_helper'
 
 describe SCSSLint::Runner do
-  let(:runner) { SCSSLint::Runner.new }
+  let(:options) { {} }
+  let(:runner)  { SCSSLint::Runner.new(options) }
+
+  describe '#new' do
+    context 'when the :ignored_linters option is specified' do
+      let(:options) { { ignored_linters: ['fake_linter_2'] } }
+
+      class FakeLinter1; include SCSSLint::LinterRegistry; end
+      class FakeLinter2 < FakeLinter1; end
+
+      before do
+        SCSSLint::LinterRegistry.stub(:linters).and_return([FakeLinter1, FakeLinter2])
+      end
+
+      it 'restricts the set of linters that are run' do
+        runner.linters.should_not include FakeLinter2
+      end
+    end
+  end
 
   describe '#run' do
     let(:files) { ['dummy1.scss', 'dummy2.scss'] }
