@@ -1,4 +1,4 @@
-0.5.5 (unreleased)
+0.6
 
 * Only lint files with `css` or `scss` extensions
 * Fix recursive directory scanning
