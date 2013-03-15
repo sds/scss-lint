@@ -5,8 +5,12 @@ module SCSSLint
   class CLI
     attr_accessor :options
 
-    def initialize(args)
+    def initialize(args = [])
+      @args = args
       @options = {}
+    end
+
+    def parse_arguments
       parser = OptionParser.new do |opts|
         opts.banner = "Usage: #{opts.program_name} [options] [scss-files]"
 
@@ -24,11 +28,11 @@ module SCSSLint
         end
 
         opts.on_tail('-h', '--help', 'Show this message') do
-          options[:command] = [:print_help, opts.help]
+          print_help opts.help
         end
 
         opts.on_tail('-v', '--version', 'Show version') do
-          options[:command] = [:print_version, opts.program_name, VERSION]
+          print_version opts.program_name, VERSION
         end
 
         opts.on('-x', '--xml', 'Output the results in XML format') do
@@ -37,29 +41,23 @@ module SCSSLint
       end
 
       begin
-        parser.parse!(args)
+        parser.parse!(@args)
 
         # Take the rest of the arguments as files/directories
-        options[:files] = args
+        options[:files] = @args
       rescue OptionParser::InvalidOption => ex
-        options[:command] = [:print_help, parser.help, ex]
+        print_help parser.help, ex
       end
     end
 
     def run
-      if command = options[:command]
-        send *command
-      end
-
-      begin
-        runner = Runner.new(options)
-        runner.run(find_files)
-        report_lints(runner.lints)
-        halt 1 if runner.lints?
-      rescue NoFilesError, NoSuchLinter => ex
-        puts ex.message
-        halt -1
-      end
+      runner = Runner.new(options)
+      runner.run(find_files)
+      report_lints(runner.lints)
+      halt 1 if runner.lints?
+    rescue NoFilesError, NoSuchLinter => ex
+      puts ex.message
+      halt -1
     end
 
   private

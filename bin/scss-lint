@@ -2,4 +2,7 @@
 
 require 'scss_lint'
 
-SCSSLint::CLI.new(ARGV).run
+SCSSLint::CLI.new(ARGV).tap do |cli|
+  cli.parse_arguments
+  cli.run
+end
