@@ -2,7 +2,12 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::HexLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  subject { SCSSLint::Linter::HexLinter.run(engine) }
+  let(:linter) { SCSSLint::Linter::HexLinter.new }
+  subject      { linter.lints }
+
+  before do
+    linter.run(engine)
+  end
 
   context 'when rule is empty' do
     let(:css) { <<-EOS }

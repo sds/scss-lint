@@ -2,9 +2,14 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::DeclarationOrderLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  subject { SCSSLint::Linter::DeclarationOrderLinter.run(engine) }
+  let(:linter) { SCSSLint::Linter::DeclarationOrderLinter.new }
+  subject      { linter.lints }
 
- context 'when rule is empty' do
+  before do
+    linter.run(engine)
+  end
+
+  context 'when rule is empty' do
     let(:css) { <<-EOS }
       p {
       }

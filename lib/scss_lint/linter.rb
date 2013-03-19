@@ -1,25 +1,27 @@
 module SCSSLint
-  class Linter
+  class Linter < Sass::Tree::Visitors::Base
     include LinterRegistry
 
-    class << self
-      def run(engine)
-        [] # No lints
-      end
+    attr_reader :engine, :lints
 
-      def create_lint(node)
-        Lint.new(node.filename, node.line, description)
-      end
+    def initialize
+      @lints = []
+    end
 
-      def description
-        nil
-      end
+    def run(engine)
+      @engine = engine
+      visit(engine.tree)
+    end
 
-    protected
+    def description
+      nil
+    end
 
-      def name
-        self.class.name
-      end
+  protected
+
+    # Helper for creating lint from a parse tree node
+    def add_lint(node)
+      @lints << Lint.new(node.filename, node.line, description)
     end
   end
 end

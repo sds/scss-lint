@@ -10,44 +10,30 @@ module SCSSLint
       Sass::Tree::RuleNode,
     ]
 
-    class << self
-      def run(engine)
-        lints = []
-        engine.tree.each do |node|
-          if node.is_a?(Sass::Tree::RuleNode)
-            lints << check_order_of_declarations(node)
-          end
-        end
-        lints.compact
+    def visit_rule(node)
+      children = node.children.select { |node| important_node?(node) }.
+                               map { |node| node.class }
+
+      sorted_children = children.sort do |a, b|
+        DECLARATION_ORDER.index(a) <=> DECLARATION_ORDER.index(b)
       end
 
-      def description
-        'Rule sets should start with @extend declarations, followed by ' <<
-        'properties and nested rule sets, in that order'
+      if children != sorted_children
+        add_lint(node.children.first)
       end
 
-    private
+      yield # Continue linting children
+    end
 
-      def important_node?(node)
-        case node
-        when *DECLARATION_ORDER
-          true
-        end
-      end
+    def description
+      'Rule sets should start with @extend declarations, followed by ' <<
+      'properties and nested rule sets, in that order'
+    end
 
-      def check_order_of_declarations(rule_node)
-        children = rule_node.children.select { |node| important_node?(node) }.
-                                      map { |node| node.class }
+  private
 
-        # Inefficient, but we're not sorting thousands of declarations
-        sorted_children = children.sort do |x,y|
-          DECLARATION_ORDER.index(x) <=> DECLARATION_ORDER.index(y)
-        end
-
-        if children != sorted_children
-          return create_lint(rule_node.children.first)
-        end
-      end
+    def important_node?(node)
+      DECLARATION_ORDER.include? node.class
     end
   end
 end

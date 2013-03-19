@@ -2,7 +2,12 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::TypeInIdSelectorLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  subject { SCSSLint::Linter::TypeInIdSelectorLinter.run(engine) }
+  let(:linter) { SCSSLint::Linter::TypeInIdSelectorLinter.new }
+  subject      { linter.lints }
+
+  before do
+    linter.run(engine)
+  end
 
   context 'when rule is just a type' do
     let(:css) { <<-EOS }

@@ -2,7 +2,12 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::SortedPropertiesLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  subject { SCSSLint::Linter::SortedPropertiesLinter.run(engine) }
+  let(:linter) { SCSSLint::Linter::SortedPropertiesLinter.new }
+  subject      { linter.lints }
+
+  before do
+    linter.run(engine)
+  end
 
   context 'when rule is empty' do
     let(:css) { <<-EOS }

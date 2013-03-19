@@ -4,7 +4,7 @@ describe SCSSLint::LinterRegistry do
   context 'when including the LinterRegistry module' do
     it 'adds the linter to the set of registered linters' do
       expect do
-        class FakeLinter
+        class FakeLinter < SCSSLint::Linter
           include SCSSLint::LinterRegistry
         end
       end.to change { SCSSLint::LinterRegistry.linters.count }.by(1)
@@ -12,7 +12,7 @@ describe SCSSLint::LinterRegistry do
   end
 
   describe '.extract_linters_from' do
-    class SomeLinter; include SCSSLint::LinterRegistry; end
+    class SomeLinter < SCSSLint::Linter; include SCSSLint::LinterRegistry; end
     class SomeOtherLinter < SomeLinter; end
     let(:linters) { [SomeLinter, SomeOtherLinter] }
 

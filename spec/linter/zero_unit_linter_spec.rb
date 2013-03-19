@@ -2,7 +2,12 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::ZeroUnitLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  subject { SCSSLint::Linter::ZeroUnitLinter.run(engine) }
+  let(:linter) { SCSSLint::Linter::ZeroUnitLinter.new }
+  subject      { linter.lints }
+
+  before do
+    linter.run(engine)
+  end
 
   context 'when no properties exist' do
     let(:css) { <<-EOS }

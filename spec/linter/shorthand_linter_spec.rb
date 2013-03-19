@@ -2,7 +2,12 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::ShorthandLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  subject { SCSSLint::Linter::ShorthandLinter.run(engine) }
+  let(:linter) { SCSSLint::Linter::ShorthandLinter.new }
+  subject      { linter.lints }
+
+  before do
+    linter.run(engine)
+  end
 
   context 'when a rule' do
     context 'is empty' do

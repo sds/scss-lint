@@ -4,26 +4,13 @@ module SCSSLint
   class Linter::ZeroUnitLinter < Linter
     include LinterRegistry
 
-    class << self
-      def run(engine)
-        lints = []
-        engine.tree.each do |node|
-          if node.is_a?(Sass::Tree::PropNode)
-            lints << check_zero_unit(node, engine.lines[node.line - 1]) if node.line
-          end
-        end
-        lints.compact
-      end
+    def visit_prop(node)
+      line = engine.lines[node.line - 1] if node.line
+      add_lint(node) if line =~ /^\s*[\w-]+:\s*0[a-z]+;$/i
+    end
 
-      def description
-        'Properties with a value of zero should be unit-less'
-      end
-
-    private
-
-      def check_zero_unit(prop_node, line)
-        return create_lint(prop_node) if line =~ /^\s*[\w-]+:\s*0[a-z]+;$/i
-      end
+    def description
+      'Properties with a value of zero should be unit-less, e.g. "0" instead of "0px"'
     end
   end
 end

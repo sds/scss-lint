@@ -16,6 +16,8 @@ module SCSSLint
 
       @linters = LinterRegistry.linters.reject do |linter|
         ignored_linters.include?(linter)
+      end.map do |linter_class|
+        linter_class.new
       end
     end
 
@@ -26,13 +28,17 @@ module SCSSLint
       files.each do |file|
         find_lints(file)
       end
+
+      linters.each do |linter|
+        @lints += linter.lints
+      end
     end
 
     def find_lints(file)
       engine = Engine.new(file)
 
       linters.each do |linter|
-        @lints += linter.run(engine)
+        linter.run(engine)
       end
     rescue Sass::SyntaxError => ex
       @lints << Lint.new(ex.sass_filename, ex.sass_line, ex.to_s)
