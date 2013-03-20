@@ -8,6 +8,7 @@ module SCSSLint
   autoload :Linter, 'scss_lint/linter'
   autoload :Reporter, 'scss_lint/reporter'
   autoload :Runner, 'scss_lint/runner'
+  autoload :VERSION, 'scss_lint/version'
 
   # Load all linters
   Dir[File.expand_path('scss_lint/linter/*.rb', File.dirname(__FILE__))].each do |file|
