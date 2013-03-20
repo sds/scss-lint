@@ -1,3 +1,8 @@
+0.6.5
+
+* Major refactor of the Linter class to use Visitor pattern
+* Fix shorthand linter for lists containing function calls
+
 0.6
 
 * Only lint files with `css` or `scss` extensions
