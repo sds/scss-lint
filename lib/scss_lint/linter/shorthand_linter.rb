@@ -9,7 +9,7 @@ module SCSSLint
         return
       end
 
-      if node.value.to_s.strip =~ /\A(\S+\s+\S+(\s+\S+){0,2})\Z/
+      if node.value.to_sass.strip =~ /\A(\S+\s+\S+(\s+\S+){0,2})\Z/
         add_lint(node) unless valid_shorthand?($1)
       end
     end

@@ -130,5 +130,17 @@ describe SCSSLint::Linter::ShorthandLinter do
         subject.first.line.should == 2
       end
     end
+
+    context 'contains a function call' do
+      let(:css) { <<-EOS }
+        p {
+          margin: percentage(1 / 100) percentage(1 / 100);
+        }
+      EOS
+
+      it 'does not crash' do
+        expect { subject }.to_not raise_error
+      end
+    end
   end
 end
