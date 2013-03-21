@@ -73,7 +73,8 @@ module SCSSLint
     def report_lints(lints)
       sorted_lints = lints.sort_by { |l| [l.filename, l.line] }
       reporter = options.fetch(:reporter, Reporter::DefaultReporter).new(sorted_lints)
-      puts reporter.report_lints
+      output = reporter.report_lints
+      print output if output
     end
 
     def print_help(help_message, err = nil)

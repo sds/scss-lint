@@ -45,7 +45,7 @@ module SCSSLint
     end
 
     def lints?
-      @lints.any?
+      lints.any?
     end
   end
 end

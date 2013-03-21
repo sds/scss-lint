@@ -7,8 +7,8 @@ describe SCSSLint::Reporter::DefaultReporter do
     context 'when there are no lints' do
       let(:lints) { [] }
 
-      it 'prints nothing' do
-        subject.report_lints.should be_empty
+      it 'returns nil' do
+        subject.report_lints.should be_nil
       end
     end
 
@@ -23,7 +23,11 @@ describe SCSSLint::Reporter::DefaultReporter do
       end
 
       it 'prints each lint on its own line' do
-        subject.report_lints.count("\n").should == 1
+        subject.report_lints.count("\n").should == 2
+      end
+
+      it 'prints a trailing newline' do
+        subject.report_lints[-1].should == "\n"
       end
 
       it 'prints the filename for each lint' do

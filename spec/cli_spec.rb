@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe SCSSLint::CLI do
   before do
-    STDOUT.stub(:write) # Silence console output
+    # Silence console output
+    @output = ''
+    STDOUT.stub!(:write) { |*args| @output.<<(*args) }
   end
 
   describe '#parse_arguments' do
@@ -122,6 +124,22 @@ describe SCSSLint::CLI do
         SCSSLint::Reporter::DefaultReporter.any_instance.
           should_receive(:report_lints)
         safe_run
+      end
+    end
+
+    context 'when there are no lints' do
+      before do
+        SCSSLint::Runner.any_instance.stub(:lints).and_return([])
+      end
+
+      it 'exits cleanly' do
+        subject.should_not_receive(:halt)
+        safe_run
+      end
+
+      it 'outputs nothing' do
+        safe_run
+        @output.should be_empty
       end
     end
   end
