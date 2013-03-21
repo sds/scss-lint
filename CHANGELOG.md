@@ -1,3 +1,8 @@
+0.6.6
+
+* Fixed `--version` flag to not error due to not autoloading `VERSION`
+* Trailing newlines are no longer output by default in linter output
+
 0.6.5
 
 * Major refactor of the Linter class to use Visitor pattern
