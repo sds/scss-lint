@@ -1,3 +1,6 @@
+0.6.7
+* Fixed `--ignore-linters` flag
+
 0.6.6
 
 * Fixed `--version` flag to not error due to not autoloading `VERSION`

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    scss-lint (0.6.6)
+    scss-lint (0.6.7)
       colorize
       sass
 
