@@ -12,9 +12,13 @@ describe SCSSLint::LinterRegistry do
   end
 
   describe '.extract_linters_from' do
-    class SomeLinter < SCSSLint::Linter; include SCSSLint::LinterRegistry; end
-    class SomeOtherLinter < SomeLinter; end
-    let(:linters) { [SomeLinter, SomeOtherLinter] }
+    module SCSSLint
+      class Linter::SomeLinter < Linter; include LinterRegistry; end
+      class Linter::SomeOtherLinter < Linter::SomeLinter; end
+    end
+    let(:linters) do
+      [SCSSLint::Linter::SomeLinter, SCSSLint::Linter::SomeOtherLinter]
+    end
 
     context 'when the linters exist' do
       let(:linter_names) { ['some_linter', 'some_other_linter'] }
