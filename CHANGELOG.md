@@ -1,3 +1,6 @@
+0.6.8 (Unreleased)
+* Teach scss-lint that `border: 0;` is preferred over `border: none;`
+
 0.6.7
 * Fixed `--ignore-linters` flag
 
