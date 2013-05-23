@@ -60,5 +60,69 @@ describe SCSSLint::Linter::BorderZeroLinter do
         subject.first.line.should == 2
       end
     end
+
+    context 'has a border-top of none' do
+      let(:css) { <<-EOS }
+        p {
+          border-top: none;
+        }
+      EOS
+
+      it 'returns a lint' do
+        subject.count.should == 1
+      end
+
+      it 'reports the correct line for the lint' do
+        subject.first.line.should == 2
+      end
+    end
+
+    context 'has a border-right of none' do
+      let(:css) { <<-EOS }
+        p {
+          border-right: none;
+        }
+      EOS
+
+      it 'returns a lint' do
+        subject.count.should == 1
+      end
+
+      it 'reports the correct line for the lint' do
+        subject.first.line.should == 2
+      end
+    end
+
+    context 'has a border-bottom of none' do
+      let(:css) { <<-EOS }
+        p {
+          border-bottom: none;
+        }
+      EOS
+
+      it 'returns a lint' do
+        subject.count.should == 1
+      end
+
+      it 'reports the correct line for the lint' do
+        subject.first.line.should == 2
+      end
+    end
+
+    context 'has a border-left of none' do
+      let(:css) { <<-EOS }
+        p {
+          border-left: none;
+        }
+      EOS
+
+      it 'returns a lint' do
+        subject.count.should == 1
+      end
+
+      it 'reports the correct line for the lint' do
+        subject.first.line.should == 2
+      end
+    end
   end
 end
