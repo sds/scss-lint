@@ -5,6 +5,7 @@ require 'scss_lint/version'
 Gem::Specification.new do |s|
   s.name        = 'scss-lint'
   s.version     = SCSSLint::VERSION
+  s.license     = 'MIT'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Causes Engineering']
   s.email       = ['eng@causes.com', 'shane@causes.com']

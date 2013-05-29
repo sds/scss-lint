@@ -63,3 +63,7 @@ Speaking of tests, we use `rspec`, which can be run like so:
 
 If you'd like to integrate `scss-lint` with Git, check out our Git hook gem,
 [overcommit](https://github.com/causes/overcommit).
+
+## License
+
+This project is released under the MIT license.
