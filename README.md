@@ -5,6 +5,11 @@ clean and readable. You can run it manually from the command-line, or integrate
 it into your SCM hooks. It uses rules established by the team at
 [Causes.com](http://causes.com).
 
+## Requirements
+
+ * Ruby 1.9+
+ * Sass 3 (files you wish to lint must be written in Sass 3 syntax)
+
 ## Installation
 
 `gem install scss-lint`
