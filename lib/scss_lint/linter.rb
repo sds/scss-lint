@@ -21,7 +21,7 @@ module SCSSLint
 
     # Helper for creating lint from a parse tree node
     def add_lint(node)
-      @lints << Lint.new(node.filename, node.line, description)
+      @lints << Lint.new(engine.filename, node.line, description)
     end
   end
 end
