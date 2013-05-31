@@ -2,11 +2,9 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::TypeInIdSelectorLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  let(:linter) { described_class.new }
-  subject      { linter.lints }
 
   before do
-    linter.run(engine)
+    subject.run(engine)
   end
 
   context 'when rule is just a type' do
@@ -15,9 +13,7 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when rule is just an ID' do
@@ -26,9 +22,7 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when rule is just a class' do
@@ -37,9 +31,7 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when rule is a type with a class' do
@@ -48,9 +40,7 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when rule is a type with an ID' do
@@ -59,13 +49,7 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.count.should == 1
-    end
-
-    it 'reports the correct line' do
-      subject.first.line.should == 1
-    end
+    it { should report_lint line: 1 }
   end
 
   context 'when rule contains multiple selectors' do
@@ -77,9 +61,7 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
         }
       CSS
 
-      it 'returns no lints' do
-        subject.should be_empty
-      end
+      it { should_not report_lint }
     end
 
     context 'when one of the selectors is a type and class' do
@@ -89,9 +71,7 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
         }
       CSS
 
-      it 'returns no lints' do
-        subject.should be_empty
-      end
+      it { should_not report_lint }
     end
 
     context 'when one of the selectors is a type and ID' do
@@ -101,13 +81,7 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
         }
       CSS
 
-      it 'returns a lint' do
-        subject.count.should == 1
-      end
-
-      it 'reports the correct line' do
-        subject.first.line.should == 2
-      end
+      it { should report_lint line: 2 }
     end
   end
 
@@ -119,12 +93,6 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.count.should == 1
-    end
-
-    it 'reports the correct line' do
-      subject.first.line.should == 2
-    end
+    it { should report_lint line: 2 }
   end
 end

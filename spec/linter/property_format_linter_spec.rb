@@ -2,11 +2,9 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::PropertyFormatLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  let(:linter) { described_class.new }
-  subject      { linter.lints }
 
   before do
-    linter.run(engine)
+    subject.run(engine)
   end
 
   context 'when rule is empty' do
@@ -15,9 +13,7 @@ describe SCSSLint::Linter::PropertyFormatLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when rule contains properties with spaces after the colon' do
@@ -28,9 +24,7 @@ describe SCSSLint::Linter::PropertyFormatLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when a valid property declaration is followed by a comment' do
@@ -41,9 +35,7 @@ describe SCSSLint::Linter::PropertyFormatLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when a property declaration does not have a space after the colon' do
@@ -53,13 +45,7 @@ describe SCSSLint::Linter::PropertyFormatLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.count.should == 1
-    end
-
-    it 'returns the correct line for the lint' do
-      subject.first.line.should == 2
-    end
+    it { should report_lint line: 2 }
   end
 
   context 'when a property declaration has a space before the colon' do
@@ -69,13 +55,7 @@ describe SCSSLint::Linter::PropertyFormatLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.count.should == 1
-    end
-
-    it 'returns the correct line for the lint' do
-      subject.first.line.should == 2
-    end
+    it { should report_lint line: 2 }
   end
 
   context 'when a property declaration has more than one space after the colon' do
@@ -85,13 +65,7 @@ describe SCSSLint::Linter::PropertyFormatLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.count.should == 1
-    end
-
-    it 'returns the correct line for the lint' do
-      subject.first.line.should == 2
-    end
+    it { should report_lint line: 2 }
   end
 
   context 'when a property declaration has spaces before the semicolon' do
@@ -101,13 +75,7 @@ describe SCSSLint::Linter::PropertyFormatLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.count.should == 1
-    end
-
-    it 'returns the correct line for the lint' do
-      subject.first.line.should == 2
-    end
+    it { should report_lint line: 2 }
   end
 
   context 'when a property declaration spans two lines' do
@@ -118,13 +86,7 @@ describe SCSSLint::Linter::PropertyFormatLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.count.should == 1
-    end
-
-    it 'returns the correct line for the lint' do
-      subject.first.line.should == 3
-    end
+    it { should report_lint line: 3 }
   end
 
   context 'when a property declaration has no space in a nested rule' do
@@ -137,13 +99,7 @@ describe SCSSLint::Linter::PropertyFormatLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.count.should == 1
-    end
-
-    it 'returns the correct line for the lint' do
-      subject.first.line.should == 4
-    end
+    it { should report_lint line: 4 }
   end
 
   context 'when a property declaration has no semi-colon ending it' do
@@ -154,13 +110,7 @@ describe SCSSLint::Linter::PropertyFormatLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.count.should == 1
-    end
-
-    it 'returns the correct line for the lint' do
-      subject.first.line.should == 4
-    end
+    it { should report_lint line: 4 }
   end
 
   context 'with a nested property' do
@@ -174,9 +124,7 @@ describe SCSSLint::Linter::PropertyFormatLinter do
         }
       CSS
 
-      it 'returns no lints' do
-        subject.should be_empty
-      end
+      it { should_not report_lint }
     end
 
     context 'when there is no value on the namespace' do
@@ -189,9 +137,7 @@ describe SCSSLint::Linter::PropertyFormatLinter do
         }
       CSS
 
-      it 'returns no lints' do
-        subject.should be_empty
-      end
+      it { should_not report_lint }
     end
   end
 
@@ -202,8 +148,6 @@ describe SCSSLint::Linter::PropertyFormatLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 end

@@ -2,11 +2,9 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::ZeroUnitLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  let(:linter) { described_class.new }
-  subject      { linter.lints }
 
   before do
-    linter.run(engine)
+    subject.run(engine)
   end
 
   context 'when no properties exist' do
@@ -15,9 +13,7 @@ describe SCSSLint::Linter::ZeroUnitLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when properties with unit-less zeros exist' do
@@ -27,9 +23,7 @@ describe SCSSLint::Linter::ZeroUnitLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when properties with non-zero values exist' do
@@ -40,9 +34,7 @@ describe SCSSLint::Linter::ZeroUnitLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when properties with zero values contain units' do
@@ -52,12 +44,6 @@ describe SCSSLint::Linter::ZeroUnitLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.count.should == 1
-    end
-
-    it 'returns the correct line for the lint' do
-      subject.first.line.should == 2
-    end
+    it { should report_lint line: 2 }
   end
 end

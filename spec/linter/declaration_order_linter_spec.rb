@@ -2,11 +2,9 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::DeclarationOrderLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  let(:linter) { described_class.new }
-  subject      { linter.lints }
 
   before do
-    linter.run(engine)
+    subject.run(engine)
   end
 
   context 'when rule is empty' do
@@ -15,9 +13,7 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when rule contains only properties' do
@@ -28,9 +24,7 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when rule contains only mixins' do
@@ -41,9 +35,7 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when rule contains no mixins or properties' do
@@ -55,9 +47,7 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when rule contains properties after nested rules' do
@@ -71,9 +61,7 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.count.should == 1
-    end
+    it { should report_lint }
   end
 
   context 'when @extend appears before any properties or rules' do
@@ -90,9 +78,7 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when @extend appears after a property' do
@@ -109,8 +95,6 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.count.should == 1
-    end
+    it { should report_lint }
   end
 end

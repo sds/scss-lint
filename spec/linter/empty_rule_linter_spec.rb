@@ -2,11 +2,9 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::EmptyRuleLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  let(:linter) { described_class.new }
-  subject      { linter.lints }
 
   before do
-    linter.run(engine)
+    subject.run(engine)
   end
 
   context 'when rule is empty' do
@@ -15,13 +13,7 @@ describe SCSSLint::Linter::EmptyRuleLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.count.should == 1
-    end
-
-    it 'reports the first line of the empty rule declaration for the lint' do
-      subject.first.line.should == 1
-    end
+    it { should report_lint line: 1 }
   end
 
   context 'when rule contains an empty nested rule' do
@@ -36,12 +28,6 @@ describe SCSSLint::Linter::EmptyRuleLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.count.should == 1
-    end
-
-    it 'reports the first line of the empty rule declaration for the lint' do
-      subject.first.line.should == 6
-    end
+    it { should report_lint line: 6 }
   end
 end

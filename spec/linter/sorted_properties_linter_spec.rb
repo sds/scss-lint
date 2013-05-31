@@ -2,11 +2,9 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::SortedPropertiesLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  let(:linter) { described_class.new }
-  subject      { linter.lints }
 
   before do
-    linter.run(engine)
+    subject.run(engine)
   end
 
   context 'when rule is empty' do
@@ -15,9 +13,7 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when rule contains properties in sorted order' do
@@ -30,9 +26,7 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when rule contains mixins followed by properties in sorted order' do
@@ -46,9 +40,7 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when rule contains nested rules after sorted properties' do
@@ -64,9 +56,7 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
       }
     CSS
 
-    it 'returns no lints' do
-      subject.should be_empty
-    end
+    it { should_not report_lint }
   end
 
   context 'when rule contains properties in random order' do
@@ -78,13 +68,7 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
       }
     CSS
 
-    it 'returns a lint' do
-      subject.count.should == 1
-    end
-
-    it 'returns a lint at the line of the first property in the rule set' do
-      subject.first.line.should == 2
-    end
+    it { should report_lint line: 2 }
   end
 
   context 'when there are multiple rules with out of order properties' do
@@ -99,14 +83,8 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
       }
     CSS
 
-    it 'returns all lints' do
-      subject.count.should == 2
-    end
-
-    it 'reports the correct lines for all lints' do
-      subject[0].line.should == 2
-      subject[1].line.should == 6
-    end
+    it { should report_lint line: 2 }
+    it { should report_lint line: 6 }
   end
 
   context 'when there are nested rules with out of order properties' do
@@ -121,13 +99,7 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
       }
     CSS
 
-    it 'returns both lints' do
-      subject.count.should == 2
-    end
-
-    it 'reports the correct lines for each lint' do
-      subject[0].line.should == 2
-      subject[1].line.should == 5
-    end
+    it { should report_lint line: 2 }
+    it { should report_lint line: 5 }
   end
 end

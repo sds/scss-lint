@@ -2,11 +2,9 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::ShorthandLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  let(:linter) { described_class.new }
-  subject      { linter.lints }
 
   before do
-    linter.run(engine)
+    subject.run(engine)
   end
 
   context 'when a rule' do
@@ -16,9 +14,7 @@ describe SCSSLint::Linter::ShorthandLinter do
         }
       CSS
 
-      it 'returns no lints' do
-        subject.should be_empty
-      end
+      it { should_not report_lint }
     end
 
     context 'contains properties with valid shorthand values' do
@@ -32,9 +28,7 @@ describe SCSSLint::Linter::ShorthandLinter do
         }
       CSS
 
-      it 'returns no lints' do
-        subject.should be_empty
-      end
+      it { should_not report_lint }
     end
   end
 
@@ -46,13 +40,7 @@ describe SCSSLint::Linter::ShorthandLinter do
         }
       CSS
 
-      it 'returns a lint' do
-        subject.count.should == 1
-      end
-
-      it 'reports the correct line for the lint' do
-        subject.first.line.should == 2
-      end
+      it { should report_lint line: 2 }
     end
 
     context 'has exactly two identical values' do
@@ -62,13 +50,7 @@ describe SCSSLint::Linter::ShorthandLinter do
         }
       CSS
 
-      it 'returns a lint' do
-        subject.count.should == 1
-      end
-
-      it 'reports correct lines for each lint' do
-        subject.first.line.should == 2
-      end
+      it { should report_lint line: 2 }
     end
 
     context 'appears to have two identical values, but cannot be shorthanded' do
@@ -78,9 +60,7 @@ describe SCSSLint::Linter::ShorthandLinter do
         }
       CSS
 
-      it 'returns no lints' do
-        subject.should be_empty
-      end
+      it { should_not report_lint }
     end
 
     context 'has its first two values repeated' do
@@ -90,13 +70,7 @@ describe SCSSLint::Linter::ShorthandLinter do
         }
       CSS
 
-      it 'returns a lint' do
-        subject.count.should == 1
-      end
-
-      it 'reports correct lines for each lint' do
-        subject.first.line.should == 2
-      end
+      it { should report_lint line: 2 }
     end
 
     context 'has its first value repeated in the third position' do
@@ -106,13 +80,7 @@ describe SCSSLint::Linter::ShorthandLinter do
         }
       CSS
 
-      it 'returns a lint' do
-        subject.count.should == 1
-      end
-
-      it 'reports correct lines for each lint' do
-        subject.first.line.should == 2
-      end
+      it { should report_lint line: 2 }
     end
 
     context 'has its second value repeated in the fourth position' do
@@ -122,13 +90,7 @@ describe SCSSLint::Linter::ShorthandLinter do
         }
       CSS
 
-      it 'returns a lint' do
-        subject.count.should == 1
-      end
-
-      it 'reports the correct line for the lint' do
-        subject.first.line.should == 2
-      end
+      it { should report_lint line: 2 }
     end
 
     context 'contains numeric values and function calls' do
@@ -138,9 +100,7 @@ describe SCSSLint::Linter::ShorthandLinter do
         }
       CSS
 
-      it 'returns no lints' do
-        subject.should be_empty
-      end
+      it { should_not report_lint }
     end
 
     context 'contains a list of function calls that can be shortened' do
@@ -150,13 +110,7 @@ describe SCSSLint::Linter::ShorthandLinter do
         }
       CSS
 
-      it 'returns a lint' do
-        subject.count.should == 1
-      end
-
-      it 'reports the correct line for the lint' do
-        subject.first.line.should == 2
-      end
+      it { should report_lint line: 2 }
     end
 
     context 'contains a list of function calls that cannot be shortened' do
@@ -166,9 +120,7 @@ describe SCSSLint::Linter::ShorthandLinter do
         }
       CSS
 
-      it 'returns no lints' do
-        subject.should be_empty
-      end
+      it { should_not report_lint }
     end
 
     context 'contains a list of variables that can be shortened' do
@@ -178,13 +130,7 @@ describe SCSSLint::Linter::ShorthandLinter do
         }
       CSS
 
-      it 'returns a lint' do
-        subject.count.should == 1
-      end
-
-      it 'reports the correct line for the lint' do
-        subject.first.line.should == 2
-      end
+      it { should report_lint line: 2 }
     end
   end
 end
