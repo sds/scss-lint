@@ -10,6 +10,10 @@ module SCSSLint
   autoload :Runner, 'scss_lint/runner'
   autoload :VERSION, 'scss_lint/version'
 
+  # Preload Sass so we can monkey patch it
+  require 'sass'
+  require 'sass/tree'
+
   # Load all linters
   Dir[File.expand_path('scss_lint/linter/*.rb', File.dirname(__FILE__))].each do |file|
     require file

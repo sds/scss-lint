@@ -23,5 +23,16 @@ module SCSSLint
     def add_lint(node)
       @lints << Lint.new(engine.filename, node.line, description)
     end
+
+    # Monkey-patched implementation that adds support for traversing
+    # Sass::Script::Nodes (original implementation only supports
+    # Sass::Tree::Nodes).
+    def node_name(node)
+      if node.is_a?(Sass::Script::Node)
+        "script_#{node.class.name.gsub(/.*::(.*?)$/, '\\1').downcase}"
+      else
+        super
+      end
+    end
   end
 end
