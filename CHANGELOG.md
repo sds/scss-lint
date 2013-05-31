@@ -5,6 +5,7 @@
 * Teach scss-lint that function and mixin names follow same rules as variables
 * Fix shorthand linter to work with Sass script expressions
 * Fix property format linter to work with interpolated expressions
+* Teach scss-lint to check names of functions/mixins/variables in scripts
 
 0.6.7
 * Fixed `--ignore-linters` flag

@@ -9,6 +9,11 @@ module SCSSLint
       yield # Continue into content block of this function definition
     end
 
+    def visit_mixin(node)
+      check(node)
+      yield # Continue into content block of this mixin's block
+    end
+
     def visit_mixindef(node)
       check(node)
       yield # Continue into content block of this mixin definition
@@ -17,6 +22,14 @@ module SCSSLint
     def visit_variable(node)
       check(node)
       yield # Continue into expression tree for this variable definition
+    end
+
+    def visit_script_funcall(node)
+      check(node)
+    end
+
+    def visit_script_variable(node)
+      check(node)
     end
 
     def description

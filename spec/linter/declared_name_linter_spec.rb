@@ -99,4 +99,72 @@ describe SCSSLint::Linter::DeclaredNameLinter do
       subject.count.should == 1
     end
   end
+
+  context 'when a referenced variable name has a capital letter' do
+    let(:css) { <<-EOS }
+      p {
+        margin: $badVar;
+      }
+    EOS
+
+    it 'returns a lint' do
+      subject.count.should == 1
+    end
+  end
+
+  context 'when a referenced variable name has an underscore' do
+    let(:css) { <<-EOS }
+      p {
+        margin: $bad_var;
+      }
+    EOS
+
+    it 'returns a lint' do
+      subject.count.should == 1
+    end
+  end
+
+  context 'when a referenced function name has a capital letter' do
+    let(:css) { <<-EOS }
+      p {
+        margin: badFunc();
+      }
+    EOS
+
+    it 'returns a lint' do
+      subject.count.should == 1
+    end
+  end
+
+  context 'when a referenced function name has an underscore' do
+    let(:css) { <<-EOS }
+      p {
+        margin: bad_func();
+      }
+    EOS
+
+    it 'returns a lint' do
+      subject.count.should == 1
+    end
+  end
+
+  context 'when an included mixin name has a capital letter' do
+    let(:css) { <<-EOS }
+      @include badMixin();
+    EOS
+
+    it 'returns a lint' do
+      subject.count.should == 1
+    end
+  end
+
+  context 'when an included mixin name has an underscore' do
+    let(:css) { <<-EOS }
+      @include bad_mixin();
+    EOS
+
+    it 'returns a lint' do
+      subject.count.should == 1
+    end
+  end
 end
