@@ -1,15 +1,15 @@
 require 'spec_helper'
 
-describe SCSSLint::Linter::VariableNameLinter do
+describe SCSSLint::Linter::DeclaredNameLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  let(:linter) { SCSSLint::Linter::VariableNameLinter.new }
+  let(:linter) { described_class.new }
   subject      { linter.lints }
 
   before do
     linter.run(engine)
   end
 
-  context 'when no variables exist' do
+  context 'when no variable, functions, or mixin declarations exist' do
     let(:css) { <<-EOS }
     EOS
 
@@ -53,6 +53,50 @@ describe SCSSLint::Linter::VariableNameLinter do
 
     it 'returns the correct line for the lint' do
       subject.first.line.should == 1
+    end
+  end
+
+  context 'when a function is declared with a capital letter' do
+    let(:css) { <<-EOS }
+      @function badFunction() {
+      }
+    EOS
+
+    it 'returns a lint' do
+      subject.count.should == 1
+    end
+  end
+
+  context 'when a function is declared with an underscore' do
+    let(:css) { <<-EOS }
+      @function bad_function() {
+      }
+    EOS
+
+    it 'returns a lint' do
+      subject.count.should == 1
+    end
+  end
+
+  context 'when a mixin is declared with a capital letter' do
+    let(:css) { <<-EOS }
+      @mixin badMixin() {
+      }
+    EOS
+
+    it 'returns a lint' do
+      subject.count.should == 1
+    end
+  end
+
+  context 'when a mixin is declared with an underscore' do
+    let(:css) { <<-EOS }
+      @mixin bad_mixin() {
+      }
+    EOS
+
+    it 'returns a lint' do
+      subject.count.should == 1
     end
   end
 end

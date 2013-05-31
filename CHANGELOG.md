@@ -2,6 +2,7 @@
 * Teach scss-lint that `border: 0;` is preferred over `border: none;`
 * Teach scss-lint that variable names should not contain underscores or capital
   letters
+* Teach scss-lint that function and mixin names follow same rules as variables
 
 0.6.7
 * Fixed `--ignore-linters` flag
