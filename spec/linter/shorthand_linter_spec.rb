@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::ShorthandLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  let(:linter) { SCSSLint::Linter::ShorthandLinter.new }
+  let(:linter) { described_class.new }
   subject      { linter.lints }
 
   before do
@@ -131,15 +131,59 @@ describe SCSSLint::Linter::ShorthandLinter do
       end
     end
 
-    context 'contains a function call' do
+    context 'contains numeric values and function calls' do
+      let(:css) { <<-EOS }
+        p {
+          margin: 10px percentage(1 / 100);
+        }
+      EOS
+
+      it 'returns no lints' do
+        subject.should be_empty
+      end
+    end
+
+    context 'contains a list of function calls that can be shortened' do
       let(:css) { <<-EOS }
         p {
           margin: percentage(1 / 100) percentage(1 / 100);
         }
       EOS
 
-      it 'does not crash' do
-        expect { subject }.to_not raise_error
+      it 'returns a lint' do
+        subject.count.should == 1
+      end
+
+      it 'reports the correct line for the lint' do
+        subject.first.line.should == 2
+      end
+    end
+
+    context 'contains a list of function calls that cannot be shortened' do
+      let(:css) { <<-EOS }
+        p {
+          margin: percentage(1 / 100) percentage(5 / 100);
+        }
+      EOS
+
+      it 'returns no lints' do
+        subject.should be_empty
+      end
+    end
+
+    context 'contains a list of variables that can be shortened' do
+      let(:css) { <<-EOS }
+        p {
+          margin: $my-var 1px $my-var;
+        }
+      EOS
+
+      it 'returns a lint' do
+        subject.count.should == 1
+      end
+
+      it 'reports the correct line for the lint' do
+        subject.first.line.should == 2
       end
     end
   end

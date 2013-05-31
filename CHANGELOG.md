@@ -3,6 +3,7 @@
 * Teach scss-lint that variable names should not contain underscores or capital
   letters
 * Teach scss-lint that function and mixin names follow same rules as variables
+* Fix shorthand linter to work with Sass script expressions
 
 0.6.7
 * Fixed `--ignore-linters` flag

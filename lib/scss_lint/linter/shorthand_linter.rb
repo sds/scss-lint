@@ -5,12 +5,18 @@ module SCSSLint
     include LinterRegistry
 
     def visit_prop(node)
-      unless SHORTHANDABLE_PROPERTIES.include? node.name.first.to_s
-        return
-      end
+      return unless SHORTHANDABLE_PROPERTIES.include? node.name.first.to_s
 
-      if node.value.to_sass.strip =~ /\A(\S+\s+\S+(\s+\S+){0,2})\Z/
-        add_lint(node) unless valid_shorthand?($1)
+      case node.value
+      when Sass::Script::List
+        items = node.value.children
+        if (2..4).member?(items.count)
+          add_lint(node) unless valid_shorthand?(*items.map(&:to_sass))
+        end
+      when Sass::Script::String
+        if node.value.to_sass.strip =~ /\A(\S+\s+\S+(\s+\S+){0,2})\Z/
+          add_lint(node) unless valid_shorthand?(*$1.split(/\s+/))
+        end
       end
     end
 
@@ -27,10 +33,7 @@ module SCSSLint
                                   margin
                                   padding]
 
-    def valid_shorthand?(shorthand)
-      values = shorthand.split(/\s+/)
-      top, right, bottom, left = values
-
+    def valid_shorthand?(top, right, bottom = nil, left = nil)
       if top == right && right == bottom && bottom == left
         false
       elsif top == right && bottom.nil? && left.nil?
