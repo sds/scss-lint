@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::TypeInIdSelectorLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  let(:linter) { SCSSLint::Linter::TypeInIdSelectorLinter.new }
+  let(:linter) { described_class.new }
   subject      { linter.lints }
 
   before do

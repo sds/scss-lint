@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::SortedPropertiesLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  let(:linter) { SCSSLint::Linter::SortedPropertiesLinter.new }
+  let(:linter) { described_class.new }
   subject      { linter.lints }
 
   before do

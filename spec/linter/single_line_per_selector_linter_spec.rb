@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::SingleLinePerSelector do
   let(:engine) { SCSSLint::Engine.new(css) }
-  let(:linter) { SCSSLint::Linter::SingleLinePerSelector.new }
+  let(:linter) { described_class.new }
   subject      { linter.lints }
 
   before do

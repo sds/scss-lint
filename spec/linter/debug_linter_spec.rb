@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::DebugLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  let(:linter) { SCSSLint::Linter::DebugLinter.new }
+  let(:linter) { described_class.new }
   subject      { linter.lints }
 
   before do
