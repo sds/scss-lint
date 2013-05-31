@@ -1,12 +1,6 @@
 require 'spec_helper'
 
 describe SCSSLint::Linter::HexLinter do
-  let(:engine) { SCSSLint::Engine.new(css) }
-
-  before do
-    subject.run(engine)
-  end
-
   context 'when rule is empty' do
     let(:css) { <<-CSS }
       p {

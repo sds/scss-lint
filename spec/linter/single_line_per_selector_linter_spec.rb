@@ -1,12 +1,6 @@
 require 'spec_helper'
 
 describe SCSSLint::Linter::SingleLinePerSelector do
-  let(:engine) { SCSSLint::Engine.new(css) }
-
-  before do
-    subject.run(engine)
-  end
-
   context 'when rule has one selector' do
     let(:css) { <<-CSS }
       p {

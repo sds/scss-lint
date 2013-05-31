@@ -1,12 +1,6 @@
 require 'spec_helper'
 
 describe SCSSLint::Linter::TypeInIdSelectorLinter do
-  let(:engine) { SCSSLint::Engine.new(css) }
-
-  before do
-    subject.run(engine)
-  end
-
   context 'when rule is just a type' do
     let(:css) { <<-CSS }
       p {

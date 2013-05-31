@@ -1,12 +1,6 @@
 require 'spec_helper'
 
 describe SCSSLint::Linter::DeclaredNameLinter do
-  let(:engine) { SCSSLint::Engine.new(css) }
-
-  before do
-    subject.run(engine)
-  end
-
   context 'when no variable, functions, or mixin declarations exist' do
     let(:css) { <<-CSS }
       p {

@@ -1,12 +1,6 @@
 require 'spec_helper'
 
 describe SCSSLint::Linter::DebugLinter do
-  let(:engine) { SCSSLint::Engine.new(css) }
-
-  before do
-    subject.run(engine)
-  end
-
   context 'when no debug statements are present' do
     let(:css) { <<-CSS }
       p {
