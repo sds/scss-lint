@@ -10,10 +10,10 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
   end
 
   context 'when rule is empty' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -21,14 +21,14 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
   end
 
   context 'when rule contains properties in sorted order' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         background: #000;
         display: none;
         margin: 5px;
         padding: 10px;
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -36,7 +36,7 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
   end
 
   context 'when rule contains mixins followed by properties in sorted order' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         @include border-radius(5px);
         background: #000;
@@ -44,7 +44,7 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
         margin: 5px;
         padding: 10px;
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -52,7 +52,7 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
   end
 
   context 'when rule contains nested rules after sorted properties' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         background: #000;
         display: none;
@@ -62,7 +62,7 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
           color: #555;
         }
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -70,13 +70,13 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
   end
 
   context 'when rule contains properties in random order' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         padding: 5px;
         display: block;
         margin: 10px;
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -88,7 +88,7 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
   end
 
   context 'when there are multiple rules with out of order properties' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         display: block;
         background: #fff;
@@ -97,7 +97,7 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
         margin: 5px;
         color: #444;
       }
-    EOS
+    CSS
 
     it 'returns all lints' do
       subject.count.should == 2
@@ -110,7 +110,7 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
   end
 
   context 'when there are nested rules with out of order properties' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         display: block;
         background: #fff;
@@ -119,7 +119,7 @@ describe SCSSLint::Linter::SortedPropertiesLinter do
           color: #444;
         }
       }
-    EOS
+    CSS
 
     it 'returns both lints' do
       subject.count.should == 2

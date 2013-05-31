@@ -10,8 +10,8 @@ describe SCSSLint::Linter::DeclaredNameLinter do
   end
 
   context 'when no variable, functions, or mixin declarations exist' do
-    let(:css) { <<-EOS }
-    EOS
+    let(:css) { <<-CSS }
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -19,9 +19,9 @@ describe SCSSLint::Linter::DeclaredNameLinter do
   end
 
   context 'when a variable name contains a hyphen' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       $content-padding: 10px;
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -29,9 +29,9 @@ describe SCSSLint::Linter::DeclaredNameLinter do
   end
 
   context 'when a variable name contains an underscore' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       $content_padding: 10px;
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -43,9 +43,9 @@ describe SCSSLint::Linter::DeclaredNameLinter do
   end
 
   context 'when a variable name contains an uppercase character' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       $contentPadding: 10px;
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -57,10 +57,10 @@ describe SCSSLint::Linter::DeclaredNameLinter do
   end
 
   context 'when a function is declared with a capital letter' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       @function badFunction() {
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -68,10 +68,10 @@ describe SCSSLint::Linter::DeclaredNameLinter do
   end
 
   context 'when a function is declared with an underscore' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       @function bad_function() {
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -79,10 +79,10 @@ describe SCSSLint::Linter::DeclaredNameLinter do
   end
 
   context 'when a mixin is declared with a capital letter' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       @mixin badMixin() {
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -90,10 +90,10 @@ describe SCSSLint::Linter::DeclaredNameLinter do
   end
 
   context 'when a mixin is declared with an underscore' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       @mixin bad_mixin() {
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -101,11 +101,11 @@ describe SCSSLint::Linter::DeclaredNameLinter do
   end
 
   context 'when a referenced variable name has a capital letter' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         margin: $badVar;
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -113,11 +113,11 @@ describe SCSSLint::Linter::DeclaredNameLinter do
   end
 
   context 'when a referenced variable name has an underscore' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         margin: $bad_var;
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -125,11 +125,11 @@ describe SCSSLint::Linter::DeclaredNameLinter do
   end
 
   context 'when a referenced function name has a capital letter' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         margin: badFunc();
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -137,11 +137,11 @@ describe SCSSLint::Linter::DeclaredNameLinter do
   end
 
   context 'when a referenced function name has an underscore' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         margin: bad_func();
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -149,9 +149,9 @@ describe SCSSLint::Linter::DeclaredNameLinter do
   end
 
   context 'when an included mixin name has a capital letter' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       @include badMixin();
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -159,9 +159,9 @@ describe SCSSLint::Linter::DeclaredNameLinter do
   end
 
   context 'when an included mixin name has an underscore' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       @include bad_mixin();
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1

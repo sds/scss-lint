@@ -10,10 +10,10 @@ describe SCSSLint::Linter::EmptyRuleLinter do
   end
 
   context 'when rule is empty' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -25,7 +25,7 @@ describe SCSSLint::Linter::EmptyRuleLinter do
   end
 
   context 'when rule contains an empty nested rule' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         background: #000;
         display: none;
@@ -34,7 +34,7 @@ describe SCSSLint::Linter::EmptyRuleLinter do
         a {
         }
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1

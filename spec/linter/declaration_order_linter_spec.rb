@@ -10,10 +10,10 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
   end
 
   context 'when rule is empty' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -21,12 +21,12 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
   end
 
   context 'when rule contains only properties' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         background: #000;
         margin: 5px;
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -34,12 +34,12 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
   end
 
   context 'when rule contains only mixins' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         @include border-radius(5px);
         @include box-shadow(5px);
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -47,13 +47,13 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
   end
 
   context 'when rule contains no mixins or properties' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         a {
           color: #f00;
         }
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -61,7 +61,7 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
   end
 
   context 'when rule contains properties after nested rules' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         a {
           color: #f00;
@@ -69,7 +69,7 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
         color: #f00;
         margin: 5px;
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -77,7 +77,7 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
   end
 
   context 'when @extend appears before any properties or rules' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       .warn {
         font-weight: bold;
       }
@@ -88,7 +88,7 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
           color: #ccc;
         }
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.should be_empty
@@ -96,7 +96,7 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
   end
 
   context 'when @extend appears after a property' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       .warn {
         font-weight: bold;
       }
@@ -107,7 +107,7 @@ describe SCSSLint::Linter::DeclarationOrderLinter do
           color: #ccc;
         }
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1

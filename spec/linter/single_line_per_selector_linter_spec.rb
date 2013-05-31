@@ -10,10 +10,10 @@ describe SCSSLint::Linter::SingleLinePerSelector do
   end
 
   context 'when rule has one selector' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.count.should == 0
@@ -21,11 +21,11 @@ describe SCSSLint::Linter::SingleLinePerSelector do
   end
 
   context 'when rule has one selector on each line' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p,
       a {
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.count.should == 0
@@ -33,13 +33,13 @@ describe SCSSLint::Linter::SingleLinePerSelector do
   end
 
   context 'when rule contains multiple selectors on the same line' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       .first,
       .second,
       .third, .fourth,
       .fifth {
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -51,11 +51,11 @@ describe SCSSLint::Linter::SingleLinePerSelector do
   end
 
   context 'when commas are not at the end of the line' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       .foo
       , .bar {
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -63,12 +63,12 @@ describe SCSSLint::Linter::SingleLinePerSelector do
   end
 
   context 'when commas are on their own line' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       .foo
       ,
       .bar {
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -76,7 +76,7 @@ describe SCSSLint::Linter::SingleLinePerSelector do
   end
 
   context 'when nested rule contains multiple selectors on the same line' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       #foo {
         .first,
         .second,
@@ -84,7 +84,7 @@ describe SCSSLint::Linter::SingleLinePerSelector do
         .fifth {
         }
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -96,12 +96,12 @@ describe SCSSLint::Linter::SingleLinePerSelector do
   end
 
   context 'when rule contains interpolated selectors' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       .first,
       \#{interpolated-selector}.thing,
       .third {
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.count.should == 0
@@ -109,12 +109,12 @@ describe SCSSLint::Linter::SingleLinePerSelector do
   end
 
   context 'when rule contains an interpolated selector not on its own line' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       .first,
       .second, \#{interpolated-selector}.thing,
       .fourth {
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -126,12 +126,12 @@ describe SCSSLint::Linter::SingleLinePerSelector do
   end
 
   context 'when rule contains an inline comment' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       .first,  /* A comment */
       .second, // Another comment
       .third {
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.count.should == 0

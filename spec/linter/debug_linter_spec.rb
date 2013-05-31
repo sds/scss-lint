@@ -10,11 +10,11 @@ describe SCSSLint::Linter::DebugLinter do
   end
 
   context 'when no debug statements are present' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         color: #fff;
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -22,9 +22,9 @@ describe SCSSLint::Linter::DebugLinter do
   end
 
   context 'when a debug statement is present' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       @debug 'This is a debug statement';
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1

@@ -10,10 +10,10 @@ describe SCSSLint::Linter::HexLinter do
   end
 
   context 'when rule is empty' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -21,12 +21,12 @@ describe SCSSLint::Linter::HexLinter do
   end
 
   context 'when rule contains properties with valid hex codes' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         background: #ccc;
         color: #1234ab;
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -34,11 +34,11 @@ describe SCSSLint::Linter::HexLinter do
   end
 
   context 'when a property has a hex code with uppercase characters' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         color: #DDD;
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -50,11 +50,11 @@ describe SCSSLint::Linter::HexLinter do
   end
 
   context 'when a property has a hex code that can be condensed to 3 digits' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         color: #11bb44;
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -66,12 +66,12 @@ describe SCSSLint::Linter::HexLinter do
   end
 
   context 'when rule contains multiple properties with invalid hex codes' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         background: #000000;
         color: #DDD;
       }
-    EOS
+    CSS
 
     it 'returns all lints' do
       subject.count.should == 2

@@ -10,10 +10,10 @@ describe SCSSLint::Linter::BorderZeroLinter do
   end
 
   context 'when a rule is empty' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -22,11 +22,11 @@ describe SCSSLint::Linter::BorderZeroLinter do
 
   context 'when a property' do
     context 'contains a normal border' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           border: 1px solid #000;
         }
-      EOS
+      CSS
 
       it 'returns no lints' do
         subject.should be_empty
@@ -34,11 +34,11 @@ describe SCSSLint::Linter::BorderZeroLinter do
     end
 
     context 'has a border of 0' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           border: 0;
         }
-      EOS
+      CSS
 
       it 'returns a no lints' do
         subject.count.should == 0
@@ -46,11 +46,11 @@ describe SCSSLint::Linter::BorderZeroLinter do
     end
 
     context 'has a border of none' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           border: none;
         }
-      EOS
+      CSS
 
       it 'returns a lint' do
         subject.count.should == 1
@@ -62,11 +62,11 @@ describe SCSSLint::Linter::BorderZeroLinter do
     end
 
     context 'has a border-top of none' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           border-top: none;
         }
-      EOS
+      CSS
 
       it 'returns a lint' do
         subject.count.should == 1
@@ -78,11 +78,11 @@ describe SCSSLint::Linter::BorderZeroLinter do
     end
 
     context 'has a border-right of none' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           border-right: none;
         }
-      EOS
+      CSS
 
       it 'returns a lint' do
         subject.count.should == 1
@@ -94,11 +94,11 @@ describe SCSSLint::Linter::BorderZeroLinter do
     end
 
     context 'has a border-bottom of none' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           border-bottom: none;
         }
-      EOS
+      CSS
 
       it 'returns a lint' do
         subject.count.should == 1
@@ -110,11 +110,11 @@ describe SCSSLint::Linter::BorderZeroLinter do
     end
 
     context 'has a border-left of none' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           border-left: none;
         }
-      EOS
+      CSS
 
       it 'returns a lint' do
         subject.count.should == 1

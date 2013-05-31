@@ -10,10 +10,10 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
   end
 
   context 'when rule is just a type' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -21,10 +21,10 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
   end
 
   context 'when rule is just an ID' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       #identifier {
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -32,10 +32,10 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
   end
 
   context 'when rule is just a class' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       .class {
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -43,10 +43,10 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
   end
 
   context 'when rule is a type with a class' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       a.class {
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -54,10 +54,10 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
   end
 
   context 'when rule is a type with an ID' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       a#identifier {
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1
@@ -70,12 +70,12 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
 
   context 'when rule contains multiple selectors' do
     context 'when all of the selectors are just IDs, classes, or types' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         #identifier,
         .class,
         a {
         }
-      EOS
+      CSS
 
       it 'returns no lints' do
         subject.should be_empty
@@ -83,11 +83,11 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
     end
 
     context 'when one of the selectors is a type and class' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         #identifier,
         a.class {
         }
-      EOS
+      CSS
 
       it 'returns no lints' do
         subject.should be_empty
@@ -95,11 +95,11 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
     end
 
     context 'when one of the selectors is a type and ID' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         #identifier,
         a#my-id {
         }
-      EOS
+      CSS
 
       it 'returns a lint' do
         subject.count.should == 1
@@ -112,12 +112,12 @@ describe SCSSLint::Linter::TypeInIdSelectorLinter do
   end
 
   context 'when rule contains a nested rule with type and ID' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         a#identifier {
         }
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1

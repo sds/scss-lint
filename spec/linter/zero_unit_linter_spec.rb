@@ -10,10 +10,10 @@ describe SCSSLint::Linter::ZeroUnitLinter do
   end
 
   context 'when no properties exist' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -21,11 +21,11 @@ describe SCSSLint::Linter::ZeroUnitLinter do
   end
 
   context 'when properties with unit-less zeros exist' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         margin: 0;
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -33,12 +33,12 @@ describe SCSSLint::Linter::ZeroUnitLinter do
   end
 
   context 'when properties with non-zero values exist' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         margin: 5px;
         line-height: 1.5em;
       }
-    EOS
+    CSS
 
     it 'returns no lints' do
       subject.should be_empty
@@ -46,11 +46,11 @@ describe SCSSLint::Linter::ZeroUnitLinter do
   end
 
   context 'when properties with zero values contain units' do
-    let(:css) { <<-EOS }
+    let(:css) { <<-CSS }
       p {
         margin: 0px;
       }
-    EOS
+    CSS
 
     it 'returns a lint' do
       subject.count.should == 1

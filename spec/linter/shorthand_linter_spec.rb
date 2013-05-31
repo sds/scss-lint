@@ -11,10 +11,10 @@ describe SCSSLint::Linter::ShorthandLinter do
 
   context 'when a rule' do
     context 'is empty' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
         }
-      EOS
+      CSS
 
       it 'returns no lints' do
         subject.should be_empty
@@ -22,7 +22,7 @@ describe SCSSLint::Linter::ShorthandLinter do
     end
 
     context 'contains properties with valid shorthand values' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           border-radius: 1px 2px 1px 3px;
           border-width: 1px;
@@ -30,7 +30,7 @@ describe SCSSLint::Linter::ShorthandLinter do
           margin: 1px 2px;
           padding: 0 0 1px;
         }
-      EOS
+      CSS
 
       it 'returns no lints' do
         subject.should be_empty
@@ -40,11 +40,11 @@ describe SCSSLint::Linter::ShorthandLinter do
 
   context 'when a property' do
     context 'has a value repeated 4 times' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           padding: 1px 1px 1px 1px;
         }
-      EOS
+      CSS
 
       it 'returns a lint' do
         subject.count.should == 1
@@ -56,11 +56,11 @@ describe SCSSLint::Linter::ShorthandLinter do
     end
 
     context 'has exactly two identical values' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           padding: 10px 10px;
         }
-      EOS
+      CSS
 
       it 'returns a lint' do
         subject.count.should == 1
@@ -72,11 +72,11 @@ describe SCSSLint::Linter::ShorthandLinter do
     end
 
     context 'appears to have two identical values, but cannot be shorthanded' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p:before {
           content: ' ';
         }
-      EOS
+      CSS
 
       it 'returns no lints' do
         subject.should be_empty
@@ -84,11 +84,11 @@ describe SCSSLint::Linter::ShorthandLinter do
     end
 
     context 'has its first two values repeated' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           padding: 1px 2px 1px 2px;
         }
-      EOS
+      CSS
 
       it 'returns a lint' do
         subject.count.should == 1
@@ -100,11 +100,11 @@ describe SCSSLint::Linter::ShorthandLinter do
     end
 
     context 'has its first value repeated in the third position' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           padding: 1px 2px 1px;
         }
-      EOS
+      CSS
 
       it 'returns a lint' do
         subject.count.should == 1
@@ -116,11 +116,11 @@ describe SCSSLint::Linter::ShorthandLinter do
     end
 
     context 'has its second value repeated in the fourth position' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           padding: 1px 2px 3px 2px;
         }
-      EOS
+      CSS
 
       it 'returns a lint' do
         subject.count.should == 1
@@ -132,11 +132,11 @@ describe SCSSLint::Linter::ShorthandLinter do
     end
 
     context 'contains numeric values and function calls' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           margin: 10px percentage(1 / 100);
         }
-      EOS
+      CSS
 
       it 'returns no lints' do
         subject.should be_empty
@@ -144,11 +144,11 @@ describe SCSSLint::Linter::ShorthandLinter do
     end
 
     context 'contains a list of function calls that can be shortened' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           margin: percentage(1 / 100) percentage(1 / 100);
         }
-      EOS
+      CSS
 
       it 'returns a lint' do
         subject.count.should == 1
@@ -160,11 +160,11 @@ describe SCSSLint::Linter::ShorthandLinter do
     end
 
     context 'contains a list of function calls that cannot be shortened' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           margin: percentage(1 / 100) percentage(5 / 100);
         }
-      EOS
+      CSS
 
       it 'returns no lints' do
         subject.should be_empty
@@ -172,11 +172,11 @@ describe SCSSLint::Linter::ShorthandLinter do
     end
 
     context 'contains a list of variables that can be shortened' do
-      let(:css) { <<-EOS }
+      let(:css) { <<-CSS }
         p {
           margin: $my-var 1px $my-var;
         }
-      EOS
+      CSS
 
       it 'returns a lint' do
         subject.count.should == 1
