@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::PropertyFormatLinter do
   let(:engine) { SCSSLint::Engine.new(css) }
-  let(:linter) { SCSSLint::Linter::PropertyFormatLinter.new }
+  let(:linter) { described_class.new }
   subject      { linter.lints }
 
   before do
@@ -192,6 +192,18 @@ describe SCSSLint::Linter::PropertyFormatLinter do
       it 'returns no lints' do
         subject.should be_empty
       end
+    end
+  end
+
+  context 'with valid property whose name is interpolated' do
+    let(:css) { <<-EOS }
+      p {
+        margin-\#{$side}: $value;
+      }
+    EOS
+
+    it 'returns no lints' do
+      subject.should be_empty
     end
   end
 end
