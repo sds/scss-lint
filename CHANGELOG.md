@@ -7,6 +7,7 @@
 * Fix property format linter to work with interpolated expressions
 * Teach scss-lint to check names of functions/mixins/variables in scripts
 * Fix hex color linter to work with Sass script expressions
+* Teach scss-lint that // comments should be preferred over /**/ comments
 
 0.6.7
 * Fixed `--ignore-linters` flag
