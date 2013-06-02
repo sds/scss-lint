@@ -52,4 +52,14 @@ describe SCSSLint::Linter::HexLinter do
     it { should report_lint line: 2 }
     it { should report_lint line: 3 }
   end
+
+  context 'when arguments to a mixin contain invalid hex codes' do
+    let(:css) { <<-CSS }
+      p {
+        @include crazy-color(#FFF);
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+  end
 end

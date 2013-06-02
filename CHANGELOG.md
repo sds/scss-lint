@@ -1,4 +1,4 @@
-0.6.8 (Unreleased)
+0.7.0
 * Teach scss-lint that `border: 0;` is preferred over `border: none;`
 * Teach scss-lint that variable names should not contain underscores or capital
   letters
@@ -6,6 +6,7 @@
 * Fix shorthand linter to work with Sass script expressions
 * Fix property format linter to work with interpolated expressions
 * Teach scss-lint to check names of functions/mixins/variables in scripts
+* Fix hex color linter to work with Sass script expressions
 
 0.6.7
 * Fixed `--ignore-linters` flag

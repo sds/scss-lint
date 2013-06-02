@@ -4,10 +4,17 @@ module SCSSLint
   class Linter::HexLinter < Linter
     include LinterRegistry
 
-    def visit_prop(node)
-      if node.value.is_a?(Sass::Script::String) &&
-         node.value.to_s =~ /#(\h{3,6})/
-        add_lint(node) unless valid_hex?($1)
+    def visit_root(node)
+      # We can't do this via the parse tree because the parser automatically
+      # normalizes all colors encountered in Sass script, so we lose the ability
+      # to check the format of the color. Thus we resort to line-by-line regex
+      # matching.
+      engine.lines.each_with_index do |line, index|
+        line.scan /#(\h{3,6})/ do |match|
+          unless valid_hex?(match.first)
+            @lints << Lint.new(engine.filename, index + 1, description)
+          end
+        end
       end
     end
 
