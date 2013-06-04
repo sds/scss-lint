@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = 'SCSS lint tool'
   s.description = 'Opinionated tool that tells you whether or not your SCSS is "bad"'
 
-  s.files         = `git ls-files -- lib`.split("\n")
+  s.files         = Dir['lib/**/*.rb']
   s.executables   = ['scss-lint']
   s.require_paths = ['lib']
 
