@@ -1,4 +1,4 @@
-0.7.1 (Unreleased)
+0.7.1
 * Upgrade Sass gem dependency from 3.2.8 -> 3.2.9
 * Fixed crash that occurred for directive nodes (`@media`, etc.)
 
