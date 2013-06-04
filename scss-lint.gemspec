@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'colorize'
-  s.add_dependency 'sass'
+  s.add_dependency 'sass', '3.2.9' # Hard dependency since we monkey patch AST
 
   s.add_development_dependency 'nokogiri'
   s.add_development_dependency 'rspec'

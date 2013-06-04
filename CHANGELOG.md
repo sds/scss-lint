@@ -1,3 +1,6 @@
+0.7.1 (Unreleased)
+* Upgrade Sass gem dependency from 3.2.8 -> 3.2.9
+
 0.7.0
 * Teach scss-lint that `border: 0;` is preferred over `border: none;`
 * Teach scss-lint that variable names should not contain underscores or capital
