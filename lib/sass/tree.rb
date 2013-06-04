@@ -52,7 +52,12 @@ module Sass::Tree
 
   class DirectiveNode
     def children
-      concat_expr_lists super, extract_script_nodes(value)
+      begin
+        additional_children = extract_script_nodes(value)
+      rescue NotImplementedError
+        # Directive nodes may not define `value`
+      end
+      concat_expr_lists super, additional_children
     end
   end
 
