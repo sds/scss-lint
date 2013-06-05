@@ -55,7 +55,7 @@ module SCSSLint
       runner.run(find_files)
       report_lints(runner.lints)
       halt 1 if runner.lints?
-    rescue NoFilesError, NoSuchLinter => ex
+    rescue NoFilesError, NoSuchLinter, Errno::ENOENT => ex
       puts ex.message
       halt -1
     end
