@@ -1,5 +1,6 @@
 0.7.2 (unreleased)
 * Handle non-existent files/directories gracefully
+* Teach scss-lint that opening curly braces should be preceded by one space
 
 0.7.1
 * Upgrade Sass gem dependency from 3.2.8 -> 3.2.9
