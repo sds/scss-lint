@@ -1,5 +1,7 @@
 # SCSS-Lint
 
+[![Gem Version](https://badge.fury.io/rb/scss-lint.png)](http://badge.fury.io/rb/scss-lint)
+
 `scss-lint` is a tool to help keep your [SCSS](http://sass-lang.com) files
 clean and readable. You can run it manually from the command-line, or integrate
 it into your SCM hooks. It uses rules established by the team at
