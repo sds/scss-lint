@@ -8,6 +8,7 @@ module SCSSLint
   autoload :Linter, 'scss_lint/linter'
   autoload :Reporter, 'scss_lint/reporter'
   autoload :Runner, 'scss_lint/runner'
+  autoload :Utils, 'scss_lint/utils'
   autoload :VERSION, 'scss_lint/version'
 
   # Preload Sass so we can monkey patch it

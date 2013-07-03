@@ -1,6 +1,7 @@
 module SCSSLint
   class Linter < Sass::Tree::Visitors::Base
     include LinterRegistry
+    include Utils
 
     attr_reader :engine, :lints
 
