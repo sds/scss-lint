@@ -19,6 +19,11 @@ module SCSSLint
       yield # Continue into content block of this mixin definition
     end
 
+    def visit_rule(node)
+      add_lint(node) if selector_contains_bad_placeholder?(node.rule)
+      yield # Continue linting into content block of this rule definition
+    end
+
     def visit_variable(node)
       check(node)
       yield # Continue into expression tree for this variable definition
@@ -33,13 +38,23 @@ module SCSSLint
     end
 
     def description
-      'Names of variables, functions, and mixins should be lowercase and not contain underscores. Use hyphens instead.'
+      'Names of variables, functions, mixins, and placeholders should be ' <<
+      'lowercase and use hyphens instead of underscores.'
     end
 
   private
 
+    INVALID_CHARS = '[_A-Z]'
+
+    def selector_contains_bad_placeholder?(selector)
+      selector.reject { |item| item.is_a? Sass::Script::Node }.
+               join.
+               split(/\s+/).
+               any? { |selector_str| selector_str =~ /%\w*#{INVALID_CHARS}/ }
+    end
+
     def check(node)
-      add_lint(node) if node.name =~ /[_A-Z]/
+      add_lint(node) if node.name =~ /#{INVALID_CHARS}/
     end
   end
 end
