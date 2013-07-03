@@ -1,4 +1,4 @@
-0.7.2 (unreleased)
+0.8.0
 * Handle non-existent files/directories gracefully
 * Teach scss-lint that opening curly braces should be preceded by one space
 * Teach scss-lint that placeholder names should be lowercase and use hyphens
