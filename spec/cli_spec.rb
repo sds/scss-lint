@@ -45,6 +45,15 @@ describe SCSSLint::CLI do
       end
     end
 
+    context 'when the show linters flag is set' do
+      let(:options) { ['--show-linters'] }
+
+      it 'prints the linters' do
+        subject.should_receive(:print_linters)
+        safe_parse
+      end
+    end
+
     context 'when the help flag is set' do
       let(:options) { ['-h'] }
 
