@@ -14,10 +14,9 @@ module SCSSLint
       def extract_linters_from(linter_names)
         linter_names.map do |linter_name|
           begin
-            linter_class = linter_name.split('_').map(&:capitalize).join('')
-            Linter.const_get(linter_class)
+            Linter.const_get(linter_name)
           rescue NameError
-            raise NoSuchLinter.new("Linter #{linter_class} does not exist")
+            raise NoSuchLinter.new("Linter #{linter_name} does not exist")
           end
         end
       end

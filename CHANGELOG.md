@@ -3,6 +3,8 @@
 * Teach scss-lint that opening curly braces should be preceded by one space
 * Teach scss-lint that placeholder names should be lowercase and use hyphens
 * Add `--show-linters` flag for listing all linters available to scss-lint
+* Change `--ignore-linter` flag to use `CamelCase` linter names instead of
+  `snake_case`
 
 0.7.1
 * Upgrade Sass gem dependency from 3.2.8 -> 3.2.9

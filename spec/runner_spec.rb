@@ -6,7 +6,7 @@ describe SCSSLint::Runner do
 
   describe '#new' do
     context 'when the :ignored_linters option is specified' do
-      let(:options) { { ignored_linters: ['fake_linter_2'] } }
+      let(:options) { { ignored_linters: ['FakeLinter2'] } }
 
       class FakeLinter1 < SCSSLint::Linter; include SCSSLint::LinterRegistry; end
       class FakeLinter2 < FakeLinter1; end

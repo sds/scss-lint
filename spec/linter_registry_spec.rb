@@ -21,7 +21,7 @@ describe SCSSLint::LinterRegistry do
     end
 
     context 'when the linters exist' do
-      let(:linter_names) { ['some_linter', 'some_other_linter'] }
+      let(:linter_names) { %w[SomeLinter SomeOtherLinter] }
 
       it 'returns the linters' do
         subject.extract_linters_from(linter_names).should == linters
@@ -29,7 +29,7 @@ describe SCSSLint::LinterRegistry do
     end
 
     context "when the linters don't exist" do
-      let(:linter_names) { ['some_random_linter'] }
+      let(:linter_names) { ['SomeRandomLinter'] }
 
       it 'raises an error' do
         expect do
