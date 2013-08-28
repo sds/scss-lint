@@ -27,6 +27,10 @@ module SCSSLint
           options[:ignored_linters] = linters
         end
 
+        opts.on_tail('-l', '--list-linters', 'List available linters') do
+            print_linters
+        end
+
         opts.on_tail('-h', '--help', 'Show this message') do
           print_help opts.help
         end
@@ -75,6 +79,18 @@ module SCSSLint
       reporter = options.fetch(:reporter, Reporter::DefaultReporter).new(sorted_lints)
       output = reporter.report_lints
       print output if output
+    end
+
+    def print_linters()
+      puts "Installed linters:"
+      linter_names = LinterRegistry.linters.map {
+        |linter| linter.name.split('::')[-1]
+      }.sort
+      linter_names.keep_if { |linter| linter != 'Linter' }
+      for linter_name in linter_names
+        puts " - #{linter_name}"
+      end
+      halt
     end
 
     def print_help(help_message, err = nil)
