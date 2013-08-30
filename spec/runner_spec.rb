@@ -4,19 +4,20 @@ describe SCSSLint::Runner do
   let(:options) { {} }
   let(:runner)  { SCSSLint::Runner.new(options) }
 
-  describe '#new' do
-    context 'when the :ignored_linters option is specified' do
-      let(:options) { { ignored_linters: ['FakeLinter2'] } }
+  class FakeLinter1 < SCSSLint::Linter; include SCSSLint::LinterRegistry; end
+  class FakeLinter2 < FakeLinter1; end
 
-      class FakeLinter1 < SCSSLint::Linter; include SCSSLint::LinterRegistry; end
-      class FakeLinter2 < FakeLinter1; end
+  describe '#new' do
+
+    context 'when the :excluded_linters option is specified' do
+      let(:options) { { excluded_linters: ['FakeLinter2'] } }
 
       before do
         SCSSLint::LinterRegistry.stub(:linters).and_return([FakeLinter1, FakeLinter2])
       end
 
       it 'restricts the set of linters that are run' do
-        runner.linters.should_not include FakeLinter2
+        runner.linters.map(&:class).should_not include FakeLinter2
       end
     end
   end
