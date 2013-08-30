@@ -10,6 +10,7 @@
 * Add `-i`/`--include-linters` flag to specify a subset of linters
 * Fix bug where using transform-related functions were reported as lints
 * Teach scss-lint that `.5em` is preferred over `0.5em`
+* Teach scss-lint to prefer lowercase characters in selectors
 
 0.7.1
 * Upgrade Sass gem dependency from 3.2.8 -> 3.2.9
