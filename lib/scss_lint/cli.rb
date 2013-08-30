@@ -22,6 +22,11 @@ module SCSSLint
           options[:excluded_files] = files
         end
 
+        opts.on('-i', '--include-linter linter,...', Array,
+                'Specify which linters you want to run') do |linters|
+          options[:included_linters] = linters
+        end
+
         opts.on('-x', '--exclude-linter linter,...', Array,
                 "Specify which linters you don't want to run") do |linters|
           options[:excluded_linters] = linters
