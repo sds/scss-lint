@@ -27,17 +27,26 @@ describe SCSSLint::CLI do
       end
     end
 
-    context 'when the ignore lints flag is set' do
-      let(:options) { ['-i', 'some_linter_name'] }
+    context 'when the include linters flag is set' do
+      let(:options) { ['-i', 'SomeLinterName'] }
 
-      it 'sets the :ignored_linters option' do
+      it 'sets the :included_linters option' do
         safe_parse
-        subject.options[:ignored_linters].should == ['some_linter_name']
+        subject.options[:included_linters].should == ['SomeLinterName']
+      end
+    end
+
+    context 'when the exclude linters flag is set' do
+      let(:options) { ['-x', 'SomeLinterName'] }
+
+      it 'sets the :excluded_linters option' do
+        safe_parse
+        subject.options[:excluded_linters].should == ['SomeLinterName']
       end
     end
 
     context 'when the XML flag is set' do
-      let(:options) { ['-x'] }
+      let(:options) { ['--xml'] }
 
       it 'sets the :reporter option to the XML reporter' do
         safe_parse

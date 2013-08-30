@@ -22,9 +22,14 @@ module SCSSLint
           options[:excluded_files] = files
         end
 
-        opts.on('-i', '--ignore-linter linter,...', Array,
+        opts.on('-i', '--include-linter linter,...', Array,
+                "Specify which linters you want to include") do |linters|
+          options[:included_linters] = linters
+        end
+
+        opts.on('-x', '--exclude-linter linter,...', Array,
                 "Specify which linters you don't want to run") do |linters|
-          options[:ignored_linters] = linters
+          options[:excluded_linters] = linters
         end
 
         opts.on_tail('--show-linters', 'Shows available linters') do
@@ -39,7 +44,7 @@ module SCSSLint
           print_version opts.program_name, VERSION
         end
 
-        opts.on('-x', '--xml', 'Output the results in XML format') do
+        opts.on('--xml', 'Output the results in XML format') do
           options[:reporter] = SCSSLint::Reporter::XMLReporter
         end
       end
