@@ -37,7 +37,7 @@ describe SCSSLint::CLI do
     end
 
     context 'when the XML flag is set' do
-      let(:options) { ['-x'] }
+      let(:options) { ['--xml'] }
 
       it 'sets the :reporter option to the XML reporter' do
         safe_parse
