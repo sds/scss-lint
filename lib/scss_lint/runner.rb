@@ -11,10 +11,17 @@ module SCSSLint
     def initialize(options = {})
       @lints = []
 
+      included_linters = LinterRegistry.
+        extract_linters_from(options.fetch(:included_linters, []))
+
+      if included_linters.empty?
+        included_linters = LinterRegistry.linters
+      end
+
       excluded_linters = LinterRegistry.
         extract_linters_from(options.fetch(:excluded_linters, []))
 
-      @linters = LinterRegistry.linters.reject do |linter|
+      @linters = included_linters.reject do |linter|
         excluded_linters.include?(linter)
       end.map do |linter_class|
         linter_class.new

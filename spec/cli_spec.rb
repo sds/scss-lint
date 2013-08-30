@@ -27,6 +27,14 @@ describe SCSSLint::CLI do
       end
     end
 
+    context 'when the include linters flag is set' do
+      let(:options) { ['-i', 'SomeLinterName'] }
+
+      it 'sets the :included_linters option' do
+        safe_parse
+        subject.options[:included_linters].should == ['SomeLinterName']
+      end
+    end
 
     context 'when the exclude linters flag is set' do
       let(:options) { ['-x', 'SomeLinterName'] }

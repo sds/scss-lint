@@ -8,7 +8,6 @@ describe SCSSLint::Runner do
   class FakeLinter2 < FakeLinter1; end
 
   describe '#new' do
-
     context 'when the :excluded_linters option is specified' do
       let(:options) { { excluded_linters: ['FakeLinter2'] } }
 
@@ -18,6 +17,47 @@ describe SCSSLint::Runner do
 
       it 'restricts the set of linters that are run' do
         runner.linters.map(&:class).should_not include FakeLinter2
+      end
+    end
+
+    context 'when the :included_linters option is specified' do
+      let(:options) { { included_linters: ['FakeLinter1'] } }
+
+      before do
+        SCSSLint::LinterRegistry.stub(:linters).and_return([FakeLinter1, FakeLinter2])
+      end
+
+      it 'includes only the specified linter' do
+        runner.linters.map(&:class).should include FakeLinter1
+      end
+    end
+
+    context 'when :include_linters and :exclude_linters are specified' do
+      let(:options) do
+        {
+          included_linters: %w[FakeLinter1 FakeLinter2],
+          excluded_linters: ['FakeLinter2'],
+        }
+      end
+
+      before do
+        SCSSLint::LinterRegistry.stub(:linters).and_return([FakeLinter1, FakeLinter2])
+      end
+
+      it 'includes only the specified linter' do
+        runner.linters.map(&:class).should include FakeLinter1
+      end
+    end
+
+    context 'when neither included or excluded linters is specified' do
+      let(:options) { {} }
+
+      before do
+        SCSSLint::LinterRegistry.stub(:linters).and_return([FakeLinter1, FakeLinter2])
+      end
+
+      it 'includes only the specified linters' do
+        runner.linters.map(&:class).should == [FakeLinter1, FakeLinter2]
       end
     end
   end
