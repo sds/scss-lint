@@ -5,6 +5,7 @@
 * Add `--show-linters` flag for listing all linters available to scss-lint
 * Change `--ignore-linter` flag to use `CamelCase` linter names instead of
   `snake_case`
+* Removed `-x` alias for `--xml` flag
 
 0.7.1
 * Upgrade Sass gem dependency from 3.2.8 -> 3.2.9
