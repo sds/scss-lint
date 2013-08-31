@@ -8,6 +8,7 @@
 * Removed `-x` alias for `--xml` flag
 * Change `-i`/`--ignore-linter` flags to `-x`/`--exclude-linter`
 * Add `-i`/`--include-linters` flag to specify a subset of linters
+* Fix bug where using transform-related functions were reported as lints
 
 0.7.1
 * Upgrade Sass gem dependency from 3.2.8 -> 3.2.9

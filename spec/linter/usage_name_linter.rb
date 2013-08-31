@@ -66,4 +66,19 @@ describe SCSSLint::Linter::UsageNameLinter do
 
     it { should report_lint line: 1 }
   end
+
+  context 'when function is a transform function' do
+    %w[rotateX rotateY rotateZ
+       scaleX scaleY scaleZ
+       skewX skewY
+       translateX translateY translateZ].each do |function|
+      let(:css) { <<-CSS }
+        p {
+          transform: #{function}(2);
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+  end
 end
