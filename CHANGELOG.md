@@ -12,6 +12,7 @@
 * Teach scss-lint that `.5em` is preferred over `0.5em`
 * Teach scss-lint to prefer lowercase characters in selectors
 * Linters names no longer have a `Linter` suffix
+* Teach scss-lint that `@extend` should use placeholder selectors
 
 0.7.1
 * Upgrade Sass gem dependency from 3.2.8 -> 3.2.9
