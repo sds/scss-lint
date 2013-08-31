@@ -1,4 +1,3 @@
-require 'scss_lint'
 require 'optparse'
 
 module SCSSLint

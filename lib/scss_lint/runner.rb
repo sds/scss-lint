@@ -1,5 +1,3 @@
-require 'scss_lint'
-
 module SCSSLint
   class NoFilesError < StandardError; end
   class NoLintersError < StandardError; end
