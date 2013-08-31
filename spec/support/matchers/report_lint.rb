@@ -1,9 +1,10 @@
 RSpec::Matchers.define :report_lint do |options|
   options ||= {}
+  count = options[:count]
   expected_line = options[:line]
 
   match do |linter|
-    has_lint?(linter, expected_line)
+    has_lints?(linter, expected_line, count)
   end
 
   failure_message_for_should do |linter|
@@ -28,11 +29,16 @@ RSpec::Matchers.define :report_lint do |options|
     'report a lint' + (expected_line ? " on line #{expected_line}" : '')
   end
 
-  def has_lint?(linter, expected_line)
-    if expected_line
+  def has_lints?(linter, expected_line, count)
+    if expected_line && count
+      linter.lints.count == count &&
+        lint_lines(linter).all? { |line| line == expected_line }
+    elsif expected_line
       lint_lines(linter).include?(expected_line)
+    elsif count
+      linter.lints.count == count
     else
-      linter.lints.count == 1
+      linter.lints.count > 0
     end
   end
 
