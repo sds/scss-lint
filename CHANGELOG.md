@@ -13,6 +13,7 @@
 * Teach scss-lint to prefer lowercase characters in selectors
 * Linters names no longer have a `Linter` suffix
 * Teach scss-lint that `@extend` should use placeholder selectors
+* Fix bug where a lint would be reported for hyphened keyword arguments
 
 0.7.1
 * Upgrade Sass gem dependency from 3.2.8 -> 3.2.9

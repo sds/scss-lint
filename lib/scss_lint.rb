@@ -13,7 +13,8 @@ module SCSSLint
 
   # Preload Sass so we can monkey patch it
   require 'sass'
-  require 'sass/tree'
+  require File.expand_path('sass/script', File.dirname(__FILE__))
+  require File.expand_path('sass/tree', File.dirname(__FILE__))
 
   # Load all linters
   Dir[File.expand_path('scss_lint/linter/*.rb', File.dirname(__FILE__))].each do |file|

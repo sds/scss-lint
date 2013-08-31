@@ -81,4 +81,20 @@ describe SCSSLint::Linter::UsageName do
       it { should_not report_lint }
     end
   end
+
+  context 'when a mixin contains keyword arguments with underscores' do
+    let(:css) { <<-CSS }
+      @include mixin($some_var: 4);
+    CSS
+
+    it { should report_lint }
+  end
+
+  context 'when a mixin contains keyword arguments with hyphens' do
+    let(:css) { <<-CSS }
+      @include mixin($some-var: 4);
+    CSS
+
+    it { should_not report_lint }
+  end
 end
