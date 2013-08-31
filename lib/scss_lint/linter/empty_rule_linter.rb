@@ -1,5 +1,3 @@
-require 'sass'
-
 module SCSSLint
   class Linter::EmptyRuleLinter < Linter
     include LinterRegistry

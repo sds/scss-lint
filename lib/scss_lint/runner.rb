@@ -1,5 +1,4 @@
 require 'scss_lint'
-require 'sass'
 
 module SCSSLint
   class NoFilesError < StandardError; end
