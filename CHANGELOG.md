@@ -1,3 +1,6 @@
+master (unreleased)
+* Teach scss-lint to prefer hexadecimal colors over color names
+
 0.9.0
 * Add `--show-linters` flag for listing all linters available to scss-lint
 * Change `--ignore-linter` flag to use `CamelCase` linter names instead of

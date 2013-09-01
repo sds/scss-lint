@@ -10,8 +10,15 @@ module Sass::Tree
     # numbers back in so lint reporting works for those nodes.
     def add_line_numbers_to_args(arg_list)
       arg_list.each do |variable, default_expr|
-        variable.line = line # Use line number of containing parse tree node
+        add_line_number(variable)
       end
+    end
+
+    # The Sass parser sometimes doesn't assign line numbers in cases where it
+    # should. This is a helper to easily correct that.
+    def add_line_number(node)
+      node.line ||= line if node.is_a?(Sass::Script::Node)
+      node
     end
 
     # Sometimes the parse tree doesn't return a Sass::Script::Variable, but just
@@ -117,7 +124,7 @@ module Sass::Tree
 
   class PropNode
     def children
-      concat_expr_lists super, extract_script_nodes(name), value
+      concat_expr_lists super, extract_script_nodes(name), add_line_number(value)
     end
   end
 
