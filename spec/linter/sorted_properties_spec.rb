@@ -96,4 +96,56 @@ describe SCSSLint::Linter::SortedProperties do
     it { should report_lint line: 2 }
     it { should report_lint line: 5 }
   end
+
+  context 'when out-of-order property is the second last in the list of sorted properties' do
+    let(:css) { <<-CSS }
+      p {
+        border: 0;
+        border-radius: 3px;
+        float: left;
+        display: block;
+      }
+    CSS
+
+    it { should report_lint line: 4 }
+  end
+
+  context 'when vendor-prefixed properties are ordered after the non-prefixed property' do
+    let(:css) { <<-CSS }
+      p {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -o-border-radius: 3px;
+        -webkit-border-radius: 3px;
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+  end
+
+  context 'when vendor-prefixed properties are ordered before the non-prefixed property' do
+    let(:css) { <<-CSS }
+      p {
+        -moz-border-radius: 3px;
+        -o-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when vendor properties are ordered out-of-order before the non-prefixed property' do
+    let(:css) { <<-CSS }
+      p {
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -o-border-radius: 3px;
+        border-radius: 3px;
+      }
+    CSS
+
+    it { should report_lint line: 3 }
+  end
 end
