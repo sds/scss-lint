@@ -1,7 +1,4 @@
-0.8.0
-* Handle non-existent files/directories gracefully
-* Teach scss-lint that opening curly braces should be preceded by one space
-* Teach scss-lint that placeholder names should be lowercase and use hyphens
+0.9.0
 * Add `--show-linters` flag for listing all linters available to scss-lint
 * Change `--ignore-linter` flag to use `CamelCase` linter names instead of
   `snake_case`
@@ -16,6 +13,11 @@
 * Fix bug where a lint would be reported for hyphened keyword arguments
 * Teach scss-lint to recognize vendor-prefixed properties when enforcing sort
   order
+
+0.8.0
+* Handle non-existent files/directories gracefully
+* Teach scss-lint that opening curly braces should be preceded by one space
+* Teach scss-lint that placeholder names should be lowercase and use hyphens
 
 0.7.1
 * Upgrade Sass gem dependency from 3.2.8 -> 3.2.9
