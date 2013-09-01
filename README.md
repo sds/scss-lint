@@ -1,6 +1,7 @@
 # SCSS-Lint
 
 [![Gem Version](https://badge.fury.io/rb/scss-lint.png)](http://badge.fury.io/rb/scss-lint)
+[![Build Status](https://travis-ci.org/causes/scss-lint.png)](https://travis-ci.org/causes/scss-lint)
 [![Code Climate](https://codeclimate.com/github/causes/scss-lint.png)](https://codeclimate.com/github/causes/scss-lint)
 
 `scss-lint` is a tool to help keep your [SCSS](http://sass-lang.com) files
@@ -10,7 +11,7 @@ it into your SCM hooks. It uses rules established by the team at
 
 ## Requirements
 
- * Ruby 1.9+
+ * Ruby 1.9.3+
  * Sass 3 (files you wish to lint must be written in Sass 3 syntax)
 
 ## Installation
