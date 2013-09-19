@@ -1,5 +1,6 @@
 module SCSSLint
   class Linter < Sass::Tree::Visitors::Base
+    include SelectorVisitor
     include Utils
 
     attr_reader :engine, :lints
@@ -33,6 +34,16 @@ module SCSSLint
       else
         super
       end
+    end
+
+    # Modified so we can also visit selectors in linters
+    def visit(node)
+      # Visit the selector of a rule if parsed rules are available
+      if node.is_a?(Sass::Tree::RuleNode) && node.parsed_rules
+        visit_selector(node.parsed_rules)
+      end
+
+      super
     end
   end
 end
