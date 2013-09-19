@@ -36,4 +36,22 @@ describe SCSSLint::Linter::CapitalizationInSelector do
 
     it { should report_lint line: 1 }
   end
+
+  context 'when attribute selector has attribute containing uppercase letters' do
+    let(:css) { <<-CSS }
+      [dataText] {
+      }
+    CSS
+
+    it { should report_lint line: 1 }
+  end
+
+  context 'when attribute selector has value containing uppercase letters' do
+    let(:css) { <<-CSS }
+      [data-text=someText] {
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end
