@@ -19,14 +19,6 @@ module SCSSLint
                      split
     end
 
-    # Given a selector array, returns whether it contains any placeholder
-    # selectors with invalid names.
-    def selector_has_bad_placeholder?(selector_array)
-      extract_string_selectors(selector_array).any? do |selector_str|
-        selector_str =~ /%\w*#{INVALID_NAME_CHARS}/
-      end
-    end
-
     def node_has_bad_name?(node)
       node.name =~ /#{INVALID_NAME_CHARS}/
     end

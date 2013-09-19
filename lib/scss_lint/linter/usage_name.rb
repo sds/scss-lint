@@ -3,25 +3,22 @@ module SCSSLint
     include LinterRegistry
 
     def visit_extend(node)
-      add_lint(node) if selector_has_bad_placeholder?(node.selector)
+      if selector_has_bad_placeholder?(node.selector)
+        add_name_lint(node, node.selector.join, 'placeholder')
+      end
     end
 
     def visit_mixin(node)
-      check(node)
+      check(node, 'mixin')
       yield # Continue into content block of this mixin's block
     end
 
     def visit_script_funcall(node)
-      check(node) unless FUNCTION_WHITELIST.include?(node.name)
+      check(node, 'function') unless FUNCTION_WHITELIST.include?(node.name)
     end
 
     def visit_script_variable(node)
-      check(node)
-    end
-
-    def description
-      'Usages of variables, functions, mixins, and placeholders should be ' <<
-      'lowercase and use hyphens instead of underscores.'
+      check(node, 'variable')
     end
 
   private
@@ -33,8 +30,23 @@ module SCSSLint
       translateX translateY translateZ
     ].to_set
 
-    def check(node)
-      add_lint(node) if node_has_bad_name?(node)
+    def check(node, node_type)
+      add_name_lint(node, node.name, node_type) if node_has_bad_name?(node)
+    end
+
+    def add_name_lint(node, name, node_type)
+      fixed_name = name.downcase.gsub(/_/, '-')
+
+      add_lint(node, "All uses of #{node_type} `#{name}` should be written " <<
+                     "in lowercase as `#{fixed_name}`")
+    end
+
+    # Given a selector array, returns whether it contains any placeholder
+    # selectors with invalid names.
+    def selector_has_bad_placeholder?(selector_array)
+      extract_string_selectors(selector_array).any? do |selector_str|
+        selector_str =~ /%\w*#{INVALID_NAME_CHARS}/
+      end
     end
   end
 end
