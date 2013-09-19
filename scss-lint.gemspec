@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.9.3'
 
   s.add_dependency 'colorize'
-  s.add_dependency 'sass', '3.2.9' # Hard dependency since we monkey patch AST
+  s.add_dependency 'sass', '3.2.10' # Hard dependency since we monkey patch AST
 
   s.add_development_dependency 'nokogiri'
   s.add_development_dependency 'rspec'

@@ -11,6 +11,7 @@
   variable, etc.)
 * `TypeInIdSelector` was renamed to `IdWithExtraneousSelector` and now reports
   a lint for the use of an ID with any other selector
+* Upgrade Sass gem dependency to 3.2.10
 
 ## 0.9.0
 * Add `--show-linters` flag for listing all linters available to scss-lint
