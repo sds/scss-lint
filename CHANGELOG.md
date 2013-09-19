@@ -2,6 +2,15 @@
 
 ## master (unreleased)
 * Teach scss-lint to prefer hexadecimal colors over color names
+* Linters can now define `visit_*` methods for visiting selectors
+* Linters can now report lints with context-specific descriptions
+* Fix bug where `CapitalizationInSelector` would report lint for attribute
+  selectors with values containing capital letters
+* `DeclaredName` and `UsageName` linters now report context-specific lint
+  descriptions (i.e. they mention whether the offending item is a function,
+  variable, etc.)
+* `TypeInIdSelector` was renamed to `IdWithExtraneousSelector` and now reports
+  a lint for the use of an ID with any other selector
 
 ## 0.9.0
 * Add `--show-linters` flag for listing all linters available to scss-lint
