@@ -14,15 +14,18 @@ module SCSSLint
       visit(engine.tree)
     end
 
+  protected
+
+    # Define if you want a default message for your linter
     def description
       nil
     end
 
-  protected
-
     # Helper for creating lint from a parse tree node
-    def add_lint(node)
-      @lints << Lint.new(engine.filename, node.line, description)
+    def add_lint(node, description = nil)
+      @lints << Lint.new(engine.filename,
+                         node.line,
+                         description || self.description)
     end
 
     # Monkey-patched implementation that adds support for traversing
