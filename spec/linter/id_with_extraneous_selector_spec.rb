@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SCSSLint::Linter::TypeInIdSelector do
+describe SCSSLint::Linter::IdWithExtraneousSelector do
   context 'when rule is just a type' do
     let(:css) { <<-CSS }
       p {
@@ -88,5 +88,14 @@ describe SCSSLint::Linter::TypeInIdSelector do
     CSS
 
     it { should report_lint line: 2 }
+  end
+
+  context 'when selector contains a class and ID' do
+    let(:css) { <<-CSS }
+      #id.class {
+      }
+    CSS
+
+    it { should report_lint line: 1 }
   end
 end
