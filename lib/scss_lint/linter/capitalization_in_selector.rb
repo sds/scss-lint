@@ -26,10 +26,6 @@ module SCSSLint
       check(pseudo, 'Pseudo-selector')
     end
 
-    def description
-      'Selectors should be lowercase'
-    end
-
   private
 
     def check(node, selector_name = nil)
