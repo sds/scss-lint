@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ['eng@causes.com', 'shane@causes.com']
   s.homepage    = 'http://github.com/causes/scss-lint'
   s.summary     = 'SCSS lint tool'
-  s.description = 'Opinionated tool that tells you whether or not your SCSS is "bad"'
+  s.description = 'Opinionated tool to help write clean and consistent SCSS'
 
   s.files         = Dir['lib/**/*.rb']
   s.executables   = ['scss-lint']
