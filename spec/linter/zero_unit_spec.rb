@@ -40,4 +40,34 @@ describe SCSSLint::Linter::ZeroUnit do
 
     it { should report_lint line: 2 }
   end
+
+  context 'when properties with multiple zero values containing units exist' do
+    let(:css) { <<-CSS }
+      p {
+        margin: 5em 0em 2em 0px;
+      }
+    CSS
+
+    it { should report_lint line: 2, count: 2 }
+  end
+
+  context 'when function call contains a zero value with units' do
+    let(:css) { <<-CSS }
+      p {
+        margin: some-function(0em);
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+  end
+
+  context 'when mixin include contains a zero value with units' do
+    let(:css) { <<-CSS }
+      p {
+        @include some-mixin(0em);
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+  end
 end

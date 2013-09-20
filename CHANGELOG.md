@@ -12,6 +12,8 @@
 * `TypeInIdSelector` was renamed to `IdWithExtraneousSelector` and now reports
   a lint for the use of an ID with any other selector
 * Upgrade Sass gem dependency to 3.2.10
+* Fix bug where `ZeroUnit` linter would not report lints for properties with
+  lists of values or Sass script
 
 ## 0.9.0
 * Add `--show-linters` flag for listing all linters available to scss-lint
