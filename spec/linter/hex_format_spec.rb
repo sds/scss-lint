@@ -62,4 +62,13 @@ describe SCSSLint::Linter::HexFormat do
 
     it { should report_lint line: 2 }
   end
+
+  context 'when ID selector starts with a hex code' do
+    let(:css) { <<-CSS }
+      #aabbcc {
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end

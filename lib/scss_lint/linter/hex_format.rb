@@ -2,37 +2,45 @@ module SCSSLint
   class Linter::HexFormat < Linter
     include LinterRegistry
 
-    def visit_root(node)
-      # We can't do this via the parse tree because the parser automatically
-      # normalizes all colors encountered in Sass script, so we lose the ability
-      # to check the format of the color. Thus we resort to line-by-line regex
-      # matching.
-      engine.lines.each_with_index do |line, index|
-        line.scan /#(\h{3,6})/ do |match|
-          unless valid_hex?(match.first)
-            @lints << Lint.new(engine.filename, index + 1, description)
-          end
+    def visit_prop(node)
+      if node.value.is_a?(Sass::Script::String) &&
+         node.value.type == :identifier
+
+        node.value.value.scan(HEX_REGEX) do |match|
+          add_hex_lint(node, match.first) unless valid_hex_format?(match.first)
         end
       end
+
+      yield # Continue visiting children
     end
 
-    def description
-      'Hexadecimal color codes should be lowercase and in 3-digit form where possible'
+    def visit_script_color(node)
+      unless valid_hex_format?(node.original[HEX_REGEX, 1])
+        add_hex_lint(node, node.original)
+      end
     end
 
   private
 
-    def valid_hex?(hex)
-      [3,6].include?(hex.length) &&
-        hex.downcase == hex &&
-        !can_be_condensed(hex)
+    HEX_REGEX = /(#\h{3,6})/
+
+    def add_hex_lint(node, hex)
+      add_lint(node, "Color `#{hex}` should be written as `#{shortest_form(hex)}`")
     end
 
-    def can_be_condensed(hex)
-      hex.length == 6 &&
-        hex[0] == hex[1] &&
-        hex[2] == hex[3] &&
-        hex[4] == hex[5]
+    def valid_hex_format?(hex)
+      hex == shortest_form(hex)
+    end
+
+    def shortest_form(hex)
+      (can_be_condensed?(hex) ? (hex[0..1] + hex[3] + hex[5]) : hex).downcase
+    end
+
+    def can_be_condensed?(hex)
+      hex.length == 7 &&
+        hex[1] == hex[2] &&
+        hex[3] == hex[4] &&
+        hex[5] == hex[6]
     end
   end
 end
