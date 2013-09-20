@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.10.0
 * Teach scss-lint to prefer hexadecimal colors over color names
 * Linters can now define `visit_*` methods for visiting selectors
 * Linters can now report lints with context-specific descriptions
