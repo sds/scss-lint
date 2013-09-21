@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix bug where `HexFormat` linter would crash on color keywords
+
 ## 0.10.0
 * Teach scss-lint to prefer hexadecimal colors over color names
 * Linters can now define `visit_*` methods for visiting selectors

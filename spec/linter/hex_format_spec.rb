@@ -71,4 +71,14 @@ describe SCSSLint::Linter::HexFormat do
 
     it { should_not report_lint }
   end
+
+  context 'when color is specified as a color keyword' do
+    let(:css) { <<-CSS }
+      p {
+        @include box-shadow(0 0 1px 1px gold);
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end

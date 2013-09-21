@@ -15,7 +15,7 @@ module SCSSLint
     end
 
     def visit_script_color(node)
-      unless valid_hex_format?(node.original[HEX_REGEX, 1])
+      unless !node.original || valid_hex_format?(node.original[HEX_REGEX, 1])
         add_hex_lint(node, node.original)
       end
     end
