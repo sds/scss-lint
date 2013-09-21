@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.10.1
 
 * Fix bug where `HexFormat` linter would crash on color keywords
 * Fix bug where `ColorKeyword` linter would not detect color keywords in
