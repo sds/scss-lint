@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix bug in `Shorthand` linter where a property with interpolation that
+  started with a shorthandable property name could report false positives
+
 ## 0.10.1
 
 * Fix bug where `HexFormat` linter would crash on color keywords

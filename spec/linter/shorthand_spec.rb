@@ -37,6 +37,16 @@ describe SCSSLint::Linter::Shorthand do
       it { should report_lint line: 2 }
     end
 
+    context 'has interpolation in its name and starts with a shorthandable property' do
+      let(:css) { <<-CSS }
+        p {
+          border-color\#{$type}: 1px 1px;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
     context 'has exactly two identical values' do
       let(:css) { <<-CSS }
         p {
