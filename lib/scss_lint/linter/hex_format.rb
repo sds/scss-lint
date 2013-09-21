@@ -15,7 +15,9 @@ module SCSSLint
     end
 
     def visit_script_color(node)
-      unless !node.original || valid_hex_format?(node.original[HEX_REGEX, 1])
+      return unless node.original && node.original.match(HEX_REGEX)
+
+      unless valid_hex_format?(node.original[HEX_REGEX, 1])
         add_hex_lint(node, node.original)
       end
     end
@@ -25,22 +27,11 @@ module SCSSLint
     HEX_REGEX = /(#\h{3,6})/
 
     def add_hex_lint(node, hex)
-      add_lint(node, "Color `#{hex}` should be written as `#{shortest_form(hex)}`")
+      add_lint(node, "Color `#{hex}` should be written as `#{shortest_hex_form(hex)}`")
     end
 
     def valid_hex_format?(hex)
-      hex == shortest_form(hex)
-    end
-
-    def shortest_form(hex)
-      (can_be_condensed?(hex) ? (hex[0..1] + hex[3] + hex[5]) : hex).downcase
-    end
-
-    def can_be_condensed?(hex)
-      hex.length == 7 &&
-        hex[1] == hex[2] &&
-        hex[3] == hex[4] &&
-        hex[5] == hex[6]
+      hex == shortest_hex_form(hex)
     end
   end
 end

@@ -3,6 +3,8 @@
 ## master (unreleased)
 
 * Fix bug where `HexFormat` linter would crash on color keywords
+* Fix bug where `ColorKeyword` linter would not detect color keywords in
+  shorthand properties and function/mixin calls
 
 ## 0.10.0
 * Teach scss-lint to prefer hexadecimal colors over color names

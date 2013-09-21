@@ -23,6 +23,17 @@ module SCSSLint
       node.name =~ /#{INVALID_NAME_CHARS}/
     end
 
+    def shortest_hex_form(hex)
+      (can_be_condensed?(hex) ? (hex[0..1] + hex[3] + hex[5]) : hex).downcase
+    end
+
+    def can_be_condensed?(hex)
+      hex.length == 7 &&
+        hex[1] == hex[2] &&
+        hex[3] == hex[4] &&
+        hex[5] == hex[6]
+    end
+
   private
 
     INVALID_NAME_CHARS = '[_A-Z]'

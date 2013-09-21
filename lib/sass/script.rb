@@ -17,10 +17,12 @@ module Sass::Script
   class Color
     attr_accessor :original
 
-    def self.from_string(string)
-      rgb = string.scan(/^#(..?)(..?)(..?)$/).
-                   first.
-                   map { |hex| hex.ljust(2, hex).to_i(16) }
+    def self.from_string(string, rgb = nil)
+      unless rgb
+        rgb = string.scan(/^#(..?)(..?)(..?)$/).
+                     first.
+                     map { |hex| hex.ljust(2, hex).to_i(16) }
+      end
 
       color = Color.new(rgb, false)
       color.original = string
@@ -43,6 +45,20 @@ module Sass::Script
       end
 
       [:color, Color.from_string(color_string)]
+    end
+  end
+
+  class Parser
+    # We redefine the ident parser to specially handle color keywords.
+    def ident
+      return funcall unless @lexer.peek && @lexer.peek.type == :ident
+      return if @stop_at && @stop_at.include?(@lexer.peek.value)
+
+      name = @lexer.next
+      if color = Color::COLOR_NAMES[name.value.downcase]
+        return node(Color.from_string(name.value, color))
+      end
+      node(Sass::Script::String.new(name.value, :identifier))
     end
   end
 end
