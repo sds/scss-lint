@@ -37,6 +37,16 @@ describe SCSSLint::Linter::Shorthand do
       it { should report_lint line: 2 }
     end
 
+    context 'has a value repeated 3 times' do
+      let(:css) { <<-CSS }
+        p {
+          padding: 3px 3px 3px;
+        }
+      CSS
+
+      it { should report_lint line: 2 }
+    end
+
     context 'has interpolation in its name and starts with a shorthandable property' do
       let(:css) { <<-CSS }
         p {

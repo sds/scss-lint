@@ -4,6 +4,8 @@
 
 * Fix bug in `Shorthand` linter where a property with interpolation that
   started with a shorthandable property name could report false positives
+* Improve message reported by `Shorthand` linter to display the shortest
+  possible form
 
 ## 0.10.1
 

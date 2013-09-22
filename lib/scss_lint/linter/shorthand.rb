@@ -3,18 +3,15 @@ module SCSSLint
     include LinterRegistry
 
     def visit_prop(node)
-      return unless SHORTHANDABLE_PROPERTIES.include?(node.name.join)
+      property_name = node.name.join
+      return unless SHORTHANDABLE_PROPERTIES.include?(property_name)
 
       case node.value
       when Sass::Script::List
-        check_script_list(node.value)
+        check_script_list(property_name, node.value)
       when Sass::Script::String
-        check_script_string(node.value)
+        check_script_string(property_name, node.value)
       end
-    end
-
-    def description
-      'Property values should use the shortest shorthand syntax allowed'
     end
 
   private
@@ -28,35 +25,42 @@ module SCSSLint
       padding
     ]
 
-    def check_script_list(list)
-      items = list.children
-
-      if (2..4).member?(items.count)
-        add_lint(list) unless valid_shorthand?(*items.map(&:to_sass))
-      end
+    def check_script_list(prop, list)
+      check_shorthand(prop, list, list.children.map(&:to_sass))
     end
 
-    def check_script_string(script_string)
+    def check_script_string(prop, script_string)
       return unless script_string.type == :identifier
 
-      if script_string.value.strip =~ /\A(\S+\s+\S+(\s+\S+){0,2})\z/
-        add_lint(script_string) unless valid_shorthand?(*$1.split(/\s+/))
+      if values = script_string.value.strip[/\A(\S+\s+\S+(\s+\S+){0,2})\z/, 1]
+        check_shorthand(prop, script_string, values.split)
       end
     end
 
-    def valid_shorthand?(top, right, bottom = nil, left = nil)
+    def check_shorthand(prop, node, values)
+      return unless (2..4).member?(values.count)
+
+      shortest_form = condensed_shorthand(*values)
+      return if values == shortest_form
+
+      add_lint(node, "Shorthand form for property `#{prop}` should be " <<
+                     "written more concisely as `#{shortest_form.join(' ')}` " <<
+                     "instead of `#{values.join(' ')}`")
+    end
+
+    def condensed_shorthand(top, right, bottom = nil, left = nil)
       if top == right && right == bottom && bottom == left
-        false
+        [top]
       elsif top == right && bottom.nil? && left.nil?
-        false
+        [top]
       elsif top == bottom && right == left
-        false
+        [top, right]
       elsif top == bottom && left.nil?
-        false
+        top == right ? [top] : [top, right]
       elsif right == left
-        false
+        [top, right, bottom]
       else
-        true
+        [top, right, bottom, left].compact
       end
     end
   end
