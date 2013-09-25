@@ -9,6 +9,8 @@
 * Syntax errors are now differentiated from lint warnings in `scss-lint`'s
   output by using `E` and `W` respectively.
 * `NoZeroBeforeDecimal` linter has been renamed to `LeadingZero`
+* Fix bug where `LeadingZero` linter would not report lints for numeric
+  values appearing in Sass script (e.g. function arguments)
 
 ## 0.10.1
 

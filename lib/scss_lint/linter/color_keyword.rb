@@ -30,15 +30,5 @@ module SCSSLint
     def color_rgb(string)
       Sass::Script::Color::COLOR_NAMES[string]
     end
-
-    # Takes a string like `hello "world" 'how are' you` and turns it into:
-    # `hello   you`.
-    # This is useful for scanning for keywords in shorthand properties or lists
-    # which can contain quoted strings but for which you don't want to inspect
-    # quoted strings (e.g. you care about the actual color keyword `red`, not
-    # the string "red").
-    def remove_quoted_strings(string)
-      string.gsub(/"[^"]*"|'[^']*'/, '')
-    end
   end
 end

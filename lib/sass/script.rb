@@ -30,12 +30,14 @@ module Sass::Script
     end
   end
 
+  class Number
+    attr_accessor :original_string
+  end
+
+  # Redefine some of the lexer helpers in order to store the original string
+  # with the created object so that the original string can be inspected rather
+  # than a typically normalized version.
   class Lexer
-    # We redefine the color lexer to store the original string with the created
-    # `Color` object so that we can inspect the original string before it is
-    # normalized.
-    #
-    # This is an adapted version from the original Sass source code.
     def color
       return unless color_string = scan(REGULAR_EXPRESSIONS[:color])
 
@@ -45,6 +47,17 @@ module Sass::Script
       end
 
       [:color, Color.from_string(color_string)]
+    end
+
+    def number
+      return unless scan(REGULAR_EXPRESSIONS[:number])
+      value = @scanner[2] ? @scanner[2].to_f : @scanner[3].to_i
+      value = -value if @scanner[1]
+
+      number = Number.new(value, Array(@scanner[4])).tap do |num|
+        num.original_string = @scanner[0]
+      end
+      [:number, number]
     end
   end
 

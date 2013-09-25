@@ -2,21 +2,31 @@ module SCSSLint
   class Linter::LeadingZero < Linter
     include LinterRegistry
 
-    def visit_prop(node)
-      # Misleading, but anything that isn't Sass Script is considered an
-      # `identifier` in the context of a Sass::Script::String.
-      return unless node.value.is_a?(Sass::Script::String) && node.value.type == :identifier
+    def visit_script_string(node)
+      return unless node.type == :identifier
 
-      # Remove string chunks (e.g. `"hello" 3 'world'` -> `3`
-      non_string_values = node.value.value.gsub(/"[^"]*"|'[^']'/, '').split
+      non_string_values = remove_quoted_strings(node.value).split
 
       non_string_values.each do |value|
-        add_lint(node) if value =~ /\b0\.\d+/
+        if number = value[/\b(0\.\d+)/, 1]
+          add_leading_zero_lint(node, number)
+        end
       end
     end
 
-    def description
-      'Leading zero should be omitted in fractional values'
+    def visit_script_number(node)
+      if node.original_string =~ /^0\./
+        add_leading_zero_lint(node, node.original_string)
+      end
+    end
+
+  private
+
+    def add_leading_zero_lint(node, number)
+      trimmed_number = number[/^[^\.]+(.*)$/, 1]
+
+      add_lint(node, "`#{number}` should be written without a leading zero " <<
+                     "as `#{trimmed_number}`")
     end
   end
 end

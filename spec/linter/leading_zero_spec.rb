@@ -129,4 +129,53 @@ describe SCSSLint::Linter::LeadingZero do
 
     it { should report_lint count: 4, line: 2 }
   end
+
+  context 'when leading zeros appear in function arguments' do
+    let(:css) { <<-CSS }
+      p {
+        margin: some-function(0.5em, 0.4 0.3 .2);
+      }
+    CSS
+
+    it { should report_lint count: 3, line: 2 }
+  end
+
+  context 'when leading zeros appear in mixin arguments' do
+    let(:css) { <<-CSS }
+      p {
+        @include some-mixin(0.5em, 0.4 0.3 .2);
+      }
+    CSS
+
+    it { should report_lint count: 3, line: 2 }
+  end
+
+  context 'when leading zeros appear in variable declarations' do
+    let(:css) { <<-CSS }
+      $some-var: 0.5em;
+    CSS
+
+    it { should report_lint line: 1 }
+  end
+
+  context 'when leading zeros appear in named arguments' do
+    let(:css) { <<-CSS }
+      p {
+        @include line-clamp($line-height: 0.9, $line-count: 2);
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+  end
+
+  context 'when leading zeros appear in parameter defaults' do
+    let(:css) { <<-CSS }
+      @mixin my-mixin($bad-value: 0.5, $good-value: .9, $string-value: "0.9") {
+        margin: $some-value;
+        padding: $some-other-value;
+      }
+    CSS
+
+    it { should report_lint count: 1, line: 1 }
+  end
 end
