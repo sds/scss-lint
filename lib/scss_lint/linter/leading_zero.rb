@@ -1,5 +1,5 @@
 module SCSSLint
-  class Linter::NoZeroBeforeDecimal < Linter
+  class Linter::LeadingZero < Linter
     include LinterRegistry
 
     def visit_prop(node)

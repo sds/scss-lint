@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SCSSLint::Linter::NoZeroBeforeDecimal do
+describe SCSSLint::Linter::LeadingZero do
   context 'when no values exist' do
     let(:css) { <<-CSS }
       p {
