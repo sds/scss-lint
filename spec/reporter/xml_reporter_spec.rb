@@ -30,9 +30,10 @@ describe SCSSLint::Reporter::XMLReporter do
       let(:filenames)    { ['f1.scss', 'f2.scss', 'f1.scss'] }
       let(:lines)        { [5, 7, 9] }
       let(:descriptions) { ['lint 1', 'lint 2', 'lint 3'] }
+      let(:severities)   { [:warning] * 3 }
       let(:lints) do
         filenames.each_with_index.map do |filename, index|
-          SCSSLint::Lint.new(filename, lines[index], descriptions[index])
+          SCSSLint::Lint.new(filename, lines[index], descriptions[index], severities[index])
         end
       end
 
@@ -58,13 +59,23 @@ describe SCSSLint::Reporter::XMLReporter do
           should =~ lines.map(&:to_s)
       end
 
-      it 'marks each issue with a severity of "warning"' do
-        xml.xpath("//issue[@severity='warning']").count == 3
-      end
-
       it 'marks each issue with a reason containing the lint description' do
         xml.xpath("//issue[@reason]").map { |node| node[:reason] }.
           should =~ descriptions
+      end
+
+      context 'when lints are warnings' do
+        it 'marks each issue with a severity of "warning"' do
+          xml.xpath("//issue[@severity='warning']").count == 3
+        end
+      end
+
+      context 'when lints are errors' do
+        let(:severities) { [:error] * 3 }
+
+        it 'marks each issue with a severity of "error"' do
+          xml.xpath("//issue[@severity='error']").count == 3
+        end
       end
     end
   end
