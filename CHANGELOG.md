@@ -11,6 +11,7 @@
 * `NoZeroBeforeDecimal` linter has been renamed to `LeadingZero`
 * Fix bug where `LeadingZero` linter would not report lints for numeric
   values appearing in Sass script (e.g. function arguments)
+* Teach scss-lint to detect duplicate properties in a rule set
 
 ## 0.10.1
 
