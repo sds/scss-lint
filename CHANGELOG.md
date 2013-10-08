@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.11.0
 
 * Fix bug in `Shorthand` linter where a property with interpolation that
   started with a shorthandable property name could report false positives
