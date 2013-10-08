@@ -46,5 +46,13 @@ module SCSSLint
 
       super
     end
+
+    # Redefine so we can set the `node_parent` of each node
+    def visit_children(parent)
+      parent.children.each do |child|
+        child.node_parent = parent
+        visit(child)
+      end
+    end
   end
 end

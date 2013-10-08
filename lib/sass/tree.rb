@@ -5,6 +5,9 @@
 module Sass::Tree
   # Define some common helper code for use in the various monkey patchings.
   class Node
+    # Stores node for which this node is a direct child
+    attr_accessor :node_parent
+
     # The `args` field of some Sass::Tree::Node classes returns
     # Sass::Script::Variable nodes with no line numbers. This adds the line
     # numbers back in so lint reporting works for those nodes.

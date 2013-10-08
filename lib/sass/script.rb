@@ -1,6 +1,10 @@
 # Contains extensions of Sass::Script::Nodes to add support for accessing
 # various parts of the parse tree not provided out-of-the-box.
 module Sass::Script
+  class Node
+    attr_accessor :node_parent
+  end
+
   class Variable
     # When accessing keyword arguments, the Sass parser treats the underscored
     # name as canonical. Since this only matters during the compilation step, we
