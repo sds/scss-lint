@@ -12,6 +12,7 @@
 * Fix bug where `LeadingZero` linter would not report lints for numeric
   values appearing in Sass script (e.g. function arguments)
 * Teach scss-lint to detect duplicate properties in a rule set
+* Teach scss-lint to detect incorrect indentation
 
 ## 0.10.1
 

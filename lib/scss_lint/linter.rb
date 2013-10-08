@@ -20,9 +20,11 @@ module SCSSLint
     end
 
     # Helper for creating lint from a parse tree node
-    def add_lint(node, message = nil)
+    def add_lint(node_or_line, message = nil)
+      line = node_or_line.respond_to?(:line) ? node_or_line.line : node_or_line
+
       @lints << Lint.new(engine.filename,
-                         node.line,
+                         line,
                          message || description)
     end
 
