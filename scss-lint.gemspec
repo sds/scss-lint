@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = SCSSLint::VERSION
   s.license     = 'MIT'
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ['Causes Engineering']
+  s.authors     = ['Causes Engineering', 'Shane da Silva']
   s.email       = ['eng@causes.com', 'shane@causes.com']
   s.homepage    = 'http://github.com/causes/scss-lint'
   s.summary     = 'SCSS lint tool'
@@ -19,9 +19,9 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 1.9.3'
 
-  s.add_dependency 'colorize'
+  s.add_dependency 'colorize', '0.5.8'
   s.add_dependency 'sass', '3.2.10' # Hard dependency since we monkey patch AST
 
-  s.add_development_dependency 'nokogiri'
-  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'nokogiri', '1.6.0'
+  s.add_development_dependency 'rspec', '2.13.0'
 end
