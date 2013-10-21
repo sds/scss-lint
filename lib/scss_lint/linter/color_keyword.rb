@@ -27,7 +27,7 @@ module SCSSLint
     end
 
     def color_keyword?(string)
-      !!color_rgb(string)
+      !!color_rgb(string) && string != 'transparent'
     end
 
     def color_rgb(string)

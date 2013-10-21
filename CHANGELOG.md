@@ -3,6 +3,8 @@
 ## master (unreleased)
 
 * Update Sass dependency from `3.2.10` -> `3.3.0.rc.1` for better source mapping
+* Fix bug in `ColorKeyword` where an incorrect lint would be reported for the
+  "transparent" color keyword
 
 ## 0.11.0
 

@@ -60,4 +60,14 @@ describe SCSSLint::Linter::ColorKeyword do
 
     it { should report_lint line: 2 }
   end
+
+  context 'when the "transparent" color keyword is used' do
+    let(:css) { <<-CSS }
+      p {
+        @include mixin(transparent);
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end
