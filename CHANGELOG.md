@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.11.1
 
 * Update Sass dependency from `3.2.10` -> `3.3.0.rc.1` for better source mapping
 * Fix bug in `ColorKeyword` where an incorrect lint would be reported for the
