@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Update Sass dependency from `3.2.10` -> `3.3.0.rc.1` for better source mapping
+
 ## 0.11.0
 
 * Fix bug in `Shorthand` linter where a property with interpolation that

@@ -21,16 +21,14 @@ module SCSSLint
     def check_indentation(node)
       return unless node.line
 
-      actual_line = node_start_line(node, engine)
-
       # Ignore the case where the node is on the same line as its previous
       # sibling or its parent, as indentation isn't possible
-      return if (previous = previous_node(node)) && previous.line == actual_line
+      return if (previous = previous_node(node)) && previous.line == node.line
 
-      actual_indent = engine.lines[actual_line - 1][/^(\s*)/, 1]
+      actual_indent = engine.lines[node.line - 1][/^(\s*)/, 1]
 
       if actual_indent.length != @indent
-        add_lint(actual_line,
+        add_lint(node.line,
                  "Line should be indented #{@indent} spaces, " <<
                  "but was indented #{actual_indent.length} spaces")
         return true

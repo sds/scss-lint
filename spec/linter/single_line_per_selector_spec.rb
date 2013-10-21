@@ -29,7 +29,7 @@ describe SCSSLint::Linter::SingleLinePerSelector do
       }
     CSS
 
-    it { should report_lint line: 4 }
+    it { should report_lint line: 1 }
   end
 
   context 'when commas are not at the end of the line' do
@@ -64,7 +64,7 @@ describe SCSSLint::Linter::SingleLinePerSelector do
       }
     CSS
 
-    it { should report_lint line: 5 }
+    it { should report_lint line: 2 }
   end
 
   context 'when rule contains interpolated selectors' do
@@ -86,7 +86,7 @@ describe SCSSLint::Linter::SingleLinePerSelector do
       }
     CSS
 
-    it { should report_lint line: 3 }
+    it { should report_lint line: 1 }
   end
 
   context 'when rule contains an inline comment' do

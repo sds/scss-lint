@@ -20,7 +20,7 @@ module Sass::Tree
     # The Sass parser sometimes doesn't assign line numbers in cases where it
     # should. This is a helper to easily correct that.
     def add_line_number(node)
-      node.line ||= line if node.is_a?(Sass::Script::Node)
+      node.line ||= line if node.is_a?(::Sass::Script::Tree::Node)
       node
     end
 
@@ -28,7 +28,7 @@ module Sass::Tree
     # the name of the variable. This helper takes that name and turns it back
     # into a Sass::Script::Variable that supports lint reporting.
     def create_variable(var_name)
-      Sass::Script::Variable.new(var_name).tap do |v|
+      ::Sass::Script::Tree::Variable.new(var_name).tap do |v|
         v.line = line # Use line number of the containing parse tree node
       end
     end
@@ -37,7 +37,7 @@ module Sass::Tree
     # Sass::Script::Nodes interspersed within them. This returns a filtered list
     # of just those nodes.
     def extract_script_nodes(list)
-      list.select { |item| item.is_a? Sass::Script::Node }
+      list.select { |item| item.is_a?(::Sass::Script::Tree::Node) }
     end
 
     # Takes a list of arguments, be they arrays or individual objects, and
@@ -73,7 +73,9 @@ module Sass::Tree
 
   class EachNode
     def children
-      concat_expr_lists super, create_variable(var), list
+      loop_vars = vars.map { |var| create_variable(var) }
+
+      concat_expr_lists super, loop_vars, list
     end
   end
 
@@ -117,9 +119,9 @@ module Sass::Tree
 
       # Keyword mapping is String -> Expr, so convert the string to a variable
       # node that supports lint reporting
-      keyword_exprs = keywords.map do |var_name, var_expr|
+      keyword_exprs = keywords.as_stored.map do |var_name, var_expr|
         [create_variable(var_name), var_expr]
-      end
+      end if keywords.any?
 
       concat_expr_lists super, args, keyword_exprs, splat
     end

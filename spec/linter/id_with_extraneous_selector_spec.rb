@@ -75,7 +75,7 @@ describe SCSSLint::Linter::IdWithExtraneousSelector do
         }
       CSS
 
-      it { should report_lint line: 2 }
+      it { should report_lint line: 1 }
     end
   end
 

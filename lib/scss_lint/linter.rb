@@ -31,8 +31,9 @@ module SCSSLint
     # Monkey-patched implementation that adds support for traversing
     # Sass::Script::Nodes (original implementation only supports
     # Sass::Tree::Nodes).
-    def node_name(node)
-      if node.is_a?(Sass::Script::Node)
+    def self.node_name(node)
+      case node
+      when Sass::Script::Tree::Node, Sass::Script::Value::Base
         "script_#{node.class.name.gsub(/.*::(.*?)$/, '\\1').downcase}"
       else
         super

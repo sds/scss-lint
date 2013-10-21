@@ -3,7 +3,7 @@ module SCSSLint
     include LinterRegistry
 
     def visit_script_color(node)
-      add_color_lint(node, node.original) if color_keyword?(node.original)
+      add_color_lint(node, node.original_string) if color_keyword?(node.original_string)
     end
 
     def visit_script_string(node)
@@ -17,7 +17,10 @@ module SCSSLint
   private
 
     def add_color_lint(node, original)
-      hex_form = Sass::Script::Color.new(color_rgb(original)).inspect
+      hex_form = Sass::Script::Value::Color.new(color_rgb(original)).tap do |color|
+        color.options = {} # `inspect` requires options to be set
+      end.inspect
+
       add_lint(node,
                "Color `#{original}` should be written in hexadecimal form " <<
                "as `#{shortest_hex_form(hex_form)}`")
@@ -28,7 +31,7 @@ module SCSSLint
     end
 
     def color_rgb(string)
-      Sass::Script::Color::COLOR_NAMES[string]
+      Sass::Script::Value::Color::COLOR_NAMES[string]
     end
   end
 end

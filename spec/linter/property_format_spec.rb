@@ -80,7 +80,7 @@ describe SCSSLint::Linter::PropertyFormat do
       }
     CSS
 
-    it { should report_lint line: 3 }
+    it { should report_lint line: 2 }
   end
 
   context 'when a property declaration has no space in a nested rule' do
@@ -104,7 +104,7 @@ describe SCSSLint::Linter::PropertyFormat do
       }
     CSS
 
-    it { should report_lint line: 4 }
+    it { should report_lint line: 3 }
   end
 
   context 'with a nested property' do
