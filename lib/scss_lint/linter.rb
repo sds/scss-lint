@@ -30,7 +30,13 @@ module SCSSLint
 
     # Returns the character at the given [Sass::Source::Position]
     def character_at(source_position, offset = 0)
-      engine.lines[source_position.line - 1][source_position.offset - 1 + offset]
+      actual_line = source_position.line - 1
+      actual_offset = source_position.offset + offset - 1
+
+      # Return a newline if offset points at the very end of the line
+      return "\n" if actual_offset == engine.lines[actual_line].length
+
+      engine.lines[actual_line][actual_offset]
     end
 
     # Monkey-patched implementation that adds support for traversing
