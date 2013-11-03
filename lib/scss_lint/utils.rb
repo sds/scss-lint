@@ -1,4 +1,5 @@
 module SCSSLint
+  # Collection of helpers used across a variety of linters.
   module Utils
     # Given a selector array which is a list of strings with Sass::Script::Nodes
     # interspersed within them, return an array of strings representing those
@@ -53,6 +54,10 @@ module SCSSLint
       else
         parent.children[index - 1]
       end
+    end
+
+    def pluralize(value, word)
+      value == 1 ? "#{value} #{word}" : "#{value} #{word}s"
     end
 
   private

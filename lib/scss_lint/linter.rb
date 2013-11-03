@@ -28,6 +28,11 @@ module SCSSLint
                          message || description)
     end
 
+    # Returns the character at the given [Sass::Source::Position]
+    def character_at(source_position, offset = 0)
+      engine.lines[source_position.line - 1][source_position.offset - 1 + offset]
+    end
+
     # Monkey-patched implementation that adds support for traversing
     # Sass::Script::Nodes (original implementation only supports
     # Sass::Tree::Nodes).

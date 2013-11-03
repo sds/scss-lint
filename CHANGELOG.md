@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Split `PropertyFormat` linter into `SpaceAfterPropertyColon`,
+  `SpaceAfterPropertyName`, and `TrailingSemiColonAfterProperty` linters
+
 ## 0.11.1
 
 * Update Sass dependency from `3.2.10` -> `3.3.0.rc.1` for better source mapping
