@@ -4,8 +4,8 @@ describe SCSSLint::Runner do
   let(:options) { {} }
   let(:runner)  { SCSSLint::Runner.new(options) }
 
-  class FakeLinter1 < SCSSLint::Linter; include SCSSLint::LinterRegistry; end
-  class FakeLinter2 < FakeLinter1; end
+  class FakeLinter1 < SCSSLint::Linter; end
+  class FakeLinter2 < SCSSLint::Linter; end
 
   before do
     SCSSLint::LinterRegistry.stub(:linters).and_return([FakeLinter1, FakeLinter2])
@@ -61,6 +61,7 @@ describe SCSSLint::Runner do
   describe '#run' do
     let(:files) { ['dummy1.scss', 'dummy2.scss'] }
     subject     { runner.run(files) }
+    before      { SCSSLint::Engine.stub(:new) }
 
     it 'searches for lints in each file' do
       runner.should_receive(:find_lints).exactly(files.size).times
@@ -82,6 +83,26 @@ describe SCSSLint::Runner do
 
       it 'raises an error' do
         expect { subject }.to raise_error
+      end
+    end
+
+    context 'when a linter raises an error' do
+      let(:backtrace) { %w[file.rb:1 file.rb:2] }
+
+      let(:error) do
+        StandardError.new('Some error message').tap do |e|
+          e.set_backtrace(backtrace)
+        end
+      end
+
+      before { FakeLinter1.any_instance.stub(:run).and_raise(error) }
+
+      it 'raises a LinterError' do
+        expect { subject }.to raise_error(SCSSLint::LinterError)
+      end
+
+      it 'has the same backtrace as the original error' do
+        expect { subject }.to raise_error { |e| e.backtrace.should == backtrace }
       end
     end
   end

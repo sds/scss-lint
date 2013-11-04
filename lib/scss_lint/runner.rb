@@ -1,7 +1,10 @@
 module SCSSLint
+  class LinterError < StandardError; end
   class NoFilesError < StandardError; end
   class NoLintersError < StandardError; end
 
+  # Finds and aggregates all lints found by running the registered linters
+  # against a set of SCSS files.
   class Runner
     attr_reader :linters, :lints
 
@@ -20,8 +23,8 @@ module SCSSLint
     end
 
     def run(files = [])
-      raise NoFilesError.new('No SCSS files specified') if files.empty?
-      raise NoLintersError.new('No linters specified') if linters.empty?
+      raise NoFilesError, 'No SCSS files specified' if files.empty?
+      raise NoLintersError, 'No linters specified' if linters.empty?
 
       files.each do |file|
         find_lints(file)
@@ -32,18 +35,26 @@ module SCSSLint
       end
     end
 
+    def lints?
+      lints.any?
+    end
+
+  private
+
     def find_lints(file)
       engine = Engine.new(file)
 
       linters.each do |linter|
-        linter.run(engine)
+        begin
+          linter.run(engine)
+        rescue => error
+          raise LinterError,
+                "#{linter.class} raised unexpected error: '#{error.message}'",
+                error.backtrace
+        end
       end
     rescue Sass::SyntaxError => ex
       @lints << Lint.new(ex.sass_filename, ex.sass_line, ex.to_s, :error)
-    end
-
-    def lints?
-      lints.any?
     end
   end
 end

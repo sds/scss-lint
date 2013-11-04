@@ -160,5 +160,36 @@ describe SCSSLint::CLI do
         @output.should be_empty
       end
     end
+
+    context 'when the runner raises an error' do
+      let(:backtrace) { %w[file1.rb file2.rb] }
+      let(:message) { 'Some error message' }
+
+      let(:error) do
+        StandardError.new(message).tap { |e| e.set_backtrace(backtrace) }
+      end
+
+      before { SCSSLint::Runner.stub(:new).and_raise(error) }
+
+      it 'exits with a non-zero status' do
+        subject.should_receive(:halt).with(-1)
+        safe_run
+      end
+
+      it 'outputs the error message' do
+        safe_run
+        @output.should include message
+      end
+
+      it 'outputs the backtrace' do
+        safe_run
+        @output.should include backtrace.join("\n")
+      end
+
+      it 'outputs a link to the issue tracker' do
+        safe_run
+        @output.should include SCSSLint::BUG_REPORT_URL
+      end
+    end
   end
 end

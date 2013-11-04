@@ -10,7 +10,9 @@ module SCSSLint
   autoload :Runner, 'scss_lint/runner'
   autoload :SelectorVisitor, 'scss_lint/selector_visitor'
   autoload :Utils, 'scss_lint/utils'
-  autoload :VERSION, 'scss_lint/version'
+
+  require 'scss_lint/constants'
+  require 'scss_lint/version'
 
   # Preload Sass so we can monkey patch it
   require 'sass'

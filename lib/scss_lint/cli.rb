@@ -1,6 +1,8 @@
 require 'optparse'
 
 module SCSSLint
+  # Responsible for parsing command-line options and executing the appropriate
+  # application logic based on the options specified.
   class CLI
     attr_accessor :options
 
@@ -62,10 +64,15 @@ module SCSSLint
       runner = Runner.new(options)
       runner.run(find_files)
       report_lints(runner.lints)
-      halt 1 if runner.lints?
+      halt(1) if runner.lints?
     rescue NoFilesError, NoSuchLinter, Errno::ENOENT => ex
       puts ex.message
-      halt -1
+      halt(-1)
+    rescue => ex
+      puts ex.message
+      puts ex.backtrace
+      puts 'Report this bug at '.yellow + BUG_REPORT_URL.cyan
+      halt(-1)
     end
 
   private

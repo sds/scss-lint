@@ -5,6 +5,9 @@
 * Split `PropertyFormat` linter into `SpaceAfterPropertyColon`,
   `SpaceAfterPropertyName`, and `TrailingSemiColonAfterProperty` linters
 * Teach scss-lint to prefer spaces after commas in argument lists
+* Display better error message for unexpected linter errors, including the
+  name of the linter, the file that the linter failed on, and a link to
+  the issue tracker
 
 ## 0.11.1
 
