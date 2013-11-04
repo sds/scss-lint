@@ -7,16 +7,18 @@
 `scss-lint` is a tool to help keep your [SCSS](http://sass-lang.com) files
 clean and readable. You can run it manually from the command-line, or integrate
 it into your SCM hooks. It uses rules established by the team at
-[Causes.com](http://causes.com).
+[Causes.com](https://causes.com).
 
 ## Requirements
 
  * Ruby 1.9.3+
- * Sass 3 (files you wish to lint must be written in Sass 3 syntax)
+ * Files you wish to lint must be written in SCSS (not Sass) syntax
 
 ## Installation
 
-`gem install scss-lint`
+```bash
+gem install scss-lint
+```
 
 ## Usage
 
@@ -372,6 +374,11 @@ feature, please add tests so that we can avoid breaking it in the future.
 Speaking of tests, we use `rspec`, which can be run like so:
 
     bundle exec rspec
+
+## Changelog
+
+If you're interested in seeing the changes and bug fixes between each version
+of `scss-lint`, read the [SCSS-Lint Changelog](CHANGELOG.md).
 
 ## See also
 
