@@ -1,4 +1,5 @@
 module SCSSLint
+  # Checks that selector sequences are split over multiple lines by comma.
   class Linter::SingleLinePerSelector < Linter
     include LinterRegistry
 

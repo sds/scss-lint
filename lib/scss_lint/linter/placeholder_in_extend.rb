@@ -1,4 +1,5 @@
 module SCSSLint
+  # Checks that `@extend` is always used with a placeholder selector.
   class Linter::PlaceholderInExtend < Linter
     include LinterRegistry
 

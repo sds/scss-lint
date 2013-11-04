@@ -1,4 +1,5 @@
 module SCSSLint
+  # Checks for uses of renderable comments (/* ... */)
   class Linter::Comment < Linter
     include LinterRegistry
 

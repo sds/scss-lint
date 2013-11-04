@@ -1,4 +1,5 @@
 module SCSSLint
+  # Reports when `border: 0` can be used instead of `border: none`.
   class Linter::BorderZero < Linter
     include LinterRegistry
 
@@ -10,13 +11,13 @@ module SCSSLint
     def description
       '`border: 0;` is preferred over `border: none;`'
     end
+
+  private
+
+     BORDER_PROPERTIES = %w[border
+                            border-top
+                            border-right
+                            border-bottom
+                            border-left]
   end
-
-private
-
-   BORDER_PROPERTIES = %w[border
-                          border-top
-                          border-right
-                          border-bottom
-                          border-left]
 end

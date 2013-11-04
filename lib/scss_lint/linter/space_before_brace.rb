@@ -1,4 +1,5 @@
 module SCSSLint
+  # Checks for the presence of a single space before an opening brace.
   class Linter::SpaceBeforeBrace < Linter
     include LinterRegistry
 

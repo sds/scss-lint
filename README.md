@@ -32,7 +32,7 @@ You can also specify a list of files explicitly:
 `scss-lint` will output any problems with your SCSS, including the offending
 filename and line number (if available).
 
-## What gets linted
+## What Gets Linted
 
 `scss-lint` is an opinionated tool that helps you enforce a consistent style in
 your SCSS. As an opinionated tool, we've had to make calls about what we think
@@ -42,22 +42,327 @@ basis, we think that the opinions themselves are less important than the fact
 that `scss-lint` provides us with an automated and low-cost means of enforcing
 consistency.
 
-To get a sense of what lints exist, check out
-[the spec suite](https://github.com/causes/scss-lint/tree/master/spec/linter).
+Any lint can be disabled by using the `--exclude_linter` flag.
 
-The lints include:
+* Prefer `border: 0` over `border: none`.
 
-* use `border: 0` not `border: none`
-* use unit-less dimensions for 0-length quantities; ie. `margin: 0`, not
-  `margin: 0px`
-* use `$foo-bar`, not `$FooBar` or `$foo_bar`
-* use `#foo`, not `a#foo`
-* keep your rules in order, with mix-ins at the top
-* use one selector per line
-* use the shortest shorthand possible; ie. `padding: 0`, not `padding: 0 0`
-* use consistent spacing between property names and property values
-* use short-form lowercase hex codes when possible; ie. `#fc0`, not `#FFCC00`
-* exclude empty rules
+* IDs, classes, types, placeholders, and pseudo-selectors should be all lowercase.
+
+    ```scss
+    // Incorrect - capitalized class name
+    .Button {
+      ...
+    }
+
+    // Correct
+    .button {
+      ...
+    }
+    ```
+
+* Prefer hexadecimal colors over their human-friendly form.
+
+    ```scss
+    // Incorrect
+    color: green;
+
+    // Correct
+    color: #0f0;
+    ```
+
+    Defining colors directly in properties is usually a smell. When you color
+    your body text in a number of places, if you ever want to change the color
+    of the text you'll have to update the explicitly defined color in a number
+    of places, and finding all those places can be difficult if you use the
+    same color for other elements (i.e. a simple find/replace may not always
+    work).
+
+    A better approach is to use global variables like `$color-text-body` and
+    refer to this variable everywhere you want to use it. This makes it easy
+    to update the color, as you only need change it in one place. It is also
+    more intention-revealing, as seeing the name `$color-text-body` is more
+    descriptive than `#333` or `black`. Using color keywords can obfuscate
+    this, as they look like variables.
+
+* Prefer `//` comments over `/* ... */`.
+
+    ```scss
+    // Incorrect
+    /* This is a comment that gets rendered */
+
+    // Correct
+    // This comment never gets rendered
+    ```
+
+    `//` comments should be preferred as they don't get rendered in the final
+    generated CSS, whereas `/* ... */` comments do.
+
+    Furthermore, comments should be concise, and using `/* ... */`
+    encourages multi-line comments can tend to not be concise.
+
+* Write `@extend` statements first in rule sets, followed by property
+  declarations and then other nested rule sets.
+
+    ```scss
+    // Incorrect
+    .fatal-error {
+      color: #f00;
+      @extend %error;
+
+      p {
+        ...
+      }
+    }
+
+    // Correct
+    .fatal-error {
+      @extend %error;
+      color: #f00;
+
+      p {
+        ...
+      }
+    }
+    ```
+
+* Functions, mixins, and variables should be declared with all lowercase letters.
+
+    ```scss
+    // Incorrect - uppercase letters
+    $myVar: 10px;
+
+    @mixin myMixin() {
+      ...
+    }
+
+    // Correct
+    $my-var: 10px;
+
+    @mixin my-mixin() {
+      ...
+    }
+    ```
+
+* Prefer hyphens over underscores in function, mixin, and variable names.
+
+    ```scss
+    // Incorrect - words separated by underscores
+    $my_var: 10px;
+
+    @mixin my_mixin() {
+      ...
+    }
+
+    // Correct - words separated by hyphens
+    $my-var: 10px;
+
+    @mixin my-mixin() {
+      ...
+    }
+    ```
+
+    Hyphens are easier to type than underscores.
+
+    The Sass parser automatically treats underscores and hyphens the same, so
+    even if you're using a library that declares a function with an underscore,
+    you can refer to it using the hyphenated form instead.
+
+* Prefer the shortest possible form for hex colors.
+
+    ```scss
+    // Incorrect
+    color: #ff22ee;
+
+    // Correct
+    color: #f2e;
+    ```
+
+* Don't combine additional selectors with an ID selector.
+
+    ```scss
+    // Incorrect - `.button` class is unnecessary
+    #submit-button.button {
+      ...
+    }
+
+    // Correct
+    #submit-button {
+      ...
+    }
+    ```
+
+    While the CSS specification allows for multiple elements with the same
+    ID to appear in a single document, in practice this is usually a smell.
+    When reasoning about IDs (including selector specificity), it should
+    suffice to style an element with a particular ID based solely on the ID.
+
+    Even better would be to never use IDs in the first place.
+
+* Use two **spaces** per indentation level. No hard tabs.
+
+    ```scss
+    // Incorrect - four spaces
+    p {
+        color: #f00;
+    }
+
+    // Correct
+    p {
+      color: #f00;
+    }
+    ```
+
+* Don't write leading zeros for numeric values with a decimal point.
+
+    ```scss
+    // Incorrect
+    margin: 0.5em;
+
+    // Correct
+    margin: .5em;
+    ```
+
+* Always use placeholder selectors in `@extend`.
+
+    ```scss
+    // Incorrect
+    .fatal {
+      @extend .error;
+    }
+
+    // Correct
+    .fatal {
+      @extend %error;
+    }
+    ```
+
+    Using a class selector with the `@extend` statement statement usually
+    results in more generated CSS than when using a placeholder selector.
+    Furthermore, Sass specifically introduced placeholder selectors in
+    order to be used with `@extend`.
+
+    See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-sass-extends-and-placeholders/).
+
+* Prefer the shortest shorthand form possible for properties that support it.
+
+    ```scss
+    // Incorrect - all 4 sides specified with same value
+    margin: 1px 1px 1px 1px;
+
+    // Correct - equivalent to specifying 1px for all sides
+    margin: 1px;
+    ```
+
+* Split selectors onto separate lines after each comma.
+
+    ```scss
+    // Incorrect
+    .error p, p.explanation {
+      ...
+    }
+
+    // Correct - each selector sequence is on its own line
+    .error p,
+    p.explanation {
+      ...
+    }
+    ```
+
+* Sort properties in alphabetical order.
+
+    It's brain-dead simple (highlight lines and execute `:sort` in `vim`), and it can
+    [benefit gzip compression](http://www.barryvan.com.au/2009/08/css-minifier-and-alphabetiser/).
+
+    Sorting alphabetically also makes properties easier to find. Ordering based
+    on the semantics of the properties can be more problematic depending on
+    which other properties are present.
+
+    Note that there are legitimate cases where one needs to explicitly break
+    alphabetical sort order in order to use vendor-specific properties. In
+    this case, this is usually avoided by using mixins from a framework like
+    [Compass](http://compass-style.org/) or [Bourbon](http://bourbon.io/) so
+    vendor-specific properties rarely need to be manually written.
+
+* Commas in lists should be followed by a space.
+
+    ```scss
+    // Incorrect
+    @include box-shadow(0 2px 2px rgba(0,0,0,.2));
+    color: rgba(0,0,0,.1);
+
+    // Correct
+    @include box-shadow(0 2px 2px rgba(0, 0, 0, .2));
+    color: rgba(0, 0, 0, .1);
+    ```
+
+* Properties should be formatted with no space between the name and the colon,
+  and a single space separating the colon from the property's value.
+
+    ```scss
+    // Incorrect - space before colon
+    margin : 0;
+
+    // Incorrect - more than one space after colon
+    margin:  0;
+
+    // Incorrect - no space after colon
+    margin:0;
+
+    // Correct
+    margin: 0;
+    ```
+
+* Opening braces should be preceded by a single space.
+
+    ```scss
+    // Incorrect - no space before brace
+    p{
+    }
+
+    // Incorrect - more than one space before brace
+    p  {
+    }
+
+    // Correct - exactly one space before brace
+    p {
+    }
+    ```
+
+* Property values should always end with a semicolon.
+
+    ```scss
+    // Incorrect - no semicolon
+    p {
+      color: #fff
+    }
+
+    // Incorrect - space between value and semicolon
+    p {
+      color: #fff ;
+    }
+
+    // Correct
+    p {
+      color: $fff;
+    }
+    ```
+
+* Omit units on zero values.
+
+    ```scss
+    // Incorrect - unnecessary units can be omitted
+    margin: 0px;
+
+    // Correct
+    margin: 0;
+    ```
+
+
+### Other Lints
+
+* Reports `@debug` statements (which you probably left behind accidentally)
+* Reports when you define the same property twice in a single rule set
+* Reports when you have an empty rule set
 
 ## Contributing
 

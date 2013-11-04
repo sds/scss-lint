@@ -1,4 +1,5 @@
 module SCSSLint
+  # Checks the declaration order of properties.
   class Linter::SortedProperties < Linter
     include LinterRegistry
 

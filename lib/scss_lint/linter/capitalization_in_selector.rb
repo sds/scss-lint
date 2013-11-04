@@ -1,4 +1,5 @@
 module SCSSLint
+  # Checks for capitalized letters in IDs, classes, types, etc. in selectors.
   class Linter::CapitalizationInSelector < Linter
     include LinterRegistry
 

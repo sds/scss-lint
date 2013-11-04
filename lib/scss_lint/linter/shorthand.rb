@@ -1,4 +1,6 @@
 module SCSSLint
+  # Checks for the use of the shortest form for properties that can be written
+  # in shorthand.
   class Linter::Shorthand < Linter
     include LinterRegistry
 

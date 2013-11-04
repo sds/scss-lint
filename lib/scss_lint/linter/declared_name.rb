@@ -1,4 +1,6 @@
 module SCSSLint
+  # Checks that the declared names of functions, mixins, and variables are all
+  # lowercase and use hyphens instead of underscores.
   class Linter::DeclaredName < Linter
     include LinterRegistry
 

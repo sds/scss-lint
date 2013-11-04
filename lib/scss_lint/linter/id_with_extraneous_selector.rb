@@ -1,4 +1,5 @@
 module SCSSLint
+  # Checks for a selector with an ID combined with some other selector.
   class Linter::IdWithExtraneousSelector < Linter
     include LinterRegistry
 

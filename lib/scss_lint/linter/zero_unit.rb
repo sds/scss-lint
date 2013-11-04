@@ -1,4 +1,5 @@
 module SCSSLint
+  # Checks for unnecessary units on zero values.
   class Linter::ZeroUnit < Linter
     include LinterRegistry
 

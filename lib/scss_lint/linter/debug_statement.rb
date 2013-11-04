@@ -1,4 +1,5 @@
 module SCSSLint
+  # Checks for leftover `@debug` statements.
   class Linter::DebugStatement < Linter
     include LinterRegistry
 

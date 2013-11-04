@@ -1,4 +1,5 @@
 module SCSSLint
+  # Checks for consistent indentation of nested declarations and rule sets.
   class Linter::Indentation < Linter
     include LinterRegistry
 

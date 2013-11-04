@@ -1,4 +1,6 @@
 module SCSSLint
+  # Checks for uses of a color keyword instead of the preferred hexadecimal
+  # form.
   class Linter::ColorKeyword < Linter
     include LinterRegistry
 

@@ -1,4 +1,5 @@
 module SCSSLint
+  # Checks for unnecessary leading zeros in numeric values with decimal points.
   class Linter::LeadingZero < Linter
     include LinterRegistry
 
