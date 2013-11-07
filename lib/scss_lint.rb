@@ -19,13 +19,14 @@ module SCSSLint
   require File.expand_path('scss_lint/sass/script', File.dirname(__FILE__))
   require File.expand_path('scss_lint/sass/tree', File.dirname(__FILE__))
 
-  # Load all linters
-  Dir[File.expand_path('scss_lint/linter/*.rb', File.dirname(__FILE__))].each do |file|
+  # Load all linters in sorted order, since ordering matters and some systems
+  # return the files in an order which loads a child class before the parent.
+  Dir[File.expand_path('scss_lint/linter/**/*.rb', File.dirname(__FILE__))].sort.each do |file|
     require file
   end
 
   # Load all reporters
-  Dir[File.expand_path('scss_lint/reporter/*.rb', File.dirname(__FILE__))].each do |file|
+  Dir[File.expand_path('scss_lint/reporter/*.rb', File.dirname(__FILE__))].sort.each do |file|
     require file
   end
 

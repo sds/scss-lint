@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Teach scss-lint to prefer Compass mixins over some CSS properties
+
 ## 0.12.0
 
 * Split `PropertyFormat` linter into `SpaceAfterPropertyColon`,
