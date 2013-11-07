@@ -114,7 +114,7 @@ describe SCSSLint::CLI do
 
     before do
       subject.stub(:options).and_return(options)
-      SCSSLint.stub(:extract_files_from).and_return(files)
+      subject.stub(:extract_files_from).and_return(files)
     end
 
     def safe_run
