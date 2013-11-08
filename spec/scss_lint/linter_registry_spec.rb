@@ -2,22 +2,31 @@ require 'spec_helper'
 
 describe SCSSLint::LinterRegistry do
   context 'when including the LinterRegistry module' do
+    after do
+      described_class.linters.delete(FakeLinter)
+    end
+
     it 'adds the linter to the set of registered linters' do
       expect do
         class FakeLinter < SCSSLint::Linter
           include SCSSLint::LinterRegistry
         end
-      end.to change { SCSSLint::LinterRegistry.linters.count }.by(1)
+      end.to change { described_class.linters.count }.by(1)
     end
   end
 
   describe '.extract_linters_from' do
     module SCSSLint
-      class Linter::SomeLinter < Linter; include LinterRegistry; end
-      class Linter::SomeOtherLinter < Linter::SomeLinter; end
+      class Linter::SomeLinter < Linter; end
+      class Linter::SomeOtherLinter < Linter; end
     end
+
     let(:linters) do
       [SCSSLint::Linter::SomeLinter, SCSSLint::Linter::SomeOtherLinter]
+    end
+
+    before do
+      described_class.stub(:linters).and_return(linters)
     end
 
     context 'when the linters exist' do
