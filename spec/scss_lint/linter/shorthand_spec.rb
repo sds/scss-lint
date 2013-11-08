@@ -146,5 +146,15 @@ describe SCSSLint::Linter::Shorthand do
 
       it { should report_lint line: 2 }
     end
+
+    context 'contains a number with no trailing semicolon' do
+      let(:css) { <<-CSS }
+        p {
+          margin: 4px
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
   end
 end

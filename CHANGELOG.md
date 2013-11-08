@@ -3,6 +3,8 @@
 ## master (unreleased)
 
 * Teach scss-lint to prefer Compass mixins over some CSS properties
+* Fix bug where `Shorthand` linter would crash on a numeric property value with
+  no trailing semicolon
 
 ## 0.12.0
 

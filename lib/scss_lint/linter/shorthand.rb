@@ -10,10 +10,7 @@ module SCSSLint
 
       case node.value
       when Sass::Script::Tree::Literal
-        # HACK: node_parent may not be initialized at this point, so we need to
-        # set it ourselves
-        node.value.value.node_parent = node.value
-        check_script_string(property_name, node.value.value)
+        check_script_literal(property_name, node.value)
       when Sass::Script::Tree::ListLiteral
         check_script_list(property_name, node.value)
       end
@@ -32,6 +29,18 @@ module SCSSLint
 
     def check_script_list(prop, list)
       check_shorthand(prop, list, list.children.map(&:to_sass))
+    end
+
+    def check_script_literal(prop, literal)
+      value = literal.value
+
+      # HACK: node_parent may not be initialized at this point, so we need to
+      # set it ourselves
+      value.node_parent = literal
+
+      if value.is_a?(Sass::Script::Value::String)
+        check_script_string(prop, value)
+      end
     end
 
     def check_script_string(prop, script_string)
