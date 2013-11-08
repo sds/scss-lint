@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.12.1
 
 * Teach scss-lint to prefer Compass mixins over some CSS properties
 * Fix bug where `Shorthand` linter would crash on a numeric property value with
