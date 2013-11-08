@@ -49,7 +49,8 @@ module SCSSLint
           linter.run(engine)
         rescue => error
           raise LinterError,
-                "#{linter.class} raised unexpected error: '#{error.message}'",
+                "#{linter.class} raised unexpected error linting file #{file}: " <<
+                "'#{error.message}'",
                 error.backtrace
         end
       end

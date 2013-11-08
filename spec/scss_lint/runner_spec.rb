@@ -101,6 +101,10 @@ describe SCSSLint::Runner do
         expect { subject }.to raise_error(SCSSLint::LinterError)
       end
 
+      it 'has the name of the file the linter was checking' do
+        expect { subject }.to raise_error { |e| e.message.should include files.first }
+      end
+
       it 'has the same backtrace as the original error' do
         expect { subject }.to raise_error { |e| e.backtrace.should == backtrace }
       end
