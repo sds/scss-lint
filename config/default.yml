@@ -1,0 +1,76 @@
+# Default application configuration that all configurations inherit from.
+linters:
+  BorderZero:
+    enabled: true
+
+  CapitalizationInSelector:
+    enabled: true
+
+  ColorKeyword:
+    enabled: true
+
+  Comment:
+    enabled: true
+
+  DebugStatement:
+    enabled: true
+
+  DeclarationOrder:
+    enabled: true
+
+  DeclaredName:
+    enabled: true
+
+  DuplicateProperty:
+    enabled: true
+
+  EmptyRule:
+    enabled: true
+
+  HexFormat:
+    enabled: true
+
+  IdWithExtraneousSelector:
+    enabled: true
+
+  Indentation:
+    enabled: true
+
+  LeadingZero:
+    enabled: true
+
+  PlaceholderInExtend:
+    enabled: true
+
+  Shorthand:
+    enabled: true
+
+  SingleLinePerSelector:
+    enabled: true
+
+  SortedProperties:
+    enabled: true
+
+  SpaceAfterComma:
+    enabled: true
+
+  SpaceAfterPropertyColon:
+    enabled: true
+
+  SpaceAfterPropertyName:
+    enabled: true
+
+  SpaceBeforeBrace:
+    enabled: true
+
+  TrailingSemicolonAfterPropertyValue:
+    enabled: true
+
+  UsageName:
+    enabled: true
+
+  ZeroUnit:
+    enabled: true
+
+  Compass::PropertyWithMixin:
+    enabled: false
