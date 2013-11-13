@@ -9,7 +9,7 @@ module SCSSLint
 
     class << self
       def default
-        @default ||= load(DEFAULT_FILE, merge_with_default: false)
+        load(DEFAULT_FILE, merge_with_default: false)
       end
 
       # Loads a configuration from a file, merging it with the default
@@ -97,8 +97,24 @@ module SCSSLint
     end
     alias :eql? :==
 
-    def linter_enabled?(linter)
-      linter_options(linter)['enabled']
+    def enabled_linters
+      LinterRegistry.extract_linters_from(@options['linters'].keys).select do |linter|
+        linter_options(linter)['enabled']
+      end
+    end
+
+    def enable_linter(linter)
+      linter_options(linter)['enabled'] = true
+    end
+
+    def disable_linter(linter)
+      linter_options(linter)['enabled'] = false
+    end
+
+    def disable_all_linters
+      @options['linters'].values.each do |linter_config|
+        linter_config['enabled'] = false
+      end
     end
 
     def linter_options(linter)
@@ -108,7 +124,8 @@ module SCSSLint
   private
 
     def linter_name(linter)
-      linter.class.name.split('::')[2..-1].join('::')
+      linter = linter.is_a?(Class) ? linter : linter.class
+      linter.name.split('::')[2..-1].join('::')
     end
 
     def validate_linters

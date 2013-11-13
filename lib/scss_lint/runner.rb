@@ -8,18 +8,9 @@ module SCSSLint
   class Runner
     attr_reader :linters, :lints
 
-    def initialize(options = {})
+    def initialize(config)
       @lints = []
-
-      included_linters = LinterRegistry.
-        extract_linters_from(options.fetch(:included_linters, []))
-
-      included_linters = LinterRegistry.linters if included_linters.empty?
-
-      excluded_linters = LinterRegistry.
-        extract_linters_from(options.fetch(:excluded_linters, []))
-
-      @linters = (included_linters - excluded_linters).map(&:new)
+      @linters = LinterRegistry.linters.map(&:new)
     end
 
     def run(files = [])
@@ -30,7 +21,7 @@ module SCSSLint
         find_lints(file)
       end
 
-      linters.each do |linter|
+      @linters.each do |linter|
         @lints += linter.lints
       end
     end
@@ -44,7 +35,7 @@ module SCSSLint
     def find_lints(file)
       engine = Engine.new(file)
 
-      linters.each do |linter|
+      @linters.each do |linter|
         begin
           linter.run(engine)
         rescue => error

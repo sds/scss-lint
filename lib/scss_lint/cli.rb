@@ -5,11 +5,12 @@ module SCSSLint
   # Responsible for parsing command-line options and executing the appropriate
   # application logic based on the options specified.
   class CLI
-    attr_accessor :options
+    attr_reader :config, :options
 
     def initialize(args = [])
       @args = args
       @options = {}
+      @config = Config.default
     end
 
     def parse_arguments
@@ -19,19 +20,23 @@ module SCSSLint
         opts.separator ''
         opts.separator 'Common options:'
 
+        opts.on('-c', '--config file', 'Specify configuration file', String) do |file|
+          @options[:config_file] = file
+        end
+
         opts.on('-e', '--exclude file,...', Array,
                 'List of file names to exclude') do |files|
-          options[:excluded_files] = files
+          @options[:excluded_files] = files
         end
 
         opts.on('-i', '--include-linter linter,...', Array,
                 'Specify which linters you want to run') do |linters|
-          options[:included_linters] = linters
+          @options[:included_linters] = linters
         end
 
         opts.on('-x', '--exclude-linter linter,...', Array,
                 "Specify which linters you don't want to run") do |linters|
-          options[:excluded_linters] = linters
+          @options[:excluded_linters] = linters
         end
 
         opts.on_tail('--show-linters', 'Shows available linters') do
@@ -47,7 +52,7 @@ module SCSSLint
         end
 
         opts.on('--xml', 'Output the results in XML format') do
-          options[:reporter] = SCSSLint::Reporter::XMLReporter
+          @options[:reporter] = SCSSLint::Reporter::XMLReporter
         end
       end
 
@@ -55,14 +60,21 @@ module SCSSLint
         parser.parse!(@args)
 
         # Take the rest of the arguments as files/directories
-        options[:files] = @args
+        @options[:files] = @args
       rescue OptionParser::InvalidOption => ex
         print_help parser.help, ex
+      end
+
+      begin
+        setup_configuration
+      rescue NoSuchLinter => ex
+        puts ex.message
+        halt(-1)
       end
     end
 
     def run
-      runner = Runner.new(options)
+      runner = Runner.new(@config)
       runner.run(find_files)
       report_lints(runner.lints)
       halt(1) if runner.lints?
@@ -78,10 +90,27 @@ module SCSSLint
 
   private
 
-    def find_files
-      excluded_files = options.fetch(:excluded_files, [])
+    def setup_configuration
+      @config = Config.load(@options[:config_file]) if @options[:config_file]
 
-      extract_files_from(options[:files]).reject do |file|
+      if @options[:included_linters]
+        @config.disable_all_linters
+        LinterRegistry.extract_linters_from(@options[:included_linters]).each do |linter|
+          @config.enable_linter(linter)
+        end
+      end
+
+      if @options[:excluded_linters]
+        LinterRegistry.extract_linters_from(@options[:excluded_linters]).each do |linter|
+          @config.disable_linter(linter)
+        end
+      end
+    end
+
+    def find_files
+      excluded_files = @options.fetch(:excluded_files, [])
+
+      extract_files_from(@options[:files]).reject do |file|
         excluded_files.include?(file)
       end
     end
@@ -105,7 +134,8 @@ module SCSSLint
 
     def report_lints(lints)
       sorted_lints = lints.sort_by { |l| [l.filename, l.line] }
-      reporter = options.fetch(:reporter, Reporter::DefaultReporter).new(sorted_lints)
+      reporter = @options.fetch(:reporter, Reporter::DefaultReporter)
+                         .new(sorted_lints)
       output = reporter.report_lints
       print output if output
     end

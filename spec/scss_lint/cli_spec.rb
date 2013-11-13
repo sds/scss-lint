@@ -1,16 +1,35 @@
 require 'spec_helper'
 
 describe SCSSLint::CLI do
+  let(:config_options) do
+    {
+      'linters' => {
+        'FakeTestLinter1' => { 'enabled' => true },
+        'FakeTestLinter2' => { 'enabled' => true },
+      },
+    }
+  end
+
+  let(:config) { SCSSLint::Config.new(config_options) }
+
+  class SCSSLint::Linter::FakeTestLinter1 < SCSSLint::Linter; end
+  class SCSSLint::Linter::FakeTestLinter2 < SCSSLint::Linter; end
+
   before do
     # Silence console output
     @output = ''
     STDOUT.stub!(:write) { |*args| @output.<<(*args) }
+
+    SCSSLint::Config.stub(:load).and_return(config)
+    SCSSLint::LinterRegistry.stub(:linters)
+                            .and_return([SCSSLint::Linter::FakeTestLinter1,
+                                         SCSSLint::Linter::FakeTestLinter2])
   end
 
   describe '#parse_arguments' do
     let(:files)   { ['file1.scss', 'file2.scss'] }
-    let(:options) { [] }
-    subject       { SCSSLint::CLI.new(options + files) }
+    let(:flags) { [] }
+    subject       { SCSSLint::CLI.new(flags + files) }
 
     def safe_parse
       subject.parse_arguments
@@ -18,8 +37,18 @@ describe SCSSLint::CLI do
       # Keep running tests
     end
 
+    context 'when the config_file flag is set' do
+      let(:config_file) { 'my-config-file.yml' }
+      let(:flags) { ['-c', config_file] }
+
+      it 'loads that config file' do
+        SCSSLint::Config.should_receive(:load).with(config_file)
+        safe_parse
+      end
+    end
+
     context 'when the excluded files flag is set' do
-      let(:options) { ['-e', 'file1.scss,file3.scss'] }
+      let(:flags) { ['-e', 'file1.scss,file3.scss'] }
 
       it 'sets the :excluded_files option' do
         safe_parse
@@ -28,25 +57,25 @@ describe SCSSLint::CLI do
     end
 
     context 'when the include linters flag is set' do
-      let(:options) { ['-i', 'SomeLinterName'] }
+      let(:flags) { %w[-i FakeTestLinter2] }
 
-      it 'sets the :included_linters option' do
+      it 'enables only the included linters' do
         safe_parse
-        subject.options[:included_linters].should == ['SomeLinterName']
+        subject.config.enabled_linters.should == [SCSSLint::Linter::FakeTestLinter2]
       end
     end
 
     context 'when the exclude linters flag is set' do
-      let(:options) { ['-x', 'SomeLinterName'] }
+      let(:flags) { %w[-x FakeTestLinter1] }
 
-      it 'sets the :excluded_linters option' do
+      it 'includes all linters except the excluded one' do
         safe_parse
-        subject.options[:excluded_linters].should == ['SomeLinterName']
+        subject.config.enabled_linters.should == [SCSSLint::Linter::FakeTestLinter2]
       end
     end
 
     context 'when the XML flag is set' do
-      let(:options) { ['--xml'] }
+      let(:flags) { ['--xml'] }
 
       it 'sets the :reporter option to the XML reporter' do
         safe_parse
@@ -55,7 +84,7 @@ describe SCSSLint::CLI do
     end
 
     context 'when the show linters flag is set' do
-      let(:options) { ['--show-linters'] }
+      let(:flags) { ['--show-linters'] }
 
       it 'prints the linters' do
         subject.should_receive(:print_linters)
@@ -64,7 +93,7 @@ describe SCSSLint::CLI do
     end
 
     context 'when the help flag is set' do
-      let(:options) { ['-h'] }
+      let(:flags) { ['-h'] }
 
       it 'prints a help message' do
         subject.should_receive(:print_help)
@@ -73,7 +102,7 @@ describe SCSSLint::CLI do
     end
 
     context 'when the version flag is set' do
-      let(:options) { ['-v'] }
+      let(:flags) { ['-v'] }
 
       it 'prints the program version' do
         subject.should_receive(:print_version)
@@ -82,7 +111,7 @@ describe SCSSLint::CLI do
     end
 
     context 'when an invalid option is specified' do
-      let(:options) { ['--non-existant-option'] }
+      let(:flags) { ['--non-existant-option'] }
 
       it 'prints a help message' do
         subject.should_receive(:print_help)
@@ -110,10 +139,9 @@ describe SCSSLint::CLI do
   describe '#run' do
     let(:files)   { ['file1.scss', 'file2.scss'] }
     let(:options) { {} }
-    subject       { SCSSLint::CLI.new }
+    subject       { SCSSLint::CLI.new(options) }
 
     before do
-      subject.stub(:options).and_return(options)
       subject.stub(:extract_files_from).and_return(files)
     end
 
