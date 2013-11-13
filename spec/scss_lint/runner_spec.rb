@@ -1,8 +1,17 @@
 require 'spec_helper'
 
 describe SCSSLint::Runner do
-  let(:config) { SCSSLint::Config.default.dup }
-  let(:runner) { SCSSLint::Runner.new(config) }
+  let(:config_options) do
+    {
+      'linters' => {
+        'FakeLinter1' => { 'enabled' => true },
+        'FakeLinter2' => { 'enabled' => false },
+      },
+    }
+  end
+
+  let(:config) { SCSSLint::Config.new(config_options) }
+  let(:runner) { described_class.new(config) }
 
   before do
     SCSSLint::LinterRegistry.stub(:linters)

@@ -1,10 +1,13 @@
+require 'pathname'
 require 'yaml'
 
 module SCSSLint
   # Loads and manages application configuration.
   class Config
+    FILE_NAME = '.scss-lint.yml'
     DEFAULT_FILE = File.join(SCSS_LINT_HOME, 'config', 'default.yml')
 
+    attr_accessor :preferred # If this config should be preferred over others
     attr_reader :options, :warnings
 
     class << self
@@ -24,7 +27,25 @@ module SCSSLint
         Config.new(options)
       end
 
+      # Loads the configuration for a given file.
+      def for_file(file_path)
+        directory = File.dirname(file_path)
+        @dir_to_config ||= {}
+        @dir_to_config[directory] ||=
+          begin
+            config_file = possible_config_files(directory).find { |path| path.file? }
+            Config.load(config_file.to_s) if config_file
+          end
+      end
+
     private
+
+      def possible_config_files(directory)
+        files = Pathname.new(directory)
+                        .enum_for(:ascend)
+                        .map { |path| path + FILE_NAME }
+        files << Pathname.new(FILE_NAME)
+      end
 
       def default_options_hash
         @default_options_hash ||= load_options_hash_from_file(DEFAULT_FILE)
@@ -101,6 +122,10 @@ module SCSSLint
       LinterRegistry.extract_linters_from(@options['linters'].keys).select do |linter|
         linter_options(linter)['enabled']
       end
+    end
+
+    def linter_enabled?(linter)
+      linter_options(linter)['enabled']
     end
 
     def enable_linter(linter)

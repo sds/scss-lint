@@ -91,7 +91,10 @@ module SCSSLint
   private
 
     def setup_configuration
-      @config = Config.load(@options[:config_file]) if @options[:config_file]
+      if @options[:config_file]
+        @config = Config.load(@options[:config_file])
+        @config.preferred = true
+      end
 
       if @options[:included_linters]
         @config.disable_all_linters

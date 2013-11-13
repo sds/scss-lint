@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'fileutils'
 
 describe SCSSLint::Config do
   class SCSSLint::Linter::FakeConfigLinter < SCSSLint::Linter; end
@@ -239,6 +240,53 @@ describe SCSSLint::Config do
               'some_other_option' => 'value',
             }
         end
+      end
+    end
+  end
+
+  describe '.for_file' do
+    include_context 'isolated environment'
+
+    let(:linted_file) { File.join('foo', 'bar', 'baz', 'file-being-linted.scss') }
+    subject { described_class.for_file(linted_file) }
+
+    before do
+      described_class.instance_variable_set(:@dir_to_config, nil) # Clear cache
+      FileUtils.mkpath(File.dirname(linted_file))
+      FileUtils.touch(linted_file)
+    end
+
+    context 'when there are no configuration files in the directory hierarchy' do
+      it { should be_nil }
+    end
+
+    context 'when there is a configuration file in the same directory' do
+      let(:config_file) { File.join('foo', 'bar', 'baz', '.scss-lint.yml') }
+      before { FileUtils.touch(config_file) }
+
+      it 'loads that configuration file' do
+        described_class.should_receive(:load).with(config_file)
+        subject
+      end
+    end
+
+    context 'when there is a configuration file in the parent directory' do
+      let(:config_file) { File.join('foo', 'bar', '.scss-lint.yml') }
+      before { FileUtils.touch(config_file) }
+
+      it 'loads that configuration file' do
+        described_class.should_receive(:load).with(config_file)
+        subject
+      end
+    end
+
+    context 'when there is a configuration file in some ancestor directory' do
+      let(:config_file) { File.join('foo', '.scss-lint.yml') }
+      before { FileUtils.touch(config_file) }
+
+      it 'loads that configuration file' do
+        described_class.should_receive(:load).with(config_file)
+        subject
       end
     end
   end

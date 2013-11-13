@@ -9,6 +9,7 @@ module SCSSLint
     attr_reader :linters, :lints
 
     def initialize(config)
+      @config = config
       @lints = []
       @linters = LinterRegistry.linters.map(&:new)
     end
@@ -30,8 +31,12 @@ module SCSSLint
 
     def find_lints(file)
       engine = Engine.new(file)
+      config = @config.preferred ? @config : Config.for_file(file)
+      config ||= @config
 
       @linters.each do |linter|
+        next unless config.linter_enabled?(linter)
+
         begin
           linter.run(engine)
         rescue => error
