@@ -6,8 +6,8 @@
 
 `scss-lint` is a tool to help keep your [SCSS](http://sass-lang.com) files
 clean and readable. You can run it manually from the command-line, or integrate
-it into your SCM hooks. It uses rules established by the team at
-[Causes.com](https://causes.com).
+it into your [SCM hooks](https://github.com/causes/overcommit). It uses rules
+established by the team at [Causes.com](https://causes.com).
 
 ## Requirements
 
@@ -33,6 +33,53 @@ You can also specify a list of files explicitly:
 
 `scss-lint` will output any problems with your SCSS, including the offending
 filename and line number (if available).
+
+Command Line Flag         | Description
+--------------------------|----------------------------------------------------
+`-c`/`--config`           | Specify a configuration file to use
+`-e`/`--exclude`          | Exclude file from being linted
+`-i`/`--include-linter`   | Specify which linters you specifically want to run
+`-x`/`--exclude-linter`   | Specify which linters you _don't_ want to run
+`-h`/`--help`             | Show command line flag documentation
+`--show-linters`          | Show all registered linters
+`-v`/`--version`          | Show version
+
+## Configuration
+
+`scss-lint` will automatically recognize and load any file with the name
+`.scss-lint.yml` as a configuration file. It loads the configuration based on
+the location of the file being linted, starting from that file's directory and
+ascending until a configuration file is found. Any configuration loaded is
+automatically merged with the default configuration (see `config/default.yml`).
+
+The configuration file is structured like so:
+
+```yaml
+inherit_from: '../../inherited-config.yml'
+
+linters:
+  BorderZero:
+    enabled: false
+
+  Indentation:
+    enabled: true
+    width: 2
+```
+
+All linters have an `enabled` option which can be `true` or `false`, which
+controls whether the linter is run. Otherwise, each linter defines its own
+configuration options. The defaults are defined in `config/default.yml`.
+
+The `inherit_from` directive allows a configuration file to inherit settings
+from another configuration file. The file specified by `inherit_from` is loaded
+and then merged with the settings in the current file (settings in the current
+file overrule those in the inherited file).
+
+You can also configure `scss-lint` by specifying a file via the `--config`
+flag, but note that this will override any configuration files that `scss-lint`
+would normally find on its own (this can be useful for testing a particular
+configuration setting, however). Configurations loaded this way will still be
+merged with the default configuration specified by `config/default.yml`.
 
 ## What Gets Linted
 
@@ -380,7 +427,7 @@ Speaking of tests, we use `rspec`, which can be run like so:
 If you're interested in seeing the changes and bug fixes between each version
 of `scss-lint`, read the [SCSS-Lint Changelog](CHANGELOG.md).
 
-## See also
+## See Also
 
 If you'd like to integrate `scss-lint` with Git, check out our Git hook gem,
 [overcommit](https://github.com/causes/overcommit).
