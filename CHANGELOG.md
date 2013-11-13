@@ -1,5 +1,11 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Teach scss-lint to load configuration via the `--config` flag
+* Teach scss-lint to load configuration based on location of file being linted
+* Allow `Indentation` linter to have configurable indent width
+
 ## 0.12.1
 
 * Teach scss-lint to prefer Compass mixins over some CSS properties
