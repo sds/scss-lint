@@ -26,10 +26,6 @@ module SCSSLint
       end
     end
 
-    def lints?
-      lints.any?
-    end
-
   private
 
     def find_lints(file)

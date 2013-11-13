@@ -77,7 +77,7 @@ module SCSSLint
       runner = Runner.new(@config)
       runner.run(find_files)
       report_lints(runner.lints)
-      halt(1) if runner.lints?
+      halt(1) if runner.lints.any?
     rescue NoFilesError, NoSuchLinter, Errno::ENOENT => ex
       puts ex.message
       halt(-1)
