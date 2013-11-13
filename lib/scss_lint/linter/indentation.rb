@@ -4,6 +4,7 @@ module SCSSLint
     include LinterRegistry
 
     def visit_root(node)
+      @indent_width = config['width']
       @indent = 0
       yield
     end
@@ -14,9 +15,9 @@ module SCSSLint
       # indentation problems as that would likely make the lint too noisy.
       return if check_indentation(node)
 
-      @indent += INDENT_WIDTH
+      @indent += @indent_width
       yield
-      @indent -= INDENT_WIDTH
+      @indent -= @indent_width
     end
 
     def check_indentation(node)
@@ -64,9 +65,5 @@ module SCSSLint
     alias :visit_return     :check_indentation
     alias :visit_variable   :check_indentation
     alias :visit_warn       :check_indentation
-
-  private
-
-    INDENT_WIDTH = 2
   end
 end

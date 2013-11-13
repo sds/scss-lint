@@ -11,7 +11,16 @@ RSpec.configure do |config|
     if described_class < SCSSLint::Linter
       initial_indent = css[/\A(\s*)/, 1]
       normalized_css = css.gsub(/^#{initial_indent}/, '')
-      subject.run(SCSSLint::Engine.new(normalized_css))
+
+      # Use the configuration settings defined by default unless a specific
+      # configuration has been provided for the test.
+      local_config = if respond_to?(:linter_config)
+                       linter_config
+                     else
+                       SCSSLint::Config.default.linter_options(subject)
+                     end
+
+      subject.run(SCSSLint::Engine.new(normalized_css), local_config)
     end
   end
 end

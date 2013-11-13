@@ -117,4 +117,18 @@ describe SCSSLint::Linter::Indentation do
 
     it { should_not report_lint }
   end
+
+  context 'when the indentation width has been explicitly set' do
+    let(:linter_config) { { 'width' => 3 } }
+
+    let(:css) { <<-CSS }
+      p {
+        margin: 0;
+         padding: 5px;
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+    it { should_not report_lint line: 3 }
+  end
 end

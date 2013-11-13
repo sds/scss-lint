@@ -1,15 +1,17 @@
 module SCSSLint
+  # Defines common functionality available to all linters.
   class Linter < Sass::Tree::Visitors::Base
     include SelectorVisitor
     include Utils
 
-    attr_reader :engine, :lints
+    attr_reader :config, :engine, :lints
 
     def initialize
       @lints = []
     end
 
-    def run(engine)
+    def run(engine, config)
+      @config = config
       @engine = engine
       visit(engine.tree)
     end

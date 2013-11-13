@@ -38,7 +38,7 @@ module SCSSLint
         next unless config.linter_enabled?(linter)
 
         begin
-          linter.run(engine)
+          linter.run(engine, config.linter_options(linter))
         rescue => error
           raise LinterError,
                 "#{linter.class} raised unexpected error linting file #{file}: " <<
