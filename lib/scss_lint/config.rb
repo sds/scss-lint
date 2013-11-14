@@ -17,10 +17,10 @@ module SCSSLint
 
       # Loads a configuration from a file, merging it with the default
       # configuration.
-      def load(file, merge_with_default: true)
+      def load(file, options = {})
         options = load_options_hash_from_file(file)
 
-        if merge_with_default
+        if options.fetch(:merge_with_default, true)
           options = smart_merge(default_options_hash, options)
         end
 
