@@ -14,7 +14,7 @@ module SCSSLint
       @linters = LinterRegistry.linters.map(&:new)
     end
 
-    def run(files = [])
+    def run(files)
       raise NoFilesError, 'No SCSS files specified' if files.empty?
       raise NoLintersError, 'No linters specified' if linters.empty?
 

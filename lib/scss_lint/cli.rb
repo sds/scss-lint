@@ -75,7 +75,7 @@ module SCSSLint
 
     def run
       runner = Runner.new(@config)
-      runner.run(find_files)
+      runner.run(files_to_lint)
       report_lints(runner.lints)
       halt(1) if runner.lints.any?
     rescue NoFilesError, NoSuchLinter, Errno::ENOENT => ex
@@ -96,25 +96,42 @@ module SCSSLint
         @config.preferred = true
       end
 
+      merge_command_line_flags_with_config(@config)
+    end
+
+    def merge_command_line_flags_with_config(config)
+      if @options[:excluded_files]
+        @options[:excluded_files].each do |file|
+          config.exclude_file(file)
+        end
+      end
+
       if @options[:included_linters]
-        @config.disable_all_linters
+        config.disable_all_linters
         LinterRegistry.extract_linters_from(@options[:included_linters]).each do |linter|
-          @config.enable_linter(linter)
+          config.enable_linter(linter)
         end
       end
 
       if @options[:excluded_linters]
         LinterRegistry.extract_linters_from(@options[:excluded_linters]).each do |linter|
-          @config.disable_linter(linter)
+          config.disable_linter(linter)
         end
       end
+
+      config
     end
 
-    def find_files
-      excluded_files = @options.fetch(:excluded_files, [])
-
+    def files_to_lint
       extract_files_from(@options[:files]).reject do |file|
-        excluded_files.include?(file)
+        config =
+          if !@config.preferred && (config_for_file = Config.for_file(file))
+            merge_command_line_flags_with_config(config_for_file.dup)
+          else
+            @config
+          end
+
+        config.excluded_file?(file)
       end
     end
 

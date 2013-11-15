@@ -29,7 +29,7 @@ module SCSSLint
 
       # Loads the configuration for a given file.
       def for_file(file_path)
-        directory = File.dirname(file_path)
+        directory = File.dirname(File.expand_path(file_path))
         @dir_to_config ||= {}
         @dir_to_config[directory] ||=
           begin
@@ -63,6 +63,14 @@ module SCSSLint
             YAML.load(file_contents).to_hash
           end
 
+        if options['exclude']
+          # Ensure exclude is an array, since we allow user to specify a single
+          # string. We do this before merging with the config loaded via
+          # inherit_form since this allows us to merge the excludes from that,
+          # rather than overwriting them.
+          options['exclude'] = [options['exclude']].flatten
+        end
+
         if options['inherit_from']
           includes = [options.delete('inherit_from')].flatten.map do |include_file|
             load_options_hash_from_file(path_relative_to_config(include_file, file))
@@ -73,6 +81,20 @@ module SCSSLint
           end
 
           options = smart_merge(merged_includes, options)
+        end
+
+        # Ensure all excludes are absolute paths
+        if options['exclude']
+          excludes = [options['exclude']].flatten
+
+          options['exclude'] = excludes.map do |exclusion_glob|
+            if exclusion_glob.start_with?('/')
+              exclusion_glob
+            else
+              # Expand the path assuming it is relative to the config file itself
+              File.expand_path(exclusion_glob, File.expand_path(File.dirname(file)))
+            end
+          end
         end
 
         options
@@ -144,6 +166,21 @@ module SCSSLint
 
     def linter_options(linter)
       @options['linters'][linter_name(linter)]
+    end
+
+    def excluded_file?(file_path)
+      abs_path = File.expand_path(file_path)
+
+      @options.fetch('exclude', []).any? do |exclusion_glob|
+        File.fnmatch(exclusion_glob, abs_path)
+      end
+    end
+
+    def exclude_file(file_path)
+      abs_path = File.expand_path(file_path)
+
+      @options['exclude'] ||= []
+      @options['exclude'] << abs_path
     end
 
   private

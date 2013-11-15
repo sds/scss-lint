@@ -5,6 +5,8 @@
 * Teach scss-lint to load configuration via the `--config` flag
 * Teach scss-lint to load configuration based on location of file being linted
 * Allow `Indentation` linter to have configurable indent width
+* Add `exclude` directive to configuration system, allowing you to specify glob
+  patterns of files to not lint
 
 ## 0.12.1
 

@@ -37,7 +37,7 @@ filename and line number (if available).
 Command Line Flag         | Description
 --------------------------|----------------------------------------------------
 `-c`/`--config`           | Specify a configuration file to use
-`-e`/`--exclude`          | Exclude file from being linted
+`-e`/`--exclude`          | Exclude one or more files from being linted
 `-i`/`--include-linter`   | Specify which linters you specifically want to run
 `-x`/`--exclude-linter`   | Specify which linters you _don't_ want to run
 `-h`/`--help`             | Show command line flag documentation
@@ -52,10 +52,12 @@ the location of the file being linted, starting from that file's directory and
 ascending until a configuration file is found. Any configuration loaded is
 automatically merged with the default configuration (see `config/default.yml`).
 
-The configuration file is structured like so:
+Here's an example configuration file:
 
 ```yaml
 inherit_from: '../../inherited-config.yml'
+
+exclude: 'app/assets/stylesheets/plugins/**'
 
 linters:
   BorderZero:
@@ -67,13 +69,19 @@ linters:
 ```
 
 All linters have an `enabled` option which can be `true` or `false`, which
-controls whether the linter is run. Otherwise, each linter defines its own
-configuration options. The defaults are defined in `config/default.yml`.
+controls whether the linter is run, along with linter-specific options.  The
+defaults are defined in `config/default.yml`.
 
 The `inherit_from` directive allows a configuration file to inherit settings
 from another configuration file. The file specified by `inherit_from` is loaded
 and then merged with the settings in the current file (settings in the current
 file overrule those in the inherited file).
+
+The `exclude` directive allows you to specify a glob pattern of files that
+should not be linted by `scss-lint`. Paths are relative to the location of the
+config file itself if they are not absolute paths. If an inherited file
+specifies the `exclude` directive, the two exclusion lists are combined. Any
+additional exclusions specified via the `--exclude` flag are also combined.
 
 You can also configure `scss-lint` by specifying a file via the `--config`
 flag, but note that this will override any configuration files that `scss-lint`

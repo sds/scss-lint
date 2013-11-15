@@ -265,7 +265,7 @@ describe SCSSLint::Config do
       before { FileUtils.touch(config_file) }
 
       it 'loads that configuration file' do
-        described_class.should_receive(:load).with(config_file)
+        described_class.should_receive(:load).with(File.expand_path(config_file))
         subject
       end
     end
@@ -275,7 +275,7 @@ describe SCSSLint::Config do
       before { FileUtils.touch(config_file) }
 
       it 'loads that configuration file' do
-        described_class.should_receive(:load).with(config_file)
+        described_class.should_receive(:load).with(File.expand_path(config_file))
         subject
       end
     end
@@ -285,7 +285,7 @@ describe SCSSLint::Config do
       before { FileUtils.touch(config_file) }
 
       it 'loads that configuration file' do
-        described_class.should_receive(:load).with(config_file)
+        described_class.should_receive(:load).with(File.expand_path(config_file))
         subject
       end
     end
@@ -314,6 +314,42 @@ describe SCSSLint::Config do
 
     it 'returns the options for the specified linter' do
       subject.should == linter_options
+    end
+  end
+
+  describe '#excluded_file?' do
+    include_context 'isolated environment'
+
+    let(:config_dir) { 'path/to' }
+    let(:file_name) { "#{config_dir}/config.yml" }
+    let(:config) { described_class.load(file_name) }
+
+    before do
+      described_class.stub(:load_file_contents)
+                     .with(file_name)
+                     .and_return(config_file)
+    end
+
+    context 'when no exclusion is specified' do
+      let(:config_file) { 'linters: {}' }
+
+      it 'does not exclude any files' do
+        config.excluded_file?('anything/you/want.scss').should be_false
+      end
+    end
+
+    context 'when an exclusion is specified' do
+      let(:config_file) { "exclude: 'foo/bar/baz/**'" }
+
+      it 'does not exclude anything not matching the glob' do
+        config.excluded_file?("#{config_dir}/foo/bar/something.scss").should be_false
+        config.excluded_file?("#{config_dir}/other/something.scss").should be_false
+      end
+
+      it 'excludes anything matching the glob' do
+        config.excluded_file?("#{config_dir}/foo/bar/baz/excluded.scss").should be_true
+        config.excluded_file?("#{config_dir}/foo/bar/baz/dir/excluded.scss").should be_true
+      end
     end
   end
 end
