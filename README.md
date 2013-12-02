@@ -392,7 +392,7 @@ Any lint can be disabled by using the `--exclude_linter` flag.
 
     // Correct
     p {
-      color: $fff;
+      color: #fff;
     }
     ```
 
