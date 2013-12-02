@@ -26,7 +26,11 @@ describe SCSSLint::Runner do
   describe '#run' do
     let(:files) { ['dummy1.scss', 'dummy2.scss'] }
     subject     { runner.run(files) }
-    before      { SCSSLint::Engine.stub(:new) }
+
+    before do
+      SCSSLint::Engine.stub(:new)
+      SCSSLint::Linter.any_instance.stub(:run)
+    end
 
     it 'searches for lints in each file' do
       runner.should_receive(:find_lints).exactly(files.size).times
@@ -37,15 +41,28 @@ describe SCSSLint::Runner do
       let(:files) { [] }
 
       it 'raises an error' do
-        expect { subject }.to raise_error
+        expect { subject }.to raise_error SCSSLint::NoFilesError
       end
     end
 
-    context 'when no linters are enabled' do
-      before { config.stub(:enabled_linters) { [] } }
+    context 'when all linters are disabled' do
+      let(:config_options) do
+        {
+          'linters' => {
+            'FakeLinter1' => { 'enabled' => false },
+            'FakeLinter2' => { 'enabled' => false },
+          },
+        }
+      end
 
-      it 'raises an error' do
-        expect { subject }.to raise_error
+      before do
+        SCSSLint::Linter.any_instance
+                        .stub(:run)
+                        .and_raise(RuntimeError.new('Linter#run was called'))
+      end
+
+      it 'never runs a linter' do
+        expect { subject }.to_not raise_error
       end
     end
 

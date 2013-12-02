@@ -1,12 +1,11 @@
 module SCSSLint
   class LinterError < StandardError; end
   class NoFilesError < StandardError; end
-  class NoLintersError < StandardError; end
 
   # Finds and aggregates all lints found by running the registered linters
   # against a set of SCSS files.
   class Runner
-    attr_reader :linters, :lints
+    attr_reader :lints
 
     def initialize(config)
       @config = config
@@ -16,7 +15,6 @@ module SCSSLint
 
     def run(files)
       raise NoFilesError, 'No SCSS files specified' if files.empty?
-      raise NoLintersError, 'No linters specified' if linters.empty?
 
       files.each do |file|
         find_lints(file)
