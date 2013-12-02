@@ -14,7 +14,25 @@ module SCSSLint
     end
 
     def parse_arguments
-      parser = OptionParser.new do |opts|
+      begin
+        options_parser.parse!(@args)
+
+        # Take the rest of the arguments as files/directories
+        @options[:files] = @args
+      rescue OptionParser::InvalidOption => ex
+        print_help options_parser.help, ex
+      end
+
+      begin
+        setup_configuration
+      rescue NoSuchLinter => ex
+        puts ex.message
+        halt(-1)
+      end
+    end
+
+    def options_parser
+      @options_parser ||= OptionParser.new do |opts|
         opts.banner = "Usage: #{opts.program_name} [options] [scss-files]"
 
         opts.separator ''
@@ -54,22 +72,6 @@ module SCSSLint
         opts.on('--xml', 'Output the results in XML format') do
           @options[:reporter] = SCSSLint::Reporter::XMLReporter
         end
-      end
-
-      begin
-        parser.parse!(@args)
-
-        # Take the rest of the arguments as files/directories
-        @options[:files] = @args
-      rescue OptionParser::InvalidOption => ex
-        print_help parser.help, ex
-      end
-
-      begin
-        setup_configuration
-      rescue NoSuchLinter => ex
-        puts ex.message
-        halt(-1)
       end
     end
 
