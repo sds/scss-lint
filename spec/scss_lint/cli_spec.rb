@@ -63,6 +63,15 @@ describe SCSSLint::CLI do
         safe_parse
         subject.config.enabled_linters.should == [SCSSLint::Linter::FakeTestLinter2]
       end
+
+      context 'and the included linter does not exist' do
+        let(:flags) { %w[-i NonExistentLinter] }
+
+        it 'halts with a configuration error code' do
+          subject.should_receive(:halt).with(:config)
+          safe_parse
+        end
+      end
     end
 
     context 'when the exclude linters flag is set' do
@@ -154,8 +163,8 @@ describe SCSSLint::CLI do
     context 'when no files are specified' do
       let(:files) { [] }
 
-      it 'exits with non-zero status' do
-        subject.should_receive(:halt).with(1)
+      it 'exits with a no-input status code' do
+        subject.should_receive(:halt).with(:no_input)
         safe_run
       end
     end
@@ -199,8 +208,8 @@ describe SCSSLint::CLI do
 
       before { SCSSLint::Runner.stub(:new).and_raise(error) }
 
-      it 'exits with a non-zero status' do
-        subject.should_receive(:halt).with(1)
+      it 'exits with an internal software error status code' do
+        subject.should_receive(:halt).with(:software)
         safe_run
       end
 

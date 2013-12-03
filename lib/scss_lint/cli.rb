@@ -7,6 +7,16 @@ module SCSSLint
   class CLI
     attr_reader :config, :options
 
+    # Subset of semantic exit codes conforming to `sysexits` documentation.
+    EXIT_CODES = {
+      ok: 0,
+      usage: 64,      # Command line usage error
+      data: 65,       # User input was incorrect (i.e. contains lints)
+      no_input: 66,   # Input file did not exist or was not readable
+      software: 70,   # Internal software error
+      config: 78,     # Configuration error
+    }
+
     def initialize(args = [])
       @args = args
       @options = {}
@@ -27,7 +37,7 @@ module SCSSLint
         setup_configuration
       rescue NoSuchLinter => ex
         puts ex.message
-        halt(1)
+        halt :config
       end
     end
 
@@ -79,15 +89,18 @@ module SCSSLint
       runner = Runner.new(@config)
       runner.run(files_to_lint)
       report_lints(runner.lints)
-      halt(1) if runner.lints.any?
-    rescue NoFilesError, NoSuchLinter, Errno::ENOENT => ex
+      halt :data if runner.lints.any?
+    rescue NoFilesError, Errno::ENOENT => ex
       puts ex.message
-      halt(1)
+      halt :no_input
+    rescue NoSuchLinter => ex
+      puts ex.message
+      halt :usage
     rescue => ex
       puts ex.message
       puts ex.backtrace
       puts 'Report this bug at '.yellow + BUG_REPORT_URL.cyan
-      halt(1)
+      halt :software
     end
 
   private
@@ -179,7 +192,7 @@ module SCSSLint
     def print_help(help_message, err = nil)
       puts err, '' if err
       puts help_message
-      halt
+      halt(err ? :usage : :ok)
     end
 
     def print_version(program_name, version)
@@ -188,8 +201,8 @@ module SCSSLint
     end
 
     # Used for ease-of testing
-    def halt(exit_status = 0)
-      exit exit_status
+    def halt(exit_status = :ok)
+      exit(EXIT_CODES[exit_status])
     end
   end
 end

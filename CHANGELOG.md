@@ -9,6 +9,8 @@
   patterns of files to not lint
 * Allow use of wildcards when configuring linters so you can enable/disable
   entire namespaces
+* Use [semantic exit codes](http://tldp.org/LDP/abs/html/exitcodes.html#FTN.AEN23462)
+  for common error conditions
 
 ## 0.12.1
 
