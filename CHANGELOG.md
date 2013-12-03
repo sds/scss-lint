@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.13.0
 
 * Teach scss-lint to load configuration via the `--config` flag
 * Teach scss-lint to load configuration based on location of file being linted
