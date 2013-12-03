@@ -18,13 +18,13 @@ module SCSSLint
       # Loads a configuration from a file, merging it with the default
       # configuration.
       def load(file, options = {})
-        options = load_options_hash_from_file(file)
+        config_options = load_options_hash_from_file(file)
 
         if options.fetch(:merge_with_default, true)
-          options = smart_merge(default_options_hash, options)
+          config_options = smart_merge(default_options_hash, config_options)
         end
 
-        Config.new(options)
+        Config.new(config_options)
       end
 
       # Loads the configuration for a given file.
@@ -36,6 +36,11 @@ module SCSSLint
             config_file = possible_config_files(directory).find { |path| path.file? }
             Config.load(config_file.to_s) if config_file
           end
+      end
+
+      def linter_name(linter)
+        linter = linter.is_a?(Class) ? linter : linter.class
+        linter.name.split('::')[2..-1].join('::')
       end
 
     private
@@ -81,6 +86,24 @@ module SCSSLint
           end
 
           options = smart_merge(merged_includes, options)
+        end
+
+        # Merge options from wildcard linters into individual linter configs
+        options.fetch('linters', {}).keys.each do |class_name|
+          next unless class_name.include?('*')
+
+          class_name_regex = /#{class_name.gsub('*', '[^:]+')}/
+
+          wildcard_options = options['linters'].delete(class_name)
+
+          LinterRegistry.linters.each do |linter_class|
+            name = linter_name(linter_class)
+
+            if name.match(class_name_regex)
+              old_options = options['linters'].fetch(name, {})
+              options['linters'][name] = smart_merge(old_options, wildcard_options)
+            end
+          end
         end
 
         # Ensure all excludes are absolute paths
@@ -165,7 +188,7 @@ module SCSSLint
     end
 
     def linter_options(linter)
-      @options['linters'][linter_name(linter)]
+      @options['linters'][self.class.linter_name(linter)]
     end
 
     def excluded_file?(file_path)
@@ -184,11 +207,6 @@ module SCSSLint
     end
 
   private
-
-    def linter_name(linter)
-      linter = linter.is_a?(Class) ? linter : linter.class
-      linter.name.split('::')[2..-1].join('::')
-    end
 
     def validate_linters
       return unless linters = @options['linters']

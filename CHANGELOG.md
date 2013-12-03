@@ -7,6 +7,8 @@
 * Allow `Indentation` linter to have configurable indent width
 * Add `exclude` directive to configuration system, allowing you to specify glob
   patterns of files to not lint
+* Allow use of wildcards when configuring linters so you can enable/disable
+  entire namespaces
 
 ## 0.12.1
 

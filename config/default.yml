@@ -73,5 +73,5 @@ linters:
   ZeroUnit:
     enabled: true
 
-  Compass::PropertyWithMixin:
+  Compass::*:
     enabled: false

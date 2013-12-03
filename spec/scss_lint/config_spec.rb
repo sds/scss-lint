@@ -4,6 +4,11 @@ require 'fileutils'
 describe SCSSLint::Config do
   class SCSSLint::Linter::FakeConfigLinter < SCSSLint::Linter; end
 
+  module SCSSLint::Linter::SomeNamespace
+    class FakeLinter1 < SCSSLint::Linter; end
+    class FakeLinter2 < SCSSLint::Linter; end
+  end
+
   let(:default_file) { File.open(described_class::DEFAULT_FILE).read }
 
   # This complex stubbing bypasses the built-in caching of the methods, and at
@@ -242,6 +247,33 @@ describe SCSSLint::Config do
         end
       end
     end
+
+    context 'when a wildcard is used for a namespaced linter' do
+      let(:default_file) { <<-FILE }
+      linters:
+        SomeNamespace::*:
+          enabled: false
+      FILE
+
+      let(:config_file) { <<-FILE }
+      linters:
+        SomeNamespace::*:
+          enabled: true
+      FILE
+
+      before do
+        SCSSLint::LinterRegistry.stub(:linters)
+          .and_return([SCSSLint::Linter::SomeNamespace::FakeLinter1,
+                       SCSSLint::Linter::SomeNamespace::FakeLinter2])
+      end
+
+      it 'returns the same options for all linters under that namespace' do
+        subject.linter_options(SCSSLint::Linter::SomeNamespace::FakeLinter1)
+          .should == { 'enabled' => true }
+        subject.linter_options(SCSSLint::Linter::SomeNamespace::FakeLinter2)
+          .should == { 'enabled' => true }
+      end
+    end
   end
 
   describe '.for_file' do
@@ -293,7 +325,6 @@ describe SCSSLint::Config do
 
   describe '#linter_options' do
     let(:config) { described_class.new(options) }
-    let(:linter) { SCSSLint::Linter::FakeConfigLinter.new }
 
     let(:linter_options) do
       {
@@ -310,10 +341,9 @@ describe SCSSLint::Config do
       }
     end
 
-    subject { config.linter_options(linter) }
-
     it 'returns the options for the specified linter' do
-      subject.should == linter_options
+      config.linter_options(SCSSLint::Linter::FakeConfigLinter.new)
+        .should == linter_options
     end
   end
 
