@@ -27,7 +27,7 @@ module SCSSLint
         setup_configuration
       rescue NoSuchLinter => ex
         puts ex.message
-        halt(-1)
+        halt(1)
       end
     end
 
@@ -82,12 +82,12 @@ module SCSSLint
       halt(1) if runner.lints.any?
     rescue NoFilesError, NoSuchLinter, Errno::ENOENT => ex
       puts ex.message
-      halt(-1)
+      halt(1)
     rescue => ex
       puts ex.message
       puts ex.backtrace
       puts 'Report this bug at '.yellow + BUG_REPORT_URL.cyan
-      halt(-1)
+      halt(1)
     end
 
   private
