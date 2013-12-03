@@ -155,7 +155,7 @@ describe SCSSLint::CLI do
       let(:files) { [] }
 
       it 'exits with non-zero status' do
-        subject.should_receive(:halt).with(-1)
+        subject.should_receive(:halt).with(1)
         safe_run
       end
     end
@@ -200,7 +200,7 @@ describe SCSSLint::CLI do
       before { SCSSLint::Runner.stub(:new).and_raise(error) }
 
       it 'exits with a non-zero status' do
-        subject.should_receive(:halt).with(-1)
+        subject.should_receive(:halt).with(1)
         safe_run
       end
 
