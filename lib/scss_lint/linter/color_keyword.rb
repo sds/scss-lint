@@ -11,7 +11,7 @@ module SCSSLint
     def visit_script_string(node)
       return unless node.type == :identifier
 
-      remove_quoted_strings(node.value).scan(/[a-z]+/i) do |word|
+      remove_quoted_strings(node.value).scan(/(^|\s)([a-z]+)(?=\s|$)/i) do |_, word|
         add_color_lint(node, word) if color_keyword?(word)
       end
     end

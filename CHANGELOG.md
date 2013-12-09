@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+# master (unreleased)
+
+* Fix bug where `ColorKeyword` would incorrectly report a lint for identifiers
+  containing color keywords as substrings
+
 ## 0.13.0
 
 * Teach scss-lint to load configuration via the `--config` flag

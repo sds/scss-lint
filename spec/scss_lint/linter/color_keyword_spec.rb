@@ -70,4 +70,14 @@ describe SCSSLint::Linter::ColorKeyword do
 
     it { should_not report_lint }
   end
+
+  context 'when color keyword appears in a string identifier' do
+    let(:css) { <<-CSS }
+      p {
+        content: content-with-blue-in-name;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end
