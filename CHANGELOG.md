@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-# master (unreleased)
+# 0.14.0
 
 * Fix bug where `ColorKeyword` would incorrectly report a lint for identifiers
   containing color keywords as substrings
