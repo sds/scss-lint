@@ -43,6 +43,10 @@ linters:
   PlaceholderInExtend:
     enabled: true
 
+  SelectorDepth:
+    enabled: true
+    max_depth: 3
+
   Shorthand:
     enabled: true
 

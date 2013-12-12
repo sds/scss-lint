@@ -4,6 +4,7 @@
 
 * Fix bug where `ColorKeyword` would incorrectly report a lint for identifiers
   containing color keywords as substrings
+* Teach scss-lint to detect selectors with large depths of applicability
 
 ## 0.13.0
 

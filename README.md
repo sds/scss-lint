@@ -300,6 +300,40 @@ Any lint can be disabled by using the `--exclude_linter` flag.
 
     See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-sass-extends-and-placeholders/).
 
+* Don't write selectors with a depth of applicability greater than 3
+
+    ```scss
+    // Incorrect - resulting CSS will have a selctor with depth of 4
+    .one .two .three > .four {
+      ...
+    }
+
+    .one .two {
+      .three > .four {
+        ...
+      }
+    }
+
+    // Correct
+    .one .two .three {
+      ...
+    }
+
+    .one .two {
+      .three {
+        ...
+      }
+    }
+    ```
+
+    Selectors with a large [depth of applicability](http://smacss.com/book/applicability)
+    lead to CSS tightly-coupled to your HTML structure, making it brittle to
+    change.
+
+    Deep selectors also come with a performance penalty, which can affect
+    rendering times, especially on mobile devices. While the default limit is
+    3, ideally it is better to use less than 3 whenever possible.
+
 * Prefer the shortest shorthand form possible for properties that support it.
 
     ```scss
