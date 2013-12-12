@@ -1,4 +1,5 @@
 module SCSSLint
+  # Reports lints in an XML format.
   class Reporter::XMLReporter < Reporter
     def report_lints
       output = '<?xml version="1.0" encoding="utf-8"?>'

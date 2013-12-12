@@ -57,6 +57,10 @@ module SCSSLint
           @options[:excluded_files] = files
         end
 
+        opts.on('-f', '--format Formatter', 'Specify how to display lints', String) do |format|
+          set_output_format(format)
+        end
+
         opts.on('-i', '--include-linter linter,...', Array,
                 'Specify which linters you want to run') do |linters|
           @options[:included_linters] = linters
@@ -77,10 +81,6 @@ module SCSSLint
 
         opts.on_tail('-v', '--version', 'Show version') do
           print_version opts.program_name, VERSION
-        end
-
-        opts.on('--xml', 'Output the results in XML format') do
-          @options[:reporter] = SCSSLint::Reporter::XMLReporter
         end
       end
     end
@@ -173,6 +173,13 @@ module SCSSLint
                          .new(sorted_lints)
       output = reporter.report_lints
       print output if output
+    end
+
+    def set_output_format(format)
+      @options[:reporter] = SCSSLint::Reporter.const_get(format + 'Reporter')
+    rescue NameError
+      puts "Invalid output format specified: #{format}"
+      halt :config
     end
 
     def print_linters

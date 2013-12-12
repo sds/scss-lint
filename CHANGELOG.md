@@ -5,6 +5,8 @@
 * Fix bug where `ColorKeyword` would incorrectly report a lint for identifiers
   containing color keywords as substrings
 * Teach scss-lint to detect selectors with large depths of applicability
+* Add `-f`/`--format` flags to allow different output format type
+* Remove `--xml` flag in favor of `-f XML`/`--format XML`
 
 ## 0.13.0
 

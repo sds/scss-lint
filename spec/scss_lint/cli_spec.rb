@@ -83,12 +83,23 @@ describe SCSSLint::CLI do
       end
     end
 
-    context 'when the XML flag is set' do
-      let(:flags) { ['--xml'] }
+    context 'when the format flag is set' do
+      context 'and the format is valid' do
+        let(:flags) { %w[--format XML] }
 
-      it 'sets the :reporter option to the XML reporter' do
-        safe_parse
-        subject.options[:reporter].should == SCSSLint::Reporter::XMLReporter
+        it 'sets the :reporter option to the correct reporter' do
+          safe_parse
+          subject.options[:reporter].should == SCSSLint::Reporter::XMLReporter
+        end
+      end
+
+      context 'and the format is invalid' do
+        let(:flags) { %w[--format InvalidFormat] }
+
+        it 'sets the :reporter option to the correct reporter' do
+          subject.should_receive(:halt).with(:config)
+          safe_parse
+        end
       end
     end
 

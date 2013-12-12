@@ -1,6 +1,7 @@
 require 'colorize'
 
 module SCSSLint
+  # Reports a single line per lint.
   class Reporter::DefaultReporter < Reporter
     def report_lints
       if lints.any?
