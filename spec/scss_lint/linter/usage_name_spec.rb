@@ -52,17 +52,13 @@ describe SCSSLint::Linter::UsageName do
   end
 
   context 'when an included mixin name has a capital letter' do
-    let(:css) { <<-CSS }
-      @include badMixin();
-    CSS
+    let(:css) { '@include badMixin();' }
 
     it { should report_lint line: 1 }
   end
 
   context 'when an included mixin name has an underscore' do
-    let(:css) { <<-CSS }
-      @include bad_mixin();
-    CSS
+    let(:css) { '@include bad_mixin();' }
 
     it { should report_lint line: 1 }
   end
@@ -83,17 +79,13 @@ describe SCSSLint::Linter::UsageName do
   end
 
   context 'when a mixin contains keyword arguments with underscores' do
-    let(:css) { <<-CSS }
-      @include mixin($some_var: 4);
-    CSS
+    let(:css) { '@include mixin($some_var: 4);' }
 
     it { should report_lint }
   end
 
   context 'when a mixin contains keyword arguments with hyphens' do
-    let(:css) { <<-CSS }
-      @include mixin($some-var: 4);
-    CSS
+    let(:css) { '@include mixin($some-var: 4);' }
 
     it { should_not report_lint }
   end

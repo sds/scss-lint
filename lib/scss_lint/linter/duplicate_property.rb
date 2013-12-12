@@ -1,4 +1,5 @@
 module SCSSLint
+  # Checks for a property declared twice in a rule set.
   class Linter::DuplicateProperty < Linter
     include LinterRegistry
 

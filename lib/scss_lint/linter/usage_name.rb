@@ -1,4 +1,6 @@
 module SCSSLint
+  # Checks for variable/function/mixin/placeholder uses which contains uppercase
+  # characters or underscores.
   class Linter::UsageName < Linter
     include LinterRegistry
 

@@ -1,6 +1,7 @@
 module SCSSLint
   class NoSuchLinter < StandardError; end
 
+  # Stores all linters available to the application.
   module LinterRegistry
     @linters = []
 
@@ -16,7 +17,7 @@ module SCSSLint
           begin
             Linter.const_get(linter_name)
           rescue NameError
-            raise NoSuchLinter.new("Linter #{linter_name} does not exist")
+            raise NoSuchLinter, "Linter #{linter_name} does not exist"
           end
         end
       end

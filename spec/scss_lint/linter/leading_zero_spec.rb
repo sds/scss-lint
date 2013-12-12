@@ -151,9 +151,7 @@ describe SCSSLint::Linter::LeadingZero do
   end
 
   context 'when leading zeros appear in variable declarations' do
-    let(:css) { <<-CSS }
-      $some-var: 0.5em;
-    CSS
+    let(:css) { '$some-var: 0.5em;' }
 
     it { should report_lint line: 1 }
   end

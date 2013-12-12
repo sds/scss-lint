@@ -12,9 +12,7 @@ describe SCSSLint::Linter::Comment do
   end
 
   context 'when comment is a single line comment' do
-    let(:css) { <<-CSS }
-      // Single line comment
-    CSS
+    let(:css) { '// Single line comment' }
 
     it { should_not report_lint }
   end

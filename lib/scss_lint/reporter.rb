@@ -1,4 +1,5 @@
 module SCSSLint
+  # Responsible for displaying lints to the user in some format.
   class Reporter
     attr_reader :lints
 

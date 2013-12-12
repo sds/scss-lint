@@ -1,3 +1,4 @@
+# Defines the gem version.
 module SCSSLint
   VERSION = '0.13.0'
 end

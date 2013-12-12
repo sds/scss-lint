@@ -1,4 +1,5 @@
 module SCSSLint
+  # Checks for rules with no content.
   class Linter::EmptyRule < Linter
     include LinterRegistry
 

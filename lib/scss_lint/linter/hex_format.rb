@@ -1,4 +1,5 @@
 module SCSSLint
+  # Checks for hexadecimal colors that can be shortened.
   class Linter::HexFormat < Linter
     include LinterRegistry
 

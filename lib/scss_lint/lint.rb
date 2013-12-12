@@ -1,4 +1,5 @@
 module SCSSLint
+  # Stores information about a single problem that was detected by a [Linter].
   class Lint
     attr_reader :filename, :line, :description, :severity
 

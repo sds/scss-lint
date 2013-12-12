@@ -24,8 +24,8 @@ module SCSSLint
     # can run a regex against.
     def condense_to_string(sequence_list)
       sequence_list.inject('') do |combined, string_or_script|
-        combined + (string_or_script.is_a?(String) ? string_or_script
-                                                   : string_or_script.to_sass)
+        combined +
+          (string_or_script.is_a?(String) ? string_or_script : string_or_script.to_sass)
       end
     end
 

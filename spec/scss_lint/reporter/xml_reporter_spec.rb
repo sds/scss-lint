@@ -55,12 +55,12 @@ describe SCSSLint::Reporter::XMLReporter do
       end
 
       it 'marks each issue with a line number' do
-        xml.xpath("//issue[@line]").map { |node| node[:line] }.
+        xml.xpath('//issue[@line]').map { |node| node[:line] }.
           should =~ lines.map(&:to_s)
       end
 
       it 'marks each issue with a reason containing the lint description' do
-        xml.xpath("//issue[@reason]").map { |node| node[:reason] }.
+        xml.xpath('//issue[@reason]').map { |node| node[:reason] }.
           should =~ descriptions
       end
 

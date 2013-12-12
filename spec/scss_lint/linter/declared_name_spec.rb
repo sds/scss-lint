@@ -12,25 +12,19 @@ describe SCSSLint::Linter::DeclaredName do
   end
 
   context 'when a variable name contains a hyphen' do
-    let(:css) { <<-CSS }
-      $content-padding: 10px;
-    CSS
+    let(:css) { '$content-padding: 10px;' }
 
     it { should_not report_lint }
   end
 
   context 'when a variable name contains an underscore' do
-    let(:css) { <<-CSS }
-      $content_padding: 10px;
-    CSS
+    let(:css) { '$content_padding: 10px;' }
 
     it { should report_lint line: 1 }
   end
 
   context 'when a variable name contains an uppercase character' do
-    let(:css) { <<-CSS }
-      $contentPadding: 10px;
-    CSS
+    let(:css) { '$contentPadding: 10px;' }
 
     it { should report_lint line: 1 }
   end

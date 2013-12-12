@@ -1,4 +1,7 @@
 module Sass::Script
+  # Ignore documentation lints as these aren't original implementations.
+  # rubocop:disable Documentation
+
   # Redefine some of the lexer helpers in order to store the original string
   # with the created object so that the original string can be inspected rather
   # than a typically normalized version.

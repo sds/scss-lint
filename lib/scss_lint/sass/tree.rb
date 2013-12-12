@@ -3,6 +3,9 @@
 # breaks the Sass compiler, but since we're only doing lints this is fine for
 # now.
 module Sass::Tree
+  # Ignore documentation lints as these aren't original implementations.
+  # rubocop:disable Documentation
+
   # Define some common helper code for use in the various monkey patchings.
   class Node
     # Stores node for which this node is a direct child

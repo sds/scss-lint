@@ -1,6 +1,8 @@
 require 'sass'
 
 module SCSSLint
+  # Contains all information for a parsed SCSS file, including its name,
+  # contents, and parse tree.
   class Engine
     ENGINE_OPTIONS = { cache: false, syntax: :scss }
 
