@@ -68,27 +68,49 @@ module SCSSLint
             YAML.load(file_contents).to_hash
           end
 
+        options = convert_single_options_to_arrays(options)
+        options = extend_inherited_configs(options, file)
+        options = merge_wildcard_linter_options(options)
+        options = ensure_exclude_paths_are_absolute(options, file)
+        options
+      end
+
+      # Convert any config options that accept a single value or an array to an
+      # array form so that merging works.
+      def convert_single_options_to_arrays(options)
+        options = options.dup
+
         if options['exclude']
           # Ensure exclude is an array, since we allow user to specify a single
           # string. We do this before merging with the config loaded via
-          # inherit_form since this allows us to merge the excludes from that,
+          # inherit_from since this allows us to merge the excludes from that,
           # rather than overwriting them.
           options['exclude'] = [options['exclude']].flatten
         end
 
-        if options['inherit_from']
-          includes = [options.delete('inherit_from')].flatten.map do |include_file|
-            load_options_hash_from_file(path_relative_to_config(include_file, file))
-          end
+        options
+      end
 
-          merged_includes = includes[1..-1].inject(includes.first) do |merged, include_file|
-            smart_merge(merged, include_file)
-          end
+      # Loads and extends a list of inherited options with the given options.
+      def extend_inherited_configs(options, original_file)
+        return options unless options['inherit_from']
+        options = options.dup
 
-          options = smart_merge(merged_includes, options)
+        includes = [options.delete('inherit_from')].flatten.map do |include_file|
+          load_options_hash_from_file(path_relative_to_config(include_file, original_file))
         end
 
-        # Merge options from wildcard linters into individual linter configs
+        merged_includes = includes[1..-1].inject(includes.first) do |merged, include_file|
+          smart_merge(merged, include_file)
+        end
+
+        smart_merge(merged_includes, options)
+      end
+
+      # Merge options from wildcard linters into individual linter configs
+      def merge_wildcard_linter_options(options)
+        options = options.dup
+
         options.fetch('linters', {}).keys.each do |class_name|
           next unless class_name.include?('*')
 
@@ -106,7 +128,13 @@ module SCSSLint
           end
         end
 
-        # Ensure all excludes are absolute paths
+        options
+      end
+
+      # Ensure all excludes are absolute paths
+      def ensure_exclude_paths_are_absolute(options, original_file)
+        options = options.dup
+
         if options['exclude']
           excludes = [options['exclude']].flatten
 
@@ -115,7 +143,7 @@ module SCSSLint
               exclusion_glob
             else
               # Expand the path assuming it is relative to the config file itself
-              File.expand_path(exclusion_glob, File.expand_path(File.dirname(file)))
+              File.expand_path(exclusion_glob, File.expand_path(File.dirname(original_file)))
             end
           end
         end
