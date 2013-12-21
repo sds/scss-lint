@@ -43,6 +43,9 @@ linters:
   PlaceholderInExtend:
     enabled: true
 
+  PropertySpelling:
+    enabled: true
+
   SelectorDepth:
     enabled: true
     max_depth: 3

@@ -4,6 +4,7 @@
 
 * Fix bug where `SelectorDepth` could incorrectly report a lint for selectors
   with sequences chained onto a parent selector
+* Teach scss-lint to detect non-existent/misspelled properties
 
 ## 0.14.0
 
