@@ -38,7 +38,9 @@ module SCSSLint
         item.is_a?(String)
       end
 
-      parent_selectors = simple_sequences.count { |item| item.to_s == '&' }
+      parent_selectors = simple_sequences.count do |item|
+        item.rest.any? { |i| i.is_a?(Sass::Selector::Parent) }
+      end
 
       # Take the number of simple sequences and subtract one for each sibling
       # combinator, as these "combine" simple sequences such that they do not

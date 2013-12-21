@@ -108,6 +108,16 @@ describe SCSSLint::Linter::SelectorDepth do
       CSS
 
       it { should_not report_lint }
+
+      context 'and the parent selector is chained' do
+        let(:css) { <<-CSS }
+          .one .two .three {
+            &.chained {}
+          }
+        CSS
+
+        it { should_not report_lint }
+      end
     end
 
     context 'which does exceed the depth limit' do
@@ -118,6 +128,16 @@ describe SCSSLint::Linter::SelectorDepth do
       CSS
 
       it { should report_lint line: 2 }
+
+      context 'and the parent selector is chained' do
+        let(:css) { <<-CSS }
+          .one .two .three > .four {
+            &.chained {}
+          }
+        CSS
+
+        it { should report_lint line: 2 }
+      end
     end
   end
 end

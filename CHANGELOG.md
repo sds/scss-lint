@@ -1,6 +1,11 @@
 # SCSS-Lint Changelog
 
-# 0.14.0
+## master (unreleased)
+
+* Fix bug where `SelectorDepth` could incorrectly report a lint for selectors
+  with sequences chained onto a parent selector
+
+## 0.14.0
 
 * Fix bug where `ColorKeyword` would incorrectly report a lint for identifiers
   containing color keywords as substrings
