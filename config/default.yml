@@ -71,6 +71,10 @@ linters:
   SpaceBeforeBrace:
     enabled: true
 
+  SpaceBetweenParens:
+    enabled: true
+    spaces: 0
+
   TrailingSemicolonAfterPropertyValue:
     enabled: true
 
