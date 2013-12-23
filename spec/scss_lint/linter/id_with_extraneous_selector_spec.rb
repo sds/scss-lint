@@ -46,6 +46,24 @@ describe SCSSLint::Linter::IdWithExtraneousSelector do
     it { should report_lint line: 1 }
   end
 
+  context 'when rule is an ID with a pseudo' do
+    let(:css) { <<-CSS }
+      #identifier:active {
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when rule is a type with an ID with a pseudo' do
+    let(:css) { <<-CSS }
+      a#identifier:active {
+      }
+    CSS
+
+    it { should report_lint line: 1 }
+  end
+
   context 'when rule contains multiple selectors' do
     context 'when all of the selectors are just IDs, classes, or types' do
       let(:css) { <<-CSS }
@@ -56,6 +74,26 @@ describe SCSSLint::Linter::IdWithExtraneousSelector do
       CSS
 
       it { should_not report_lint }
+    end
+
+    context 'when one of the rules is an ID with a pseudo' do
+      let(:css) { <<-CSS }
+        #identifier:active,
+        .class {
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when one of the rules is a type with an ID with a pseudo' do
+      let(:css) { <<-CSS }
+        a#identifier:active,
+        .class {
+        }
+      CSS
+
+      it { should report_lint line: 1 }
     end
 
     context 'when one of the selectors is a type and class' do
