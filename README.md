@@ -387,6 +387,18 @@ Any lint can be disabled by using the `--exclude_linter` flag.
     color: rgba(0, 0, 0, .1);
     ```
 
+* Parentheses should not (or should) be padded with spaces.
+
+    ```scss
+    // Incorrect
+    @include box-shadow( 0 2px 2px rgba( 0, 0, 0, .2 ) );
+    color: rgba( 0, 0, 0, .1 );
+
+    // Correct
+    @include box-shadow(0 2px 2px rgba(0, 0, 0, .2));
+    color: rgba(0, 0, 0, .1);
+    ```
+
 * Properties should be formatted with no space between the name and the colon,
   and a single space separating the colon from the property's value.
 
