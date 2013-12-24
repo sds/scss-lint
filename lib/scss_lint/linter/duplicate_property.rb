@@ -13,10 +13,17 @@ module SCSSLint
       properties.each do |prop|
         name = prop.name.join
 
-        if existing_prop = prop_names[name]
+        prop_hash = name
+        prop_value = prop.value.is_a?(Sass::Script::Funcall) ? prop.value.name : prop.value.value
+
+        prop_value.to_s.scan(/^(-[^-]+-.+)/) do |vendor_keyword|
+          prop_hash << vendor_keyword.first
+        end
+
+        if existing_prop = prop_names[prop_hash]
           add_lint(prop, "Property '#{name}' already defined on line #{existing_prop.line}")
         else
-          prop_names[name] = prop
+          prop_names[prop_hash] = prop
         end
       end
     end
