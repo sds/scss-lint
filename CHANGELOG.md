@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.15.0
 
 * Fix bug where `SelectorDepth` could incorrectly report a lint for selectors
   with sequences chained onto a parent selector
