@@ -5,6 +5,11 @@
 * Fix bug where `SelectorDepth` could incorrectly report a lint for selectors
   with sequences chained onto a parent selector
 * Teach scss-lint to detect non-existent/misspelled properties
+* Teach `IdWithExtraneousSelector` linter to not report lints for IDs with
+  just pseudo-selectors
+* Teach scss-lint to detect spaces in parentheses
+* Fix bug where `DuplicateProperty` linter would incorrectly report lints for
+  properties with vendor-prefix values
 
 ## 0.14.0
 
