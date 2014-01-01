@@ -106,4 +106,14 @@ describe SCSSLint::Linter::DuplicateProperty do
 
     it { should_not report_lint }
   end
+
+  context 'when property contains a variable' do
+    let(:css) { <<-CSS }
+      p {
+        color: $some-color;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end

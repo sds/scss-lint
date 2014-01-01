@@ -14,7 +14,15 @@ module SCSSLint
         name = prop.name.join
 
         prop_hash = name
-        prop_value = prop.value.is_a?(Sass::Script::Funcall) ? prop.value.name : prop.value.value
+        prop_value =
+          case prop.value
+          when Sass::Script::Funcall
+            prop.value.name
+          when Sass::Script::String
+            prop.value.value
+          else
+            prop.value.to_s
+          end
 
         prop_value.to_s.scan(/^(-[^-]+-.+)/) do |vendor_keyword|
           prop_hash << vendor_keyword.first
