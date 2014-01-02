@@ -6,8 +6,10 @@ module SCSSLint
     def visit_root(node)
       @spaces = config['spaces']
       engine.lines.each_with_index do |line, index|
-        line.scan /(\( *[^ ]|[^\s] *\))/ do |match|
-          match.each { |str| check(str, index, engine) }
+        # "(^(\t|\s)*\))?" captures leading spaces and tabs followed by a )
+        # "\( *(?!$)" finds "( " as long as its not EOL
+        line.scan /(^(\t|\s)*\))?(\( *(?!$)| *\))?/ do |match|
+          check(match[2], index, engine) if match[2]
         end
       end
     end
