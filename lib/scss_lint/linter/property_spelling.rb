@@ -193,6 +193,7 @@ module SCSSLint
       outline-width
       overflow
       overflow-style
+      overflow-wrap
       overflow-x
       overflow-y
       padding
