@@ -30,4 +30,28 @@ describe SCSSLint::Linter::PropertySpelling do
 
     it { should report_lint }
   end
+
+  context 'when extra properties are specified' do
+    let(:linter_config) { { 'extra_properties' => ['made-up-property'] } }
+
+    context 'with a non-existent property' do
+      let(:css) { <<-CSS }
+        p {
+          peanut-butter: jelly-time;
+        }
+      CSS
+
+      it { should report_lint }
+    end
+
+    context 'with a property listed as an extra property' do
+      let(:css) { <<-CSS }
+        p {
+          made-up-property: value;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+  end
 end

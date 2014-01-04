@@ -3,6 +3,11 @@ module SCSSLint
   class Linter::PropertySpelling < Linter
     include LinterRegistry
 
+    def visit_root(node)
+      @extra_properties = config['extra_properties'].to_set
+      yield # Continue linting children
+    end
+
     def visit_prop(node)
       # Ignore properties with interpolation
       return if node.name.count > 1 || !node.name.first.is_a?(String)
@@ -12,7 +17,7 @@ module SCSSLint
       # Ignore vendor-prefixed properties
       return if name.start_with?('-')
 
-      unless KNOWN_PROPERTIES.include?(name)
+      unless KNOWN_PROPERTIES.include?(name) || @extra_properties.include?(name)
         add_lint(node, "Unknown property #{name}")
       end
     end

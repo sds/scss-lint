@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Add `extra_properties` option to `PropertySpelling` linter so additional
+  CSS properties can be added to the whitelist
+
 ## 0.15.0
 
 * Fix bug where `SelectorDepth` could incorrectly report a lint for selectors

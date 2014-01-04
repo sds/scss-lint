@@ -156,7 +156,7 @@ Any lint can be disabled by using the `--exclude_linter` flag.
     generated CSS, whereas `/* ... */` comments do.
 
     Furthermore, comments should be concise, and using `/* ... */`
-    encourages multi-line comments can tend to not be concise.
+    encourages multi-line comments which tend to not be concise.
 
 * Write `@extend` statements first in rule sets, followed by property
   declarations and then other nested rule sets.
@@ -465,8 +465,35 @@ Any lint can be disabled by using the `--exclude_linter` flag.
 ### Other Lints
 
 * Reports `@debug` statements (which you probably left behind accidentally)
+
 * Reports when you define the same property twice in a single rule set
+
 * Reports when you have an empty rule set
+
+* Reports when you use an unknown CSS property (ignoring vendor-prefixed
+  properties)
+
+    ```scss
+    diplay: none; // "display" is spelled incorrectly
+    ```
+
+    Since the list of available CSS properties is constantly changing, it's
+    possible that you might get some false positives here, especially if
+    you're using experimental CSS features. If that's the case, you can
+    add additional properties to the whitelist by adding the following
+    to your `.scss-lint.yml` configuration:
+
+    ```yaml
+    linters:
+      PropertySpelling:
+        extra_properties:
+          - some-experimental-property
+          - another-experimental-property
+    ```
+
+    If you're sure the property in question is valid,
+    [submit a request](https://github.com/causes/scss-lint/issues/new)
+    to add it to the default whitelist.
 
 ## Contributing
 

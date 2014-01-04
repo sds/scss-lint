@@ -45,6 +45,7 @@ linters:
 
   PropertySpelling:
     enabled: true
+    extra_properties: []
 
   SelectorDepth:
     enabled: true
