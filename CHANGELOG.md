@@ -4,6 +4,8 @@
 
 * Add `extra_properties` option to `PropertySpelling` linter so additional
   CSS properties can be added to the whitelist
+* Teach scss-lint to report a lint when rule sets, functions, or mixins are
+  not separated from each other with an empty line
 
 ## 0.15.0
 

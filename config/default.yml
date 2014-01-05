@@ -24,6 +24,9 @@ linters:
   DuplicateProperty:
     enabled: true
 
+  EmptyLineBetweenBlocks:
+    enabled: true
+
   EmptyRule:
     enabled: true
 
