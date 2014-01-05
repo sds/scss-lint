@@ -225,6 +225,34 @@ Any lint can be disabled by using the `--exclude_linter` flag.
     even if you're using a library that declares a function with an underscore,
     you can refer to it using the hyphenated form instead.
 
+* Separate rule, function, and mixin declarations with empty lines
+
+    ```scss
+    // Incorrect
+    p {
+      margin: 0;
+      em {
+        ...
+      }
+    }
+    a {
+      ...
+    }
+
+    // Correct
+    p {
+      margin: 0;
+
+      em {
+        ...
+      }
+    }
+
+    a {
+      ...
+    }
+    ```
+
 * Prefer the shortest possible form for hex colors.
 
     ```scss
