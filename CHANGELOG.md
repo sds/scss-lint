@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.16.0
 
 * Add `extra_properties` option to `PropertySpelling` linter so additional
   CSS properties can be added to the whitelist
