@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.16.1
 
 * Fix bug where `data` directory was not included in gemspec
 
