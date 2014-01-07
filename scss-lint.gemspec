@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.summary     = 'SCSS lint tool'
   s.description = 'Opinionated tool to help write clean and consistent SCSS'
 
-  s.files         = Dir['config/**/*.yml'] + Dir['lib/**/*.rb']
+  s.files         = Dir['config/**/*.yml'] + Dir['data/**'] + Dir['lib/**/*.rb']
   s.executables   = ['scss-lint']
   s.require_paths = ['lib']
 

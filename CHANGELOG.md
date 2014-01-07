@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix bug where `data` directory was not included in gemspec
+
 ## 0.16.0
 
 * Add `extra_properties` option to `PropertySpelling` linter so additional
