@@ -4,15 +4,13 @@ module SCSSLint
     include LinterRegistry
 
     def visit_rule(node)
-      add_lint(node) if invalid_comma_placement? node
+      add_lint(node, MESSAGE) if invalid_comma_placement?(node)
       yield # Continue linting children
     end
 
-    def description
-      'Each selector should be on its own line'
-    end
-
   private
+
+    MESSAGE = 'Each selector in a comma sequence should be on its own line'
 
     # A comma is invalid if it starts the line or is not the end of the line
     def invalid_comma_placement?(node)
@@ -23,10 +21,8 @@ module SCSSLint
     # Sass::Script::Nodes, we need to condense it into a single string that we
     # can run a regex against.
     def condense_to_string(sequence_list)
-      sequence_list.inject('') do |combined, string_or_script|
-        combined +
-          (string_or_script.is_a?(String) ? string_or_script : string_or_script.to_sass)
-      end
+      sequence_list.select { |item| item.is_a?(String) }
+                   .inject('') { |combined, item| combined + item }
     end
 
     # Removes extra spacing between lines in a comma-separated sequence due to

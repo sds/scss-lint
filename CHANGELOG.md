@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix bug where `SingleLinePerSelector` would incorrectly report lint for
+  selectors where interpolation contained commas
+
 ## 0.16.1
 
 * Fix bug where `data` directory was not included in gemspec

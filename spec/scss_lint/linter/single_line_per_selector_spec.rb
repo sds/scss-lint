@@ -99,4 +99,13 @@ describe SCSSLint::Linter::SingleLinePerSelector do
 
     it { should_not report_lint }
   end
+
+  context 'when interpolation contains a comma' do
+    let(:css) { <<-CSS }
+      .my-\#{function(1, 2)}-selector .nested {
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end
