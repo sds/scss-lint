@@ -46,6 +46,8 @@ module SCSSLint
       end
     rescue Sass::SyntaxError => ex
       @lints << Lint.new(ex.sass_filename, ex.sass_line, ex.to_s, :error)
+    rescue FileEncodingError => ex
+      @lints << Lint.new(file, 1, ex.to_s, :error)
     end
   end
 end

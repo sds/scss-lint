@@ -66,6 +66,20 @@ describe SCSSLint::Runner do
       end
     end
 
+    context 'when the engine raises a FileEncodingError' do
+      let(:error) do
+        SCSSLint::FileEncodingError.new('Some error message')
+      end
+
+      before do
+        SCSSLint::Engine.stub(:new).with(files.last).and_raise(error)
+      end
+
+      it 'records the error as a lint' do
+        expect { subject }.to change { runner.lints.count }.by(1)
+      end
+    end
+
     context 'when a linter raises an error' do
       let(:backtrace) { %w[file.rb:1 file.rb:2] }
 

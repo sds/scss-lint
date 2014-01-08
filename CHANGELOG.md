@@ -4,6 +4,7 @@
 
 * Fix bug where `SingleLinePerSelector` would incorrectly report lint for
   selectors where interpolation contained commas
+* Gracefully handle files with invalid byte sequences
 
 ## 0.16.1
 

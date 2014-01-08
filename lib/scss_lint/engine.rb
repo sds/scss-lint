@@ -1,6 +1,8 @@
 require 'sass'
 
 module SCSSLint
+  class FileEncodingError < StandardError; end
+
   # Contains all information for a parsed SCSS file, including its name,
   # contents, and parse tree.
   class Engine
@@ -20,6 +22,14 @@ module SCSSLint
 
       @lines = @contents.split("\n")
       @tree = @engine.to_tree
+    rescue ArgumentError => error
+      if error.message.include?('invalid byte sequence')
+        raise FileEncodingError,
+              "Unable to parse SCSS file: #{error.to_s}",
+              error.backtrace
+      else
+        raise
+      end
     end
   end
 end
