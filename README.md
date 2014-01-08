@@ -100,7 +100,7 @@ basis, we think that the opinions themselves are less important than the fact
 that `scss-lint` provides us with an automated and low-cost means of enforcing
 consistency.
 
-Any lint can be disabled by using the `--exclude_linter` flag.
+Any lint can be disabled by using the `--exclude-linter` flag.
 
 * Prefer `border: 0` over `border: none`.
 
