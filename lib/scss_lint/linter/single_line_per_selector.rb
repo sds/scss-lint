@@ -13,8 +13,11 @@ module SCSSLint
     MESSAGE = 'Each selector in a comma sequence should be on its own line'
 
     # A comma is invalid if it starts the line or is not the end of the line
+    # but valid if the comma is inside of a function
     def invalid_comma_placement?(node)
-      normalize_spacing(condense_to_string(node.rule)) =~ /\n,|,[^\n]/
+      match = /\n,|[^,\n]*,[^\n]/.match normalize_spacing(condense_to_string(node.rule))
+      return unless match
+      !(/\(.*,/.match(match[0]))
     end
 
     # Since RuleNode.rule returns an array containing both String and
