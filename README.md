@@ -25,11 +25,15 @@ gem install scss-lint
 Run `scss-lint` from the command-line by passing in a directory (or multiple
 directories) to recursively scan:
 
-    scss-lint app/assets/stylesheets/
+```bash
+scss-lint app/assets/stylesheets/
+```
 
 You can also specify a list of files explicitly:
 
-    scss-lint app/assets/stylesheets/**/*.css.scss
+```bash
+scss-lint app/assets/stylesheets/**/*.css.scss
+```
 
 `scss-lint` will output any problems with your SCSS, including the offending
 filename and line number (if available).
@@ -530,7 +534,9 @@ feature, please add tests so that we can avoid breaking it in the future.
 
 Speaking of tests, we use `rspec`, which can be run like so:
 
-    bundle exec rspec
+```bash
+bundle exec rspec
+```
 
 ## Changelog
 
