@@ -67,6 +67,8 @@ exclude: 'app/assets/stylesheets/plugins/**'
 linters:
   BorderZero:
     enabled: false
+    exclude:
+      - 'path/to/file.scss'
 
   Indentation:
     enabled: true
@@ -86,7 +88,9 @@ The `exclude` directive allows you to specify a glob pattern of files that
 should not be linted by `scss-lint`. Paths are relative to the location of the
 config file itself if they are not absolute paths. If an inherited file
 specifies the `exclude` directive, the two exclusion lists are combined. Any
-additional exclusions specified via the `--exclude` flag are also combined.
+additional exclusions specified via the `--exclude` flag are also combined. If
+you need to exclude files for a single linter you can specify the list of files
+using the linter's `exclude` configuration option.
 
 You can also configure `scss-lint` by specifying a file via the `--config`
 flag, but note that this will override any configuration files that `scss-lint`

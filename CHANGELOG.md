@@ -6,6 +6,8 @@
   selectors where interpolation contained commas
 * Gracefully handle files with invalid byte sequences
 * Add `FilesReporter` which prints out just the files that had lints
+* Add `exclude` option to individual linter configurations, which disables
+  that linter for files matching any of the specified set of globs
 
 ## 0.16.1
 

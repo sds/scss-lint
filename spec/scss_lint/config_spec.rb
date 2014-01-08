@@ -382,4 +382,46 @@ describe SCSSLint::Config do
       end
     end
   end
+
+  describe '#excluded_file_for_linter?' do
+    include_context 'isolated environment'
+
+    let(:config_dir) { 'path/to' }
+    let(:file_name) { "#{config_dir}/config.yml" }
+    let(:config) { described_class.load(file_name) }
+
+    before do
+      described_class.stub(:load_file_contents)
+                     .with(file_name)
+                     .and_return(config_file)
+    end
+
+    context 'when no exclusion is specified in linter' do
+      let(:config_file) { <<-FILE }
+      linters:
+        FakeConfigLinter:
+          enabled: true
+      FILE
+
+      it 'does not exclude any files' do
+        config.excluded_file_for_linter?("#{config_dir}/anything/you/want.scss",
+          SCSSLint::Linter::FakeConfigLinter.new).should be_false
+      end
+    end
+
+    context 'when an exclusion is specified in linter' do
+      let(:config_file) { <<-FILE }
+      linters:
+        FakeConfigLinter:
+          enabled: true
+          exclude:
+            - 'anything/you/want.scss'
+      FILE
+
+      it 'excludes file for the linter' do
+        config.excluded_file_for_linter?("#{config_dir}/anything/you/want.scss",
+          SCSSLint::Linter::FakeConfigLinter.new).should be_true
+      end
+    end
+  end
 end

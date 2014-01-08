@@ -72,6 +72,7 @@ module SCSSLint
         options = extend_inherited_configs(options, file)
         options = merge_wildcard_linter_options(options)
         options = ensure_exclude_paths_are_absolute(options, file)
+        options = ensure_linter_exclude_paths_are_absolute(options, file)
         options
       end
 
@@ -126,6 +127,19 @@ module SCSSLint
               options['linters'][name] = smart_merge(old_options, wildcard_options)
             end
           end
+        end
+
+        options
+      end
+
+      def ensure_linter_exclude_paths_are_absolute(options, original_file)
+        options = options.dup
+
+        options['linters'] ||= {}
+
+        options['linters'].keys.each do |linter_name|
+          options['linters'][linter_name] =
+            ensure_exclude_paths_are_absolute(options['linters'][linter_name], original_file)
         end
 
         options
@@ -223,6 +237,14 @@ module SCSSLint
       abs_path = File.expand_path(file_path)
 
       @options.fetch('exclude', []).any? do |exclusion_glob|
+        File.fnmatch(exclusion_glob, abs_path)
+      end
+    end
+
+    def excluded_file_for_linter?(file_path, linter)
+      abs_path = File.expand_path(file_path)
+
+      linter_options(linter).fetch('exclude', []).any? do |exclusion_glob|
         File.fnmatch(exclusion_glob, abs_path)
       end
     end
