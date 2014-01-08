@@ -5,6 +5,7 @@
 * Fix bug where `SingleLinePerSelector` would incorrectly report lint for
   selectors where interpolation contained commas
 * Gracefully handle files with invalid byte sequences
+* Add `FilesReporter` which prints out just the files that had lints
 
 ## 0.16.1
 

@@ -42,7 +42,7 @@ Command Line Flag         | Description
 --------------------------|----------------------------------------------------
 `-c`/`--config`           | Specify a configuration file to use
 `-e`/`--exclude`          | Exclude one or more files from being linted
-`-f`/`--format`           | Specify the output format (`Default` or `XML`)
+`-f`/`--format`           | Output format (`Default`, `XML`, `Files`)
 `-i`/`--include-linter`   | Specify which linters you specifically want to run
 `-x`/`--exclude-linter`   | Specify which linters you _don't_ want to run
 `-h`/`--help`             | Show command line flag documentation
