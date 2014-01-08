@@ -89,6 +89,16 @@ describe SCSSLint::Linter::SingleLinePerSelector do
     it { should report_lint line: 1 }
   end
 
+  context 'when rule contains interpolated selectors with nth function' do
+    let(:css) { <<-CSS }
+      $foo: bar baz;
+      \#{nth($foo, 1)}.thing {
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
   context 'when rule contains an inline comment' do
     let(:css) { <<-CSS }
       .first,  /* A comment */
