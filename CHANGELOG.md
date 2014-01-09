@@ -8,6 +8,8 @@
 * Add `FilesReporter` which prints out just the files that had lints
 * Add `exclude` option to individual linter configurations, which disables
   that linter for files matching any of the specified set of globs
+* Fix bug where scss-lint would crash if a `.scss-lint.yml` file contained
+  only comments
 
 ## 0.16.1
 

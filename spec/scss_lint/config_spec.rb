@@ -66,6 +66,14 @@ describe SCSSLint::Config do
       end
     end
 
+    context 'with a config file containing only comments' do
+      let(:config_file) { '# This is a comment' }
+
+      it 'returns the default configuration' do
+        subject.should == described_class.default
+      end
+    end
+
     context 'with a file configuring an unknown linter' do
       let(:config_file) { 'linters: { MadeUpLinterName: { enabled: true } }' }
 

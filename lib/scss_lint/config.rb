@@ -62,10 +62,10 @@ module SCSSLint
         file_contents = load_file_contents(file)
 
         options =
-          if file_contents.strip.empty?
-            {}
+          if yaml = YAML.load(file_contents)
+            yaml.to_hash
           else
-            YAML.load(file_contents).to_hash
+            {}
           end
 
         options = convert_single_options_to_arrays(options)
