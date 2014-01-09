@@ -22,8 +22,9 @@ module SCSSLint
 
       @lines = @contents.split("\n")
       @tree = @engine.to_tree
-    rescue ArgumentError => error
-      if error.message.include?('invalid byte sequence')
+    rescue Encoding::UndefinedConversionError, ArgumentError => error
+      if error.is_a?(Encoding::UndefinedConversionError) ||
+         error.message.include?('invalid byte sequence')
         raise FileEncodingError,
               "Unable to parse SCSS file: #{error.to_s}",
               error.backtrace
