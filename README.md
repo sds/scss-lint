@@ -71,6 +71,11 @@ linters:
   Indentation:
     enabled: true
     width: 2
+
+  CapitalizationInSelector:
+    enabled: true
+    exclude:
+      - 'path/to/file.scss'
 ```
 
 All linters have an `enabled` option which can be `true` or `false`, which
@@ -86,7 +91,9 @@ The `exclude` directive allows you to specify a glob pattern of files that
 should not be linted by `scss-lint`. Paths are relative to the location of the
 config file itself if they are not absolute paths. If an inherited file
 specifies the `exclude` directive, the two exclusion lists are combined. Any
-additional exclusions specified via the `--exclude` flag are also combined.
+additional exclusions specified via the `--exclude` flag are also
+combined. If you need to exclude files for a single linter you can also
+write an array of files as `exlcude` into the config section of the linter.
 
 You can also configure `scss-lint` by specifying a file via the `--config`
 flag, but note that this will override any configuration files that `scss-lint`

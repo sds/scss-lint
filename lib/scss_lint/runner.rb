@@ -34,6 +34,7 @@ module SCSSLint
 
       @linters.each do |linter|
         next unless config.linter_enabled?(linter)
+        next if config.excluded_file_for_linter?(file, linter)
 
         begin
           linter.run(engine, config.linter_options(linter))

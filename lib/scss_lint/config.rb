@@ -227,6 +227,12 @@ module SCSSLint
       end
     end
 
+    def excluded_file_for_linter?(file_path, linter)
+      linter_options(linter).fetch('exclude', []).any? do |exclusion_glob|
+        File.fnmatch(exclusion_glob, file_path)
+      end
+    end
+
     def exclude_file(file_path)
       abs_path = File.expand_path(file_path)
 

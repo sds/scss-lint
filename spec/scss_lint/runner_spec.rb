@@ -66,6 +66,27 @@ describe SCSSLint::Runner do
       end
     end
 
+    context 'when files ere excluded for one linter' do
+      let(:config_options) do
+        {
+          'linters' => {
+            'FakeLinter1' => { 'enabled' => true, 'exclude' => ['dummy1.scss', 'dummy2.scss'] },
+            'FakeLinter2' => { 'enabled' => false },
+          },
+        }
+      end
+
+      before do
+        SCSSLint::Linter::FakeLinter1.any_instance
+                        .stub(:run)
+                        .and_raise(RuntimeError.new('FakeLinter1#run was called'))
+      end
+
+      it 'not run linter 1' do
+        expect { subject }.to_not raise_error
+      end
+    end
+
     context 'when a linter raises an error' do
       let(:backtrace) { %w[file.rb:1 file.rb:2] }
 
