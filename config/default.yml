@@ -86,6 +86,9 @@ linters:
   TrailingSemicolonAfterPropertyValue:
     enabled: true
 
+  UrlQuotes:
+    enabled: true
+
   UsageName:
     enabled: true
 

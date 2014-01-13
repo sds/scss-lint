@@ -452,6 +452,22 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     Single quotes are easier to type by virtue of not requiring the `Shift`
     key on most popular keyboard layouts.
 
+* Don't use URLs without quotes
+
+    ```scss
+    // Incorrect
+    background: url(example.png);
+
+    // Correct
+    background: url('example.png');
+    ```
+
+    Using quoted URLs is consistent with using other Sass asset helpers, which
+    also expect quoted strings. It also works better with most syntax
+    highlighters, and makes it easier to escape characters. See the
+    [URL type](http://dev.w3.org/csswg/css-values/#url-value) documentation
+    for more information.
+
 * Properties should be formatted with no space between the name and the colon,
   and a single space separating the colon from the property's value.
 

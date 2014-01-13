@@ -12,6 +12,7 @@
   only comments
 * Teach scss-lint to report a lint when double quotes are used when single
   quotes will suffice (can be configured to prefer double quotes instead)
+* Teach scss-lint to prefer quoted URLs
 
 ## 0.16.1
 
