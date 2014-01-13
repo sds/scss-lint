@@ -423,7 +423,7 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     color: rgba(0, 0, 0, .1);
     ```
 
-* Parentheses should not (or should) be padded with spaces.
+* Parentheses should not be padded with spaces.
 
     ```scss
     // Incorrect
