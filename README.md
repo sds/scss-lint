@@ -435,6 +435,23 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     color: rgba(0, 0, 0, .1);
     ```
 
+* String literals should be written with single quotes unless using double
+  quotes would save on escape characters
+
+    ```scss
+    // Incorrect
+    content: "hello";
+
+    // Correct
+    content: 'hello';
+
+    // Correct - double quotes prevent the need for escaping single quotes
+    content: "'hello'";
+    ```
+
+    Single quotes are easier to type by virtue of not requiring the `Shift`
+    key on most popular keyboard layouts.
+
 * Properties should be formatted with no space between the name and the colon,
   and a single space separating the colon from the property's value.
 

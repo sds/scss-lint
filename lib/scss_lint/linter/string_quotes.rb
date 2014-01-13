@@ -1,0 +1,75 @@
+module SCSSLint
+  # Checks the type of quotes used in string literals.
+  class Linter::StringQuotes < Linter
+    include LinterRegistry
+
+    def visit_script_string(node)
+      check_quotes(node, source_from_range(node.source_range))
+    end
+
+    def visit_import(node)
+      # @import source range conveniently includes only the quoted string
+      check_quotes(node, source_from_range(node.source_range))
+    end
+
+    def visit_charset(node)
+      # @charset source range includes entire declaration, so exclude '@charset' prefix
+      source = source_from_range(node.source_range)[('@charset'.length)..-1]
+
+      check_quotes(node, source)
+    end
+
+  private
+
+    def check_quotes(node, source)
+      source = source.strip
+      string = extract_string_without_quotes(source)
+      return unless string
+
+      case source[0]
+      when '"'
+        check_double_quotes(node, string)
+      when "'"
+        check_single_quotes(node, string)
+      end
+    end
+
+    STRING_WITHOUT_QUOTES_REGEX = %r{
+      \A
+      ["'](.*)["']    # Extract text between quotes
+      \s*\)?\s*;?\s*  # Sometimes the Sass parser includes a trailing ) or ;
+      (//.*)?         # Exclude any trailing comments that might have snuck in
+      \z
+    }x
+
+    def extract_string_without_quotes(source)
+      if match = STRING_WITHOUT_QUOTES_REGEX.match(source)
+        match[1]
+      end
+    end
+
+    def check_double_quotes(node, string)
+      if config['style'] == 'single_quotes'
+        add_lint(node, 'Prefer single quoted strings') if string !~ /'/
+      else
+        if string =~ /(?<! \\) \\"/x && string !~ /'/
+          add_lint(node, 'Use single-quoted strings when writing double quotes ' +
+                         'to avoid having to escape the double quotes')
+        end
+      end
+    end
+
+    def check_single_quotes(node, string)
+      if config['style'] == 'single_quotes'
+        if string =~ /(?<! \\) \\'/x && string !~ /"/
+          add_lint(node, 'Use double-quoted strings when writing single quotes ' +
+                         'to avoid having to escape the single quotes')
+        elsif string =~ /(?<! \\) \\"/x
+          add_lint(node, "Don't escape double quotes in single-quoted strings")
+        end
+      else
+        add_lint(node, 'Prefer double-quoted strings') if string !~ /"/
+      end
+    end
+  end
+end

@@ -41,6 +41,26 @@ module SCSSLint
       engine.lines[actual_line][actual_offset]
     end
 
+    # Extracts the original source code given a range.
+    def source_from_range(source_range)
+      current_line = source_range.start_pos.line - 1
+      last_line = source_range.end_pos.line - 1
+
+      source = engine.lines[current_line][(source_range.start_pos.offset - 1)..-1]
+
+      current_line += 1
+      while current_line < last_line
+        source += "#{engine.lines[current_line]}\n"
+        current_line += 1
+      end
+
+      if source_range.start_pos.line != source_range.end_pos.line
+        source += "#{engine.lines[current_line][0...source_range.end_pos.offset]}\n"
+      end
+
+      source
+    end
+
     # Monkey-patched implementation that adds support for traversing
     # Sass::Script::Nodes (original implementation only supports
     # Sass::Tree::Nodes).

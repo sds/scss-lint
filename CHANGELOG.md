@@ -10,6 +10,8 @@
   that linter for files matching any of the specified set of globs
 * Fix bug where scss-lint would crash if a `.scss-lint.yml` file contained
   only comments
+* Teach scss-lint to report a lint when double quotes are used when single
+  quotes will suffice (can be configured to prefer double quotes instead)
 
 ## 0.16.1
 
