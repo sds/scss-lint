@@ -55,6 +55,12 @@ describe SCSSLint::Linter::StringQuotes do
     let(:css) { "@import 'file';" }
 
     it { should_not report_lint }
+
+    context 'and has no trailing semicolon' do
+      let(:css) { "@import 'file'" }
+
+      it { should_not report_lint }
+    end
   end
 
   context 'when @charset uses single quotes' do
@@ -117,6 +123,12 @@ describe SCSSLint::Linter::StringQuotes do
     let(:css) { '@import "file";' }
 
     it { should report_lint }
+
+    context 'and has no trailing semicolon' do
+      let(:css) { '@import "file"' }
+
+      it { should report_lint }
+    end
   end
 
   context 'when @charset uses double quotes' do

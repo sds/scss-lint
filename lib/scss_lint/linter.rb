@@ -54,7 +54,10 @@ module SCSSLint
         current_line += 1
       end
 
-      if source_range.start_pos.line != source_range.end_pos.line
+      if source_range.start_pos.line != source_range.end_pos.line &&
+         # Sometimes the parser reports ranges ending on the first column of the
+         # line after the last line; don't include the last line in this case.
+         engine.lines.count == current_line - 1
         source += "#{engine.lines[current_line][0...source_range.end_pos.offset]}\n"
       end
 
