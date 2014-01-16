@@ -13,6 +13,7 @@
 * Teach scss-lint to report a lint when double quotes are used when single
   quotes will suffice (can be configured to prefer double quotes instead)
 * Teach scss-lint to prefer quoted URLs
+* Upgrade `colorize` dependency from `0.5.8` to `0.6.0`
 
 ## 0.16.1
 
