@@ -18,7 +18,7 @@ describe SCSSLint::CLI do
   before do
     # Silence console output
     @output = ''
-    STDOUT.stub!(:write) { |*args| @output.<<(*args) }
+    STDOUT.stub(:write) { |*args| @output.<<(*args) }
 
     SCSSLint::Config.stub(:load).and_return(config)
     SCSSLint::LinterRegistry.stub(:linters)

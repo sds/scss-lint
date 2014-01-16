@@ -24,5 +24,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'sass', '3.3.0.rc.1' # Hard dependency since we monkey patch AST
 
   s.add_development_dependency 'nokogiri', '1.6.0'
-  s.add_development_dependency 'rspec', '2.13.0'
+  s.add_development_dependency 'rspec', '2.14.1'
 end
