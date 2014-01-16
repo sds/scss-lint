@@ -140,4 +140,20 @@ describe SCSSLint::Linter::SelectorDepth do
       end
     end
   end
+
+  context 'when sequence contains a @keyframe' do
+    let(:css) { <<-CSS }
+      @keyframe my-keyframe {
+        0% {
+          background: #000;
+        }
+
+        50% {
+          background: #fff;
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end

@@ -14,6 +14,8 @@
   quotes will suffice (can be configured to prefer double quotes instead)
 * Teach scss-lint to prefer quoted URLs
 * Upgrade `colorize` dependency from `0.5.8` to `0.6.0`
+* Fix bug where `SelectorDepth` would error when encountering percentages
+  inside of `@keyframe` declarations.
 
 ## 0.16.1
 

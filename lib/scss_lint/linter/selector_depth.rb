@@ -39,6 +39,7 @@ module SCSSLint
       end
 
       parent_selectors = simple_sequences.count do |item|
+        next if item.is_a?(Array) # @keyframe percentages end up as Arrays
         item.rest.any? { |i| i.is_a?(Sass::Selector::Parent) }
       end
 
