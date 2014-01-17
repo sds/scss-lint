@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.17.0
 
 * Fix bug where `SingleLinePerSelector` would incorrectly report lint for
   selectors where interpolation contained commas
