@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.17.1
 
 * Downgrade `colorize` dependency from `0.6.0` back to `0.5.8`
 
