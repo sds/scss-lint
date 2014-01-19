@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Downgrade `colorize` dependency from `0.6.0` back to `0.5.8`
+
 ## 0.17.0
 
 * Fix bug where `SingleLinePerSelector` would incorrectly report lint for
