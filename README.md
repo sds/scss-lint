@@ -110,7 +110,13 @@ consistency.
 
 Any lint can be disabled by using the `--exclude-linter` flag.
 
+## Linters (ordered alphabetically)
+
+### BorderZero
+
 * Prefer `border: 0` over `border: none`.
+
+### CapitalizationInSelector
 
 * IDs, classes, types, placeholders, and pseudo-selectors should be all lowercase.
 
@@ -126,29 +132,17 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     }
     ```
 
-* Prefer hexadecimal colors over their human-friendly form.
+### ColorKeyword
+
+* Reports when you have an HTML color name specified rather than a hex value.
 
     ```scss
-    // Incorrect
-    color: green;
-
-    // Correct
-    color: #0f0;
+    .ribbon {
+      color: hotpink;
+    }
     ```
 
-    Defining colors directly in properties is usually a smell. When you color
-    your body text in a number of places, if you ever want to change the color
-    of the text you'll have to update the explicitly defined color in a number
-    of places, and finding all those places can be difficult if you use the
-    same color for other elements (i.e. a simple find/replace may not always
-    work).
-
-    A better approach is to use global variables like `$color-text-body` and
-    refer to this variable everywhere you want to use it. This makes it easy
-    to update the color, as you only need change it in one place. It is also
-    more intention-revealing, as seeing the name `$color-text-body` is more
-    descriptive than `#333` or `black`. Using color keywords can obfuscate
-    this, as they look like variables.
+### Comment
 
 * Prefer `//` comments over `/* ... */`.
 
@@ -166,72 +160,23 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     Furthermore, comments should be concise, and using `/* ... */`
     encourages multi-line comments which tend to not be concise.
 
-* Write `@extend` statements first in rule sets, followed by property
-  declarations and then other nested rule sets.
+### DebugStatement
+
+* Reports `@debug` statements (which you probably left behind accidentally)
+
+### DuplicateProperty
+
+* Reports when you define the same property twice in a single rule set
 
     ```scss
-    // Incorrect
-    .fatal-error {
-      color: #f00;
-      @extend %error;
-
-      p {
-        ...
-      }
-    }
-
-    // Correct
-    .fatal-error {
-      @extend %error;
-      color: #f00;
-
-      p {
-        ...
-      }
+    h1 {
+      margin: 10px;
+      text-transform: uppercase;
+      margin: 0;
     }
     ```
 
-* Functions, mixins, and variables should be declared with all lowercase letters.
-
-    ```scss
-    // Incorrect - uppercase letters
-    $myVar: 10px;
-
-    @mixin myMixin() {
-      ...
-    }
-
-    // Correct
-    $my-var: 10px;
-
-    @mixin my-mixin() {
-      ...
-    }
-    ```
-
-* Prefer hyphens over underscores in function, mixin, and variable names.
-
-    ```scss
-    // Incorrect - words separated by underscores
-    $my_var: 10px;
-
-    @mixin my_mixin() {
-      ...
-    }
-
-    // Correct - words separated by hyphens
-    $my-var: 10px;
-
-    @mixin my-mixin() {
-      ...
-    }
-    ```
-
-    Hyphens are easier to type than underscores.
-
-    The Sass parser automatically treats underscores and hyphens the same, so
-    even if you're using a library that declares a function with an underscore,
-    you can refer to it using the hyphenated form instead.
+### EmptyLineBetweenBlocks
 
 * Separate rule, function, and mixin declarations with empty lines
 
@@ -261,6 +206,91 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     }
     ```
 
+### EmptyRule
+
+* Reports when you have an empty rule set
+
+    ```scss
+    .cat {
+    }
+    ```
+
+### HexFormat
+
+* Prefer hexadecimal colors over their human-friendly form.
+
+    ```scss
+    // Incorrect
+    color: green;
+
+    // Correct
+    color: #0f0;
+    ```
+
+    Defining colors directly in properties is usually a smell. When you color
+    your body text in a number of places, if you ever want to change the color
+    of the text you'll have to update the explicitly defined color in a number
+    of places, and finding all those places can be difficult if you use the
+    same color for other elements (i.e. a simple find/replace may not always
+    work).
+
+    A better approach is to use global variables like `$color-text-body` and
+    refer to this variable everywhere you want to use it. This makes it easy
+    to update the color, as you only need change it in one place. It is also
+    more intention-revealing, as seeing the name `$color-text-body` is more
+    descriptive than `#333` or `black`. Using color keywords can obfuscate
+    this, as they look like variables.
+
+
+### TBC
+
+* Write `@extend` statements first in rule sets, followed by property
+  declarations and then other nested rule sets.
+
+    ```scss
+    // Incorrect
+    .fatal-error {
+      color: #f00;
+      @extend %error;
+
+      p {
+        ...
+      }
+    }
+
+    // Correct
+    .fatal-error {
+      @extend %error;
+      color: #f00;
+
+      p {
+        ...
+      }
+    }
+    ```
+
+### DeclaredName
+
+* Functions, mixins, and variables should be declared with all lowercase letters.
+
+    ```scss
+    // Incorrect - uppercase letters
+    $myVar: 10px;
+
+    @mixin myMixin() {
+      ...
+    }
+
+    // Correct
+    $my-var: 10px;
+
+    @mixin my-mixin() {
+      ...
+    }
+    ```
+
+### HexFormat
+
 * Prefer the shortest possible form for hex colors.
 
     ```scss
@@ -270,6 +300,8 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     // Correct
     color: #f2e;
     ```
+
+### IdWithExtraneousSelector
 
 * Don't combine additional selectors with an ID selector.
 
@@ -292,6 +324,8 @@ Any lint can be disabled by using the `--exclude-linter` flag.
 
     Even better would be to never use IDs in the first place.
 
+### Indentation
+
 * Use two **spaces** per indentation level. No hard tabs.
 
     ```scss
@@ -306,6 +340,8 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     }
     ```
 
+### LeadingZero
+
 * Don't write leading zeros for numeric values with a decimal point.
 
     ```scss
@@ -315,6 +351,8 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     // Correct
     margin: .5em;
     ```
+
+### PlaceholderInExtend
 
 * Always use placeholder selectors in `@extend`.
 
@@ -336,6 +374,39 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     order to be used with `@extend`.
 
     See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-sass-extends-and-placeholders/).
+
+### PropertySpelling
+
+* Reports when you use an unknown CSS property (ignoring vendor-prefixed
+  properties)
+
+    ```scss
+    diplay: none; // "display" is spelled incorrectly
+    ```
+
+    Since the list of available CSS properties is constantly changing, it's
+    possible that you might get some false positives here, especially if
+    you're using experimental CSS features. If that's the case, you can
+    add additional properties to the whitelist by adding the following
+    to your `.scss-lint.yml` configuration:
+
+    ```yaml
+    linters:
+      PropertySpelling:
+        extra_properties:
+          - some-experimental-property
+          - another-experimental-property
+    ```
+
+    If you're sure the property in question is valid,
+    [submit a request](https://github.com/causes/scss-lint/issues/new)
+    to add it to the default whitelist.
+
+### PropertyWithMixin
+
+* TBC
+
+### SelectorDepth
 
 * Don't write selectors with a depth of applicability greater than 3
 
@@ -371,6 +442,8 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     rendering times, especially on mobile devices. While the default limit is
     3, ideally it is better to use less than 3 whenever possible.
 
+### Shorthand
+
 * Prefer the shortest shorthand form possible for properties that support it.
 
     ```scss
@@ -380,6 +453,8 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     // Correct - equivalent to specifying 1px for all sides
     margin: 1px;
     ```
+
+### SingleLinePerSelector
 
 * Split selectors onto separate lines after each comma.
 
@@ -396,6 +471,8 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     }
     ```
 
+### SortedProperties
+
 * Sort properties in alphabetical order.
 
     It's brain-dead simple (highlight lines and execute `:sort` in `vim`), and it can
@@ -411,6 +488,8 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     [Compass](http://compass-style.org/) or [Bourbon](http://bourbon.io/) so
     vendor-specific properties rarely need to be manually written.
 
+### SpaceAfterComma
+
 * Commas in lists should be followed by a space.
 
     ```scss
@@ -423,50 +502,7 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     color: rgba(0, 0, 0, .1);
     ```
 
-* Parentheses should not be padded with spaces.
-
-    ```scss
-    // Incorrect
-    @include box-shadow( 0 2px 2px rgba( 0, 0, 0, .2 ) );
-    color: rgba( 0, 0, 0, .1 );
-
-    // Correct
-    @include box-shadow(0 2px 2px rgba(0, 0, 0, .2));
-    color: rgba(0, 0, 0, .1);
-    ```
-
-* String literals should be written with single quotes unless using double
-  quotes would save on escape characters
-
-    ```scss
-    // Incorrect
-    content: "hello";
-
-    // Correct
-    content: 'hello';
-
-    // Correct - double quotes prevent the need for escaping single quotes
-    content: "'hello'";
-    ```
-
-    Single quotes are easier to type by virtue of not requiring the `Shift`
-    key on most popular keyboard layouts.
-
-* Don't use URLs without quotes
-
-    ```scss
-    // Incorrect
-    background: url(example.png);
-
-    // Correct
-    background: url('example.png');
-    ```
-
-    Using quoted URLs is consistent with using other Sass asset helpers, which
-    also expect quoted strings. It also works better with most syntax
-    highlighters, and makes it easier to escape characters. See the
-    [URL type](http://dev.w3.org/csswg/css-values/#url-value) documentation
-    for more information.
+### SpaceAfterPropertyColon
 
 * Properties should be formatted with no space between the name and the colon,
   and a single space separating the colon from the property's value.
@@ -485,6 +521,12 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     margin: 0;
     ```
 
+### SpaceAfterPropertyName
+
+* TBC
+
+### SpaceBeforeBrace
+
 * Opening braces should be preceded by a single space.
 
     ```scss
@@ -500,6 +542,41 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     p {
     }
     ```
+
+### SpaceBetweenParens
+
+* Parentheses should not be padded with spaces.
+
+    ```scss
+    // Incorrect
+    @include box-shadow( 0 2px 2px rgba( 0, 0, 0, .2 ) );
+    color: rgba( 0, 0, 0, .1 );
+
+    // Correct
+    @include box-shadow(0 2px 2px rgba(0, 0, 0, .2));
+    color: rgba(0, 0, 0, .1);
+    ```
+
+### StringQuotes
+
+* String literals should be written with single quotes unless using double
+  quotes would save on escape characters
+
+    ```scss
+    // Incorrect
+    content: "hello";
+
+    // Correct
+    content: 'hello';
+
+    // Correct - double quotes prevent the need for escaping single quotes
+    content: "'hello'";
+    ```
+
+    Single quotes are easier to type by virtue of not requiring the `Shift`
+    key on most popular keyboard layouts.
+
+### TrailingSemicolonAfterPropertyValue
 
 * Property values should always end with a semicolon.
 
@@ -520,6 +597,26 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     }
     ```
 
+### UrlQuotes
+
+* Don't use URLs without quotes
+
+    ```scss
+    // Incorrect
+    background: url(example.png);
+
+    // Correct
+    background: url('example.png');
+    ```
+
+    Using quoted URLs is consistent with using other Sass asset helpers, which
+    also expect quoted strings. It also works better with most syntax
+    highlighters, and makes it easier to escape characters. See the
+    [URL type](http://dev.w3.org/csswg/css-values/#url-value) documentation
+    for more information.
+
+### ZeroUnit
+
 * Omit units on zero values.
 
     ```scss
@@ -530,39 +627,31 @@ Any lint can be disabled by using the `--exclude-linter` flag.
     margin: 0;
     ```
 
+### UsageName
 
-### Other Lints
-
-* Reports `@debug` statements (which you probably left behind accidentally)
-
-* Reports when you define the same property twice in a single rule set
-
-* Reports when you have an empty rule set
-
-* Reports when you use an unknown CSS property (ignoring vendor-prefixed
-  properties)
+* Prefer hyphens over underscores in function, mixin, and variable names.
 
     ```scss
-    diplay: none; // "display" is spelled incorrectly
+    // Incorrect - words separated by underscores
+    $my_var: 10px;
+
+    @mixin my_mixin() {
+      ...
+    }
+
+    // Correct - words separated by hyphens
+    $my-var: 10px;
+
+    @mixin my-mixin() {
+      ...
+    }
     ```
 
-    Since the list of available CSS properties is constantly changing, it's
-    possible that you might get some false positives here, especially if
-    you're using experimental CSS features. If that's the case, you can
-    add additional properties to the whitelist by adding the following
-    to your `.scss-lint.yml` configuration:
+    Hyphens are easier to type than underscores.
 
-    ```yaml
-    linters:
-      PropertySpelling:
-        extra_properties:
-          - some-experimental-property
-          - another-experimental-property
-    ```
-
-    If you're sure the property in question is valid,
-    [submit a request](https://github.com/causes/scss-lint/issues/new)
-    to add it to the default whitelist.
+    The Sass parser automatically treats underscores and hyphens the same, so
+    even if you're using a library that declares a function with an underscore,
+    you can refer to it using the hyphenated form instead.
 
 ## Contributing
 
