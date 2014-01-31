@@ -118,544 +118,542 @@ Below is the list of linters supported by `scss-lint`, ordered alphabetically.
 
 ### BorderZero
 
-* Prefer `border: 0` over `border: none`.
+Prefer `border: 0` over `border: none`.
 
 ### CapitalizationInSelector
 
-* IDs, classes, types, placeholders, and pseudo-selectors should be all lowercase.
+IDs, classes, types, placeholders, and pseudo-selectors should be all lowercase.
 
-    ```scss
-    // Incorrect - capitalized class name
-    .Button {
-      ...
-    }
+```scss
+// Incorrect - capitalized class name
+.Button {
+  ...
+}
 
-    // Correct
-    .button {
-      ...
-    }
-    ```
+// Correct
+.button {
+  ...
+}
+```
 
 ### ColorKeyword
 
-* Reports when you have an HTML color name specified rather than a hex value.
+Reports when you have an HTML color name specified rather than a hex value.
 
-    ```scss
-    .ribbon {
-      color: hotpink;
-    }
-    ```
+```scss
+.ribbon {
+  color: hotpink;
+}
+```
 
 ### Comment
 
-* Prefer `//` comments over `/* ... */`.
+Prefer `//` comments over `/* ... */`.
 
-    ```scss
-    // Incorrect
-    /* This is a comment that gets rendered */
+```scss
+// Incorrect
+/* This is a comment that gets rendered */
 
-    // Correct
-    // This comment never gets rendered
-    ```
+// Correct
+// This comment never gets rendered
+```
 
-    `//` comments should be preferred as they don't get rendered in the final
-    generated CSS, whereas `/* ... */` comments do.
+`//` comments should be preferred as they don't get rendered in the final
+generated CSS, whereas `/* ... */` comments do.
 
-    Furthermore, comments should be concise, and using `/* ... */`
-    encourages multi-line comments which tend to not be concise.
+Furthermore, comments should be concise, and using `/* ... */`
+encourages multi-line comments which tend to not be concise.
 
 ### DebugStatement
 
-* Reports `@debug` statements (which you probably left behind accidentally)
+Reports `@debug` statements (which you probably left behind accidentally).
 
 ### DuplicateProperty
 
-* Reports when you define the same property twice in a single rule set
+Reports when you define the same property twice in a single rule set.
 
-    ```scss
-    h1 {
-      margin: 10px;
-      text-transform: uppercase;
-      margin: 0;
-    }
-    ```
+```scss
+h1 {
+  margin: 10px;
+  text-transform: uppercase;
+  margin: 0;
+}
+```
 
 ### EmptyLineBetweenBlocks
 
-* Separate rule, function, and mixin declarations with empty lines
+Separate rule, function, and mixin declarations with empty lines.
 
-    ```scss
-    // Incorrect
-    p {
-      margin: 0;
-      em {
-        ...
-      }
-    }
-    a {
-      ...
-    }
+```scss
+// Incorrect
+p {
+  margin: 0;
+  em {
+    ...
+  }
+}
+a {
+  ...
+}
 
-    // Correct
-    p {
-      margin: 0;
+// Correct
+p {
+  margin: 0;
 
-      em {
-        ...
-      }
-    }
+  em {
+    ...
+  }
+}
 
-    a {
-      ...
-    }
-    ```
+a {
+  ...
+}
+```
 
 ### EmptyRule
 
-* Reports when you have an empty rule set
+Reports when you have an empty rule set.
 
-    ```scss
-    .cat {
-    }
-    ```
+```scss
+.cat {
+}
+```
 
 ### HexFormat
 
-* Prefer hexadecimal colors over their human-friendly form.
+Prefer hexadecimal colors over their human-friendly form.
 
-    ```scss
-    // Incorrect
-    color: green;
+```scss
+// Incorrect
+color: green;
 
-    // Correct
-    color: #0f0;
-    ```
+// Correct
+color: #0f0;
+```
 
-    Defining colors directly in properties is usually a smell. When you color
-    your body text in a number of places, if you ever want to change the color
-    of the text you'll have to update the explicitly defined color in a number
-    of places, and finding all those places can be difficult if you use the
-    same color for other elements (i.e. a simple find/replace may not always
-    work).
+Defining colors directly in properties is usually a smell. When you color your
+body text in a number of places, if you ever want to change the color of the
+text you'll have to update the explicitly defined color in a number of places,
+and finding all those places can be difficult if you use the same color for
+other elements (i.e. a simple find/replace may not always work).
 
-    A better approach is to use global variables like `$color-text-body` and
-    refer to this variable everywhere you want to use it. This makes it easy
-    to update the color, as you only need change it in one place. It is also
-    more intention-revealing, as seeing the name `$color-text-body` is more
-    descriptive than `#333` or `black`. Using color keywords can obfuscate
-    this, as they look like variables.
-
+A better approach is to use global variables like `$color-text-body` and refer
+to this variable everywhere you want to use it. This makes it easy to update
+the color, as you only need change it in one place. It is also more
+intention-revealing, as seeing the name `$color-text-body` is more descriptive
+than `#333` or `black`. Using color keywords can obfuscate this, as they look
+like variables.
 
 ### TBC
 
-* Write `@extend` statements first in rule sets, followed by property
-  declarations and then other nested rule sets.
+Write `@extend` statements first in rule sets, followed by property
+declarations and then other nested rule sets.
 
-    ```scss
-    // Incorrect
-    .fatal-error {
-      color: #f00;
-      @extend %error;
+```scss
+// Incorrect
+.fatal-error {
+  color: #f00;
+  @extend %error;
 
-      p {
-        ...
-      }
-    }
+  p {
+    ...
+  }
+}
 
-    // Correct
-    .fatal-error {
-      @extend %error;
-      color: #f00;
+// Correct
+.fatal-error {
+  @extend %error;
+  color: #f00;
 
-      p {
-        ...
-      }
-    }
-    ```
+  p {
+    ...
+  }
+}
+```
 
 ### DeclaredName
 
-* Functions, mixins, and variables should be declared with all lowercase letters.
+Functions, mixins, and variables should be declared with all lowercase letters.
 
-    ```scss
-    // Incorrect - uppercase letters
-    $myVar: 10px;
+```scss
+// Incorrect - uppercase letters
+$myVar: 10px;
 
-    @mixin myMixin() {
-      ...
-    }
+@mixin myMixin() {
+  ...
+}
 
-    // Correct
-    $my-var: 10px;
+// Correct
+$my-var: 10px;
 
-    @mixin my-mixin() {
-      ...
-    }
-    ```
+@mixin my-mixin() {
+  ...
+}
+```
 
 ### HexFormat
 
-* Prefer the shortest possible form for hex colors.
+Prefer the shortest possible form for hex colors.
 
-    ```scss
-    // Incorrect
-    color: #ff22ee;
+```scss
+// Incorrect
+color: #ff22ee;
 
-    // Correct
-    color: #f2e;
-    ```
+// Correct
+color: #f2e;
+```
 
 ### IdWithExtraneousSelector
 
-* Don't combine additional selectors with an ID selector.
+Don't combine additional selectors with an ID selector.
 
-    ```scss
-    // Incorrect - `.button` class is unnecessary
-    #submit-button.button {
-      ...
-    }
+```scss
+// Incorrect - `.button` class is unnecessary
+#submit-button.button {
+  ...
+}
 
-    // Correct
-    #submit-button {
-      ...
-    }
-    ```
+// Correct
+#submit-button {
+  ...
+}
+```
 
-    While the CSS specification allows for multiple elements with the same
-    ID to appear in a single document, in practice this is usually a smell.
-    When reasoning about IDs (including selector specificity), it should
-    suffice to style an element with a particular ID based solely on the ID.
+While the CSS specification allows for multiple elements with the same ID to
+appear in a single document, in practice this is usually a smell.  When
+reasoning about IDs (including selector specificity), it should suffice to
+style an element with a particular ID based solely on the ID.
 
-    Even better would be to never use IDs in the first place.
+Even better would be to never use IDs in the first place.
 
 ### Indentation
 
-* Use two **spaces** per indentation level. No hard tabs.
+Use two **spaces** per indentation level. No hard tabs.
 
-    ```scss
-    // Incorrect - four spaces
-    p {
-        color: #f00;
-    }
+```scss
+// Incorrect - four spaces
+p {
+    color: #f00;
+}
 
-    // Correct
-    p {
-      color: #f00;
-    }
-    ```
+// Correct
+p {
+  color: #f00;
+}
+```
 
 ### LeadingZero
 
-* Don't write leading zeros for numeric values with a decimal point.
+Don't write leading zeros for numeric values with a decimal point.
 
-    ```scss
-    // Incorrect
-    margin: 0.5em;
+```scss
+// Incorrect
+margin: 0.5em;
 
-    // Correct
-    margin: .5em;
-    ```
+// Correct
+margin: .5em;
+```
 
 ### PlaceholderInExtend
 
-* Always use placeholder selectors in `@extend`.
+Always use placeholder selectors in `@extend`.
 
-    ```scss
-    // Incorrect
-    .fatal {
-      @extend .error;
-    }
+```scss
+// Incorrect
+.fatal {
+  @extend .error;
+}
 
-    // Correct
-    .fatal {
-      @extend %error;
-    }
-    ```
+// Correct
+.fatal {
+  @extend %error;
+}
+```
 
-    Using a class selector with the `@extend` statement statement usually
-    results in more generated CSS than when using a placeholder selector.
-    Furthermore, Sass specifically introduced placeholder selectors in
-    order to be used with `@extend`.
+Using a class selector with the `@extend` statement statement usually results
+in more generated CSS than when using a placeholder selector.  Furthermore,
+Sass specifically introduced placeholder selectors in order to be used with
+`@extend`.
 
-    See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-sass-extends-and-placeholders/).
+See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-sass-extends-and-placeholders/).
 
 ### PropertySpelling
 
-* Reports when you use an unknown CSS property (ignoring vendor-prefixed
-  properties)
+Reports when you use an unknown CSS property (ignoring vendor-prefixed
+properties)
 
-    ```scss
-    diplay: none; // "display" is spelled incorrectly
-    ```
+```scss
+diplay: none; // "display" is spelled incorrectly
+```
 
-    Since the list of available CSS properties is constantly changing, it's
-    possible that you might get some false positives here, especially if
-    you're using experimental CSS features. If that's the case, you can
-    add additional properties to the whitelist by adding the following
-    to your `.scss-lint.yml` configuration:
+Since the list of available CSS properties is constantly changing, it's
+possible that you might get some false positives here, especially if you're
+using experimental CSS features. If that's the case, you can add additional
+properties to the whitelist by adding the following to your `.scss-lint.yml`
+configuration:
 
-    ```yaml
-    linters:
-      PropertySpelling:
-        extra_properties:
-          - some-experimental-property
-          - another-experimental-property
-    ```
+```yaml
+linters:
+  PropertySpelling:
+    extra_properties:
+      - some-experimental-property
+      - another-experimental-property
+```
 
-    If you're sure the property in question is valid,
-    [submit a request](https://github.com/causes/scss-lint/issues/new)
-    to add it to the default whitelist.
+If you're sure the property in question is valid,
+[submit a request](https://github.com/causes/scss-lint/issues/new)
+to add it to the default whitelist.
 
 ### PropertyWithMixin
 
-* TBC
+TBC
 
 ### SelectorDepth
 
-* Don't write selectors with a depth of applicability greater than 3
+Don't write selectors with a depth of applicability greater than 3
 
-    ```scss
-    // Incorrect - resulting CSS will have a selctor with depth of 4
-    .one .two .three > .four {
-      ...
-    }
+```scss
+// Incorrect - resulting CSS will have a selctor with depth of 4
+.one .two .three > .four {
+  ...
+}
 
-    .one .two {
-      .three > .four {
-        ...
-      }
-    }
+.one .two {
+  .three > .four {
+    ...
+  }
+}
 
-    // Correct
-    .one .two .three {
-      ...
-    }
+// Correct
+.one .two .three {
+  ...
+}
 
-    .one .two {
-      .three {
-        ...
-      }
-    }
-    ```
+.one .two {
+  .three {
+    ...
+  }
+}
+```
 
-    Selectors with a large [depth of applicability](http://smacss.com/book/applicability)
-    lead to CSS tightly-coupled to your HTML structure, making it brittle to
-    change.
+Selectors with a large [depth of applicability](http://smacss.com/book/applicability)
+lead to CSS tightly-coupled to your HTML structure, making it brittle to change.
 
-    Deep selectors also come with a performance penalty, which can affect
-    rendering times, especially on mobile devices. While the default limit is
-    3, ideally it is better to use less than 3 whenever possible.
+Deep selectors also come with a performance penalty, which can affect rendering
+times, especially on mobile devices. While the default limit is 3, ideally it
+is better to use less than 3 whenever possible.
 
 ### Shorthand
 
-* Prefer the shortest shorthand form possible for properties that support it.
+Prefer the shortest shorthand form possible for properties that support it.
 
-    ```scss
-    // Incorrect - all 4 sides specified with same value
-    margin: 1px 1px 1px 1px;
+```scss
+// Incorrect - all 4 sides specified with same value
+margin: 1px 1px 1px 1px;
 
-    // Correct - equivalent to specifying 1px for all sides
-    margin: 1px;
-    ```
+// Correct - equivalent to specifying 1px for all sides
+margin: 1px;
+```
 
 ### SingleLinePerSelector
 
-* Split selectors onto separate lines after each comma.
+Split selectors onto separate lines after each comma.
 
-    ```scss
-    // Incorrect
-    .error p, p.explanation {
-      ...
-    }
+```scss
+// Incorrect
+.error p, p.explanation {
+  ...
+}
 
-    // Correct - each selector sequence is on its own line
-    .error p,
-    p.explanation {
-      ...
-    }
-    ```
+// Correct - each selector sequence is on its own line
+.error p,
+p.explanation {
+  ...
+}
+```
 
 ### SortedProperties
 
-* Sort properties in alphabetical order.
+Sort properties in alphabetical order.
 
-    It's brain-dead simple (highlight lines and execute `:sort` in `vim`), and it can
-    [benefit gzip compression](http://www.barryvan.com.au/2009/08/css-minifier-and-alphabetiser/).
+It's brain-dead simple (highlight lines and execute `:sort` in `vim`), and it can
+[benefit gzip compression](http://www.barryvan.com.au/2009/08/css-minifier-and-alphabetiser/).
 
-    Sorting alphabetically also makes properties easier to find. Ordering based
-    on the semantics of the properties can be more problematic depending on
-    which other properties are present.
+Sorting alphabetically also makes properties easier to find. Ordering based on
+the semantics of the properties can be more problematic depending on which
+other properties are present.
 
-    Note that there are legitimate cases where one needs to explicitly break
-    alphabetical sort order in order to use vendor-specific properties. In
-    this case, this is usually avoided by using mixins from a framework like
-    [Compass](http://compass-style.org/) or [Bourbon](http://bourbon.io/) so
-    vendor-specific properties rarely need to be manually written.
+Note that there are legitimate cases where one needs to explicitly break
+alphabetical sort order in order to use vendor-specific properties. In this
+case, this is usually avoided by using mixins from a framework like
+[Compass](http://compass-style.org/) or [Bourbon](http://bourbon.io/) so
+vendor-specific properties rarely need to be manually written.
 
 ### SpaceAfterComma
 
-* Commas in lists should be followed by a space.
+Commas in lists should be followed by a space.
 
-    ```scss
-    // Incorrect
-    @include box-shadow(0 2px 2px rgba(0,0,0,.2));
-    color: rgba(0,0,0,.1);
+```scss
+// Incorrect
+@include box-shadow(0 2px 2px rgba(0,0,0,.2));
+color: rgba(0,0,0,.1);
 
-    // Correct
-    @include box-shadow(0 2px 2px rgba(0, 0, 0, .2));
-    color: rgba(0, 0, 0, .1);
-    ```
+// Correct
+@include box-shadow(0 2px 2px rgba(0, 0, 0, .2));
+color: rgba(0, 0, 0, .1);
+```
 
 ### SpaceAfterPropertyColon
 
-* Properties should be formatted with no space between the name and the colon,
-  and a single space separating the colon from the property's value.
+Properties should be formatted with no space between the name and the colon,
+and a single space separating the colon from the property's value.
 
-    ```scss
-    // Incorrect - space before colon
-    margin : 0;
+```scss
+// Incorrect - space before colon
+margin : 0;
 
-    // Incorrect - more than one space after colon
-    margin:  0;
+// Incorrect - more than one space after colon
+margin:  0;
 
-    // Incorrect - no space after colon
-    margin:0;
+// Incorrect - no space after colon
+margin:0;
 
-    // Correct
-    margin: 0;
-    ```
+// Correct
+margin: 0;
+```
 
 ### SpaceAfterPropertyName
 
-* TBC
+TBC
 
 ### SpaceBeforeBrace
 
-* Opening braces should be preceded by a single space.
+Opening braces should be preceded by a single space.
 
-    ```scss
-    // Incorrect - no space before brace
-    p{
-    }
+```scss
+// Incorrect - no space before brace
+p{
+}
 
-    // Incorrect - more than one space before brace
-    p  {
-    }
+// Incorrect - more than one space before brace
+p  {
+}
 
-    // Correct - exactly one space before brace
-    p {
-    }
-    ```
+// Correct - exactly one space before brace
+p {
+}
+```
 
 ### SpaceBetweenParens
 
-* Parentheses should not be padded with spaces.
+Parentheses should not be padded with spaces.
 
-    ```scss
-    // Incorrect
-    @include box-shadow( 0 2px 2px rgba( 0, 0, 0, .2 ) );
-    color: rgba( 0, 0, 0, .1 );
+```scss
+// Incorrect
+@include box-shadow( 0 2px 2px rgba( 0, 0, 0, .2 ) );
+color: rgba( 0, 0, 0, .1 );
 
-    // Correct
-    @include box-shadow(0 2px 2px rgba(0, 0, 0, .2));
-    color: rgba(0, 0, 0, .1);
-    ```
+// Correct
+@include box-shadow(0 2px 2px rgba(0, 0, 0, .2));
+color: rgba(0, 0, 0, .1);
+```
 
 ### StringQuotes
 
-* String literals should be written with single quotes unless using double
-  quotes would save on escape characters
+String literals should be written with single quotes unless using double quotes
+would save on escape characters.
 
-    ```scss
-    // Incorrect
-    content: "hello";
+```scss
+// Incorrect
+content: "hello";
 
-    // Correct
-    content: 'hello';
+// Correct
+content: 'hello';
 
-    // Correct - double quotes prevent the need for escaping single quotes
-    content: "'hello'";
-    ```
+// Correct - double quotes prevent the need for escaping single quotes
+content: "'hello'";
+```
 
-    Single quotes are easier to type by virtue of not requiring the `Shift`
-    key on most popular keyboard layouts.
+Single quotes are easier to type by virtue of not requiring the `Shift` key on
+most popular keyboard layouts.
 
 ### TrailingSemicolonAfterPropertyValue
 
-* Property values should always end with a semicolon.
+Property values should always end with a semicolon.
 
-    ```scss
-    // Incorrect - no semicolon
-    p {
-      color: #fff
-    }
+```scss
+// Incorrect - no semicolon
+p {
+  color: #fff
+}
 
-    // Incorrect - space between value and semicolon
-    p {
-      color: #fff ;
-    }
+// Incorrect - space between value and semicolon
+p {
+  color: #fff ;
+}
 
-    // Correct
-    p {
-      color: #fff;
-    }
-    ```
+// Correct
+p {
+  color: #fff;
+}
+```
 
 ### UrlQuotes
 
-* Don't use URLs without quotes
+Don't use URLs without quotes
 
-    ```scss
-    // Incorrect
-    background: url(example.png);
+```scss
+// Incorrect
+background: url(example.png);
 
-    // Correct
-    background: url('example.png');
-    ```
+// Correct
+background: url('example.png');
+```
 
-    Using quoted URLs is consistent with using other Sass asset helpers, which
-    also expect quoted strings. It also works better with most syntax
-    highlighters, and makes it easier to escape characters. See the
-    [URL type](http://dev.w3.org/csswg/css-values/#url-value) documentation
-    for more information.
+Using quoted URLs is consistent with using other Sass asset helpers, which also
+expect quoted strings. It also works better with most syntax highlighters, and
+makes it easier to escape characters.
+
+See the [URL type](http://dev.w3.org/csswg/css-values/#url-value) documentation
+for more information.
 
 ### ZeroUnit
 
-* Omit units on zero values.
+Omit units on zero values.
 
-    ```scss
-    // Incorrect - unnecessary units can be omitted
-    margin: 0px;
+```scss
+// Incorrect - unnecessary units can be omitted
+margin: 0px;
 
-    // Correct
-    margin: 0;
-    ```
+// Correct
+margin: 0;
+```
 
 ### UsageName
 
-* Prefer hyphens over underscores in function, mixin, and variable names.
+Prefer hyphens over underscores in function, mixin, and variable names.
 
-    ```scss
-    // Incorrect - words separated by underscores
-    $my_var: 10px;
+```scss
+// Incorrect - words separated by underscores
+$my_var: 10px;
 
-    @mixin my_mixin() {
-      ...
-    }
+@mixin my_mixin() {
+  ...
+}
 
-    // Correct - words separated by hyphens
-    $my-var: 10px;
+// Correct - words separated by hyphens
+$my-var: 10px;
 
-    @mixin my-mixin() {
-      ...
-    }
-    ```
+@mixin my-mixin() {
+  ...
+}
+```
 
-    Hyphens are easier to type than underscores.
+Hyphens are easier to type than underscores.
 
-    The Sass parser automatically treats underscores and hyphens the same, so
-    even if you're using a library that declares a function with an underscore,
-    you can refer to it using the hyphenated form instead.
+The Sass parser automatically treats underscores and hyphens the same, so even
+if you're using a library that declares a function with an underscore, you can
+refer to it using the hyphenated form instead.
 
 ## Contributing
 
