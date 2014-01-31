@@ -100,17 +100,21 @@ merged with the default configuration specified by `config/default.yml`.
 
 ## What Gets Linted
 
-`scss-lint` is an opinionated tool that helps you enforce a consistent style in
-your SCSS. As an opinionated tool, we've had to make calls about what we think
-are the "best" style conventions, even when there are often reasonable arguments
-for more than one possible style. While all of our choices have a rational
-basis, we think that the opinions themselves are less important than the fact
-that `scss-lint` provides us with an automated and low-cost means of enforcing
-consistency.
+`scss-lint` is a customizable tool with opinionated defaults that helps you
+enforce a consistent style in your SCSS. As an opinionated tool, we've had to
+make calls about what we think are the "best" style conventions, even when
+there are often reasonable arguments for more than one possible style. While
+all of our choices have a rational basis, we think that the opinions themselves
+are less important than the fact that `scss-lint` provides us with an automated
+and low-cost means of enforcing consistency.
 
-Any lint can be disabled by using the `--exclude-linter` flag.
+Should you want to customize the checks run against your code, you can do so by
+editing your [`.scss-lint.yml` configuration file](#configuration) to match
+your preferred style.
 
-## Linters (ordered alphabetically)
+## Linters
+
+Below is the list of linters supported by `scss-lint`, ordered alphabetically.
 
 ### BorderZero
 
