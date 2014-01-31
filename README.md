@@ -176,9 +176,23 @@ Reports when you define the same property twice in a single rule set.
 h1 {
   margin: 10px;
   text-transform: uppercase;
-  margin: 0;
+  margin: 0; // Second declaration
 }
 ```
+
+Using duplicate properties is usually just an error. However, they can be used
+as a technique for dealing with varying levels of browser support for CSS
+properties. In the example below, some browsers might not support the `rgba`
+function, so the intention is to fall back to the color `#fff`.
+
+```scss
+.box {
+  background: #fff;
+  background: rgba(255, 255, 255, .5);
+}
+```
+
+In this situation, using duplicate properties is acceptable.
 
 ### EmptyLineBetweenBlocks
 
@@ -244,7 +258,7 @@ intention-revealing, as seeing the name `$color-text-body` is more descriptive
 than `#333` or `black`. Using color keywords can obfuscate this, as they look
 like variables.
 
-### TBC
+### DeclarationOrder
 
 Write `@extend` statements first in rule sets, followed by property
 declarations and then other nested rule sets.
@@ -324,7 +338,9 @@ appear in a single document, in practice this is usually a smell.  When
 reasoning about IDs (including selector specificity), it should suffice to
 style an element with a particular ID based solely on the ID.
 
-Even better would be to never use IDs in the first place.
+Even better would be to
+[never use IDs](http://screwlewse.com/2010/07/dont-use-id-selectors-in-css/)
+in the first place.
 
 ### Indentation
 
@@ -380,7 +396,7 @@ See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-
 ### PropertySpelling
 
 Reports when you use an unknown CSS property (ignoring vendor-prefixed
-properties)
+properties).
 
 ```scss
 diplay: none; // "display" is spelled incorrectly
@@ -404,13 +420,24 @@ If you're sure the property in question is valid,
 [submit a request](https://github.com/causes/scss-lint/issues/new)
 to add it to the default whitelist.
 
-### PropertyWithMixin
+### PropertyWithMixin (Compass)
 
-TBC
+Prefer Compass mixins for properties when they exist.
+
+```scss
+// Incorrect
+border-radius: 5px;
+
+// Correct
+@include border-radius(5px);
+```
+
+These mixins include the necessary vendor-prefixed properties to increase the
+number of browsers the CSS supports.
 
 ### SelectorDepth
 
-Don't write selectors with a depth of applicability greater than 3
+Don't write selectors with a depth of applicability greater than 3.
 
 ```scss
 // Incorrect - resulting CSS will have a selctor with depth of 4
@@ -505,18 +532,15 @@ color: rgba(0, 0, 0, .1);
 
 ### SpaceAfterPropertyColon
 
-Properties should be formatted with no space between the name and the colon,
-and a single space separating the colon from the property's value.
+Properties should be formatted with a single space separating the colon from
+the property's value.
 
 ```scss
-// Incorrect - space before colon
-margin : 0;
+// Incorrect - no space after colon
+margin:0;
 
 // Incorrect - more than one space after colon
 margin:  0;
-
-// Incorrect - no space after colon
-margin:0;
 
 // Correct
 margin: 0;
@@ -524,7 +548,15 @@ margin: 0;
 
 ### SpaceAfterPropertyName
 
-TBC
+Properties should be formatted with no space between the name and the colon.
+
+```scss
+// Incorrect - space before colon
+margin : 0;
+
+// Correct
+margin: 0;
+```
 
 ### SpaceBeforeBrace
 
@@ -598,9 +630,13 @@ p {
 }
 ```
 
+CSS allows you to omit the semicolon if the property is the last property in
+the rule set. However, this introduces inconsistency and requires anyone adding
+a property after that property to remember to append a semicolon.
+
 ### UrlQuotes
 
-Don't use URLs without quotes
+URLs should always be enclosed within quotes.
 
 ```scss
 // Incorrect
@@ -612,7 +648,8 @@ background: url('example.png');
 
 Using quoted URLs is consistent with using other Sass asset helpers, which also
 expect quoted strings. It also works better with most syntax highlighters, and
-makes it easier to escape characters.
+makes it easier to escape characters, as the escape rules for strings apply,
+rather than the different set of rules for literal URLs.
 
 See the [URL type](http://dev.w3.org/csswg/css-values/#url-value) documentation
 for more information.
@@ -628,6 +665,8 @@ margin: 0px;
 // Correct
 margin: 0;
 ```
+
+Zero is zero regardless of units.
 
 ### UsageName
 
