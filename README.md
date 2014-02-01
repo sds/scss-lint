@@ -9,10 +9,20 @@ clean and readable. You can run it manually from the command-line, or integrate
 it into your [SCM hooks](https://github.com/causes/overcommit). It uses rules
 established by the team at [Causes.com](https://causes.com).
 
+* [Requirements](#requirements)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Configuration](#configuration)
+* [Linters](#linters)
+* [Contributing](#contributing)
+* [Changelog](#changelog)
+* [See Also](#see-also)
+* [License](#license)
+
 ## Requirements
 
- * Ruby 1.9.3+
- * Files you wish to lint must be written in SCSS (not Sass) syntax
+* Ruby 1.9.3+
+* Files you wish to lint must be written in SCSS (not Sass) syntax
 
 ## Installation
 
