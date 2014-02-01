@@ -462,23 +462,6 @@ If you're sure the property in question is valid,
 to add it to the
 [default whitelist](data/properties.txt).
 
-### PropertyWithMixin (Compass)
-
-Prefer Compass mixins for properties when they exist.
-
-**Bad: property possibly not fully supported in all browsers**
-```scss
-border-radius: 5px;
-```
-
-**Good: using Compass mixin ensures all vendor-prefixed extensions are rendered**
-```scss
-@include border-radius(5px);
-```
-
-These mixins include the necessary vendor-prefixed properties to increase the
-number of browsers the CSS supports.
-
 ### SelectorDepth
 
 Don't write selectors with a depth of applicability greater than 3.
@@ -758,6 +741,13 @@ margin: 0;
 ```
 
 Zero is zero regardless of units.
+
+### Compass
+
+`scss-lint` includes a set of linters for codebases which use the
+[Compass](http://compass-style.org/) framework.
+
+[Compass Linters](lib/scss_lint/linter/compass/README.md)
 
 ## Contributing
 
