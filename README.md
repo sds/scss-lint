@@ -16,6 +16,7 @@ established by the team at [Causes.com](https://causes.com).
 * [Linters](#linters)
 * [Contributing](#contributing)
 * [Changelog](#changelog)
+* [Editor Integration](#editor-integration)
 * [See Also](#see-also)
 * [License](#license)
 
@@ -136,6 +137,20 @@ bundle exec rspec
 
 If you're interested in seeing the changes and bug fixes between each version
 of `scss-lint`, read the [SCSS-Lint Changelog](CHANGELOG.md).
+
+## Editor Integration
+
+### Vim
+
+You can have `scss-lint` automatically run against your SCSS files after saving
+by using the [Syntastic](https://github.com/scrooloose/syntastic) plugin. If
+you already have the plugin, just add
+`let g:syntastic_scss_checkers = ['scss_lint']` to your `.vimrc`.
+
+### Sublime Text
+
+Install the
+[Sublime scss-lint plugin](https://sublime.wbond.net/packages/SublimeLinter-contrib-scss-lint).
 
 ## See Also
 
