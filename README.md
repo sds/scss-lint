@@ -17,7 +17,7 @@ established by the team at [Causes.com](https://causes.com).
 * [Contributing](#contributing)
 * [Changelog](#changelog)
 * [Editor Integration](#editor-integration)
-* [See Also](#see-also)
+* [Git Integration](#git-integration)
 * [License](#license)
 
 ## Requirements
@@ -152,10 +152,10 @@ you already have the plugin, just add
 Install the
 [Sublime scss-lint plugin](https://sublime.wbond.net/packages/SublimeLinter-contrib-scss-lint).
 
-## See Also
+## Git Integration
 
-If you'd like to integrate `scss-lint` with Git, check out our Git hook gem,
-[overcommit](https://github.com/causes/overcommit).
+If you'd like to integrate `scss-lint` into your Git workflow, check out our
+Git hook manager, [overcommit](https://github.com/causes/overcommit).
 
 ## License
 
