@@ -124,13 +124,15 @@ Prefer `border: 0` over `border: none`.
 
 IDs, classes, types, placeholders, and pseudo-selectors should be all lowercase.
 
+**Bad: capitalized class name**
 ```scss
-// Incorrect - capitalized class name
 .Button {
   ...
 }
+```
 
-// Correct
+**Good: all lowercase**
+```scss
 .button {
   ...
 }
@@ -138,23 +140,42 @@ IDs, classes, types, placeholders, and pseudo-selectors should be all lowercase.
 
 ### ColorKeyword
 
-Reports when you have an HTML color name specified rather than a hex value.
+Prefer hexadecimal color codes over color keywords.
 
+**Bad: color keyword**
 ```scss
-.ribbon {
-  color: hotpink;
-}
+color: green;
 ```
+
+**Good: hexadecimal color**
+```scss
+color: #0f0;
+```
+
+Defining colors directly in properties is usually a smell. When you color your
+body text in a number of places, if you ever want to change the color of the
+text you'll have to update the explicitly defined color in a number of places,
+and finding all those places can be difficult if you use the same color for
+other elements (i.e. a simple find/replace may not always work).
+
+A better approach is to use global variables like `$color-text-body` and refer
+to this variable everywhere you want to use it. This makes it easy to update
+the color, as you only need change it in one place. It is also more
+intention-revealing, as seeing the name `$color-text-body` is more descriptive
+than `#333` or `black`. Using color keywords can obfuscate this, as they look
+like variables.
 
 ### Comment
 
 Prefer `//` comments over `/* ... */`.
 
+**Bad**
 ```scss
-// Incorrect
 /* This is a comment that gets rendered */
+```
 
-// Correct
+**Good**
+```scss
 // This comment never gets rendered
 ```
 
@@ -172,6 +193,7 @@ Reports `@debug` statements (which you probably left behind accidentally).
 
 Reports when you define the same property twice in a single rule set.
 
+**Bad**
 ```scss
 h1 {
   margin: 10px;
@@ -180,7 +202,7 @@ h1 {
 }
 ```
 
-Using duplicate properties is usually just an error. However, they can be used
+Having duplicate properties is usually just an error. However, they can be used
 as a technique for dealing with varying levels of browser support for CSS
 properties. In the example below, some browsers might not support the `rgba`
 function, so the intention is to fall back to the color `#fff`.
@@ -198,8 +220,8 @@ In this situation, using duplicate properties is acceptable.
 
 Separate rule, function, and mixin declarations with empty lines.
 
+**Bad: no lines separating blocks**
 ```scss
-// Incorrect
 p {
   margin: 0;
   em {
@@ -209,8 +231,10 @@ p {
 a {
   ...
 }
+```
 
-// Correct
+**Good: lines separating blocks**
+```scss
 p {
   margin: 0;
 
@@ -233,38 +257,13 @@ Reports when you have an empty rule set.
 }
 ```
 
-### HexFormat
-
-Prefer hexadecimal colors over their human-friendly form.
-
-```scss
-// Incorrect
-color: green;
-
-// Correct
-color: #0f0;
-```
-
-Defining colors directly in properties is usually a smell. When you color your
-body text in a number of places, if you ever want to change the color of the
-text you'll have to update the explicitly defined color in a number of places,
-and finding all those places can be difficult if you use the same color for
-other elements (i.e. a simple find/replace may not always work).
-
-A better approach is to use global variables like `$color-text-body` and refer
-to this variable everywhere you want to use it. This makes it easy to update
-the color, as you only need change it in one place. It is also more
-intention-revealing, as seeing the name `$color-text-body` is more descriptive
-than `#333` or `black`. Using color keywords can obfuscate this, as they look
-like variables.
-
 ### DeclarationOrder
 
 Write `@extend` statements first in rule sets, followed by property
 declarations and then other nested rule sets.
 
+**Bad: `@extend` not first**
 ```scss
-// Incorrect
 .fatal-error {
   color: #f00;
   @extend %error;
@@ -273,8 +272,10 @@ declarations and then other nested rule sets.
     ...
   }
 }
+```
 
-// Correct
+**Good: `@extend` appears first**
+```scss
 .fatal-error {
   @extend %error;
   color: #f00;
@@ -285,19 +286,29 @@ declarations and then other nested rule sets.
 }
 ```
 
+The `@extend` statement functionally acts like an inheritance mechanism, which
+means the properties defined by the placeholder being extended are rendered
+before the rest of the properties in the rule set.
+
+Thus, declaring the `@extend` at the top of the rule set reminds the developer
+of this behavior.
+
 ### DeclaredName
 
-Functions, mixins, and variables should be declared with all lowercase letters.
+Functions, mixins, and variables should be declared with all lowercase letters
+and hyphens instead of underscores.
 
+**Bad: uppercase characters**
 ```scss
-// Incorrect - uppercase letters
 $myVar: 10px;
 
 @mixin myMixin() {
   ...
 }
+```
 
-// Correct
+**Good: all lowercase with hyphens**
+```scss
 $my-var: 10px;
 
 @mixin my-mixin() {
@@ -305,15 +316,30 @@ $my-var: 10px;
 }
 ```
 
+Using lowercase with hyphens in CSS has become the _de facto_ standard, and
+brings with it a couple of benefits. First of all, hyphens are easier to type
+than underscores, due to the additional `Shift` key required for underscores on
+most popular keyboard layouts. Furthermore, using hyphens in class names in
+particular allows you to take advantage of the
+[`|=` attribute selector](http://www.w3.org/TR/CSS21/selector.html#attribute-selectors),
+which allows you to write a selector like `[class|="inactive"]` to match both
+`inactive-user` and `inactive-button` classes.
+
+The Sass parser automatically treats underscores and hyphens the same, so even
+if you're using a library that declares a function with an underscore, you can
+refer to it using the hyphenated form instead.
+
 ### HexFormat
 
-Prefer the shortest possible form for hex colors.
+Prefer the shortest possible form for hexadecimal color codes.
 
+**Bad: can be shortened**
 ```scss
-// Incorrect
 color: #ff22ee;
+```
 
-// Correct
+**Good: color code in shortest possible form**
+```scss
 color: #f2e;
 ```
 
@@ -321,22 +347,29 @@ color: #f2e;
 
 Don't combine additional selectors with an ID selector.
 
+**Bad: `.button` class is unnecessary**
 ```scss
-// Incorrect - `.button` class is unnecessary
 #submit-button.button {
   ...
 }
+```
 
-// Correct
+**Good: standalone ID selector**
+```scss
 #submit-button {
   ...
 }
 ```
 
 While the CSS specification allows for multiple elements with the same ID to
-appear in a single document, in practice this is usually a smell.  When
+appear in a single document, in practice this is a smell.  When
 reasoning about IDs (including selector specificity), it should suffice to
 style an element with a particular ID based solely on the ID.
+
+Another possible pattern is to modify the style of an element with a given
+ID based on the class it has. This is also a smell, as the purpose of a CSS
+class is to be reusable and composable, and thus redefining it for a specific
+ID is a violation of those principles.
 
 Even better would be to
 [never use IDs](http://screwlewse.com/2010/07/dont-use-id-selectors-in-css/)
@@ -344,29 +377,35 @@ in the first place.
 
 ### Indentation
 
-Use two **spaces** per indentation level. No hard tabs.
+Use two spaces per indentation level. No hard tabs.
 
+**Bad: four spaces**
 ```scss
-// Incorrect - four spaces
 p {
     color: #f00;
 }
+```
 
-// Correct
+**Good: two spaces**
+```scss
 p {
   color: #f00;
 }
 ```
 
+This is adjustable via the `width` configuration parameter.
+
 ### LeadingZero
 
 Don't write leading zeros for numeric values with a decimal point.
 
+**Bad: unnecessary leading zero**
 ```scss
-// Incorrect
 margin: 0.5em;
+```
 
-// Correct
+**Good: no leading zero**
+```scss
 margin: .5em;
 ```
 
@@ -374,13 +413,15 @@ margin: .5em;
 
 Always use placeholder selectors in `@extend`.
 
+**Bad: extending a class**
 ```scss
-// Incorrect
 .fatal {
   @extend .error;
 }
+```
 
-// Correct
+**Good: extending a placeholder**
+```scss
 .fatal {
   @extend %error;
 }
@@ -418,17 +459,20 @@ linters:
 
 If you're sure the property in question is valid,
 [submit a request](https://github.com/causes/scss-lint/issues/new)
-to add it to the default whitelist.
+to add it to the
+[default whitelist](data/properties.txt).
 
 ### PropertyWithMixin (Compass)
 
 Prefer Compass mixins for properties when they exist.
 
+**Bad: property possibly not fully supported in all browsers**
 ```scss
-// Incorrect
 border-radius: 5px;
+```
 
-// Correct
+**Good: using Compass mixin ensures all vendor-prefixed extensions are rendered**
+```scss
 @include border-radius(5px);
 ```
 
@@ -439,8 +483,8 @@ number of browsers the CSS supports.
 
 Don't write selectors with a depth of applicability greater than 3.
 
+**Bad: selectors with depths of 4**
 ```scss
-// Incorrect - resulting CSS will have a selctor with depth of 4
 .one .two .three > .four {
   ...
 }
@@ -450,8 +494,10 @@ Don't write selectors with a depth of applicability greater than 3.
     ...
   }
 }
+```
 
-// Correct
+**Good**
+```scss
 .one .two .three {
   ...
 }
@@ -474,11 +520,13 @@ is better to use less than 3 whenever possible.
 
 Prefer the shortest shorthand form possible for properties that support it.
 
+**Bad: all 4 sides specified with same value**
 ```scss
-// Incorrect - all 4 sides specified with same value
 margin: 1px 1px 1px 1px;
+```
 
-// Correct - equivalent to specifying 1px for all sides
+**Good: equivalent to specifying 1px for all sides**
+```scss
 margin: 1px;
 ```
 
@@ -486,13 +534,15 @@ margin: 1px;
 
 Split selectors onto separate lines after each comma.
 
+**Bad: comma-separated selectors not on their own lines**
 ```scss
-// Incorrect
 .error p, p.explanation {
   ...
 }
+```
 
-// Correct - each selector sequence is on its own line
+**Good: each selector sequence is on its own line**
+```scss
 .error p,
 p.explanation {
   ...
@@ -510,22 +560,36 @@ Sorting alphabetically also makes properties easier to find. Ordering based on
 the semantics of the properties can be more problematic depending on which
 other properties are present.
 
-Note that there are legitimate cases where one needs to explicitly break
-alphabetical sort order in order to use vendor-specific properties. In this
-case, this is usually avoided by using mixins from a framework like
+If you need to write vendor-prefixed properties, the linter will allow you to
+order the vendor-prefixed properties before the standard CSS property they
+apply to. For example:
+
+```scss
+border: 0;
+-moz-border-radius: 3px;
+-o-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+color: #ccc;
+margin: 5px;
+```
+
+In this case, this is usually avoided by using mixins from a framework like
 [Compass](http://compass-style.org/) or [Bourbon](http://bourbon.io/) so
-vendor-specific properties rarely need to be manually written.
+vendor-specific properties rarely need to be explicitly written by hand.
 
 ### SpaceAfterComma
 
 Commas in lists should be followed by a space.
 
+**Bad: no space after commas**
 ```scss
-// Incorrect
 @include box-shadow(0 2px 2px rgba(0,0,0,.2));
 color: rgba(0,0,0,.1);
+```
 
-// Correct
+**Good: commas followed by a space**
+```scss
 @include box-shadow(0 2px 2px rgba(0, 0, 0, .2));
 color: rgba(0, 0, 0, .1);
 ```
@@ -535,14 +599,18 @@ color: rgba(0, 0, 0, .1);
 Properties should be formatted with a single space separating the colon from
 the property's value.
 
+**Bad: no space after colon**
 ```scss
-// Incorrect - no space after colon
 margin:0;
+```
 
-// Incorrect - more than one space after colon
+**Bad: more than one space after colon**
+```scss
 margin:  0;
+```
 
-// Correct
+**Good**
+```scss
 margin: 0;
 ```
 
@@ -550,11 +618,13 @@ margin: 0;
 
 Properties should be formatted with no space between the name and the colon.
 
+**Bad: space before colon**
 ```scss
-// Incorrect - space before colon
 margin : 0;
+```
 
-// Correct
+**Good**
+```scss
 margin: 0;
 ```
 
@@ -562,17 +632,24 @@ margin: 0;
 
 Opening braces should be preceded by a single space.
 
+**Bad: no space before brace**
 ```scss
-// Incorrect - no space before brace
 p{
+  ...
 }
+```
 
-// Incorrect - more than one space before brace
+**Bad: more than one space before brace**
+```scss
 p  {
+  ...
 }
+```
 
-// Correct - exactly one space before brace
+**Good**
+```scss
 p {
+  ...
 }
 ```
 
@@ -580,12 +657,14 @@ p {
 
 Parentheses should not be padded with spaces.
 
+**Bad**
 ```scss
-// Incorrect
 @include box-shadow( 0 2px 2px rgba( 0, 0, 0, .2 ) );
 color: rgba( 0, 0, 0, .1 );
+```
 
-// Correct
+**Good**
+```scss
 @include box-shadow(0 2px 2px rgba(0, 0, 0, .2));
 color: rgba(0, 0, 0, .1);
 ```
@@ -595,14 +674,18 @@ color: rgba(0, 0, 0, .1);
 String literals should be written with single quotes unless using double quotes
 would save on escape characters.
 
+**Bad: double quotes**
 ```scss
-// Incorrect
 content: "hello";
+```
 
-// Correct
+**Good: single quotes**
+```scss
 content: 'hello';
+```
 
-// Correct - double quotes prevent the need for escaping single quotes
+**Good: double quotes prevent the need for escaping single quotes**
+```scss
 content: "'hello'";
 ```
 
@@ -613,18 +696,22 @@ most popular keyboard layouts.
 
 Property values should always end with a semicolon.
 
+**Bad: no semicolon**
 ```scss
-// Incorrect - no semicolon
 p {
   color: #fff
 }
+```
 
-// Incorrect - space between value and semicolon
+**Bad: space between value and semicolon**
+```scss
 p {
   color: #fff ;
 }
+```
 
-// Correct
+**Good**
+```scss
 p {
   color: #fff;
 }
@@ -638,11 +725,13 @@ a property after that property to remember to append a semicolon.
 
 URLs should always be enclosed within quotes.
 
+**Bad: no enclosing quotes**
 ```scss
-// Incorrect
 background: url(example.png);
+```
 
-// Correct
+**Good**
+```scss
 background: url('example.png');
 ```
 
@@ -658,11 +747,13 @@ for more information.
 
 Omit units on zero values.
 
+**Bad: unnecessary units**
 ```scss
-// Incorrect - unnecessary units can be omitted
 margin: 0px;
+```
 
-// Correct
+**Good**
+```
 margin: 0;
 ```
 
