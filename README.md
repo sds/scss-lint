@@ -159,4 +159,4 @@ Git hook manager, [overcommit](https://github.com/causes/overcommit).
 
 ## License
 
-This project is released under the MIT license.
+This project is released under the [MIT license](MIT-LICENSE).
