@@ -225,42 +225,6 @@ before the rest of the properties in the rule set.
 Thus, declaring the `@extend` at the top of the rule set reminds the developer
 of this behavior.
 
-### DeclaredName
-
-Functions, mixins, and variables should be declared with all lowercase letters
-and hyphens instead of underscores.
-
-**Bad: uppercase characters**
-```scss
-$myVar: 10px;
-
-@mixin myMixin() {
-  ...
-}
-```
-
-**Good: all lowercase with hyphens**
-```scss
-$my-var: 10px;
-
-@mixin my-mixin() {
-  ...
-}
-```
-
-Using lowercase with hyphens in CSS has become the _de facto_ standard, and
-brings with it a couple of benefits. First of all, hyphens are easier to type
-than underscores, due to the additional `Shift` key required for underscores on
-most popular keyboard layouts. Furthermore, using hyphens in class names in
-particular allows you to take advantage of the
-[`|=` attribute selector](http://www.w3.org/TR/CSS21/selector.html#attribute-selectors),
-which allows you to write a selector like `[class|="inactive"]` to match both
-`inactive-user` and `inactive-button` classes.
-
-The Sass parser automatically treats underscores and hyphens the same, so even
-if you're using a library that declares a function with an underscore, you can
-refer to it using the hyphenated form instead.
-
 ### DuplicateProperty
 
 Reports when you define the same property twice in a single rule set.
@@ -408,6 +372,42 @@ margin: 0.5em;
 ```scss
 margin: .5em;
 ```
+
+### NameFormat
+
+Functions, mixins, and variables should be declared with all lowercase letters
+and hyphens instead of underscores.
+
+**Bad: uppercase characters**
+```scss
+$myVar: 10px;
+
+@mixin myMixin() {
+  ...
+}
+```
+
+**Good: all lowercase with hyphens**
+```scss
+$my-var: 10px;
+
+@mixin my-mixin() {
+  ...
+}
+```
+
+Using lowercase with hyphens in CSS has become the _de facto_ standard, and
+brings with it a couple of benefits. First of all, hyphens are easier to type
+than underscores, due to the additional `Shift` key required for underscores on
+most popular keyboard layouts. Furthermore, using hyphens in class names in
+particular allows you to take advantage of the
+[`|=` attribute selector](http://www.w3.org/TR/CSS21/selector.html#attribute-selectors),
+which allows you to write a selector like `[class|="inactive"]` to match both
+`inactive-user` and `inactive-button` classes.
+
+The Sass parser automatically treats underscores and hyphens the same, so even
+if you're using a library that declares a function with an underscore, you can
+refer to it using the hyphenated form instead.
 
 ### PlaceholderInExtend
 
@@ -742,32 +742,6 @@ rather than the different set of rules for literal URLs.
 
 See the [URL type](http://dev.w3.org/csswg/css-values/#url-value) documentation
 for more information.
-
-### UsageName
-
-Prefer hyphens over underscores in function, mixin, and variable names.
-
-```scss
-// Incorrect - words separated by underscores
-$my_var: 10px;
-
-@mixin my_mixin() {
-  ...
-}
-
-// Correct - words separated by hyphens
-$my-var: 10px;
-
-@mixin my-mixin() {
-  ...
-}
-```
-
-Hyphens are easier to type than underscores.
-
-The Sass parser automatically treats underscores and hyphens the same, so even
-if you're using a library that declares a function with an underscore, you can
-refer to it using the hyphenated form instead.
 
 ### ZeroUnit
 

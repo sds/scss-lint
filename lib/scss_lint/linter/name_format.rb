@@ -1,7 +1,7 @@
 module SCSSLint
-  # Checks for variable/function/mixin/placeholder uses which contains uppercase
-  # characters or underscores.
-  class Linter::UsageName < Linter
+  # Checks that the declared names of functions, mixins, and variables are all
+  # lowercase and use hyphens instead of underscores.
+  class Linter::DeclaredName < Linter
     include LinterRegistry
 
     def visit_extend(node)
@@ -10,17 +10,32 @@ module SCSSLint
       end
     end
 
+    def visit_function(node)
+      check_declared_name(node, 'function')
+      yield # Continue into content block of this function definition
+    end
+
     def visit_mixin(node)
-      check(node, 'mixin')
+      check_name_use(node, 'mixin')
       yield # Continue into content block of this mixin's block
     end
 
+    def visit_mixindef(node)
+      check_declared_name(node, 'mixin')
+      yield # Continue into content block of this mixin definition
+    end
+
     def visit_script_funcall(node)
-      check(node, 'function') unless FUNCTION_WHITELIST.include?(node.name)
+      check_name_use(node, 'function') unless FUNCTION_WHITELIST.include?(node.name)
     end
 
     def visit_script_variable(node)
-      check(node, 'variable')
+      check_name_use(node, 'variable')
+    end
+
+    def visit_variable(node)
+      check_declared_name(node, 'variable')
+      yield # Continue into expression tree for this variable definition
     end
 
   private
@@ -32,7 +47,16 @@ module SCSSLint
       translateX translateY translateZ
     ].to_set
 
-    def check(node, node_type)
+    def check_declared_name(node, node_type)
+      if node_has_bad_name?(node)
+        fixed_name = node.name.downcase.gsub(/_/, '-')
+
+        add_lint(node, "Name of #{node_type} `#{node.name}` should " <<
+                       "be written in lowercase as `#{fixed_name}`")
+      end
+    end
+
+    def check_name_use(node, node_type)
       add_name_lint(node, node.name, node_type) if node_has_bad_name?(node)
     end
 
