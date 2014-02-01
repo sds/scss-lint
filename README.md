@@ -357,7 +357,9 @@ p {
 }
 ```
 
-This is adjustable via the `width` configuration parameter.
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`width`              | Number of spaces per indentation level (default **2**)
 
 ### LeadingZero
 
@@ -498,6 +500,10 @@ lead to CSS tightly-coupled to your HTML structure, making it brittle to change.
 Deep selectors also come with a performance penalty, which can affect rendering
 times, especially on mobile devices. While the default limit is 3, ideally it
 is better to use less than 3 whenever possible.
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`max_depth`          | Maximum depth before reporting errors (default **3**)
 
 ### Shorthand
 
@@ -652,6 +658,10 @@ color: rgba( 0, 0, 0, .1 );
 color: rgba(0, 0, 0, .1);
 ```
 
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`spaces`             | Spaces to require between parentheses (default **0**)
+
 ### StringQuotes
 
 String literals should be written with single quotes unless using double quotes
@@ -674,6 +684,10 @@ content: "'hello'";
 
 Single quotes are easier to type by virtue of not requiring the `Shift` key on
 most popular keyboard layouts.
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`style`              | `single_quotes` or `double_quotes` (default `single_quotes`)
 
 ### TrailingSemicolonAfterPropertyValue
 
