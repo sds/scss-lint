@@ -1,4 +1,4 @@
-# Compass-specific Linters
+# Compass Linters
 
 These linters are designed specifically for codebases which utilize the
 [Compass](http://compass-style.org/) framework. They are disabled by default,

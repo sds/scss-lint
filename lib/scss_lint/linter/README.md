@@ -1,14 +1,5 @@
 # Linters
 
-`scss-lint` is a customizable tool with opinionated defaults that helps you
-enforce a consistent style in your SCSS. For these opinionated defaults, we've
-had to make calls about what we think are the "best" style conventions, even
-when there are often reasonable arguments for more than one possible style.
-
-Should you want to customize the checks run against your code, you can do so by
-editing your [configuration file](README.md#configuration) to match your
-preferred style.
-
 Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 
 * [BorderZero](#borderzero)
@@ -42,11 +33,11 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [UrlQuotes](#urlquotes)
 * [ZeroUnit](#urlquotes)
 
-### BorderZero
+## BorderZero
 
 Prefer `border: 0` over `border: none`.
 
-### CapitalizationInSelector
+## CapitalizationInSelector
 
 IDs, classes, types, placeholders, and pseudo-selectors should be all lowercase.
 
@@ -64,7 +55,7 @@ IDs, classes, types, placeholders, and pseudo-selectors should be all lowercase.
 }
 ```
 
-### ColorKeyword
+## ColorKeyword
 
 Prefer hexadecimal color codes over color keywords.
 
@@ -91,7 +82,7 @@ intention-revealing, as seeing the name `$color-text-body` is more descriptive
 than `#333` or `black`. Using color keywords can obfuscate this, as they look
 like variables.
 
-### Comment
+## Comment
 
 Prefer `//` comments over `/* ... */`.
 
@@ -111,18 +102,18 @@ generated CSS, whereas `/* ... */` comments do.
 Furthermore, comments should be concise, and using `/* ... */`
 encourages multi-line comments which tend to not be concise.
 
-### Compass Linters
+## Compass Linters
 
 `scss-lint` includes a set of linters for codebases which use the
 [Compass](http://compass-style.org/) framework.
 
-####[» Compass Linters Documentation](./compass/README.md)
+###[» Compass Linters Documentation](./compass/README.md)
 
-### DebugStatement
+## DebugStatement
 
 Reports `@debug` statements (which you probably left behind accidentally).
 
-### DeclarationOrder
+## DeclarationOrder
 
 Write `@extend` statements first in rule sets, followed by property
 declarations and then other nested rule sets.
@@ -158,7 +149,7 @@ before the rest of the properties in the rule set.
 Thus, declaring the `@extend` at the top of the rule set reminds the developer
 of this behavior.
 
-### DuplicateProperty
+## DuplicateProperty
 
 Reports when you define the same property twice in a single rule set.
 
@@ -185,7 +176,7 @@ function, so the intention is to fall back to the color `#fff`.
 
 In this situation, using duplicate properties is acceptable.
 
-### EmptyLineBetweenBlocks
+## EmptyLineBetweenBlocks
 
 Separate rule, function, and mixin declarations with empty lines.
 
@@ -217,7 +208,7 @@ a {
 }
 ```
 
-### EmptyRule
+## EmptyRule
 
 Reports when you have an empty rule set.
 
@@ -226,7 +217,7 @@ Reports when you have an empty rule set.
 }
 ```
 
-### HexFormat
+## HexFormat
 
 Prefer the shortest possible form for hexadecimal color codes.
 
@@ -240,7 +231,7 @@ color: #ff22ee;
 color: #f2e;
 ```
 
-### IdWithExtraneousSelector
+## IdWithExtraneousSelector
 
 Don't combine additional selectors with an ID selector.
 
@@ -272,7 +263,7 @@ Even better would be to
 [never use IDs](http://screwlewse.com/2010/07/dont-use-id-selectors-in-css/)
 in the first place.
 
-### Indentation
+## Indentation
 
 Use two spaces per indentation level. No hard tabs.
 
@@ -294,7 +285,7 @@ Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `width`              | Number of spaces per indentation level (default **2**)
 
-### LeadingZero
+## LeadingZero
 
 Don't write leading zeros for numeric values with a decimal point.
 
@@ -308,7 +299,7 @@ margin: 0.5em;
 margin: .5em;
 ```
 
-### NameFormat
+## NameFormat
 
 Functions, mixins, and variables should be declared with all lowercase letters
 and hyphens instead of underscores.
@@ -344,7 +335,7 @@ The Sass parser automatically treats underscores and hyphens the same, so even
 if you're using a library that declares a function with an underscore, you can
 refer to it using the hyphenated form instead.
 
-### PlaceholderInExtend
+## PlaceholderInExtend
 
 Always use placeholder selectors in `@extend`.
 
@@ -369,7 +360,7 @@ Sass specifically introduced placeholder selectors in order to be used with
 
 See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-sass-extends-and-placeholders/).
 
-### PropertySpelling
+## PropertySpelling
 
 Reports when you use an unknown CSS property (ignoring vendor-prefixed
 properties).
@@ -397,7 +388,7 @@ If you're sure the property in question is valid,
 to add it to the
 [default whitelist](data/properties.txt).
 
-### SelectorDepth
+## SelectorDepth
 
 Don't write selectors with a depth of applicability greater than 3.
 
@@ -438,7 +429,7 @@ Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `max_depth`          | Maximum depth before reporting errors (default **3**)
 
-### Shorthand
+## Shorthand
 
 Prefer the shortest shorthand form possible for properties that support it.
 
@@ -452,7 +443,7 @@ margin: 1px 1px 1px 1px;
 margin: 1px;
 ```
 
-### SingleLinePerSelector
+## SingleLinePerSelector
 
 Split selectors onto separate lines after each comma.
 
@@ -471,7 +462,7 @@ p.explanation {
 }
 ```
 
-### SortedProperties
+## SortedProperties
 
 Sort properties in alphabetical order.
 
@@ -500,7 +491,7 @@ In this case, this is usually avoided by using mixins from a framework like
 [Compass](http://compass-style.org/) or [Bourbon](http://bourbon.io/) so
 vendor-specific properties rarely need to be explicitly written by hand.
 
-### SpaceAfterComma
+## SpaceAfterComma
 
 Commas in lists should be followed by a space.
 
@@ -516,7 +507,7 @@ color: rgba(0,0,0,.1);
 color: rgba(0, 0, 0, .1);
 ```
 
-### SpaceAfterPropertyColon
+## SpaceAfterPropertyColon
 
 Properties should be formatted with a single space separating the colon from
 the property's value.
@@ -536,7 +527,7 @@ margin:  0;
 margin: 0;
 ```
 
-### SpaceAfterPropertyName
+## SpaceAfterPropertyName
 
 Properties should be formatted with no space between the name and the colon.
 
@@ -550,7 +541,7 @@ margin : 0;
 margin: 0;
 ```
 
-### SpaceBeforeBrace
+## SpaceBeforeBrace
 
 Opening braces should be preceded by a single space.
 
@@ -575,7 +566,7 @@ p {
 }
 ```
 
-### SpaceBetweenParens
+## SpaceBetweenParens
 
 Parentheses should not be padded with spaces.
 
@@ -595,7 +586,7 @@ Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `spaces`             | Spaces to require between parentheses (default **0**)
 
-### StringQuotes
+## StringQuotes
 
 String literals should be written with single quotes unless using double quotes
 would save on escape characters.
@@ -622,7 +613,7 @@ Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `style`              | `single_quotes` or `double_quotes` (default `single_quotes`)
 
-### TrailingSemicolonAfterPropertyValue
+## TrailingSemicolonAfterPropertyValue
 
 Property values should always end with a semicolon.
 
@@ -651,7 +642,7 @@ CSS allows you to omit the semicolon if the property is the last property in
 the rule set. However, this introduces inconsistency and requires anyone adding
 a property after that property to remember to append a semicolon.
 
-### UrlQuotes
+## UrlQuotes
 
 URLs should always be enclosed within quotes.
 
@@ -673,7 +664,7 @@ rather than the different set of rules for literal URLs.
 See the [URL type](http://dev.w3.org/csswg/css-values/#url-value) documentation
 for more information.
 
-### ZeroUnit
+## ZeroUnit
 
 Omit units on zero values.
 
