@@ -13,6 +13,7 @@ established by the team at [Causes.com](https://causes.com).
 * [Installation](#installation)
 * [Usage](#usage)
 * [Configuration](#configuration)
+* [Formatters](#formatters)
 * [Linters](#linters)
 * [Editor Integration](#editor-integration)
 * [Git Integration](#git-integration)
@@ -53,7 +54,7 @@ Command Line Flag         | Description
 --------------------------|----------------------------------------------------
 `-c`/`--config`           | Specify a configuration file to use
 `-e`/`--exclude`          | Exclude one or more files from being linted
-`-f`/`--format`           | Output format (`Default`, `XML`, `Files`)
+`-f`/`--format`           | Output format (see [Formatters](#formatters))
 `-i`/`--include-linter`   | Specify which linters you specifically want to run
 `-x`/`--exclude-linter`   | Specify which linters you _don't_ want to run
 `-h`/`--help`             | Show command line flag documentation
@@ -108,6 +109,47 @@ flag, but note that this will override any configuration files that `scss-lint`
 would normally find on its own (this can be useful for testing a particular
 configuration setting, however). Configurations loaded this way will still be
 merged with the default configuration specified by `config/default.yml`.
+
+## Formatters
+
+### Default
+
+The default formatter is intended to be easy to consume by both humans and
+external tools.
+
+```
+test.scss:2 [W] Prefer single quoted strings
+test.scss:2 [W] Line should be indented 0 spaces, but was indented 1 space
+test.scss:5 [W] Prefer single quoted strings
+test.scss:6 [W] URLs should be enclosed in quotes
+```
+
+### Files
+
+Useful when you just want to open all offending files in an editor. This will
+just output the names of the files so that you can execute the following to
+open them all:
+
+```bash
+scss-lint --format Files | xargs vim
+```
+
+### XML
+
+Outputs XML with `<lint>`, `<file>`, and `<issue>` tags. Suitable for
+consumption by tools like [Jenkins](http://jenkins-ci.org/).
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+  <file name='test.css'>
+    <issue line='2' severity='warning' reason='Prefer single quoted strings' />
+    <issue line='2' severity='warning' reason='Line should be indented 0 spaces, but was indented 1 spaces' />
+    <issue line='5' severity='warning' reason='Prefer single quoted strings' />
+    <issue line='6' severity='warning' reason='URLs should be enclosed in quotes' />
+  </file>
+</lint>
+```
 
 ## Linters
 
