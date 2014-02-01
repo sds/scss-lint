@@ -18,9 +18,6 @@ linters:
   DeclarationOrder:
     enabled: true
 
-  DeclaredName:
-    enabled: true
-
   DuplicateProperty:
     enabled: true
 
@@ -41,6 +38,9 @@ linters:
     width: 2
 
   LeadingZero:
+    enabled: true
+
+  NameFormat:
     enabled: true
 
   PlaceholderInExtend:
@@ -87,9 +87,6 @@ linters:
     enabled: true
 
   UrlQuotes:
-    enabled: true
-
-  UsageName:
     enabled: true
 
   ZeroUnit:

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SCSSLint::Linter::DeclaredName do
+describe SCSSLint::Linter::NameFormat do
   context 'when no variable, functions, or mixin declarations exist' do
     let(:css) { <<-CSS }
       p {

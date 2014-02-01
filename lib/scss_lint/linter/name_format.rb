@@ -1,7 +1,7 @@
 module SCSSLint
   # Checks that the declared names of functions, mixins, and variables are all
   # lowercase and use hyphens instead of underscores.
-  class Linter::DeclaredName < Linter
+  class Linter::NameFormat < Linter
     include LinterRegistry
 
     def visit_extend(node)
