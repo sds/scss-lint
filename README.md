@@ -189,74 +189,6 @@ encourages multi-line comments which tend to not be concise.
 
 Reports `@debug` statements (which you probably left behind accidentally).
 
-### DuplicateProperty
-
-Reports when you define the same property twice in a single rule set.
-
-**Bad**
-```scss
-h1 {
-  margin: 10px;
-  text-transform: uppercase;
-  margin: 0; // Second declaration
-}
-```
-
-Having duplicate properties is usually just an error. However, they can be used
-as a technique for dealing with varying levels of browser support for CSS
-properties. In the example below, some browsers might not support the `rgba`
-function, so the intention is to fall back to the color `#fff`.
-
-```scss
-.box {
-  background: #fff;
-  background: rgba(255, 255, 255, .5);
-}
-```
-
-In this situation, using duplicate properties is acceptable.
-
-### EmptyLineBetweenBlocks
-
-Separate rule, function, and mixin declarations with empty lines.
-
-**Bad: no lines separating blocks**
-```scss
-p {
-  margin: 0;
-  em {
-    ...
-  }
-}
-a {
-  ...
-}
-```
-
-**Good: lines separating blocks**
-```scss
-p {
-  margin: 0;
-
-  em {
-    ...
-  }
-}
-
-a {
-  ...
-}
-```
-
-### EmptyRule
-
-Reports when you have an empty rule set.
-
-```scss
-.cat {
-}
-```
-
 ### DeclarationOrder
 
 Write `@extend` statements first in rule sets, followed by property
@@ -328,6 +260,74 @@ which allows you to write a selector like `[class|="inactive"]` to match both
 The Sass parser automatically treats underscores and hyphens the same, so even
 if you're using a library that declares a function with an underscore, you can
 refer to it using the hyphenated form instead.
+
+### DuplicateProperty
+
+Reports when you define the same property twice in a single rule set.
+
+**Bad**
+```scss
+h1 {
+  margin: 10px;
+  text-transform: uppercase;
+  margin: 0; // Second declaration
+}
+```
+
+Having duplicate properties is usually just an error. However, they can be used
+as a technique for dealing with varying levels of browser support for CSS
+properties. In the example below, some browsers might not support the `rgba`
+function, so the intention is to fall back to the color `#fff`.
+
+```scss
+.box {
+  background: #fff;
+  background: rgba(255, 255, 255, .5);
+}
+```
+
+In this situation, using duplicate properties is acceptable.
+
+### EmptyLineBetweenBlocks
+
+Separate rule, function, and mixin declarations with empty lines.
+
+**Bad: no lines separating blocks**
+```scss
+p {
+  margin: 0;
+  em {
+    ...
+  }
+}
+a {
+  ...
+}
+```
+
+**Good: lines separating blocks**
+```scss
+p {
+  margin: 0;
+
+  em {
+    ...
+  }
+}
+
+a {
+  ...
+}
+```
+
+### EmptyRule
+
+Reports when you have an empty rule set.
+
+```scss
+.cat {
+}
+```
 
 ### HexFormat
 
@@ -743,22 +743,6 @@ rather than the different set of rules for literal URLs.
 See the [URL type](http://dev.w3.org/csswg/css-values/#url-value) documentation
 for more information.
 
-### ZeroUnit
-
-Omit units on zero values.
-
-**Bad: unnecessary units**
-```scss
-margin: 0px;
-```
-
-**Good**
-```
-margin: 0;
-```
-
-Zero is zero regardless of units.
-
 ### UsageName
 
 Prefer hyphens over underscores in function, mixin, and variable names.
@@ -784,6 +768,22 @@ Hyphens are easier to type than underscores.
 The Sass parser automatically treats underscores and hyphens the same, so even
 if you're using a library that declares a function with an underscore, you can
 refer to it using the hyphenated form instead.
+
+### ZeroUnit
+
+Omit units on zero values.
+
+**Bad: unnecessary units**
+```scss
+margin: 0px;
+```
+
+**Good**
+```
+margin: 0;
+```
+
+Zero is zero regardless of units.
 
 ## Contributing
 
