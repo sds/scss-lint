@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.17.2
 
 * Merge `DeclaredName` and `UsageName` into `NameFormat` linter
 
