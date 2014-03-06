@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.email       = ['eng@causes.com', 'shane@causes.com']
   s.homepage    = SCSSLint::REPO_URL
   s.summary     = 'SCSS lint tool'
-  s.description = 'Opinionated tool to help write clean and consistent SCSS'
+  s.description = 'Configurable tool to help write clean and consistent SCSS'
 
   s.files         = Dir['config/**/*.yml'] + Dir['data/**'] + Dir['lib/**/*.rb']
   s.executables   = ['scss-lint']
