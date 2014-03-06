@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+# master (unreleased)
+
+* Fix bug in XML output where `DuplicateProperty` linter message would
+  result in invalid XML
+
 ## 0.17.2
 
 * Merge `DeclaredName` and `UsageName` into `NameFormat` linter
