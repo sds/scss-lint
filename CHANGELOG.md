@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-# master (unreleased)
+# 0.17.3
 
 * Fix bug in XML output where `DuplicateProperty` linter message would
   result in invalid XML
