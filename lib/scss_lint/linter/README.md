@@ -468,14 +468,7 @@ p.explanation {
 
 ## SortedProperties
 
-Sort properties in alphabetical order.
-
-It's brain-dead simple (highlight lines and execute `:sort` in `vim`), and it can
-[benefit gzip compression](http://www.barryvan.com.au/2009/08/css-minifier-and-alphabetiser/).
-
-Sorting alphabetically also makes properties easier to find. Ordering based on
-the semantics of the properties can be more problematic depending on which
-other properties are present.
+Sort properties in a strict order.
 
 If you need to write vendor-prefixed properties, the linter will allow you to
 order the vendor-prefixed properties before the standard CSS property they
@@ -494,6 +487,11 @@ margin: 5px;
 In this case, this is usually avoided by using mixins from a framework like
 [Compass](http://compass-style.org/) or [Bourbon](http://bourbon.io/) so
 vendor-specific properties rarely need to be explicitly written by hand.
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`order`              | Array of properties  (default **Alphabetic**)
+
 
 ## SpaceAfterComma
 

@@ -148,4 +148,18 @@ describe SCSSLint::Linter::SortedProperties do
 
     it { should report_lint line: 3 }
   end
+
+  context 'when the order has been explicitly set' do
+    let(:linter_config) { { 'order' => ['position', 'display', 'padding', 'margin'] } }
+
+    let(:css) { <<-CSS }
+      p {
+        display: block;
+        padding: 5px;
+        margin: 10px;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end

@@ -30,7 +30,7 @@ module SCSSLint
     end
 
     def description
-      'Properties should be sorted in alphabetical order, with ' <<
+      'Properties should be sorted in order, with ' <<
       'vendor-prefixed extensions before the standardized CSS property'
     end
 
@@ -62,7 +62,11 @@ module SCSSLint
           0
         end
       else
-        a[:property] <=> b[:property]
+        if config['order']
+          (config['order'].index(a[:property]) || 0) <=> (config['order'].index(b[:property]) || 0)
+        else
+          a[:property] <=> b[:property]
+        end
       end
     end
   end
