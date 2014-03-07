@@ -18,11 +18,11 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [LeadingZero](#leadingzero)
 * [NameFormat](#nameformat)
 * [PlaceholderInExtend](#placeholderinextend)
+* [PropertySortOrder](#propertysortorder)
 * [PropertySpelling](#propertyspelling)
 * [SelectorDepth](#selectordepth)
 * [Shorthand](#shorthand)
 * [SingleLinePerSelector](#singlelineperselector)
-* [SortedProperties](#sortedproperties)
 * [SpaceAfterComma](#spaceaftercomma)
 * [SpaceAfterPropertyColon](#spaceafterpropertycolon)
 * [SpaceAfterPropertyName](#spaceafterpropertyname)
@@ -360,6 +360,45 @@ Sass specifically introduced placeholder selectors in order to be used with
 
 See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-sass-extends-and-placeholders/).
 
+## PropertySortOrder
+
+Sort properties in a strict order. By default, will require properties be
+sorted in alphabetical order, as it's brain dead simple (highlight lines and
+execute `:sort` in `vim`), and it can
+[benefit gzip compression](http://www.barryvan.com.au/2009/08/css-minifier-and-alphabetiser/).
+
+You can also specify an explicit ordering via the `order` option, which allows
+you to specify an explicit array of properties representing the preferred
+order. If a property is not in your explicit list, it will be placed at the
+bottom of the list, disregarding its order relative to other unspecified
+properties.
+
+If you need to write vendor-prefixed properties, the linter will allow you to
+order the vendor-prefixed properties before the standard CSS property they
+apply to. For example:
+
+```scss
+border: 0;
+-moz-border-radius: 3px;
+-o-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+color: #ccc;
+margin: 5px;
+```
+
+In this case, this is usually avoided by using mixins from a framework like
+[Compass](http://compass-style.org/) or [Bourbon](http://bourbon.io/) so
+vendor-specific properties rarely need to be explicitly written by hand.
+
+If you are specifying an explicit order for properties, note that
+vendor-prefixed properties will still be ordered based on the example above
+(i.e. you only need to specify normal properties in your list).
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`order`              | Array of properties (default is `nil`, resulting in alphabetical ordering)
+
 ## PropertySpelling
 
 Reports when you use an unknown CSS property (ignoring vendor-prefixed
@@ -465,45 +504,6 @@ p.explanation {
   ...
 }
 ```
-
-## SortedProperties
-
-Sort properties in a strict order. By default, will require properties be
-sorted in alphabetical order, as it's brain dead simple (highlight lines and
-execute `:sort` in `vim`), and it can
-[benefit gzip compression](http://www.barryvan.com.au/2009/08/css-minifier-and-alphabetiser/).
-
-You can also specify an explicit ordering via the `order` option, which allows
-you to specify an explicit array of properties representing the preferred
-order. If a property is not in your explicit list, it will be placed at the
-bottom of the list, disregarding its order relative to other unspecified
-properties.
-
-If you need to write vendor-prefixed properties, the linter will allow you to
-order the vendor-prefixed properties before the standard CSS property they
-apply to. For example:
-
-```scss
-border: 0;
--moz-border-radius: 3px;
--o-border-radius: 3px;
--webkit-border-radius: 3px;
-border-radius: 3px;
-color: #ccc;
-margin: 5px;
-```
-
-In this case, this is usually avoided by using mixins from a framework like
-[Compass](http://compass-style.org/) or [Bourbon](http://bourbon.io/) so
-vendor-specific properties rarely need to be explicitly written by hand.
-
-If you are specifying an explicit order for properties, note that
-vendor-prefixed properties will still be ordered based on the example above
-(i.e. you only need to specify normal properties in your list).
-
-Configuration Option | Description
----------------------|---------------------------------------------------------
-`order`              | Array of properties (default is `nil`, resulting in alphabetical ordering)
 
 ## SpaceAfterComma
 

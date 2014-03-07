@@ -4,6 +4,7 @@
 
 * Add `order` option to `SortedProperties` linter allowing an explicit
   ordering of properties to be specified
+* Rename `SortedProperties` linter to `PropertySortOrder`
 
 ## 0.17.3
 

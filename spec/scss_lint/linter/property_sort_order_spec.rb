@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SCSSLint::Linter::SortedProperties do
+describe SCSSLint::Linter::PropertySortOrder do
   context 'when rule is empty' do
     let(:css) { <<-CSS }
       p {

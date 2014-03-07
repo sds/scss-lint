@@ -1,6 +1,6 @@
 module SCSSLint
   # Checks the declaration order of properties.
-  class Linter::SortedProperties < Linter
+  class Linter::PropertySortOrder < Linter
     include LinterRegistry
 
     def visit_rule(node)

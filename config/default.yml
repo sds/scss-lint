@@ -46,6 +46,9 @@ linters:
   PlaceholderInExtend:
     enabled: true
 
+  PropertySortOrder:
+    enabled: true
+
   PropertySpelling:
     enabled: true
     extra_properties: []
@@ -58,9 +61,6 @@ linters:
     enabled: true
 
   SingleLinePerSelector:
-    enabled: true
-
-  SortedProperties:
     enabled: true
 
   SpaceAfterComma:
