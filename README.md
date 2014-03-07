@@ -18,6 +18,7 @@ established by the team at [Causes.com](https://causes.com).
 * [Linters](#linters)
 * [Editor Integration](#editor-integration)
 * [Git Integration](#git-integration)
+* [Documentation](#documentation)
 * [Contributing](#contributing)
 * [Changelog](#changelog)
 * [License](#license)
@@ -184,6 +185,14 @@ Install the
 
 If you'd like to integrate `scss-lint` into your Git workflow, check out our
 Git hook manager, [overcommit](https://github.com/causes/overcommit).
+
+## Documentation
+
+[Code documentation] is generated with [YARD] and hosted by [RubyDoc.info].
+
+[Code documentation]: http://rdoc.info/github/causes/scss-lint/master/frames
+[YARD]: http://yardoc.org/
+[RubyDoc.info]: http://rdoc.info/
 
 ## Contributing
 
