@@ -468,7 +468,16 @@ p.explanation {
 
 ## SortedProperties
 
-Sort properties in a strict order.
+Sort properties in a strict order. By default, will require properties be
+sorted in alphabetical order, as it's brain dead simple (highlight lines and
+execute `:sort` in `vim`), and it can
+[benefit gzip compression](http://www.barryvan.com.au/2009/08/css-minifier-and-alphabetiser/).
+
+You can also specify an explicit ordering via the `order` option, which allows
+you to specify an explicit array of properties representing the preferred
+order. If a property is not in your explicit list, it will be placed at the
+bottom of the list, disregarding its order relative to other unspecified
+properties.
 
 If you need to write vendor-prefixed properties, the linter will allow you to
 order the vendor-prefixed properties before the standard CSS property they
@@ -488,10 +497,13 @@ In this case, this is usually avoided by using mixins from a framework like
 [Compass](http://compass-style.org/) or [Bourbon](http://bourbon.io/) so
 vendor-specific properties rarely need to be explicitly written by hand.
 
+If you are specifying an explicit order for properties, note that
+vendor-prefixed properties will still be ordered based on the example above
+(i.e. you only need to specify normal properties in your list).
+
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`order`              | Array of properties  (default **Alphabetic**)
-
+`order`              | Array of properties (default is `nil`, resulting in alphabetical ordering)
 
 ## SpaceAfterComma
 

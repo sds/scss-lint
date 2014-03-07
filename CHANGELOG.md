@@ -1,6 +1,11 @@
 # SCSS-Lint Changelog
 
-# 0.17.3
+## master (unreleased)
+
+* Add `order` option to `SortedProperties` linter allowing an explicit
+  ordering of properties to be specified
+
+## 0.17.3
 
 * Fix bug in XML output where `DuplicateProperty` linter message would
   result in invalid XML
