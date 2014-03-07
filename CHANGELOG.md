@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.18.0
 
 * Add `order` option to `SortedProperties` linter allowing an explicit
   ordering of properties to be specified
