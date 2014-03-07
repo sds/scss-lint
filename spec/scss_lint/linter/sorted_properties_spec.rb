@@ -150,16 +150,47 @@ describe SCSSLint::Linter::SortedProperties do
   end
 
   context 'when the order has been explicitly set' do
-    let(:linter_config) { { 'order' => ['position', 'display', 'padding', 'margin'] } }
+    let(:linter_config) { { 'order' => %w[position display padding margin] } }
 
-    let(:css) { <<-CSS }
-      p {
-        display: block;
-        padding: 5px;
-        margin: 10px;
-      }
-    CSS
+    context 'and the properties match the specified order' do
+      let(:css) { <<-CSS }
+        p {
+          display: block;
+          padding: 5px;
+          margin: 10px;
+        }
+      CSS
 
-    it { should_not report_lint }
+      it { should_not report_lint }
+    end
+
+    context 'and the properties do not match the specified order' do
+      let(:css) { <<-CSS }
+        p {
+          padding: 5px;
+          display: block;
+          margin: 10px;
+        }
+      CSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'and there are properties that are not specified in the explicit ordering' do
+      let(:css) { <<-CSS }
+        p {
+          display: block;
+          padding: 5px;
+          margin: 10px;
+          // All these are unspecified, so we don't care about their order
+          font-size: 10px;
+          border: 0;
+          font-weight: bold;
+          background: red;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
   end
 end

@@ -63,7 +63,8 @@ module SCSSLint
         end
       else
         if config['order']
-          (config['order'].index(a[:property]) || 0) <=> (config['order'].index(b[:property]) || 0)
+          (config['order'].index(a[:property]) || Float::INFINITY) <=>
+            (config['order'].index(b[:property]) || Float::INFINITY)
         else
           a[:property] <=> b[:property]
         end
