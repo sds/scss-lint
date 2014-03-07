@@ -1,2 +1,6 @@
 .bundle
 Gemfile.lock
+
+# YARD
+/doc
+/.yardoc
