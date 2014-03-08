@@ -10,6 +10,8 @@ module SCSSLint
       @lints = []
     end
 
+    # @param engine [Engine]
+    # @param config [Config]
     def run(engine, config)
       @config = config
       @engine = engine
@@ -17,11 +19,15 @@ module SCSSLint
     end
 
     # Define if you want a default message for your linter
+    # @return [String, nil]
     def description
       nil
     end
 
     # Helper for creating lint from a parse tree node
+    #
+    # @param node_or_line [Sass::Script::Tree::Node, Sass::Engine::Line]
+    # @param message [String, nil]
     def add_lint(node_or_line, message = nil)
       line = node_or_line.respond_to?(:line) ? node_or_line.line : node_or_line
 
@@ -30,9 +36,11 @@ module SCSSLint
                          message || description)
     end
 
-    # Returns the character at the given [Sass::Source::Position]
+    # @param source_position [Sass::Source::Position]
+    # @param offset [Integer]
+    # @return [String] the character at the given [Sass::Source::Position]
     def character_at(source_position, offset = 0)
-      actual_line = source_position.line - 1
+      actual_line   = source_position.line - 1
       actual_offset = source_position.offset + offset - 1
 
       # Return a newline if offset points at the very end of the line
@@ -42,9 +50,12 @@ module SCSSLint
     end
 
     # Extracts the original source code given a range.
+    #
+    # @param source_range [Sass::Source::Range]
+    # @return [String] the original source code
     def source_from_range(source_range)
       current_line = source_range.start_pos.line - 1
-      last_line = source_range.end_pos.line - 1
+      last_line    = source_range.end_pos.line - 1
 
       source = engine.lines[current_line][(source_range.start_pos.offset - 1)..-1]
 
@@ -67,6 +78,10 @@ module SCSSLint
     # Monkey-patched implementation that adds support for traversing
     # Sass::Script::Nodes (original implementation only supports
     # Sass::Tree::Nodes).
+    #
+    # @param node [Sass::Tree::Node, Sass::Script::Tree::Node,
+    #   Sass::Script::Value::Base]
+    # @return [String]
     def self.node_name(node)
       case node
       when Sass::Script::Tree::Node, Sass::Script::Value::Base
@@ -77,6 +92,9 @@ module SCSSLint
     end
 
     # Modified so we can also visit selectors in linters
+    #
+    # @param node [Sass::Tree::Node, Sass::Script::Tree::Node,
+    #   Sass::Script::Value::Base]
     def visit(node)
       # Visit the selector of a rule if parsed rules are available
       if node.is_a?(Sass::Tree::RuleNode) && node.parsed_rules
@@ -87,6 +105,9 @@ module SCSSLint
     end
 
     # Redefine so we can set the `node_parent` of each node
+    #
+    # @param parent [Sass::Tree::Node, Sass::Script::Tree::Node,
+    #   Sass::Script::Value::Base]
     def visit_children(parent)
       parent.children.each do |child|
         child.node_parent = parent

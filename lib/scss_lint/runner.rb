@@ -7,12 +7,14 @@ module SCSSLint
   class Runner
     attr_reader :lints
 
+    # @param config [Config]
     def initialize(config)
-      @config = config
-      @lints = []
+      @config  = config
+      @lints   = []
       @linters = LinterRegistry.linters.map(&:new)
     end
 
+    # @param files [Array]
     def run(files)
       raise NoFilesError, 'No SCSS files specified' if files.empty?
 
@@ -27,6 +29,7 @@ module SCSSLint
 
   private
 
+    # @param file [String]
     def find_lints(file)
       engine = Engine.new(file)
       config = @config.preferred ? @config : Config.for_file(file)

@@ -9,18 +9,19 @@ module SCSSLint
 
     # Subset of semantic exit codes conforming to `sysexits` documentation.
     EXIT_CODES = {
-      ok: 0,
-      usage: 64,      # Command line usage error
-      data: 65,       # User input was incorrect (i.e. contains lints)
-      no_input: 66,   # Input file did not exist or was not readable
-      software: 70,   # Internal software error
-      config: 78,     # Configuration error
+      ok:        0,
+      usage:     64, # Command line usage error
+      data:      65, # User input was incorrect (i.e. contains lints)
+      no_input:  66, # Input file did not exist or was not readable
+      software:  70, # Internal software error
+      config:    78, # Configuration error
     }
 
+    # @param args [Array]
     def initialize(args = [])
-      @args = args
+      @args    = args
       @options = {}
-      @config = Config.default
+      @config  = Config.default
     end
 
     def parse_arguments
@@ -41,6 +42,7 @@ module SCSSLint
       end
     end
 
+    # @return [OptionParser]
     def options_parser
       @options_parser ||= OptionParser.new do |opts|
         opts.banner = "Usage: #{opts.program_name} [options] [scss-files]"
@@ -114,6 +116,8 @@ module SCSSLint
       merge_command_line_flags_with_config(@config)
     end
 
+    # @param config [Config]
+    # @return [Config]
     def merge_command_line_flags_with_config(config)
       if @options[:excluded_files]
         @options[:excluded_files].each do |file|
@@ -150,6 +154,7 @@ module SCSSLint
       end
     end
 
+    # @param list [Array]
     def extract_files_from(list)
       files = []
       list.each do |file|
@@ -161,12 +166,15 @@ module SCSSLint
     end
 
     VALID_EXTENSIONS = %w[.css .scss]
+    # @param file [String]
+    # @return [Boolean]
     def scssish_file?(file)
       return false unless FileTest.file?(file)
 
       VALID_EXTENSIONS.include?(File.extname(file))
     end
 
+    # @param lints [Array<Lint>]
     def report_lints(lints)
       sorted_lints = lints.sort_by { |l| [l.filename, l.line] }
       reporter = @options.fetch(:reporter, Reporter::DefaultReporter)
@@ -175,6 +183,7 @@ module SCSSLint
       print output if output
     end
 
+    # @param format [String]
     def set_output_format(format)
       @options[:reporter] = SCSSLint::Reporter.const_get(format + 'Reporter')
     rescue NameError
@@ -196,18 +205,23 @@ module SCSSLint
       halt
     end
 
+    # @param help_message [String]
+    # @param err [Exception]
     def print_help(help_message, err = nil)
       puts err, '' if err
       puts help_message
       halt(err ? :usage : :ok)
     end
 
+    # @param program_name [String]
+    # @param version [String]
     def print_version(program_name, version)
       puts "#{program_name} #{version}"
       halt
     end
 
     # Used for ease-of testing
+    # @param exit_status [Symbol]
     def halt(exit_status = :ok)
       exit(EXIT_CODES[exit_status])
     end
