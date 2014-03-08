@@ -1,22 +1,24 @@
-# -*- encoding: utf-8 -*-
 $LOAD_PATH << File.expand_path('../lib', __FILE__)
 require 'scss_lint/constants'
 require 'scss_lint/version'
 
 Gem::Specification.new do |s|
-  s.name        = 'scss-lint'
-  s.version     = SCSSLint::VERSION
-  s.license     = 'MIT'
-  s.platform    = Gem::Platform::RUBY
-  s.authors     = ['Causes Engineering', 'Shane da Silva']
-  s.email       = ['eng@causes.com', 'shane@causes.com']
-  s.homepage    = SCSSLint::REPO_URL
-  s.summary     = 'SCSS lint tool'
-  s.description = 'Configurable tool to help write clean and consistent SCSS'
+  s.name             = 'scss-lint'
+  s.version          = SCSSLint::VERSION
+  s.license          = 'MIT'
+  s.summary          = 'SCSS lint tool'
+  s.description      = 'Configurable tool for writing clean and consistent SCSS'
+  s.authors          = ['Causes Engineering', 'Shane da Silva']
+  s.email            = ['eng@causes.com', 'shane@causes.com']
+  s.homepage         = SCSSLint::REPO_URL
 
-  s.files         = Dir['config/**/*.yml'] + Dir['data/**'] + Dir['lib/**/*.rb']
-  s.executables   = ['scss-lint']
-  s.require_paths = ['lib']
+  s.require_paths    = ['lib']
+
+  s.executables      = ['scss-lint']
+
+  s.files            = Dir['config/**/*.yml'] +
+                       Dir['data/**'] +
+                       Dir['lib/**/*.rb']
 
   s.required_ruby_version = '>= 1.9.3'
 
