@@ -1,7 +1,7 @@
-module Sass::Script
-  # Ignore documentation lints as these aren't original implementations.
-  # rubocop:disable Documentation
+# Ignore documentation lints as these aren't original implementations.
+# rubocop:disable Documentation
 
+module Sass::Script
   # Redefine some of the lexer helpers in order to store the original string
   # with the created object so that the original string can be inspected rather
   # than a typically normalized version.
@@ -40,6 +40,38 @@ module Sass::Script
         return literal_node(Value::Color.from_string(name.value, color), name.source_range)
       end
       literal_node(Value::String.new(name.value, :identifier), name.source_range)
+    end
+  end
+
+  # Since the Sass library is already loaded at this point.
+  # Define the `node_name` and `visit_method` class methods for each Sass Script
+  # parse tree node type so that our custom visitor can seamless traverse the
+  # tree.
+  #
+  # This would be easier if we could just define an `inherited` callback, but
+  # that won't work since the Sass library will have already been loaded before
+  # this code gets loaded, so the `inherited` callback won't be fired.
+  #
+  # Thus we are left to manually define the methods for each type explicitly.
+  {
+    'Value' => %w[ArgList Bool Color List Map Null Number String],
+    'Tree'  => %w[Funcall Interpolation ListLiteral Literal MapLiteral
+                  Operation StringInterpolation UnaryOperation Variable],
+  }.each do |namespace, types|
+    types.each do |type|
+      node_name = type.downcase
+
+      eval <<-DECL
+        class #{namespace}::#{type}
+          def self.node_name
+            :script_#{node_name}
+          end
+
+          def self.visit_method
+            :visit_script_#{node_name}
+          end
+        end
+      DECL
     end
   end
 

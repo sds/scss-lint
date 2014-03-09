@@ -10,7 +10,7 @@ module SCSSLint
     end
 
     def visit_script_number(node)
-      if node.value == 0 && !node.unitless?
+      if node.value == 0 && zero_with_units?(source_from_range(node.source_range))
         add_lint(node, MESSAGE_FORMAT % node.original_string)
       end
     end
@@ -18,5 +18,9 @@ module SCSSLint
   private
 
     MESSAGE_FORMAT = '`%s` should be written without units as `0`'
+
+    def zero_with_units?(string)
+      string =~ /^0[a-z]+/
+    end
   end
 end

@@ -66,20 +66,33 @@ module SCSSLint
     def check_commas_after_args(args, arg_type)
       # For each arg except the last, check the character following the comma
       args[0..-2].each do |arg|
-        # Find the first comma following the arg
-        offset = 1
-        offset += 1 while character_at(arg.source_range.end_pos, offset - 1) != ','
+        offset = 0
+
+        # Find the comma following this argument.
+        # The Sass parser is unpredictable in where it marks the end of the
+        # source range. Thus we need to start at the indicated range, and check
+        # left and right of that range, gradually moving further outward until
+        # we find the comma.
+        if character_at(arg.source_range.end_pos, offset) != ','
+          loop do
+            offset += 1
+            break if character_at(arg.source_range.end_pos, offset) == ','
+            offset = -offset
+            break if character_at(arg.source_range.end_pos, offset) == ','
+            offset = -offset
+          end
+        end
 
         # Check for space or newline after arg (we allow arguments to be split
         # up over multiple lines).
         spaces = 0
-        while character_at(arg.source_range.end_pos, offset) =~ / |\n/
+        while character_at(arg.source_range.end_pos, offset + 1) =~ / |\n/
           spaces += 1
           offset += 1
         end
 
         if spaces != EXPECTED_SPACES_AFTER_COMMA
-          add_lint arg, 'Commas in %s should be followed by a single space' % arg_type
+          add_lint arg, "Commas in #{arg_type} should be followed by a single space"
         end
       end
     end

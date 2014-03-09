@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+# master (unreleased)
+
+* Update Sass dependency to 3.3.0. All previous versions are not supported.
+
 ## 0.18.0
 
 * Add `order` option to `SortedProperties` linter allowing an explicit

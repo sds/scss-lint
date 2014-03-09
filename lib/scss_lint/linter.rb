@@ -75,22 +75,6 @@ module SCSSLint
       source
     end
 
-    # Monkey-patched implementation that adds support for traversing
-    # Sass::Script::Nodes (original implementation only supports
-    # Sass::Tree::Nodes).
-    #
-    # @param node [Sass::Tree::Node, Sass::Script::Tree::Node,
-    #   Sass::Script::Value::Base]
-    # @return [String]
-    def self.node_name(node)
-      case node
-      when Sass::Script::Tree::Node, Sass::Script::Value::Base
-        "script_#{node.class.name.gsub(/.*::(.*?)$/, '\\1').downcase}"
-      else
-        super
-      end
-    end
-
     # Modified so we can also visit selectors in linters
     #
     # @param node [Sass::Tree::Node, Sass::Script::Tree::Node,
