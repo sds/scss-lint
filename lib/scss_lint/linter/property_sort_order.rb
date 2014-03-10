@@ -13,7 +13,7 @@ module SCSSLint
       sortable_prop_names = sortable_props.map { |child| child.name.join }
 
       sorted_prop_names = sortable_prop_names.map do |name|
-        /^(?<vendor>-\w+-)?(?<property>.+)/ =~ name
+        /^(?<vendor>-\w+(-osx)?-)?(?<property>.+)/ =~ name
         { name: name, vendor: vendor, property: property }
       end.sort { |a, b| compare_properties(a, b) }
          .map { |fields| fields[:name] }

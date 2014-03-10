@@ -136,6 +136,17 @@ describe SCSSLint::Linter::PropertySortOrder do
     it { should_not report_lint }
   end
 
+  context 'when using -moz-osx vendor-prefixed property' do
+    let(:css) { <<-CSS }
+      p {
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
   context 'when vendor properties are ordered out-of-order before the non-prefixed property' do
     let(:css) { <<-CSS }
       p {
