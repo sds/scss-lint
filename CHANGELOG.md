@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-# master (unreleased)
+# 0.19.0
 
 * Update Sass dependency to 3.3.0. All previous versions are not supported.
 * Fix `StringQuotes` linter to not report lints for strings containing
