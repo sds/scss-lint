@@ -3,6 +3,8 @@
 # master (unreleased)
 
 * Update Sass dependency to 3.3.0. All previous versions are not supported.
+* Fix `StringQuotes` linter to not report lints for strings containing
+  interpolation
 
 ## 0.18.0
 

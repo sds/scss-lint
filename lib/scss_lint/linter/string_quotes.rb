@@ -8,12 +8,12 @@ module SCSSLint
     end
 
     def visit_import(node)
-      # @import source range conveniently includes only the quoted string
+      # `@import` source range conveniently includes only the quoted string
       check_quotes(node, source_from_range(node.source_range))
     end
 
     def visit_charset(node)
-      # @charset source range includes entire declaration, so exclude '@charset' prefix
+      # `@charset` source range includes entire declaration, so exclude that prefix
       source = source_from_range(node.source_range)[('@charset'.length)..-1]
 
       check_quotes(node, source)

@@ -115,7 +115,7 @@ describe SCSSLint::Linter::StringQuotes do
         }
       CSS
 
-      it { should report_lint line: 2 }
+      it { should_not report_lint }
     end
   end
 
@@ -216,7 +216,7 @@ describe SCSSLint::Linter::StringQuotes do
           }
         CSS
 
-        it { should report_lint line: 2 }
+        it { should_not report_lint }
       end
     end
 

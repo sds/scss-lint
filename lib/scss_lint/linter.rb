@@ -56,8 +56,13 @@ module SCSSLint
     def source_from_range(source_range)
       current_line = source_range.start_pos.line - 1
       last_line    = source_range.end_pos.line - 1
+      start_pos    = source_range.start_pos.offset - 1
 
-      source = engine.lines[current_line][(source_range.start_pos.offset - 1)..-1]
+      if current_line == last_line
+        source = engine.lines[current_line][start_pos..(source_range.end_pos.offset - 1)]
+      else
+        source = engine.lines[current_line][start_pos..-1]
+      end
 
       current_line += 1
       while current_line < last_line
