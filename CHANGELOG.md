@@ -5,6 +5,7 @@
 * Update Sass dependency to 3.3.0. All previous versions are not supported.
 * Fix `StringQuotes` linter to not report lints for strings containing
   interpolation
+* Fix configuration loading to gracefully report YAML errors
 
 ## 0.18.0
 

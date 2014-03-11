@@ -1,6 +1,6 @@
 require 'scss_lint/constants'
-require 'scss_lint/cli'
 require 'scss_lint/config'
+require 'scss_lint/cli'
 require 'scss_lint/engine'
 require 'scss_lint/lint'
 require 'scss_lint/linter_registry'

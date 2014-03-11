@@ -2,6 +2,9 @@ require 'pathname'
 require 'yaml'
 
 module SCSSLint
+  # Raised when the configuration file is invalid for some reason.
+  class InvalidConfiguration < StandardError; end
+
   # Loads and manages application configuration.
   class Config
     FILE_NAME = '.scss-lint.yml'
@@ -61,12 +64,16 @@ module SCSSLint
       def load_options_hash_from_file(file)
         file_contents = load_file_contents(file)
 
-        options =
-          if yaml = YAML.load(file_contents)
-            yaml.to_hash
-          else
-            {}
-          end
+        begin
+          options =
+            if yaml = YAML.load(file_contents)
+              yaml.to_hash
+            else
+              {}
+            end
+        rescue => ex
+          raise InvalidConfiguration, "Invalid configuration: #{ex.message}"
+        end
 
         options = convert_single_options_to_arrays(options)
         options = extend_inherited_configs(options, file)

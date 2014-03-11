@@ -36,7 +36,7 @@ module SCSSLint
 
       begin
         setup_configuration
-      rescue NoSuchLinter => ex
+      rescue InvalidConfiguration, NoSuchLinter => ex
         puts ex.message
         halt :config
       end
@@ -92,6 +92,9 @@ module SCSSLint
       runner.run(files_to_lint)
       report_lints(runner.lints)
       halt :data if runner.lints.any?
+    rescue InvalidConfiguration => ex
+      puts ex
+      halt :config
     rescue NoFilesError, Errno::ENOENT => ex
       puts ex.message
       halt :no_input

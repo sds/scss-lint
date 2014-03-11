@@ -45,6 +45,19 @@ describe SCSSLint::CLI do
         SCSSLint::Config.should_receive(:load).with(config_file)
         safe_parse
       end
+
+      context 'and the config file is invalid' do
+        before do
+          SCSSLint::Config.should_receive(:load)
+                          .with(config_file)
+                          .and_raise(SCSSLint::InvalidConfiguration)
+        end
+
+        it 'halts with a configuration error code' do
+          subject.should_receive(:halt).with(:config)
+          safe_parse
+        end
+      end
     end
 
     context 'when the excluded files flag is set' do
