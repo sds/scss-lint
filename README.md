@@ -26,6 +26,7 @@ established by the team at [Causes.com](https://causes.com).
 ## Requirements
 
 * Ruby 1.9.3+
+* Sass 3.3.0+
 * Files you wish to lint must be written in SCSS (not Sass) syntax
 
 ## Installation
