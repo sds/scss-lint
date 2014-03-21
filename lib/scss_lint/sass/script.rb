@@ -84,10 +84,6 @@ module Sass::Script
     end
   end
 
-  class Value::Number
-    attr_accessor :original_string
-  end
-
   # Contains extensions of Sass::Script::Tree::Nodes to add support for
   # accessing various parts of the parse tree not provided out-of-the-box.
   module Tree

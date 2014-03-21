@@ -4,18 +4,22 @@ module SCSSLint
     include LinterRegistry
 
     def visit_script_string(node)
-      node.value.scan(/\b(0[a-z]+)\b/i) do |match|
+      node.value.scan(ZERO_UNIT_REGEX) do |match|
         add_lint(node, MESSAGE_FORMAT % match.first)
       end
     end
 
     def visit_script_number(node)
-      if node.value == 0 && zero_with_units?(source_from_range(node.source_range))
-        add_lint(node, MESSAGE_FORMAT % node.original_string)
+      length = source_from_range(node.source_range)[ZERO_UNIT_REGEX, 1]
+
+      if node.value == 0 && zero_with_units?(length)
+        add_lint(node, MESSAGE_FORMAT % length)
       end
     end
 
   private
+
+    ZERO_UNIT_REGEX = /\b(0[a-z]+)\b/i
 
     MESSAGE_FORMAT = '`%s` should be written without units as `0`'
 
