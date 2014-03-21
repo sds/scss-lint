@@ -299,6 +299,12 @@ margin: 0.5em;
 margin: .5em;
 ```
 
+You can configure this to prefer including leading zeros.
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`style`              | `exclude_zero` or `include_zero` (default **exclude_zero**)
+
 ## NameFormat
 
 Functions, mixins, and variables should be declared with all lowercase letters

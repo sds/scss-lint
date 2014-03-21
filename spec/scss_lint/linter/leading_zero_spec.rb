@@ -176,4 +176,58 @@ describe SCSSLint::Linter::LeadingZero do
 
     it { should report_lint count: 1, line: 1 }
   end
+
+  context 'when leading zeros are preferred' do
+    let(:linter_config) { { 'style' => 'include_zero' } }
+
+    context 'when a zero exists' do
+      let(:css) { <<-CSS }
+        p {
+          margin: 0;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when a non-zero integer value exists' do
+      let(:css) { <<-CSS }
+        p {
+          line-height: 2;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when a fractional value with no leading zero exists' do
+      let(:css) { <<-CSS }
+        p {
+          padding: .5em;
+        }
+      CSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'when a fractional value with leading zero exists' do
+      let(:css) { <<-CSS }
+        p {
+          padding: 0.5em;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when a fractional value with a mantissa ending in zero exists' do
+      let(:css) { <<-CSS }
+        p {
+          padding: 10.5em;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+  end
 end

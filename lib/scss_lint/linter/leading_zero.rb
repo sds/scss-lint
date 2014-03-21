@@ -9,25 +9,44 @@ module SCSSLint
       non_string_values = remove_quoted_strings(node.value).split
 
       non_string_values.each do |value|
-        if number = value[/\b(0\.\d+)/, 1]
-          add_leading_zero_lint(node, number)
+        if number = value[FRACTIONAL_DIGIT_REGEX, 1]
+          check_number(node, number)
         end
       end
     end
 
     def visit_script_number(node)
-      return unless original_number = source_from_range(node.source_range)[/\b(0.\d+)/, 1]
+      return unless number = source_from_range(node.source_range)[FRACTIONAL_DIGIT_REGEX, 1]
 
-      add_leading_zero_lint(node, original_number)
+      check_number(node, number)
     end
 
   private
 
-    def add_leading_zero_lint(node, number)
-      trimmed_number = number[/^[^\.]+(.*)$/, 1]
+    FRACTIONAL_DIGIT_REGEX = /^-?(0?\.\d+)/
 
-      add_lint(node, "`#{number}` should be written without a leading zero " <<
-                     "as `#{trimmed_number}`")
+    CONVENTIONS = {
+      'exclude_zero' => {
+        explanation: '`%s` should be written without a leading zero as `%s`',
+        validator: ->(original) { original =~ /^\.\d+$/ },
+        converter: ->(original) { original[1..-1] },
+      },
+      'include_zero' => {
+        explanation: '`%s` should be written with a leading zero as `%s`',
+        validator: ->(original) { original =~ /^0\.\d+$/ },
+        converter: ->(original) { "0#{original}" }
+      },
+    }
+
+    def check_number(node, original_number)
+      style = config.fetch('style', 'exclude_zero')
+      convention = CONVENTIONS[style]
+
+      unless convention[:validator].call(original_number)
+        corrected = convention[:converter].call(original_number)
+
+        add_lint(node, convention[:explanation] % [original_number, corrected])
+      end
     end
   end
 end
