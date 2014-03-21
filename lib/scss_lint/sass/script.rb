@@ -18,14 +18,26 @@ module Sass::Script
     end
 
     def number
-      return unless scan(REGULAR_EXPRESSIONS[:number])
-      value = @scanner[2] ? @scanner[2].to_f : @scanner[3].to_i
-      value = -value if @scanner[1]
+      if @scanner.peek(1) == '-'
+        return if @scanner.pos == 0
+        @scanner.pos -= 1
+        # Don't use @scanner.scan so we don't mess up the match data.
+        unary_minus_allowed = @scanner.peek(1) =~ /\s/
+        @scanner.pos += 1
 
-      number = Value::Number.new(value, Array(@scanner[4])).tap do |num|
+        return unless unary_minus_allowed
+        return unless scan(REGULAR_EXPRESSIONS[:unary_minus_number])
+        minus = true
+      else
+        return unless scan(REGULAR_EXPRESSIONS[:number])
+        minus = false
+      end
+
+      value = (@scanner[1] ? @scanner[1].to_f : @scanner[2].to_i) * (minus ? -1 : 1)
+      script_number = Value::Number.new(value, Array(@scanner[3])).tap do |num|
         num.original_string = @scanner[0]
       end
-      [:number, number]
+      [:number, script_number]
     end
   end
 
