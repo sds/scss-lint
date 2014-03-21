@@ -16,29 +16,6 @@ module Sass::Script
 
       [:color, Value::Color.from_string(color_string)]
     end
-
-    def number
-      if @scanner.peek(1) == '-'
-        return if @scanner.pos == 0
-        @scanner.pos -= 1
-        # Don't use @scanner.scan so we don't mess up the match data.
-        unary_minus_allowed = @scanner.peek(1) =~ /\s/
-        @scanner.pos += 1
-
-        return unless unary_minus_allowed
-        return unless scan(REGULAR_EXPRESSIONS[:unary_minus_number])
-        minus = true
-      else
-        return unless scan(REGULAR_EXPRESSIONS[:number])
-        minus = false
-      end
-
-      value = (@scanner[1] ? @scanner[1].to_f : @scanner[2].to_i) * (minus ? -1 : 1)
-      script_number = Value::Number.new(value, Array(@scanner[3])).tap do |num|
-        num.original_string = @scanner[0]
-      end
-      [:number, script_number]
-    end
   end
 
   class Parser

@@ -16,9 +16,9 @@ module SCSSLint
     end
 
     def visit_script_number(node)
-      if node.original_string =~ /^0\./
-        add_leading_zero_lint(node, node.original_string)
-      end
+      return unless original_number = source_from_range(node.source_range)[/\b(0.\d+)/, 1]
+
+      add_leading_zero_lint(node, original_number)
     end
 
   private
