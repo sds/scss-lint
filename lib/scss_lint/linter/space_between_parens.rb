@@ -5,8 +5,9 @@ module SCSSLint
 
     def visit_root(node)
       @spaces = config['spaces']
+
       engine.lines.each_with_index do |line, index|
-        line.scan(/
+        line.gsub(%r{((//|/\*).*$)}, '').scan(/
           (^(\t|\s)*\))?  # Capture leading spaces and tabs followed by a `)`
           (
             \([ ]*(?!$)   # Find `( ` as long as its not EOL )

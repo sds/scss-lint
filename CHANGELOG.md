@@ -4,6 +4,8 @@
 
 * Add `convention` option to `NameFormat` allowing custom convention to
   be specified
+* Fix bug in `SpaceBetweenParens` linter for majority of cases where a
+  lint would be reported if parens existed inside a comment
 
 # 0.19.0
 

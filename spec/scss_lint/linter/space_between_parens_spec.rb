@@ -119,6 +119,26 @@ describe SCSSLint::Linter::SpaceBetweenParens do
     it { should_not report_lint }
   end
 
+  context 'when parens exist in a silent comment' do
+    let(:css) { <<-CSS }
+      p {
+        margin: 0; // Some comment ( with parens )
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when parens exist in an outputted comment' do
+    let(:css) { <<-CSS }
+      p {
+        margin: 0; /* Some comment ( with parens ) */
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
   context 'when the number of spaces has been explicitly set' do
     let(:linter_config) { { 'spaces' => 1 } }
 
