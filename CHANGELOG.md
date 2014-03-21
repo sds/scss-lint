@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+# master (unreleased)
+
+* Add `convention` option to `NameFormat` allowing custom convention to
+  be specified
+
 # 0.19.0
 
 * Update Sass dependency to 3.3.0. All previous versions are not supported.

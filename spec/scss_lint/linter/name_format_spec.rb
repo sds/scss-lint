@@ -153,4 +153,44 @@ describe SCSSLint::Linter::NameFormat do
 
     it { should_not report_lint }
   end
+
+  context 'when the BEM convention is specified' do
+    let(:linter_config) { { 'convention' => 'BEM' } }
+
+    context 'when a name contains no underscores or hyphens' do
+      let(:css) { '@extend %block;' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains a single underscore' do
+      let(:css) { '@extend %block_thing;' }
+
+      it { should report_lint }
+    end
+
+    context 'when a name contains a single hyphen' do
+      let(:css) { '@extend %block-thing;' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains a double hyphen' do
+      let(:css) { '@extend %block--thing;' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains a double underscore' do
+      let(:css) { '@extend %block--thing;' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains a double underscore and double hyphen' do
+      let(:css) { '@extend %block--thing__word;' }
+
+      it { should_not report_lint }
+    end
+  end
 end

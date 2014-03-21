@@ -20,10 +20,6 @@ module SCSSLint
                      split
     end
 
-    def node_has_bad_name?(node)
-      node.name =~ /#{INVALID_NAME_CHARS}/
-    end
-
     def shortest_hex_form(hex)
       (can_be_condensed?(hex) ? (hex[0..1] + hex[3] + hex[5]) : hex).downcase
     end
@@ -59,9 +55,5 @@ module SCSSLint
     def pluralize(value, word)
       value == 1 ? "#{value} #{word}" : "#{value} #{word}s"
     end
-
-  private
-
-    INVALID_NAME_CHARS = '[_A-Z]'
   end
 end
