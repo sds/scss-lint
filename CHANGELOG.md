@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-# master (unreleased)
+# 0.20.0
 
 * Add `convention` option to `NameFormat` allowing custom convention to
   be specified
