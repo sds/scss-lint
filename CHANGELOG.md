@@ -6,6 +6,7 @@
   be specified
 * Fix bug in `SpaceBetweenParens` linter for majority of cases where a
   lint would be reported if parens existed inside a comment
+* Add basic rake task
 
 # 0.19.0
 
