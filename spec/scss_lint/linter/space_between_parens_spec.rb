@@ -55,11 +55,11 @@ describe SCSSLint::Linter::SpaceBetweenParens do
 
   context 'when parens are multi-line with tabs' do
     let(:css) { <<-CSS }
-			p {
-				property: (
-					value
-				);
-			}
+\t\t\tp {
+\t\t\t\tproperty: (
+\t\t\t\t\tvalue
+\t\t\t\t);
+\t\t\t}
     CSS
 
     it { should_not report_lint }
@@ -176,11 +176,11 @@ describe SCSSLint::Linter::SpaceBetweenParens do
 
     context 'when parens are multi-line with tabs' do
       let(:css) { <<-CSS }
-				p {
-					property: (
-						value
-					);
-				}
+\t\t\t\tp {
+\t\t\t\t\tproperty: (
+\t\t\t\t\t\tvalue
+\t\t\t\t\t);
+\t\t\t\t}
       CSS
 
       it { should_not report_lint }
