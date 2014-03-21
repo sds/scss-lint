@@ -2,22 +2,6 @@
 # rubocop:disable Documentation
 
 module Sass::Script
-  # Redefine some of the lexer helpers in order to store the original string
-  # with the created object so that the original string can be inspected rather
-  # than a typically normalized version.
-  class Lexer
-    def color
-      return unless color_string = scan(REGULAR_EXPRESSIONS[:color])
-
-      unless [4, 7].include?(color_string.length)
-        raise ::Sass::SyntaxError,
-              "Colors must have either three or six digits: '#{color_string}'"
-      end
-
-      [:color, Value::Color.from_string(color_string)]
-    end
-  end
-
   class Parser
     # We redefine the ident parser to specially handle color keywords.
     def ident

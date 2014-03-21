@@ -4,10 +4,10 @@ module SCSSLint
     include LinterRegistry
 
     def visit_script_color(node)
-      return unless node.original_string && node.original_string.match(HEX_REGEX)
+      return unless color = source_from_range(node.source_range)[HEX_REGEX, 1]
 
-      unless valid_hex_format?(node.original_string[HEX_REGEX, 1])
-        add_hex_lint(node, node.original_string)
+      unless valid_hex_format?(color)
+        add_hex_lint(node, color)
       end
     end
 
