@@ -5,7 +5,9 @@ module SCSSLint
     include LinterRegistry
 
     def visit_script_color(node)
-      add_color_lint(node, node.original_string) if color_keyword?(node.original_string)
+      color = source_from_range(node.source_range)[COLOR_REGEX, 1]
+
+      add_color_lint(node, color) if color_keyword?(color)
     end
 
     def visit_script_string(node)
@@ -17,6 +19,8 @@ module SCSSLint
     end
 
   private
+
+    COLOR_REGEX = /(#?[a-f0-9]{3,6}|[a-z]+)/i
 
     def add_color_lint(node, original)
       hex_form = Sass::Script::Value::Color.new(color_rgb(original)).tap do |color|

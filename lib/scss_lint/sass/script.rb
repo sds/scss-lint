@@ -2,20 +2,6 @@
 # rubocop:disable Documentation
 
 module Sass::Script
-  class Parser
-    # We redefine the ident parser to specially handle color keywords.
-    def ident
-      return funcall unless @lexer.peek && @lexer.peek.type == :ident
-      return if @stop_at && @stop_at.include?(@lexer.peek.value)
-
-      name = @lexer.next
-      if (color = Value::Color::COLOR_NAMES[name.value.downcase])
-        return literal_node(Value::Color.from_string(name.value, color), name.source_range)
-      end
-      literal_node(Value::String.new(name.value, :identifier), name.source_range)
-    end
-  end
-
   # Since the Sass library is already loaded at this point.
   # Define the `node_name` and `visit_method` class methods for each Sass Script
   # parse tree node type so that our custom visitor can seamless traverse the
@@ -61,26 +47,6 @@ module Sass::Script
 
     def source_range
       @source_range || (node_parent && node_parent.source_range)
-    end
-  end
-
-  # When linting colors, it's convenient to be able to inspect the original
-  # color string. This adds an attribute to the Color to keep track of the
-  # original string and provides a method which the modified lexer can use to
-  # set it.
-  class Value::Color
-    attr_accessor :original_string
-
-    def self.from_string(string, rgb = nil)
-      unless rgb
-        rgb = string.scan(/^#(..?)(..?)(..?)$/).
-                     first.
-                     map { |hex| hex.ljust(2, hex).to_i(16) }
-      end
-
-      color = new(rgb, false)
-      color.original_string = string
-      color
     end
   end
 
