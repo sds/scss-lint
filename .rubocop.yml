@@ -16,6 +16,9 @@ CollectionMethods:
 DotPosition:
   Enabled: false
 
+FormatString:
+  Enabled: false
+
 IfUnlessModifier:
   Enabled: false
 
