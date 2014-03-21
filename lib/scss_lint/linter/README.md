@@ -335,6 +335,14 @@ The Sass parser automatically treats underscores and hyphens the same, so even
 if you're using a library that declares a function with an underscore, you can
 refer to it using the hyphenated form instead.
 
+You can also prefer the [BEM](http://bem.info/method/) convention by setting the
+`convention` option to `BEM`. Any other value will be treated as a regex.
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`convention`         | Name of convention to use (`hyphenated-lowercase` (default)
+                     | or `BEM`), or a regex the name must match
+
 ## PlaceholderInExtend
 
 Always use placeholder selectors in `@extend`.
