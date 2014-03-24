@@ -12,7 +12,7 @@ module SCSSLint
     end
 
     def description
-      'Opening curly braces ({) must be preceded by one space'
+      'Opening curly braces ({) should be preceded by one space'
     end
   end
 end
