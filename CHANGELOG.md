@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-# master (unreleased)
+# 0.20.1
 
 * Fix bug in `SpaceBeforeBrace` where it would not report a lint for
   one-line rule sets
