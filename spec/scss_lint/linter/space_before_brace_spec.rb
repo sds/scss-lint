@@ -37,4 +37,12 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
 
     it { should_not report_lint }
   end
+
+  context 'issue 94: when .single-line-selector{color: red;}' do
+    let(:css) { <<-CSS }
+      .single-line-selector{color: #f00;}
+    CSS
+
+    it { should report_lint line: 1 }
+  end
 end

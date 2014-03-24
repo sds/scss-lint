@@ -5,7 +5,7 @@ module SCSSLint
 
     def visit_root(node)
       engine.lines.each_with_index do |line, index|
-        line.scan /(?<![^ ] )\{$/ do |match|
+        line.scan /[^"](?<![^ ] )\{/ do |match|
           @lints << Lint.new(engine.filename, index + 1, description)
         end
       end

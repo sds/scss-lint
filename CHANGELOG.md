@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+# master (unreleased)
+
+* Fix bug in `SpaceBeforeBrace` where it would not report a lint for
+  one-line rule sets
+
 # 0.20.0
 
 * Add `convention` option to `NameFormat` allowing custom convention to
