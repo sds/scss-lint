@@ -45,4 +45,16 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
 
     it { should report_lint line: 1 }
   end
+
+  context 'when using #{} interpolation' do
+    let(:css) { <<-CSS }
+      @mixin test-mixin($class, $prop, $pixels) {
+        .\#{$class} {
+          \#{$prop}: \#{$pixels}px;
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end
