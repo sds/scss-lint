@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-# master (unreleased)
+# 0.20.2
 
 * Fix bug in `SpaceBeforeBrace` where it would report a lint for #{...}
   interpolation erroneously
