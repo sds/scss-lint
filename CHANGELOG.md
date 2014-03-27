@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.20.3
 
 * Fix bug in `NameFormat` linter where it would incorrectly report a
   lint for transform-related Compass mixins
