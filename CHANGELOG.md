@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix bug in `NameFormat` linter where it would incorrectly report a
+  lint for transform-related Compass mixins
+
 ## 0.20.2
 
 * Fix bug in `SpaceBeforeBrace` where it would report a lint for #{...}

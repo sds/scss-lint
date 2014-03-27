@@ -142,6 +142,16 @@ describe SCSSLint::Linter::NameFormat do
     end
   end
 
+  context 'when mixin is a transform function' do
+    let(:css) { <<-CSS }
+      p {
+        @include translateX(2);
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
   context 'when a mixin contains keyword arguments with underscores' do
     let(:css) { '@include mixin($some_var: 4);' }
 

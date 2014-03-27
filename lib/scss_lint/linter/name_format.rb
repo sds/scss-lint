@@ -14,7 +14,7 @@ module SCSSLint
     end
 
     def visit_mixin(node)
-      check_name(node, 'mixin')
+      check_name(node, 'mixin') unless FUNCTION_WHITELIST.include?(node.name)
       yield # Continue into content block of this mixin's block
     end
 
