@@ -1,16 +1,16 @@
 # SCSS-Lint Changelog
 
-# 0.20.2
+## 0.20.2
 
 * Fix bug in `SpaceBeforeBrace` where it would report a lint for #{...}
   interpolation erroneously
 
-# 0.20.1
+## 0.20.1
 
 * Fix bug in `SpaceBeforeBrace` where it would not report a lint for
   one-line rule sets
 
-# 0.20.0
+## 0.20.0
 
 * Add `convention` option to `NameFormat` allowing custom convention to
   be specified
@@ -18,7 +18,7 @@
   lint would be reported if parens existed inside a comment
 * Add basic rake task
 
-# 0.19.0
+## 0.19.0
 
 * Update Sass dependency to 3.3.0. All previous versions are not supported.
 * Fix `StringQuotes` linter to not report lints for strings containing
