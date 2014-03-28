@@ -48,6 +48,52 @@ describe SCSSLint::Linter::DuplicateProperty do
     it { should_not report_lint }
   end
 
+  context 'when placeholder contains duplicates but only on vendor-prefixed values' do
+    let(:css) { <<-CSS }
+      %cursor-grabbing {
+        cursor: -moz-grabbing;
+        cursor: -webkit-grabbing;
+        cursor: grabbing;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when placeholder contains exact duplicates besides for vendor-prefixed values' do
+    let(:css) { <<-CSS }
+      %cursor-grabbing {
+        cursor: grabbing;
+        cursor: grabbing;
+      }
+    CSS
+
+    it { should report_lint line: 3 }
+  end
+
+  context 'when mixin contains duplicates but only on vendor-prefixed values' do
+    let(:css) { <<-CSS }
+      @mixin cursor-grabbing($num) {
+        cursor: -moz-grabbing;
+        cursor: -webkit-grabbing;
+        cursor: grabbing;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when mixin contains duplicates besides for vendor-prefixed values' do
+    let(:css) { <<-CSS }
+      @mixin cursor-grabbing($num) {
+        cursor: grabbing;
+        cursor: grabbing;
+      }
+    CSS
+
+    it { should report_lint line: 3 }
+  end
+
   context 'when rule set contains exact duplicates besides for vendor-prefixed property values' do
     let(:css) { <<-CSS }
       p {
@@ -64,7 +110,7 @@ describe SCSSLint::Linter::DuplicateProperty do
     it { should report_lint line: 7 }
   end
 
-  context 'when rule set contains non-exact duplicates besides for vendor-prefixed property values' do
+  context 'when rule set contains non-exact duplicates besides for vendor-prefixed values' do
     let(:css) { <<-CSS }
       p {
         background: -moz-linear-gradient(center top , #fff, #000);
@@ -115,5 +161,16 @@ describe SCSSLint::Linter::DuplicateProperty do
     CSS
 
     it { should_not report_lint }
+  end
+
+  context 'when property contains a duplicate variable' do
+    let(:css) { <<-CSS }
+      p {
+        color: $some-color;
+        color: $some-color;
+      }
+    CSS
+
+    it { should report_lint line: 3 }
   end
 end

@@ -4,6 +4,28 @@ module SCSSLint
     include LinterRegistry
 
     def visit_rule(node)
+      check_properties(node)
+    end
+
+    def visit_mixindef(node)
+      check_properties(node)
+    end
+
+  private
+
+    def property_value(prop)
+      case prop.value
+      when Sass::Script::Funcall
+        prop.value.name
+      when Sass::Script::String
+      when Sass::Script::Tree::Literal
+        prop.value.value
+      else
+        prop.value.to_s
+      end
+    end
+
+    def check_properties(node)
       properties = node.children
                        .select { |child| child.is_a?(Sass::Tree::PropNode) }
                        .reject { |prop| prop.name.any? { |item| item.is_a?(Sass::Script::Node) } }
@@ -14,15 +36,7 @@ module SCSSLint
         name = prop.name.join
 
         prop_hash = name
-        prop_value =
-          case prop.value
-          when Sass::Script::Funcall
-            prop.value.name
-          when Sass::Script::String
-            prop.value.value
-          else
-            prop.value.to_s
-          end
+        prop_value = property_value(prop)
 
         prop_value.to_s.scan(/^(-[^-]+-.+)/) do |vendor_keyword|
           prop_hash << vendor_keyword.first
