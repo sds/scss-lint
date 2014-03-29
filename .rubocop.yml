@@ -7,6 +7,10 @@ AccessModifierIndentation:
 AssignmentInCondition:
   Enabled: false
 
+# Enforcing this results in a lot of unnecessary indentation.
+ClassAndModuleChildren:
+  Enabled: false
+
 CollectionMethods:
   Enabled: false
 
