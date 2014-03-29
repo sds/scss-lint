@@ -4,6 +4,8 @@
 
 * Add support to `DuplicateProperty` linter to detect duplicate properties
   in placeholder and mixin declarations
+* Add option `ignore_single_line_blocks` to the `EmptyLineBetweenBlocks`
+  linter
 
 ## 0.20.3
 

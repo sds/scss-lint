@@ -23,6 +23,7 @@ linters:
 
   EmptyLineBetweenBlocks:
     enabled: true
+    ignore_single_line_blocks: true
 
   EmptyRule:
     enabled: true

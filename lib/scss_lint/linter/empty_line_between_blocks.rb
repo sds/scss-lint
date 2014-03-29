@@ -30,6 +30,7 @@ module SCSSLint
     MESSAGE_FORMAT = '%s declaration should be %s by an empty line'
 
     def check(node, type)
+      return if config['ignore_single_line_blocks'] && node_on_single_line(node)
       check_preceding_node(node, type)
       check_following_node(node, type)
     end
@@ -78,6 +79,20 @@ module SCSSLint
       node.node_parent
           .children
           .select { |child| child.is_a?(Sass::Tree::Node) }
+    end
+
+    def node_on_single_line(node)
+      return if node.source_range.start_pos.line != node.source_range.end_pos.line
+
+      # The Sass parser reports an incorrect source range if the trailing curly
+      # brace is on the next line, e.g.
+      #
+      #   p {
+      #   }
+      #
+      # Since we don't want to count this as a single line node, check if the
+      # last character on the first line is an opening curly brace.
+      engine.lines[node.line - 1].strip[-1] != '{'
     end
   end
 end

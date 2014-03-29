@@ -235,4 +235,29 @@ describe SCSSLint::Linter::EmptyLineBetweenBlocks do
       it { should_not report_lint line: 6 }
     end
   end
+
+  context 'when blocks occupy a single line' do
+    let(:linter_config) { { 'ignore_single_line_blocks' => ignore_single_line_blocks } }
+
+    let(:css) { <<-CSS }
+      .icon-up { &:before { content: '^'; } }
+      .icon-right { &:before { content: '>'; } }
+      @include some-mixin { content: '<'; }
+      @include some-other-mixin { content: 'v'; }
+    CSS
+
+    context 'and the `ignore_single_line_blocks` option is true' do
+      let(:ignore_single_line_blocks) { true }
+
+      it { should_not report_lint }
+    end
+
+    context 'and the `ignore_single_line_blocks` option is false' do
+      let(:ignore_single_line_blocks) { false }
+
+      it { should report_lint line: 1 }
+      it { should report_lint line: 2 }
+      it { should report_lint line: 3 }
+    end
+  end
 end

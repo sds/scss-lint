@@ -208,6 +208,19 @@ a {
 }
 ```
 
+By default, this will ignore single line blocks, so you can write:
+
+```scss
+.icon-chevron-up    { &:before { content: "\e030"; } }
+.icon-chevron-down  { &:before { content: "\e031"; } }
+.icon-chevron-left  { &:before { content: "\e032"; } }
+.icon-chevron-right { &:before { content: "\e033"; } }
+```
+
+Configuration Option        | Description
+----------------------------|---------------------------------------------------
+`ignore_single_line_blocks` | Don't enforce for single-line blocks (default **true**)
+
 ## EmptyRule
 
 Reports when you have an empty rule set.
