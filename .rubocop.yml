@@ -41,6 +41,19 @@ LineLength:
 MethodLength:
   Max: 20
 
+# Prefer curly braces except for %i/%w/%W, since those return arrays.
+PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%': '{}'
+    '%i': '[]'
+    '%q': '{}'
+    '%Q': '{}'
+    '%r': '{}'
+    '%s': '()'
+    '%w': '[]'
+    '%W': '[]'
+    '%x': '{}'
+
 SignalException:
   Enabled: false
 
