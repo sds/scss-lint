@@ -18,22 +18,16 @@ module SCSSLint
       visit(engine.tree)
     end
 
-    # Define if you want a default message for your linter
-    # @return [String, nil]
-    def description
-      nil
-    end
-
     # Helper for creating lint from a parse tree node
     #
     # @param node_or_line [Sass::Script::Tree::Node, Sass::Engine::Line]
-    # @param message [String, nil]
-    def add_lint(node_or_line, message = nil)
+    # @param message [String]
+    def add_lint(node_or_line, message)
       line = node_or_line.respond_to?(:line) ? node_or_line.line : node_or_line
 
       @lints << Lint.new(engine.filename,
                          line,
-                         message || description)
+                         message)
     end
 
     # @param source_position [Sass::Source::Position]
