@@ -18,18 +18,17 @@ module SCSSLint
       end
 
       if children != sorted_children
-        add_lint(node.children.first)
+        add_lint(node.children.first, MESSAGE)
       end
 
       yield # Continue linting children
     end
 
-    def description
+  private
+
+    MESSAGE =
       'Rule sets should start with @extend declarations, followed by ' <<
       'properties and nested rule sets, in that order'
-    end
-
-  private
 
     def important_node?(node)
       DECLARATION_ORDER.include? node.class
