@@ -54,6 +54,11 @@ PercentLiteralDelimiters:
     '%W': '[]'
     '%x': '{}'
 
+# Renaming `has_something?` to `something?` obfuscates whether it is a "is-a" or
+# a "has-a" relationship.
+PredicateName:
+  Enabled: false
+
 SignalException:
   Enabled: false
 
