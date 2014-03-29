@@ -6,13 +6,9 @@ module SCSSLint
     def visit_root(node)
       engine.lines.each_with_index do |line, index|
         line.scan /[^"#](?<![^ ] )\{/ do |match|
-          @lints << Lint.new(engine.filename, index + 1, description)
+          add_lint(index + 1, 'Opening curly braces ({) should be preceded by one space')
         end
       end
-    end
-
-    def description
-      'Opening curly braces ({) should be preceded by one space'
     end
   end
 end
