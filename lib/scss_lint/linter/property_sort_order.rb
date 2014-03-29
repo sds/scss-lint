@@ -10,17 +10,18 @@ module SCSSLint
           child.name.all? { |part| part.is_a?(String) }
       end
 
-      sortable_prop_names = sortable_props.map { |child| child.name.join }
+      sortable_prop_info = sortable_props
+        .map { |child| child.name.join }
+        .map do |name|
+          /^(?<vendor>-\w+(-osx)?-)?(?<property>.+)/ =~ name
+          { name: name, vendor: vendor, property: property }
+        end
 
-      sorted_prop_names = sortable_prop_names.map do |name|
-        /^(?<vendor>-\w+(-osx)?-)?(?<property>.+)/ =~ name
-        { name: name, vendor: vendor, property: property }
-      end.sort { |a, b| compare_properties(a, b) }
-         .map { |fields| fields[:name] }
+      sorted_props = sortable_prop_info
+        .sort { |a, b| compare_properties(a, b) }
 
-      sorted_prop_names.each_with_index do |name, index|
-        # Report the first property out of order with the sorted list
-        if name != sortable_prop_names[index]
+      sorted_props.each_with_index do |prop, index|
+        if prop != sortable_prop_info[index]
           add_lint(sortable_props[index])
           break
         end
@@ -52,23 +53,31 @@ module SCSSLint
     # are ordered amongst themselves by vendor prefix.
     def compare_properties(a, b)
       if a[:property] == b[:property]
-        if a[:vendor] && b[:vendor]
-          a[:vendor] <=> b[:vendor]
-        elsif a[:vendor]
-          -1
-        elsif b[:vendor]
-          1
-        else
-          0
-        end
+        compare_by_vendor(a, b)
       else
         if config['order']
-          (config['order'].index(a[:property]) || Float::INFINITY) <=>
-            (config['order'].index(b[:property]) || Float::INFINITY)
+          compare_by_order(a, b, config['order'])
         else
           a[:property] <=> b[:property]
         end
       end
+    end
+
+    def compare_by_vendor(a, b)
+      if a[:vendor] && b[:vendor]
+        a[:vendor] <=> b[:vendor]
+      elsif a[:vendor]
+        -1
+      elsif b[:vendor]
+        1
+      else
+        0
+      end
+    end
+
+    def compare_by_order(a, b, order)
+      (order.index(a[:property]) || Float::INFINITY) <=>
+        (order.index(b[:property]) || Float::INFINITY)
     end
   end
 end
