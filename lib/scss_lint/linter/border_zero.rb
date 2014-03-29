@@ -14,10 +14,10 @@ module SCSSLint
 
   private
 
-     BORDER_PROPERTIES = %w[border
-                            border-top
-                            border-right
-                            border-bottom
-                            border-left]
+    BORDER_PROPERTIES = %w[border
+                           border-top
+                           border-right
+                           border-bottom
+                           border-left]
   end
 end
