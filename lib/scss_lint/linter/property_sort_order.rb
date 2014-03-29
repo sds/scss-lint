@@ -22,7 +22,7 @@ module SCSSLint
 
       sorted_props.each_with_index do |prop, index|
         if prop != sortable_prop_info[index]
-          add_lint(sortable_props[index])
+          add_lint(sortable_props[index], MESSAGE)
           break
         end
       end
@@ -30,12 +30,10 @@ module SCSSLint
       yield # Continue linting children
     end
 
-    def description
-      'Properties should be sorted in order, with ' <<
-      'vendor-prefixed extensions before the standardized CSS property'
-    end
-
   private
+
+    MESSAGE = 'Properties should be sorted in order, with vendor-prefixed ' <<
+              'extensions before the standardized CSS property'
 
     # Compares two properties which can contain a vendor prefix. It allows for a
     # sort order like:
