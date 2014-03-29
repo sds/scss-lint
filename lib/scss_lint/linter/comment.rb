@@ -4,11 +4,7 @@ module SCSSLint
     include LinterRegistry
 
     def visit_comment(node)
-      add_lint(node) unless node.invisible?
-    end
-
-    def description
-      'Use // comments everywhere'
+      add_lint(node, 'Use `//` comments everywhere') unless node.invisible?
     end
   end
 end
