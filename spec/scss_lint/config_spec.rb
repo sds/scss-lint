@@ -412,8 +412,10 @@ describe SCSSLint::Config do
       FILE
 
       it 'does not exclude any files' do
-        config.excluded_file_for_linter?("#{config_dir}/anything/you/want.scss",
-          SCSSLint::Linter::FakeConfigLinter.new).should be_false
+        config.excluded_file_for_linter?(
+          "#{config_dir}/anything/you/want.scss",
+          SCSSLint::Linter::FakeConfigLinter.new
+        ).should be_false
       end
     end
 
@@ -427,8 +429,10 @@ describe SCSSLint::Config do
       FILE
 
       it 'excludes file for the linter' do
-        config.excluded_file_for_linter?("#{config_dir}/anything/you/want.scss",
-          SCSSLint::Linter::FakeConfigLinter.new).should be_true
+        config.excluded_file_for_linter?(
+          "#{config_dir}/anything/you/want.scss",
+          SCSSLint::Linter::FakeConfigLinter.new
+        ).should be_true
       end
     end
   end
