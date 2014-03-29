@@ -346,8 +346,7 @@ You can also prefer the [BEM](http://bem.info/method/) convention by setting the
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`convention`         | Name of convention to use (`hyphenated-lowercase` (default)
-                     | or `BEM`), or a regex the name must match
+`convention`         | Name of convention to use (`hyphenated-lowercase` (default) or `BEM`), or a regex the name must match
 
 ## PlaceholderInExtend
 
@@ -702,7 +701,7 @@ margin: 0px;
 ```
 
 **Good**
-```
+```scss
 margin: 0;
 ```
 
