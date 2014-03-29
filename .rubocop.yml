@@ -28,6 +28,10 @@ DotPosition:
 FormatString:
   Enabled: false
 
+FileName:
+  Exclude:
+    - 'bin/scss-lint'
+
 IfUnlessModifier:
   Enabled: false
 
