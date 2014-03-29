@@ -11,7 +11,7 @@ module SCSSLint
     attr_reader :contents, :filename, :lines, :tree
 
     def initialize(scss_or_filename)
-      if File.exists?(scss_or_filename)
+      if File.exist?(scss_or_filename)
         @filename = scss_or_filename
         @engine = Sass::Engine.for_file(scss_or_filename, ENGINE_OPTIONS)
         @contents = File.open(scss_or_filename, 'r').read
@@ -26,7 +26,7 @@ module SCSSLint
       if error.is_a?(Encoding::UndefinedConversionError) ||
          error.message.include?('invalid byte sequence')
         raise FileEncodingError,
-              "Unable to parse SCSS file: #{error.to_s}",
+              "Unable to parse SCSS file: #{error}",
               error.backtrace
       else
         raise
