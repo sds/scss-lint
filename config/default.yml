@@ -89,6 +89,9 @@ linters:
   TrailingSemicolonAfterPropertyValue:
     enabled: true
 
+  UrlFormat:
+    enabled: true
+
   UrlQuotes:
     enabled: true
 

@@ -6,6 +6,8 @@
   in placeholder and mixin declarations
 * Add option `ignore_single_line_blocks` to the `EmptyLineBetweenBlocks`
   linter
+* Add `UrlFormat` linter which reports uses of `url(...)` with URLs
+  containing protocols or domains
 
 ## 0.20.3
 

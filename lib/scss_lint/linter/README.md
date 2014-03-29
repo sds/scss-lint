@@ -30,6 +30,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [SpaceBetweenParens](#spacebetweenparens)
 * [StringQuotes](#stringquotes)
 * [TrailingSemicolonAfterPropertyValue](#trailingsemicolonafterpropertyvalue)
+* [UrlFormat](#urlformat)
 * [UrlQuotes](#urlquotes)
 * [ZeroUnit](#urlquotes)
 
@@ -681,6 +682,25 @@ p {
 CSS allows you to omit the semicolon if the property is the last property in
 the rule set. However, this introduces inconsistency and requires anyone adding
 a property after that property to remember to append a semicolon.
+
+## UrlFormat
+
+URLs should not contain protocols or domain names.
+
+Including protocols or domains in URLs makes them brittle to change, and also
+unnecessarily increases the size of your CSS documents, reducing performance.
+
+**Bad: protocol and domain present**
+
+```scss
+background: url('https://example.com/assets/image.png');
+```
+
+**Good**
+
+```scss
+background: url('assets/image.png');
+```
 
 ## UrlQuotes
 
