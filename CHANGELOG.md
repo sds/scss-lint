@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.21.0
 
 * Add support to `DuplicateProperty` linter to detect duplicate properties
   in placeholder and mixin declarations
