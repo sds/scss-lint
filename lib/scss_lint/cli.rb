@@ -1,5 +1,7 @@
 require 'find'
 require 'optparse'
+require 'rainbow'
+require 'rainbow/ext/string'
 
 module SCSSLint
   # Responsible for parsing command-line options and executing the appropriate
@@ -104,7 +106,7 @@ module SCSSLint
     rescue => ex
       puts ex.message
       puts ex.backtrace
-      puts 'Report this bug at '.yellow + BUG_REPORT_URL.cyan
+      puts 'Report this bug at '.color(:yellow) + BUG_REPORT_URL.color(:cyan)
       halt :software
     end
 

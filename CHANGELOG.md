@@ -8,6 +8,7 @@
   linter
 * Add `UrlFormat` linter which reports uses of `url(...)` with URLs
   containing protocols or domains
+* Replace `colorize` dependency with `rainbows`
 
 ## 0.20.3
 
