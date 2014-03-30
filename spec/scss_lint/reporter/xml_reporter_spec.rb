@@ -28,15 +28,22 @@ describe SCSSLint::Reporter::XMLReporter do
 
     context 'when there are lints' do
       let(:filenames)    { ['f1.scss', 'f2.scss', 'f1.scss'] }
-      let(:lines)        { [5, 7, 9] }
       # Include invalid XML characters in the third description to validate
       # that escaping happens for preventing broken XML output
       let(:descriptions) { ['lint 1', 'lint 2', 'lint 3 " \' < & >'] }
       let(:severities)   { [:warning] * 3 }
+
+      let(:locations)    do
+        [
+          SCSSLint::Location.new(5,  2, 3),
+          SCSSLint::Location.new(7,  6, 2),
+          SCSSLint::Location.new(9, 10, 1)
+        ]
+      end
+
       let(:lints) do
         filenames.each_with_index.map do |filename, index|
-          location = SCSSLint::Location.new(lines[index])
-          SCSSLint::Lint.new(filename, location, descriptions[index], severities[index])
+          SCSSLint::Lint.new(filename, locations[index], descriptions[index], severities[index])
         end
       end
 
@@ -59,7 +66,17 @@ describe SCSSLint::Reporter::XMLReporter do
 
       it 'marks each issue with a line number' do
         xml.xpath('//issue[@line]').map { |node| node[:line] }.
-          should =~ lines.map(&:to_s)
+          should =~ locations.map { |location| location.line.to_s }
+      end
+
+      it 'marks each issue with a column number' do
+        xml.xpath('//issue[@column]').map { |node| node[:column] }.
+          should =~ locations.map { |location| location.column.to_s }
+      end
+
+      it 'marks each issue with a length' do
+        xml.xpath('//issue[@length]').map { |node| node[:length] }.
+          should =~ locations.map { |location| location.length.to_s }
       end
 
       it 'marks each issue with a reason containing the lint description' do

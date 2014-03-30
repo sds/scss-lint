@@ -10,6 +10,8 @@ module SCSSLint
 
         file_lints.each do |lint|
           output << "<issue line=\"#{lint.location.line}\" " <<
+                           "column=\"#{lint.location.column}\" " <<
+                           "length=\"#{lint.location.length}\" " <<
                            "severity=\"#{lint.severity}\" " <<
                            "reason=#{lint.description.encode(:xml => :attr)} />"
         end
