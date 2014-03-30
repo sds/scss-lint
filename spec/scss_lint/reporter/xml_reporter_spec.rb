@@ -35,7 +35,8 @@ describe SCSSLint::Reporter::XMLReporter do
       let(:severities)   { [:warning] * 3 }
       let(:lints) do
         filenames.each_with_index.map do |filename, index|
-          SCSSLint::Lint.new(filename, lines[index], descriptions[index], severities[index])
+          location = SCSSLint::Location.new(lines[index])
+          SCSSLint::Lint.new(filename, location, descriptions[index], severities[index])
         end
       end
 

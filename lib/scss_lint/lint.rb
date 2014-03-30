@@ -1,15 +1,15 @@
 module SCSSLint
   # Stores information about a single problem that was detected by a [Linter].
   class Lint
-    attr_reader :filename, :line, :description, :severity
+    attr_reader :filename, :location, :description, :severity
 
     # @param filename [String]
-    # @param line [Integer]
+    # @param location [SCSSLint::Location]
     # @param description [String]
     # @param severity [Symbol]
-    def initialize(filename, line, description, severity = :warning)
+    def initialize(filename, location, description, severity = :warning)
       @filename    = filename
-      @line        = line
+      @location    = location
       @description = description
       @severity    = severity
     end
