@@ -31,6 +31,9 @@ FormatString:
 FileName:
   Exclude:
     - 'bin/scss-lint'
+    - 'Gemfile'
+    - 'Rakefile'
+    - '*.gemspec'
 
 IfUnlessModifier:
   Enabled: false
