@@ -23,11 +23,32 @@ module SCSSLint
     # @param node_or_line [Sass::Script::Tree::Node, Sass::Engine::Line]
     # @param message [String]
     def add_lint(node_or_line, message)
-      line = node_or_line.respond_to?(:line) ? node_or_line.line : node_or_line
+      location = if node_or_line.respond_to?(:source_range) && node_or_line.source_range
+                   location_from_range(node_or_line.source_range)
+                 elsif node_or_line.respond_to?(:line)
+                   Location.new(node_or_line.line)
+                 else
+                   Location.new(node_or_line)
+                 end
 
       @lints << Lint.new(engine.filename,
-                         line,
+                         location,
                          message)
+    end
+
+    # Helper for creating location from a source range
+    #
+    # @param range [Sass::Source::Range]
+    # @return [SCSSLint::Location]
+    def location_from_range(range)
+      length = if range.start_pos.line == range.end_pos.line
+                 range.end_pos.offset - range.start_pos.offset
+               else
+                 line_source = engine.lines[range.start_pos.line]
+                 line_source.length - range.start_pos.offset + 1
+               end
+
+      Location.new(range.start_pos.line, range.start_pos.offset, length)
     end
 
     # @param source_position [Sass::Source::Position]

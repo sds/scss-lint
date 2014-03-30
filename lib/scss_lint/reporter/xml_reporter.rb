@@ -9,7 +9,7 @@ module SCSSLint
         output << "<file name='#{filename}'>"
 
         file_lints.each do |lint|
-          output << "<issue line='#{lint.line}' " <<
+          output << "<issue line='#{lint.location.line}' " <<
                            "severity='#{lint.severity}' " <<
                            "reason='#{lint.description}' />"
         end
