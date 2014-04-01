@@ -607,6 +607,20 @@ p {
 }
 ```
 
+Setting `allow_extra_spaces` to `true` allows you to use extra spaces to nicely
+align single line blocks, so you can write:
+
+```scss
+.icon-chevron-up    { &:before { content: "\e030"; } }
+.icon-chevron-down  { &:before { content: "\e031"; } }
+.icon-chevron-left  { &:before { content: "\e032"; } }
+.icon-chevron-right { &:before { content: "\e033"; } }
+```
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`allow_extra_spaces` | Allow single line blocks to have extra spaces for nicer formatting (default **false**)
+
 ## SpaceBetweenParens
 
 Parentheses should not be padded with spaces.
