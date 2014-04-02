@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Add `allow_single_line_padding` option to `SpaceBeforeBrace` which allows
+  you to visually align multiple single line blocks with extra padding spaces
+
 ## 0.21.0
 
 * Add support to `DuplicateProperty` linter to detect duplicate properties
