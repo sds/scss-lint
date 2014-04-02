@@ -37,9 +37,6 @@ module SCSSLint
       actual_line   = source_position.line - 1
       actual_offset = source_position.offset + offset - 1
 
-      # Return a newline if offset points at the very end of the line
-      return "\n" if actual_offset == engine.lines[actual_line].length
-
       engine.lines[actual_line][actual_offset]
     end
 
@@ -60,7 +57,7 @@ module SCSSLint
 
       current_line += 1
       while current_line < last_line
-        source += "#{engine.lines[current_line]}\n"
+        source += "#{engine.lines[current_line]}"
         current_line += 1
       end
 
@@ -68,7 +65,7 @@ module SCSSLint
          # Sometimes the parser reports ranges ending on the first column of the
          # line after the last line; don't include the last line in this case.
          engine.lines.count == current_line - 1
-        source += "#{engine.lines[current_line][0...source_range.end_pos.offset]}\n"
+        source += "#{engine.lines[current_line][0...source_range.end_pos.offset]}"
       end
 
       source

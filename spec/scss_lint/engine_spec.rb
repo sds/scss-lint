@@ -17,8 +17,8 @@ describe SCSSLint::Engine do
   context 'when the file being linted has an invalid byte sequence' do
     let(:css) { "\xC0\u0001" }
 
-    it 'raises a FileEncodingError' do
-      expect { engine }.to raise_error(SCSSLint::FileEncodingError)
+    it 'raises a SyntaxError' do
+      expect { engine }.to raise_error(Sass::SyntaxError)
     end
   end
 end

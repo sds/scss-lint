@@ -20,7 +20,7 @@ module SCSSLint
         @contents = scss_or_filename
       end
 
-      @lines = @contents.split("\n")
+      @lines = @contents.lines
       @tree = @engine.to_tree
     rescue Encoding::UndefinedConversionError, ArgumentError => error
       if error.is_a?(Encoding::UndefinedConversionError) ||
