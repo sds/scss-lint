@@ -20,11 +20,11 @@ module SCSSLint
         @contents = scss_or_filename
       end
 
-      @lines = @contents.lines
+      @lines = @contents.lines.to_a # Need `to_a` for Ruby 1.9.3
       @tree = @engine.to_tree
-    rescue Encoding::UndefinedConversionError, ArgumentError => error
+    rescue Encoding::UndefinedConversionError, Sass::SyntaxError => error
       if error.is_a?(Encoding::UndefinedConversionError) ||
-         error.message.include?('invalid byte sequence')
+         error.message.match(/invalid.*(byte sequence|character)/i)
         raise FileEncodingError,
               "Unable to parse SCSS file: #{error}",
               error.backtrace

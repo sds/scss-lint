@@ -18,7 +18,7 @@ describe SCSSLint::Engine do
     let(:css) { "\xC0\u0001" }
 
     it 'raises a SyntaxError' do
-      expect { engine }.to raise_error(Sass::SyntaxError)
+      expect { engine }.to raise_error(SCSSLint::FileEncodingError)
     end
   end
 end
