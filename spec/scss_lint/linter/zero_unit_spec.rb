@@ -70,4 +70,14 @@ describe SCSSLint::Linter::ZeroUnit do
 
     it { should report_lint line: 2 }
   end
+
+  context 'when string contains a zero value with units' do
+    let(:css) { <<-CSS }
+      p {
+        content: func("0em");
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end

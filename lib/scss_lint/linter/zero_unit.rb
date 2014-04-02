@@ -4,6 +4,8 @@ module SCSSLint
     include LinterRegistry
 
     def visit_script_string(node)
+      return unless node.type == :identifier
+
       node.value.scan(ZERO_UNIT_REGEX) do |match|
         add_lint(node, MESSAGE_FORMAT % match.first)
       end

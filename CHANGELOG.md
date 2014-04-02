@@ -6,6 +6,8 @@
   you to visually align multiple single line blocks with extra padding spaces
 * Add `FinalNewline` linter which checks for existence/lack of final newlines
   in files
+* Fix bug in `ZeroUnit` linter where a string with a substring that looked
+  like a zero followed by units would incorrectly report a lint
 
 ## 0.21.0
 
