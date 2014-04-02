@@ -77,7 +77,7 @@ linters:
 
   SpaceBeforeBrace:
     enabled: true
-    allow_extra_spaces: false
+    allow_single_line_padding: false
 
   SpaceBetweenParens:
     enabled: true

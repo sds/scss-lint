@@ -59,7 +59,7 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
   end
 
   context 'when blocks occupy a single line' do
-    let(:linter_config) { { 'allow_extra_spaces' => allow_extra_spaces } }
+    let(:linter_config) { { 'allow_single_line_padding' => allow_single_line_padding } }
 
     let(:css) { <<-CSS }
       p{ }
@@ -69,7 +69,7 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
     CSS
 
     context 'and the `allow_extra_spaces` option is true' do
-      let(:allow_extra_spaces) { true }
+      let(:allow_single_line_padding) { true }
 
       it { should report_lint line: 1 }
       it { should_not report_lint line: 2 }
@@ -78,7 +78,7 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
     end
 
     context 'and the `allow_extra_spaces` option is false' do
-      let(:allow_extra_spaces) { false }
+      let(:allow_single_line_padding) { false }
 
       it { should report_lint line: 1 }
       it { should_not report_lint line: 2 }

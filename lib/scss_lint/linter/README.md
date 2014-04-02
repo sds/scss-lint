@@ -607,8 +607,8 @@ p {
 }
 ```
 
-Setting `allow_extra_spaces` to `true` allows you to use extra spaces to nicely
-align single line blocks, so you can write:
+Setting `allow_single_line_padding` to `true` allows you to use extra spaces to
+nicely align single line blocks, so you can write:
 
 ```scss
 .icon-chevron-up    { &:before { content: "\e030"; } }
@@ -617,9 +617,9 @@ align single line blocks, so you can write:
 .icon-chevron-right { &:before { content: "\e033"; } }
 ```
 
-Configuration Option | Description
----------------------|---------------------------------------------------------
-`allow_extra_spaces` | Allow single line blocks to have extra spaces for nicer formatting (default **false**)
+Configuration Option        | Description
+----------------------------|---------------------------------------------------
+`allow_single_line_padding` | Allow single line blocks to have extra spaces for nicer formatting (default **false**)
 
 ## SpaceBetweenParens
 
