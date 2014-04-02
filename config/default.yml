@@ -28,6 +28,10 @@ linters:
   EmptyRule:
     enabled: true
 
+  FinalNewline:
+    enabled: true
+    present: true
+
   HexFormat:
     enabled: true
 

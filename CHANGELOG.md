@@ -4,6 +4,8 @@
 
 * Add `allow_single_line_padding` option to `SpaceBeforeBrace` which allows
   you to visually align multiple single line blocks with extra padding spaces
+* Add `FinalNewline` linter which checks for existence/lack of final newlines
+  in files
 
 ## 0.21.0
 
