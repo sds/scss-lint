@@ -38,7 +38,7 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
     it { should_not report_lint }
   end
 
-  context 'issue 94: when .single-line-selector{color: red;}' do
+  context 'when curly brace is in a single line rule set' do
     let(:css) { <<-CSS }
       .single-line-selector{color: #f00;}
     CSS
