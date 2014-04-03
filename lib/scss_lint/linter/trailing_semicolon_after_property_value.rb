@@ -7,8 +7,18 @@ module SCSSLint
     def visit_prop(node)
       has_nested_props = has_nested_properties?(node)
 
-      if !has_nested_props && !ends_with_semicolon?(node)
-        add_lint node.line, 'Property declaration should end with a semicolon'
+      unless has_nested_props
+        if has_space_before_semicolon?(node)
+          line = node.source_range.end_pos
+          add_lint line, 'Property declaration should be terminated by a semicolon'
+        elsif !ends_with_semicolon?(node)
+          # Adjust line since lack of semicolon results in end of source range
+          # being on the next line
+          line = node.source_range.end_pos.line - 1
+          add_lint line,
+                   'Property declaration should not have a space before ' <<
+                   'the terminating semicolon'
+        end
       end
 
       yield if has_nested_props
@@ -22,8 +32,11 @@ module SCSSLint
 
     # Checks that the property is ended by a semicolon (with no whitespace)
     def ends_with_semicolon?(node)
-      character_at(node.source_range.end_pos) == ';' &&
-        character_at(node.source_range.end_pos, -1) !~ /\s/
+      source_from_range(node.source_range) =~ /;$/
+    end
+
+    def has_space_before_semicolon?(node)
+      source_from_range(node.source_range) =~ /\s;$/
     end
   end
 end

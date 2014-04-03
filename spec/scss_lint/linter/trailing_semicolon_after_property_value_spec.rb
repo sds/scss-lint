@@ -81,4 +81,32 @@ describe SCSSLint::Linter::TrailingSemicolonAfterPropertyValue do
 
     it { should report_lint line: 3 }
   end
+
+  context 'when a multi-line property ends with a semicolon' do
+    let(:css) { <<-CSS }
+      p {
+        background:
+          top repeat-x url('top-image.jpg'),
+          right repeat-y url('right-image.jpg'),
+          bottom repeat-x url('bottom-image.jpg'),
+          left repeat-y url('left-image.jpg');
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when a multi-line property does not end with a semicolon' do
+    let(:css) { <<-CSS }
+      p {
+        background:
+          top repeat-x url('top-image.jpg'),
+          right repeat-y url('right-image.jpg'),
+          bottom repeat-x url('bottom-image.jpg'),
+          left repeat-y url('left-image.jpg')
+      }
+    CSS
+
+    it { should report_lint line: 6 }
+  end
 end
