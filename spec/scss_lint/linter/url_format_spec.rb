@@ -25,6 +25,12 @@ describe SCSSLint::Linter::UrlFormat do
 
       it { should_not report_lint }
     end
+
+    context 'when URL is a data URI' do
+      let(:url) { 'data:image/png;base64,iVBORI=' }
+
+      it { should_not report_lint }
+    end
   end
 
   context 'when URL is enclosed in quotes' do
