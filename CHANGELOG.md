@@ -10,6 +10,8 @@
   like a zero followed by units would incorrectly report a lint
 * Fix bug in `TrailingSemicolonAfterPropertyValue` where a lint would be
   incorrectly reported for properties split up over multiple lines
+* Fix bug in `UrlFormat` when using a data url would be incorrectly
+  reported as url with protocol
 
 ## 0.21.0
 
