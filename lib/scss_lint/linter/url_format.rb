@@ -43,6 +43,7 @@ module SCSSLint
     end
 
     def check_url(url, node)
+      return if url.match(/^data:/)
       uri = URI(url)
 
       if uri.scheme || uri.host
