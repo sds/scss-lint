@@ -5,7 +5,7 @@ module SCSSLint
       if lints.any?
         lints.map do |lint|
           type = lint.error? ? '[E]'.color(:red) : '[W]'.color(:yellow)
-          "#{lint.filename.color(:cyan)}:" << "#{lint.line}".color(:magenta) <<
+          "#{lint.filename.color(:cyan)}:" << "#{lint.location.line}".color(:magenta) <<
                                       " #{type} #{lint.description}"
         end.join("\n") + "\n"
       end
