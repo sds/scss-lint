@@ -176,7 +176,13 @@ function, so the intention is to fall back to the color `#fff`.
 }
 ```
 
-In this situation, using duplicate properties is acceptable.
+In this situation, using duplicate properties is acceptable, but the linter
+won't be able to deduce your intention, and will still report an error.
+
+If you've made the decision to _not_ support older browsers, then this lint is
+more helpful since you don't want to clutter your CSS with fallbacks.
+Otherwise, you may want to consider disabling this check in your
+`.scss-lint.yml` configuration.
 
 ## EmptyLineBetweenBlocks
 
