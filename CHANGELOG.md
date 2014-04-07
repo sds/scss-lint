@@ -14,6 +14,7 @@
   reported as a URL with protocol
 * Add `allow_extra_spaces` option to `SpaceAfterPropertyColon` which
   allows you to use extra spaces to align values
+* Fix bug in `SpaceBeforeBrace` linter when using `{` in single quotes
 
 ## 0.21.0
 

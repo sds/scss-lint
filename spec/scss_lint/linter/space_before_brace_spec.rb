@@ -86,4 +86,13 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
       it { should report_lint line: 4 }
     end
   end
+
+  context 'when curly brace is in single quotes' do
+    let(:css) { <<-CSS }
+      @if $token == '{' {
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end
