@@ -12,6 +12,7 @@
   incorrectly reported for properties split up over multiple lines
 * Fix bug in `UrlFormat` where using a data URL would be incorrectly
   reported as a URL with protocol
+* Fix bug in `SpaceBeforeBrace` linter when using `{` in if statement
 
 ## 0.21.0
 
