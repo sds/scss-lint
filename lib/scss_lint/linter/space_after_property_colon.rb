@@ -4,15 +4,20 @@ module SCSSLint
   class Linter::SpaceAfterPropertyColon < Linter
     include LinterRegistry
 
-    EXPECTED_SPACES_AFTER_COLON = 1
-
     def visit_prop(node)
       spaces = spaces_after_colon(node)
 
-      if spaces != EXPECTED_SPACES_AFTER_COLON
-        add_lint node, 'Colon after property should be followed by ' <<
-                       "#{pluralize(EXPECTED_SPACES_AFTER_COLON, 'space')} instead of " <<
-                       pluralize(spaces, 'space')
+      if config['allow_extra_spaces']
+        if spaces == 0
+          add_lint node, 'Colon after property should be followed by ' <<
+                         "at least #{pluralize(1, 'space')} "
+        end
+      else
+        if spaces != 1
+          add_lint node, 'Colon after property should be followed by ' <<
+                         "#{pluralize(1, 'space')} instead of " <<
+                         pluralize(spaces, 'space')
+        end
       end
     end
 
