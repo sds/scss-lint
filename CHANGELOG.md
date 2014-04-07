@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.22.0
 
 * Add `allow_single_line_padding` option to `SpaceBeforeBrace` which allows
   you to visually align multiple single line blocks with extra padding spaces
