@@ -588,6 +588,21 @@ margin:  0;
 margin: 0;
 ```
 
+Setting the `allow_extra_spaces` option to `true` allows you to use extra spaces to
+align the values however you choose, e.g.:
+
+```scss
+.button {
+  font-size:   14px;
+  margin:      0;
+  padding-top: 9px;
+}
+```
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`allow_extra_spaces` | Whether to allow more than one space so values can be aligned (default **false**)
+
 ## SpaceAfterPropertyName
 
 Properties should be formatted with no space between the name and the colon.

@@ -12,6 +12,8 @@
   incorrectly reported for properties split up over multiple lines
 * Fix bug in `UrlFormat` where using a data URL would be incorrectly
   reported as a URL with protocol
+* Add `allow_extra_spaces` option to `SpaceAfterPropertyColon` which
+  allows you to use extra spaces to align values
 
 ## 0.21.0
 
