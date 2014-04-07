@@ -57,7 +57,7 @@ describe SCSSLint::Linter::StringQuotes do
     it { should_not report_lint }
 
     context 'and has no trailing semicolon' do
-      let(:css) { "@import 'file'" }
+      let(:css) { "@import 'file'\n" }
 
       it { should_not report_lint }
     end

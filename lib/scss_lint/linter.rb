@@ -62,7 +62,7 @@ module SCSSLint
       end
 
       if source_range.start_pos.line != source_range.end_pos.line
-        source += "#{engine.lines[current_line][0...source_range.end_pos.offset]}"
+        source += "#{(engine.lines[current_line] || '')[0...source_range.end_pos.offset]}"
       end
 
       source
