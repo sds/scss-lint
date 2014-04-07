@@ -86,4 +86,13 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
       it { should report_lint line: 4 }
     end
   end
+
+  context 'when using in an if statement' do
+    let(:css) { <<-CSS }
+      @if $token == '{' {
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end
