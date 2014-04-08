@@ -6,19 +6,18 @@ module SCSSLint
 
     MINIMUM_SPACES_AFTER_COLON = 1
 
-    def visit_prop(node)
-      spaces = spaces_after_colon(node)
-
-      if config['allow_extra_spaces']
-        if spaces < MINIMUM_SPACES_AFTER_COLON
-          add_lint node, 'Colon after property should be followed by ' <<
-                         "at least #{pluralize(MINIMUM_SPACES_AFTER_COLON, 'space')} "
-        end
-      elsif spaces != MINIMUM_SPACES_AFTER_COLON
-        add_lint node, 'Colon after property should be followed by ' <<
-                       pluralize(MINIMUM_SPACES_AFTER_COLON, 'space') <<
-                       " instead of #{pluralize(spaces, 'space')}"
+    def visit_rule(node)
+      children = node.children.select do |child|
+        child.is_a?(Sass::Tree::PropNode)
       end
+
+      max_length = max_property_length(children) + MINIMUM_SPACES_AFTER_COLON
+
+      children.each do |child|
+        check_node(child, max_length)
+      end
+
+      yield # Continue linting children
     end
 
   private
@@ -39,6 +38,29 @@ module SCSSLint
       end
 
       spaces
+    end
+
+    def max_property_length(children)
+      children.map do |child|
+        child.name.first.length
+      end.max
+    end
+
+    def check_node(node, max_length)
+      property_length = node.name.first.length
+      spaces = spaces_after_colon(node)
+
+      if config['allow_extra_spaces']
+        if property_length + spaces != max_length
+          add_lint node, 'Colon after property should be followed by ' <<
+                          "#{pluralize(max_length - property_length, 'space')} " <<
+                          "to align all values"
+        end
+      elsif spaces != MINIMUM_SPACES_AFTER_COLON
+        add_lint node, 'Colon after property should be followed by ' <<
+                       pluralize(MINIMUM_SPACES_AFTER_COLON, 'space') <<
+                       " instead of #{pluralize(spaces, 'space')}"
+      end
     end
   end
 end

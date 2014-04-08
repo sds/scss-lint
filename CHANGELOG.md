@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Extend `SpaceAfterPropertyColon` to check values to be aligned if
+  `allow_extra_spaces` option is set to true
+
 ## 0.22.0
 
 * Add `allow_single_line_padding` option to `SpaceBeforeBrace` which allows

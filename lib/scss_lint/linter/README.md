@@ -601,7 +601,7 @@ align the values however you choose, e.g.:
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`allow_extra_spaces` | Whether to allow more than one space so values can be aligned (default **false**)
+`allow_extra_spaces` | Whether to allow more than one space so values have to be aligned (default **false**)
 
 ## SpaceAfterPropertyName
 

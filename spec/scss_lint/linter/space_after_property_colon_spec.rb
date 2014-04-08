@@ -15,6 +15,7 @@ describe SCSSLint::Linter::SpaceAfterPropertyColon do
     let(:css) { <<-CSS }
       p {
         margin: 0;
+        padding: 0;
       }
     CSS
 
@@ -64,14 +65,37 @@ describe SCSSLint::Linter::SpaceAfterPropertyColon do
       it { should_not report_lint }
     end
 
-    context 'when the colon after a property is followed by multiple spaces' do
+    context 'when the colon after a property is followed by multiple spaces and values are aligned' do
       let(:css) { <<-CSS }
         p {
           margin:  bold;
+          padding: 0;
+          a {
+            font-weight: bold;
+          }
         }
       CSS
 
       it { should_not report_lint }
+    end
+
+    context 'when the colon after a property is followed by multiple spaces but values are not aligned' do
+      let(:css) { <<-CSS }
+        p {
+          border-color: #fff;
+          margin:        bold;
+          padding:     0;
+          a {
+            font-weight: bold;
+            margin: 0;
+          }
+        }
+      CSS
+
+      it { should report_lint line: 3 }
+      it { should report_lint line: 4 }
+      it { should_not report_lint line: 6 }
+      it { should report_lint line: 7 }
     end
   end
 end
