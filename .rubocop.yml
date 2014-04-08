@@ -12,7 +12,8 @@ ClassAndModuleChildren:
   Enabled: false
 
 CollectionMethods:
-  Enabled: false
+  PreferredMethods:
+    reduce: inject
 
 Documentation:
   Exclude:
