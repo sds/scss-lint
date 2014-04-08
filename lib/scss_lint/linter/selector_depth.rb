@@ -15,7 +15,7 @@ module SCSSLint
 
       if @depth > @max_depth
         add_lint(node.parsed_rules || node,
-                 'Selector should have depth of applicability no greater ' <<
+                 'Selector should have depth of applicability no greater ' \
                  "than #{@max_depth}, but was #{@depth}")
       end
 

@@ -57,8 +57,8 @@ module SCSSLint
       shortest_form = condensed_shorthand(*values)
       return if values == shortest_form
 
-      add_lint(node, "Shorthand form for property `#{prop}` should be " <<
-                     "written more concisely as `#{shortest_form.join(' ')}` " <<
+      add_lint(node, "Shorthand form for property `#{prop}` should be " \
+                     "written more concisely as `#{shortest_form.join(' ')}` " \
                      "instead of `#{values.join(' ')}`")
     end
 

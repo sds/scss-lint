@@ -16,7 +16,7 @@ module SCSSLint
           # being on the next line
           line = node.source_range.end_pos.line - 1
           add_lint line,
-                   'Property declaration should not have a space before ' <<
+                   'Property declaration should not have a space before ' \
                    'the terminating semicolon'
         end
       end

@@ -28,7 +28,7 @@ module SCSSLint
       end.inspect
 
       add_lint(node,
-               "Color `#{original}` should be written in hexadecimal form " <<
+               "Color `#{original}` should be written in hexadecimal form " \
                "as `#{shortest_hex_form(hex_form)}`")
     end
 

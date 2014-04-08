@@ -53,7 +53,7 @@ module SCSSLint
         add_lint(node, 'Prefer single quoted strings') if string !~ /'/
       else
         if string =~ /(?<! \\) \\"/x && string !~ /'/
-          add_lint(node, 'Use single-quoted strings when writing double ' <<
+          add_lint(node, 'Use single-quoted strings when writing double ' \
                          'quotes to avoid having to escape the double quotes')
         end
       end
@@ -62,7 +62,7 @@ module SCSSLint
     def check_single_quotes(node, string)
       if config['style'] == 'single_quotes'
         if string =~ /(?<! \\) \\'/x && string !~ /"/
-          add_lint(node, 'Use double-quoted strings when writing single ' <<
+          add_lint(node, 'Use double-quoted strings when writing single ' \
                          'quotes to avoid having to escape the single quotes')
         elsif string =~ /(?<! \\) \\"/x
           add_lint(node, "Don't escape double quotes in single-quoted strings")
