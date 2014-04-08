@@ -11,8 +11,6 @@ module SCSSLint
       end
     end
 
-  private
-
     BORDER_PROPERTIES = %w[
       border
       border-top

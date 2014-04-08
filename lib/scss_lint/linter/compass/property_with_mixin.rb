@@ -11,8 +11,6 @@ module SCSSLint
       end
     end
 
-  private
-
     # Set of properties where the Compass mixin version is preferred
     PROPERTIES_WITH_MIXINS = %w[
       background-clip

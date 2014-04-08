@@ -22,8 +22,6 @@ module SCSSLint
       end
     end
 
-  private
-
     KNOWN_PROPERTIES = File.open(File.join(SCSS_LINT_DATA, 'properties.txt'))
                            .read
                            .split
