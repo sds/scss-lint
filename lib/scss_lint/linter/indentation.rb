@@ -31,7 +31,7 @@ module SCSSLint
 
       if actual_indent.length != @indent
         add_lint(node.line,
-                 "Line should be indented #{@indent} spaces, " <<
+                 "Line should be indented #{@indent} spaces, " \
                  "but was indented #{actual_indent.length} spaces")
         return true
       end

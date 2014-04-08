@@ -47,7 +47,7 @@ module SCSSLint
 
     def check_name(node, node_type, node_text = node.name)
       if convention = violated_convention(node_text)
-        add_lint(node, "Name of #{node_type} `#{node_text}` should be " <<
+        add_lint(node, "Name of #{node_type} `#{node_text}` should be " \
                        "written #{convention[:explanation]}")
       end
     end

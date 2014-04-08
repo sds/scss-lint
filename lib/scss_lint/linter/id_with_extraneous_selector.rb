@@ -13,7 +13,7 @@ module SCSSLint
       end
 
       if can_be_simplified
-        add_lint(seq, "Selector `#{seq}` can be simplified to `#{id_sel}`, " <<
+        add_lint(seq, "Selector `#{seq}` can be simplified to `#{id_sel}`, " \
                       'since IDs should be uniquely identifying')
       end
     end

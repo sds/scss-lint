@@ -11,13 +11,13 @@ module SCSSLint
 
       if config['allow_extra_spaces']
         if spaces < MINIMUM_SPACES_AFTER_COLON
-          add_lint node, 'Colon after property should be followed by ' <<
-                         "at least #{pluralize(MINIMUM_SPACES_AFTER_COLON, 'space')} "
+          add_lint node, 'Colon after property should be followed by ' \
+                         "at least #{pluralize(MINIMUM_SPACES_AFTER_COLON, 'space')}"
         end
       elsif spaces != MINIMUM_SPACES_AFTER_COLON
-        add_lint node, 'Colon after property should be followed by ' <<
-                       pluralize(MINIMUM_SPACES_AFTER_COLON, 'space') <<
-                       " instead of #{pluralize(spaces, 'space')}"
+        add_lint node, 'Colon after property should be followed by ' \
+                       "#{pluralize(MINIMUM_SPACES_AFTER_COLON, 'space')} " \
+                       "instead of #{pluralize(spaces, 'space')}"
       end
     end
 

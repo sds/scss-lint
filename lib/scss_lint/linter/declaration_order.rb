@@ -27,7 +27,7 @@ module SCSSLint
   private
 
     MESSAGE =
-      'Rule sets should start with @extend declarations, followed by ' <<
+      'Rule sets should start with @extend declarations, followed by ' \
       'properties and nested rule sets, in that order'
 
     def important_node?(node)

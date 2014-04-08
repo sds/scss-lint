@@ -32,7 +32,7 @@ module SCSSLint
 
   private
 
-    MESSAGE = 'Properties should be sorted in order, with vendor-prefixed ' <<
+    MESSAGE = 'Properties should be sorted in order, with vendor-prefixed ' \
               'extensions before the standardized CSS property'
 
     # Compares two properties which can contain a vendor prefix. It allows for a
