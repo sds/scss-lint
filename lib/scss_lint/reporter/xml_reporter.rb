@@ -6,12 +6,13 @@ module SCSSLint
 
       output << '<lint>'
       lints.group_by(&:filename).each do |filename, file_lints|
-        output << "<file name='#{filename}'>"
+        output << "<file name=#{filename.encode(:xml => :attr)}>"
+
 
         file_lints.each do |lint|
-          output << "<issue line='#{lint.line}' " <<
-                           "severity='#{lint.severity}' " <<
-                           "reason='#{lint.description}' />"
+          output << "<issue line=\"#{lint.line}\" " <<
+                           "severity=\"#{lint.severity}\" " <<
+                           "reason=#{lint.description.encode(:xml => :attr)} />"
         end
 
         output << '</file>'
