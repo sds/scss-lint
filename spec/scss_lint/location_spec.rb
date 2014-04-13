@@ -17,7 +17,7 @@ describe SCSSLint::Location do
       ]
     end
 
-    it 'enables to sort locations' do
+    it 'allows locations to be sorted' do
       locations.sort.should == [
         SCSSLint::Location.new(1, 1, 1),
         SCSSLint::Location.new(1, 1, 2),

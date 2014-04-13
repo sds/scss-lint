@@ -1,13 +1,13 @@
 module SCSSLint
-  # Stores a location of [Lint] in a source.
+  # Stores a location of {Lint} in a source.
   class Location
     include Comparable
 
     attr_reader :line, :column, :length
 
-    # @param line [Integer] An one-based index
-    # @param column [Integer] An one-based index
-    # @param length [Integer] A length in the line
+    # @param line [Integer] One-based index
+    # @param column [Integer] One-based index
+    # @param length [Integer] Number of characters, including the first character
     def initialize(line = 1, column = 1, length = 1)
       raise ArgumentError, "Line must be more than 0, passed #{line}" if line < 1
       raise ArgumentError, "Column must be more than 0, passed #{column}" if column < 1

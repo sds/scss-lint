@@ -36,7 +36,7 @@ module SCSSLint
                          message)
     end
 
-    # Helper for creating location from a source range
+    # Extract {SCSSLint::Location} from a {Sass::Source::Range}.
     #
     # @param range [Sass::Source::Range]
     # @return [SCSSLint::Location]
