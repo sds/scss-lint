@@ -1,5 +1,6 @@
 .bundle
 Gemfile.lock
+/pkg
 
 # YARD
 /doc
