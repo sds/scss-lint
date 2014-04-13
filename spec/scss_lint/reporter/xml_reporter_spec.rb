@@ -29,7 +29,9 @@ describe SCSSLint::Reporter::XMLReporter do
     context 'when there are lints' do
       let(:filenames)    { ['f1.scss', 'f2.scss', 'f1.scss'] }
       let(:lines)        { [5, 7, 9] }
-      let(:descriptions) { ['lint 1', 'lint 2', 'lint 3'] }
+      # Include invalid XML characters in the third description to validate
+      # that escaping happens for preventing broken XML output
+      let(:descriptions) { ['lint 1', 'lint 2', 'lint 3 " \' < & >'] }
       let(:severities)   { [:warning] * 3 }
       let(:lints) do
         filenames.each_with_index.map do |filename, index|
