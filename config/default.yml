@@ -94,6 +94,9 @@ linters:
   TrailingSemicolonAfterPropertyValue:
     enabled: true
 
+  UnnecessaryMantissa:
+    enabled: true
+
   UrlFormat:
     enabled: true
 

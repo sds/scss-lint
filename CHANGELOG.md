@@ -7,6 +7,8 @@
   decimal unit would report a false positive
 * Fix bug in `Shorthand` linter where `!important` priority overrides would
   prevent lints from being reported
+* Add `UnnecessaryMantissa` linter which checks for zero value decimals in
+  numbers (i.e. prefers `4` over `4.0`)
 
 ## 0.22.0
 

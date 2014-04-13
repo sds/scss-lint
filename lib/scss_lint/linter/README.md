@@ -31,6 +31,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [SpaceBetweenParens](#spacebetweenparens)
 * [StringQuotes](#stringquotes)
 * [TrailingSemicolonAfterPropertyValue](#trailingsemicolonafterpropertyvalue)
+* [UnnecessaryMantissa](#unnecessarymantissa)
 * [UrlFormat](#urlformat)
 * [UrlQuotes](#urlquotes)
 * [ZeroUnit](#urlquotes)
@@ -731,6 +732,37 @@ p {
 CSS allows you to omit the semicolon if the property is the last property in
 the rule set. However, this introduces inconsistency and requires anyone adding
 a property after that property to remember to append a semicolon.
+
+## UnnecessaryMantissa
+
+Numeric values should not contain unnecessary fractional portions.
+
+**Bad**
+
+```scss
+margin: 1.0em;
+```
+
+**Good**
+
+```scss
+margin: 1em;
+```
+
+Sass will automatically convert integers to floats when necessary, making the
+use of a fractional component in a value to "force" it to be a floating point
+number unnecessary. For example, the following code:
+
+```scss
+$margin: 1;
+p { margin: $margin / 2; }
+```
+
+...will compile to:
+
+```css
+p { margin: 0.5; }
+```
 
 ## UrlFormat
 
