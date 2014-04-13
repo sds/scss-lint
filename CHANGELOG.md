@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix character escaping in XML attributes output by `XMLReporter`
+
 ## 0.22.0
 
 * Add `allow_single_line_padding` option to `SpaceBeforeBrace` which allows
