@@ -5,6 +5,8 @@
 * Fix character escaping in XML attributes output by `XMLReporter`
 * Fix bug in `ZeroUnit` where hex color codes or real numbers with a zero
   decimal unit would report a false positive
+* Fix bug in `Shorthand` linter where `!important` priority overrides would
+  prevent lints from being reported
 
 ## 0.22.0
 

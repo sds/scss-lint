@@ -43,10 +43,17 @@ module SCSSLint
       end
     end
 
+    LIST_LITERAL_REGEX = %r{
+      \A
+      (\S+\s+\S+(\s+\S+){0,2})   # Two to four values separated by spaces
+      (\s+!\w+)?                 # Ignore `!important` priority overrides
+      \z
+    }x
+
     def check_script_string(prop, script_string)
       return unless script_string.type == :identifier
 
-      if values = script_string.value.strip[/\A(\S+\s+\S+(\s+\S+){0,2})\z/, 1]
+      if values = script_string.value.strip[LIST_LITERAL_REGEX, 1]
         check_shorthand(prop, script_string, values.split)
       end
     end

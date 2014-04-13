@@ -156,5 +156,17 @@ describe SCSSLint::Linter::Shorthand do
 
       it { should_not report_lint }
     end
+
+    context 'can be shortened and is followed by !important modifier' do
+      let(:css) { <<-CSS }
+        p {
+          padding: 1px 2px 3px 2px !important;
+          margin: 0 0 0 0 !important; // A comment
+        }
+      CSS
+
+      it { should report_lint line: 2 }
+      it { should report_lint line: 3 }
+    end
   end
 end
