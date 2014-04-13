@@ -9,6 +9,7 @@
   prevent lints from being reported
 * Add `UnnecessaryMantissa` linter which checks for zero value decimals in
   numbers (i.e. prefers `4` over `4.0`)
+* `XMLReporter` now includes `column` and `length` information for lints
 
 ## 0.22.0
 
