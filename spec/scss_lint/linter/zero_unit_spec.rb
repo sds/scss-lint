@@ -80,4 +80,24 @@ describe SCSSLint::Linter::ZeroUnit do
 
     it { should_not report_lint }
   end
+
+  context 'when property value has a ".0" fractional component' do
+    let(:css) { <<-CSS }
+      p {
+        margin: 4.0em;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when property value has a color hex with a leading 0' do
+    let(:css) { <<-CSS }
+      p {
+        color: #0af;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end
