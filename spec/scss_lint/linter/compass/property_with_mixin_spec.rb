@@ -30,4 +30,14 @@ describe SCSSLint::Linter::Compass::PropertyWithMixin do
 
     it { should_not report_lint }
   end
+
+  context 'when a rule includes display: inline-block instead of a compass mixin' do
+    let(:css) { <<-CSS }
+      p {
+        display: inline-block;
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+  end
 end
