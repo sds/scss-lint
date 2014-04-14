@@ -30,7 +30,7 @@ module SCSSLint
     MESSAGE_FORMAT = '%s declaration should be %s by an empty line'
 
     def check(node, type)
-      return if config['ignore_single_line_blocks'] && node_on_single_line(node)
+      return if config['ignore_single_line_blocks'] && node_on_single_line?(node)
       check_preceding_node(node, type)
       check_following_node(node, type)
     end

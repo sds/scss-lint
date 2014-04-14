@@ -93,7 +93,7 @@ module SCSSLint
     #
     # @param node [Sass::Tree::Node]
     # @return [true,false] whether the node spans a single line
-    def node_on_single_line(node)
+    def node_on_single_line?(node)
       return if node.source_range.start_pos.line != node.source_range.end_pos.line
 
       # The Sass parser reports an incorrect source range if the trailing curly

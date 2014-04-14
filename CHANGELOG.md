@@ -10,6 +10,8 @@
 * Add `UnnecessaryMantissa` linter which checks for zero value decimals in
   numbers (i.e. prefers `4` over `4.0`)
 * `XMLReporter` now includes `column` and `length` information for lints
+* Fix class of bugs in `SpaceBeforeBrace` where a false positive could be
+  reported for braces that aren't part of declarations
 
 ## 0.22.0
 
