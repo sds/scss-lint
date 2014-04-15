@@ -12,6 +12,8 @@
 * `XMLReporter` now includes `column` and `length` information for lints
 * Fix class of bugs in `SpaceBeforeBrace` where a false positive could be
   reported for braces that aren't part of declarations
+* Teach `Compass::PropertyWithMixin` to prefer `inline-block` mixin over
+  `display: inline-block`
 
 ## 0.22.0
 

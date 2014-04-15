@@ -10,10 +10,10 @@ module SCSSLint
         add_lint node, "Use the Compass `#{prop_name}` mixin instead of the property"
       end
 
-      if prop_name == "display" and node.value.value.to_s == "inline-block"
-        add_lint node, "Use the Compass inline-block mixin instead of declaring 'display: inline-block'"
+      if prop_name == 'display' && node.value.to_sass == 'inline-block'
+        add_lint node,
+                 'Use the Compass `inline-block` mixin instead of `display: inline-block`'
       end
-
     end
 
   private
