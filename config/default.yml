@@ -21,6 +21,9 @@ linters:
   DuplicateProperty:
     enabled: true
 
+  DuplicateRoot:
+    enabled: true
+
   EmptyLineBetweenBlocks:
     enabled: true
     ignore_single_line_blocks: true
