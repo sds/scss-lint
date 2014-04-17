@@ -10,6 +10,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [DebugStatement](#debugstatement)
 * [DeclarationOrder](#declarationorder)
 * [DuplicateProperty](#duplicateproperty)
+* [DuplicateRoot](#duplicateroot)
 * [EmptyLineBetweenBlocks](#emptylinebetweenblocks)
 * [EmptyRule](#emptyrule)
 * [FinalNewline](#finalnewline)
@@ -184,6 +185,40 @@ If you've made the decision to _not_ support older browsers, then this lint is
 more helpful since you don't want to clutter your CSS with fallbacks.
 Otherwise, you may want to consider disabling this check in your
 `.scss-lint.yml` configuration.
+
+## DuplicateRoot
+
+Reports when you define the same root selector twice in a single sheet.
+
+**Bad**
+```scss
+h1 {
+  margin: 10px;
+}
+.baz {
+  color: red;
+}
+// Second copy of h1 rule
+h1 {
+  text-transform: uppercase;
+  border: 0;
+}
+```
+
+Combining duplicate selectors can result in an easier to read sheet, but
+occasionally the root rules may be purposely duplicated to set precedence
+after a rule with the same CSS specificity.
+
+```scss
+h1 {
+  margin: 10px;
+  text-transform: uppercase;
+  border: 0;
+}
+.baz {
+  color: red;
+}
+```
 
 ## EmptyLineBetweenBlocks
 
