@@ -14,7 +14,7 @@
   reported for braces that aren't part of declarations
 * Teach `Compass::PropertyWithMixin` to prefer `inline-block` mixin over
   `display: inline-block`
-* Add `DuplicateRoot` linter which checks for identical rules used at as root
+* Add `DuplicateRoot` linter which checks for identical rules used as root
   selectors in a document
 
 ## 0.22.0

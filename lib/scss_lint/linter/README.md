@@ -195,9 +195,11 @@ Reports when you define the same root selector twice in a single sheet.
 h1 {
   margin: 10px;
 }
+
 .baz {
   color: red;
 }
+
 // Second copy of h1 rule
 h1 {
   text-transform: uppercase;
@@ -205,20 +207,24 @@ h1 {
 }
 ```
 
-Combining duplicate selectors can result in an easier to read sheet, but
-occasionally the root rules may be purposely duplicated to set precedence
-after a rule with the same CSS specificity.
-
+**Good**
 ```scss
 h1 {
   margin: 10px;
   text-transform: uppercase;
   border: 0;
 }
+
 .baz {
   color: red;
 }
 ```
+
+Combining duplicate selectors can result in an easier to read sheet, but
+occasionally the root rules may be purposely duplicated to set precedence
+after a rule with the same CSS specificity. However, coding your
+stylesheets in this way makes them more difficult to comprehend, and can
+usually be avoided.
 
 ## EmptyLineBetweenBlocks
 
