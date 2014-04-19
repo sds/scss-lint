@@ -143,4 +143,49 @@ describe SCSSLint::Linter::DuplicateRoot do
 
     it { should report_lint }
   end
+
+  context 'when rule in a mixin @include matches a root root' do
+    let(:css) { <<-CSS }
+      p {
+        font-weight: bold;
+      }
+      @include enhance(small-tablet) {
+        p {
+          font-weight: normal;
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when rule in a mixin definition matches a root rule' do
+    let(:css) { <<-CSS }
+      p {
+        font-weight: bold;
+      }
+      @mixin my-mixin {
+        p {
+          font-weight: normal;
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when rule in a media directive matches a root rule' do
+    let(:css) { <<-CSS }
+      p {
+        font-weight: bold;
+      }
+      @media only screen and (min-device-pixel-ratio: 1.5) {
+        p {
+          font-weight: normal;
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end

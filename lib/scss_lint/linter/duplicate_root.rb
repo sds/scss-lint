@@ -20,5 +20,14 @@ module SCSSLint
 
       # Don't yield so we only check one level deep
     end
+
+    # Define stubs so we don't check rules nested in other constructs
+    %w[
+      media
+      mixin
+      mixindef
+    ].each do |node_type|
+      define_method("visit_#{node_type}") { |*args| }
+    end
   end
 end
