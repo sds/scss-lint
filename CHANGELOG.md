@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.23.0
 
 * Fix character escaping in XML attributes output by `XMLReporter`
 * Fix bug in `ZeroUnit` where hex color codes or real numbers with a zero
