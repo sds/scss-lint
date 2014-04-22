@@ -62,7 +62,7 @@ module SCSSLint
         end
 
         opts.on('-f', '--format Formatter', 'Specify how to display lints', String) do |format|
-          set_output_format(format)
+          define_output_format(format)
         end
 
         opts.on('-i', '--include-linter linter,...', Array,
@@ -189,7 +189,7 @@ module SCSSLint
     end
 
     # @param format [String]
-    def set_output_format(format)
+    def define_output_format(format)
       @options[:reporter] = SCSSLint::Reporter.const_get(format + 'Reporter')
     rescue NameError
       puts "Invalid output format specified: #{format}"
