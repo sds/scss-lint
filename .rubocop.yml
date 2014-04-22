@@ -26,6 +26,10 @@ Documentation:
 DotPosition:
   Enabled: false
 
+Eval:
+  Exclude:
+    - 'lib/scss_lint/sass/script.rb'
+
 FormatString:
   Enabled: false
 
