@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Extend `DuplicateRoot` to `MergeableSelector` linter, to not only check
+  the root node for duplications and similar selectors.
+
 ## 0.23.1
 
 * Fix bug in `SpaceAfterPropertyColon` linter for properties with no
