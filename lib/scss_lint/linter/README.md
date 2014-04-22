@@ -10,7 +10,6 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [DebugStatement](#debugstatement)
 * [DeclarationOrder](#declarationorder)
 * [DuplicateProperty](#duplicateproperty)
-* [DuplicateRoot](#duplicateroot)
 * [EmptyLineBetweenBlocks](#emptylinebetweenblocks)
 * [EmptyRule](#emptyrule)
 * [FinalNewline](#finalnewline)
@@ -18,6 +17,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [IdWithExtraneousSelector](#idwithextraneousselector)
 * [Indentation](#indentation)
 * [LeadingZero](#leadingzero)
+* [MergeableSelector](#mergeableselector)
 * [NameFormat](#nameformat)
 * [PlaceholderInExtend](#placeholderinextend)
 * [PropertySortOrder](#propertysortorder)
@@ -186,46 +186,6 @@ more helpful since you don't want to clutter your CSS with fallbacks.
 Otherwise, you may want to consider disabling this check in your
 `.scss-lint.yml` configuration.
 
-## DuplicateRoot
-
-Reports when you define the same root selector twice in a single sheet.
-
-**Bad**
-```scss
-h1 {
-  margin: 10px;
-}
-
-.baz {
-  color: red;
-}
-
-// Second copy of h1 rule
-h1 {
-  text-transform: uppercase;
-  border: 0;
-}
-```
-
-**Good**
-```scss
-h1 {
-  margin: 10px;
-  text-transform: uppercase;
-  border: 0;
-}
-
-.baz {
-  color: red;
-}
-```
-
-Combining duplicate selectors can result in an easier to read sheet, but
-occasionally the root rules may be purposely duplicated to set precedence
-after a rule with the same CSS specificity. However, coding your
-stylesheets in this way makes them more difficult to comprehend, and can
-usually be avoided.
-
 ## EmptyLineBetweenBlocks
 
 Separate rule, function, and mixin declarations with empty lines.
@@ -380,6 +340,69 @@ You can configure this to prefer including leading zeros.
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `style`              | `exclude_zero` or `include_zero` (default **exclude_zero**)
+
+## MergeableSelector
+
+Reports when you define the same selector twice in a single sheet.
+
+**Bad**
+```scss
+h1 {
+  margin: 10px;
+}
+
+.baz {
+  color: red;
+}
+
+// Second copy of h1 rule
+h1 {
+  text-transform: uppercase;
+}
+```
+
+**Good**
+```scss
+h1 {
+  margin: 10px;
+  text-transform: uppercase;
+}
+
+.baz {
+  color: red;
+}
+```
+
+Combining duplicate selectors can result in an easier to read sheet, but
+occasionally the rules may be purposely duplicated to set precedence
+after a rule with the same CSS specificity. However, coding your
+stylesheets in this way makes them more difficult to comprehend, and can
+usually be avoided.
+
+By forcing the nesting, the rules need to be totally unique - even with
+there extensions:
+
+```scss
+**Bad**
+h1 {
+  color: #fff;
+}
+h1.new {
+  color: #000;
+}
+
+**Good**
+h1 {
+  color: #fff;
+  &.new {
+    color: #000;
+  }
+}
+```
+
+Configuration Option | Description
+---------------------|------------------------------------------------------------------
+`force_nesting`      | Also checks for nested rules on the same level (default **true**)
 
 ## NameFormat
 
