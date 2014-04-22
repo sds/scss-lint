@@ -11,6 +11,11 @@ AssignmentInCondition:
 ClassAndModuleChildren:
   Enabled: false
 
+ClassLength:
+  Exclude:
+    - 'lib/scss_lint/config.rb'
+    - 'lib/scss_lint/cli.rb'
+
 CollectionMethods:
   PreferredMethods:
     reduce: inject
