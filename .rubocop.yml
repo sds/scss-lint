@@ -63,6 +63,9 @@ PercentLiteralDelimiters:
 PredicateName:
   Enabled: false
 
+RegexpLiteral:
+  Enabled: false
+
 SignalException:
   Enabled: false
 
