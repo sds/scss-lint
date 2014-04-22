@@ -40,6 +40,10 @@ FileName:
     - 'Rakefile'
     - '*.gemspec'
 
+HandleExceptions:
+  Exclude:
+    - 'spec/scss_lint/cli_spec.rb'
+
 IfUnlessModifier:
   Enabled: false
 
