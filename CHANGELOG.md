@@ -4,6 +4,8 @@
 
 * Fix bug in `SpaceAfterPropertyColon` linter for properties with no
   terminating semicolon
+* Fix bug in `DuplicateRoot` linter where incorrect lints would be reported
+  in `@keyframes` directives
 
 ## 0.23.0
 
