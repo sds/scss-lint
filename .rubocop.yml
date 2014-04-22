@@ -77,5 +77,8 @@ SpecialGlobalVars:
 TrailingComma:
   Enabled: false
 
+UselessAccessModifier:
+  Enabled: false
+
 Void:
   Enabled: false
