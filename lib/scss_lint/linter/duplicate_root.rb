@@ -23,6 +23,7 @@ module SCSSLint
 
     # Define stubs so we don't check rules nested in other constructs
     %w[
+      directive
       media
       mixin
       mixindef
