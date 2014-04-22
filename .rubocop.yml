@@ -20,6 +20,9 @@ Documentation:
     - 'spec/scss_lint/*'
     - 'spec/scss_lint/linter/*'
 
+Encoding:
+  Enabled: false
+
 Eval:
   Exclude:
     - 'lib/scss_lint/sass/script.rb'
