@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix bug in `SpaceAfterPropertyColon` linter for properties with no
+  terminating semicolon
+
 ## 0.23.0
 
 * Fix character escaping in XML attributes output by `XMLReporter`
