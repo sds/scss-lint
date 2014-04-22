@@ -26,6 +26,7 @@ module SCSSLint
       media
       mixin
       mixindef
+      directive
     ].each do |node_type|
       define_method("visit_#{node_type}") { |*args| }
     end

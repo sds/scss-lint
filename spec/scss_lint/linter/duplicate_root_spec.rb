@@ -188,4 +188,30 @@ describe SCSSLint::Linter::DuplicateRoot do
 
     it { should_not report_lint }
   end
+
+  context 'when rule in a keyframes directive matches a root rule' do
+    let(:css) { <<-CSS }
+      @keyframes slideouttoleft {
+        from {
+          transform: translateX(0);
+        }
+
+        to {
+          transform: translateX(-100%);
+        }
+      }
+
+      @keyframes slideouttoright {
+        from {
+          transform: translateX(0);
+        }
+
+        to {
+          transform: translateX(100%);
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end
