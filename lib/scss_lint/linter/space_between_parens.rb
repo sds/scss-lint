@@ -27,8 +27,8 @@ module SCSSLint
 
       if spaces != @spaces
         location = Location.new(index + 1)
-        message = "Expected #{pluralize(@spaces, 'space')}" <<
-                  " between parentheses instead of #{spaces}"
+        message = "Expected #{pluralize(@spaces, 'space')} " \
+                  "between parentheses instead of #{spaces}"
         @lints << Lint.new(engine.filename, location, message)
       end
     end
