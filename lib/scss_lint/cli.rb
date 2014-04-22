@@ -45,7 +45,7 @@ module SCSSLint
     end
 
     # @return [OptionParser]
-    def options_parser
+    def options_parser # rubocop:disable MethodLength
       @options_parser ||= OptionParser.new do |opts|
         opts.banner = "Usage: #{opts.program_name} [options] [scss-files]"
 
