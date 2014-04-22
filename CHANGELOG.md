@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.23.1
 
 * Fix bug in `SpaceAfterPropertyColon` linter for properties with no
   terminating semicolon
