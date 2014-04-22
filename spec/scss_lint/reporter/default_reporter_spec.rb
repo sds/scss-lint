@@ -20,7 +20,8 @@ describe SCSSLint::Reporter::DefaultReporter do
       let(:lints) do
         filenames.each_with_index.map do |filename, index|
           location = SCSSLint::Location.new(lines[index])
-          SCSSLint::Lint.new(filename, location, descriptions[index], severities[index])
+          SCSSLint::Lint.new(nil, filename, location, descriptions[index],
+                             severities[index])
         end
       end
 

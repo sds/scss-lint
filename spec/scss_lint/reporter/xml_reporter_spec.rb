@@ -43,7 +43,8 @@ describe SCSSLint::Reporter::XMLReporter do
 
       let(:lints) do
         filenames.each_with_index.map do |filename, index|
-          SCSSLint::Lint.new(filename, locations[index], descriptions[index], severities[index])
+          SCSSLint::Lint.new(nil, filename, locations[index],
+                             descriptions[index], severities[index])
         end
       end
 

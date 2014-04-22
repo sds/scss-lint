@@ -92,7 +92,7 @@ linters:
 ```
 
 All linters have an `enabled` option which can be `true` or `false`, which
-controls whether the linter is run, along with linter-specific options.  The
+controls whether the linter is run, along with linter-specific options. The
 defaults are defined in `config/default.yml`.
 
 The `inherit_from` directive allows a configuration file to inherit settings
@@ -113,6 +113,12 @@ flag, but note that this will override any configuration files that `scss-lint`
 would normally find on its own (this can be useful for testing a particular
 configuration setting, however). Configurations loaded this way will still be
 merged with the default configuration specified by `config/default.yml`.
+
+To start using `scss-lint` you can use the `Config`
+[Formatter](#formatters) - this will return a configuration where all
+linters are disabeld that caused a lint. Starting with this as your
+`.scss-lint.yml` you can enabled the linters step by step while fixing
+the reported lints.
 
 ## Formatters
 
@@ -142,6 +148,13 @@ scss-lint --format Files | xargs vim
 
 Outputs XML with `<lint>`, `<file>`, and `<issue>` tags. Suitable for
 consumption by tools like [Jenkins](http://jenkins-ci.org/).
+
+### Config
+
+Returns a YAML configuration where all linters are disabled which caused
+a lint. You can use this as a `.scss-lint.yml` file. The point is to
+remove these configuration records one by one while fixing the reported
+lints in the code.
 
 ```
 <?xml version="1.0" encoding="utf-8"?>

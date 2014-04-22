@@ -18,21 +18,16 @@ module SCSSLint
       visit(engine.tree)
     end
 
+  protected
+
     # Helper for creating lint from a parse tree node
     #
     # @param node_or_line [Sass::Script::Tree::Node, Sass::Engine::Line]
     # @param message [String]
-    def add_lint(node_or_line, message)
-      location = if node_or_line.respond_to?(:source_range) && node_or_line.source_range
-                   location_from_range(node_or_line.source_range)
-                 elsif node_or_line.respond_to?(:line)
-                   Location.new(node_or_line.line)
-                 else
-                   Location.new(node_or_line)
-                 end
-
-      @lints << Lint.new(engine.filename,
-                         location,
+    def add_lint(node_or_line, message, location = nil)
+      @lints << Lint.new(self,
+                         engine.filename,
+                         location || location_by_node_or_line(node_or_line),
                          message)
     end
 
@@ -128,6 +123,18 @@ module SCSSLint
       parent.children.each do |child|
         child.node_parent = parent
         visit(child)
+      end
+    end
+
+  private
+
+    def location_by_node_or_line(node_or_line)
+      if node_or_line.respond_to?(:source_range) && node_or_line.source_range
+        location_from_range(node_or_line.source_range)
+      elsif node_or_line.respond_to?(:line)
+        Location.new(node_or_line.line)
+      else
+        Location.new(node_or_line)
       end
     end
   end
