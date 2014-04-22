@@ -44,7 +44,7 @@ module SCSSLint
       length = if range.start_pos.line == range.end_pos.line
                  range.end_pos.offset - range.start_pos.offset
                else
-                 line_source = engine.lines[range.start_pos.line]
+                 line_source = engine.lines[range.start_pos.line - 1]
                  line_source.length - range.start_pos.offset + 1
                end
 

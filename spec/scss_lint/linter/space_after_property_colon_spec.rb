@@ -11,6 +11,16 @@ describe SCSSLint::Linter::SpaceAfterPropertyColon do
     it { should report_lint line: 2 }
   end
 
+  context 'when the colon after a property is not followed by space and the semicolon is missing' do
+    let(:css) { <<-CSS }
+      p {
+        color:#eee
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+  end
+
   context 'when the colon after a property is followed by a space' do
     let(:css) { <<-CSS }
       p {
