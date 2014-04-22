@@ -200,8 +200,8 @@ describe SCSSLint::CLI do
       end
 
       it 'uses the default reporter' do
-        SCSSLint::Reporter::DefaultReporter.any_instance.
-          should_receive(:report_lints)
+        SCSSLint::Reporter::DefaultReporter.any_instance
+          .should_receive(:report_lints)
         safe_run
       end
     end

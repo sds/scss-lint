@@ -15,9 +15,9 @@ module SCSSLint
     # This is useful for lints that wish to ignore interpolation, since
     # interpolation can't be resolved at this step.
     def extract_string_selectors(selector_array)
-      selector_array.reject { |item| item.is_a? Sass::Script::Node }.
-                     join.
-                     split
+      selector_array.reject { |item| item.is_a? Sass::Script::Node }
+                    .join
+                    .split
     end
 
     def shortest_hex_form(hex)

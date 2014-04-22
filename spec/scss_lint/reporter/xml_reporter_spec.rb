@@ -54,8 +54,8 @@ describe SCSSLint::Reporter::XMLReporter do
       end
 
       it 'contains a <file> node for each file' do
-        xml.xpath('//file').map { |node| node[:name] }.
-          should =~ filenames.uniq
+        xml.xpath('//file').map { |node| node[:name] }
+          .should =~ filenames.uniq
       end
 
       it 'contains <issue> nodes grouped by <file>' do
@@ -65,23 +65,23 @@ describe SCSSLint::Reporter::XMLReporter do
       end
 
       it 'marks each issue with a line number' do
-        xml.xpath('//issue[@line]').map { |node| node[:line] }.
-          should =~ locations.map { |location| location.line.to_s }
+        xml.xpath('//issue[@line]').map { |node| node[:line] }
+          .should =~ locations.map { |location| location.line.to_s }
       end
 
       it 'marks each issue with a column number' do
-        xml.xpath('//issue[@column]').map { |node| node[:column] }.
-          should =~ locations.map { |location| location.column.to_s }
+        xml.xpath('//issue[@column]').map { |node| node[:column] }
+          .should =~ locations.map { |location| location.column.to_s }
       end
 
       it 'marks each issue with a length' do
-        xml.xpath('//issue[@length]').map { |node| node[:length] }.
-          should =~ locations.map { |location| location.length.to_s }
+        xml.xpath('//issue[@length]').map { |node| node[:length] }
+          .should =~ locations.map { |location| location.length.to_s }
       end
 
       it 'marks each issue with a reason containing the lint description' do
-        xml.xpath('//issue[@reason]').map { |node| node[:reason] }.
-          should =~ descriptions
+        xml.xpath('//issue[@reason]').map { |node| node[:reason] }
+          .should =~ descriptions
       end
 
       context 'when lints are warnings' do
