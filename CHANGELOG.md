@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix `add_lint` for missing semicolon at line end
+
 ## 0.23.0
 
 * Fix character escaping in XML attributes output by `XMLReporter`
