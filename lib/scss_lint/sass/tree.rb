@@ -67,7 +67,7 @@ module Sass::Tree
     def children
       begin
         additional_children = extract_script_nodes(value)
-      rescue NotImplementedError
+      rescue NotImplementedError # rubocop:disable HandleExceptions
         # Directive nodes may not define `value`
       end
       concat_expr_lists super, additional_children
