@@ -24,14 +24,14 @@ module SCSSLint
 
   private
 
-    REAL_NUMBER_REGEX = %r{
+    REAL_NUMBER_REGEX = /
       \b(?<number>
         (?<integer>\d*)
         \.
         (?<mantissa>\d+)
         (?<units>\w*)
       )\b
-    }ix
+    /ix
 
     MESSAGE_FORMAT = '`%s` should be written without the mantissa as `%s%s`'
 
