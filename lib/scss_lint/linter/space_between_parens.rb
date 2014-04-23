@@ -24,13 +24,12 @@ module SCSSLint
 
     def check(str, index, engine)
       spaces = str.count ' '
+      return if spaces == @spaces
 
-      if spaces != @spaces
-        location = Location.new(index + 1)
-        message = "Expected #{pluralize(@spaces, 'space')} " \
-                  "between parentheses instead of #{spaces}"
-        @lints << Lint.new(engine.filename, location, message)
-      end
+      location = Location.new(index + 1)
+      message = "Expected #{pluralize(@spaces, 'space')} " \
+                "between parentheses instead of #{spaces}"
+      @lints << Lint.new(engine.filename, location, message)
     end
   end
 end

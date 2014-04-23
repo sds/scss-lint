@@ -82,10 +82,10 @@ module SCSSLint
     end
 
     def can_condense_to_one_value(top, right, bottom, left)
-      if top == right
-        top == bottom && (bottom == left || left.nil?) ||
-          bottom.nil? && left.nil?
-      end
+      return unless top == right
+
+      top == bottom && (bottom == left || left.nil?) ||
+        bottom.nil? && left.nil?
     end
 
     def can_condense_to_two_values(top, right, bottom, left)
