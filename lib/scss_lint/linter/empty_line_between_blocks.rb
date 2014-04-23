@@ -38,7 +38,7 @@ module SCSSLint
     def check_following_node(node, type)
       if (following_node = next_node(node)) && (next_start_line = following_node.line)
         unless engine.lines[next_start_line - 2].strip.empty?
-          add_lint(next_start_line - 1, MESSAGE_FORMAT % [type, 'followed'])
+          add_lint(next_start_line - 1, format(MESSAGE_FORMAT, type, 'followed'))
         end
       end
     end
@@ -58,7 +58,7 @@ module SCSSLint
         # Ignore
       else
         unless engine.lines[node.line - 2].strip.empty?
-          add_lint(node.line, MESSAGE_FORMAT % [type, 'preceded'])
+          add_lint(node.line, format(MESSAGE_FORMAT, type, 'preceded'))
         end
       end
     end

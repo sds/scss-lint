@@ -6,20 +6,11 @@ module SCSSLint
 
     def visit_script_string(node)
       return unless node.type == :identifier
-
-      node.value.scan(REAL_NUMBER_REGEX) do |number, integer, mantissa, units|
-        if unnecessary_mantissa?(mantissa)
-          add_lint(node, MESSAGE_FORMAT % [number, integer, units])
-        end
-      end
+      scan(node.value, node)
     end
 
     def visit_script_number(node)
-      return unless match = REAL_NUMBER_REGEX.match(source_from_range(node.source_range))
-
-      if unnecessary_mantissa?(match[:mantissa])
-        add_lint(node, MESSAGE_FORMAT % [match[:number], match[:integer], match[:units]])
-      end
+      scan(source_from_range(node.source_range), node)
     end
 
   private
@@ -34,6 +25,14 @@ module SCSSLint
     /ix
 
     MESSAGE_FORMAT = '`%s` should be written without the mantissa as `%s%s`'
+
+    def scan(value, node)
+      value.scan(REAL_NUMBER_REGEX) do |number, integer, mantissa, units|
+        if unnecessary_mantissa?(mantissa)
+          add_lint(node, format(MESSAGE_FORMAT, number, integer, units))
+        end
+      end
+    end
 
     def unnecessary_mantissa?(mantissa)
       mantissa !~ /[^0]/

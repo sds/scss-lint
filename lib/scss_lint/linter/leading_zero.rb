@@ -45,7 +45,8 @@ module SCSSLint
       unless convention[:validator].call(original_number)
         corrected = convention[:converter].call(original_number)
 
-        add_lint(node, convention[:explanation] % [original_number, corrected])
+        add_lint(node,
+                 format(convention[:explanation], original_number, corrected))
       end
     end
   end
