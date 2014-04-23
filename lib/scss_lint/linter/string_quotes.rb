@@ -43,9 +43,10 @@ module SCSSLint
     }x
 
     def extract_string_without_quotes(source)
-      if match = STRING_WITHOUT_QUOTES_REGEX.match(source)
-        match[1]
-      end
+      match = STRING_WITHOUT_QUOTES_REGEX.match(source)
+      return unless match
+
+      match[1]
     end
 
     def check_double_quotes(node, string)

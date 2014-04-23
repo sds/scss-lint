@@ -65,12 +65,9 @@ module SCSSLint
         file_contents = load_file_contents(file)
 
         begin
-          options =
-            if yaml = YAML.load(file_contents)
-              yaml.to_hash
-            else
-              {}
-            end
+          options = {}
+          yaml = YAML.load(file_contents)
+          options = yaml.to_hash if yaml
         rescue => ex
           raise InvalidConfiguration, "Invalid configuration: #{ex.message}"
         end
@@ -266,7 +263,8 @@ module SCSSLint
   private
 
     def validate_linters
-      return unless linters = @options['linters']
+      linters = @options['linters']
+      return unless linters
 
       linters.keys.each do |name|
         begin

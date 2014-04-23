@@ -52,15 +52,14 @@ module SCSSLint
 
     def check_script_string(prop, script_string)
       return unless script_string.type == :identifier
+      values = script_string.value.strip[LIST_LITERAL_REGEX, 1]
+      return unless values
 
-      if values = script_string.value.strip[LIST_LITERAL_REGEX, 1]
-        check_shorthand(prop, script_string, values.split)
-      end
+      check_shorthand(prop, script_string, values.split)
     end
 
     def check_shorthand(prop, node, values)
       return unless (2..4).member?(values.count)
-
       shortest_form = condensed_shorthand(*values)
       return if values == shortest_form
 

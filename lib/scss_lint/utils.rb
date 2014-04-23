@@ -42,7 +42,9 @@ module SCSSLint
     end
 
     def previous_node(node)
-      return unless node && parent = node.node_parent
+      return unless node
+      parent = node.node_parent
+      return unless parent
       index = parent.children.index(node)
 
       if index == 0
