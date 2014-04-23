@@ -277,9 +277,9 @@ describe SCSSLint::Config do
 
       it 'returns the same options for all linters under that namespace' do
         subject.linter_options(SCSSLint::Linter::SomeNamespace::FakeLinter1)
-          .should == { 'enabled' => true }
+          .should eq('enabled' => true)
         subject.linter_options(SCSSLint::Linter::SomeNamespace::FakeLinter2)
-          .should == { 'enabled' => true }
+          .should eq('enabled' => true)
       end
     end
   end

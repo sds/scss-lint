@@ -89,6 +89,3 @@ TrailingComma:
 
 UselessAccessModifier:
   Enabled: false
-
-Void:
-  Enabled: false
