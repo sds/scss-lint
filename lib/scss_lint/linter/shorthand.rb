@@ -43,12 +43,12 @@ module SCSSLint
       end
     end
 
-    LIST_LITERAL_REGEX = %r{
+    LIST_LITERAL_REGEX = /
       \A
       (\S+\s+\S+(\s+\S+){0,2})   # Two to four values separated by spaces
       (\s+!\w+)?                 # Ignore `!important` priority overrides
       \z
-    }x
+    /x
 
     def check_script_string(prop, script_string)
       return unless script_string.type == :identifier
