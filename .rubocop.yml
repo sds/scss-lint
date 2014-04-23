@@ -33,6 +33,9 @@ FileName:
     - 'Rakefile'
     - '*.gemspec'
 
+GuardClause:
+  Enabled: true
+
 HandleExceptions:
   Exclude:
     - 'spec/scss_lint/cli_spec.rb'
