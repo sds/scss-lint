@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::PropertySpelling < Linter
     include LinterRegistry
 
-    def visit_root(node)
+    def visit_root(_node)
       @extra_properties = config['extra_properties'].to_set
       yield # Continue linting children
     end

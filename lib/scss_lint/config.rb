@@ -184,7 +184,7 @@ module SCSSLint
 
       # Merge two hashes, concatenating lists and further merging nested hashes.
       def smart_merge(parent, child)
-        parent.merge(child) do |key, old, new|
+        parent.merge(child) do |_key, old, new|
           case old
           when Array
             old + new

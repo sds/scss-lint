@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::SpaceBetweenParens < Linter
     include LinterRegistry
 
-    def visit_root(node)
+    def visit_root(_node)
       @spaces = config['spaces']
 
       engine.lines.each_with_index do |line, index|

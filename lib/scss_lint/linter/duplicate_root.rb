@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::DuplicateRoot < Linter
     include LinterRegistry
 
-    def visit_root(node)
+    def visit_root(_node)
       # Root rules are evaluated per document, so use new hashes for eash file
       @roots = {}
       yield # Continue linting children
@@ -28,7 +28,7 @@ module SCSSLint
       mixin
       mixindef
     ].each do |node_type|
-      define_method("visit_#{node_type}") { |*args| }
+      define_method("visit_#{node_type}") { |*_args| }
     end
   end
 end

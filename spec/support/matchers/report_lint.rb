@@ -21,7 +21,7 @@ RSpec::Matchers.define :report_lint do |options|
       end
   end
 
-  failure_message_for_should_not do |linter|
+  failure_message_for_should_not do
     'expected that a lint would not be reported'
   end
 

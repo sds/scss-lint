@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::Indentation < Linter
     include LinterRegistry
 
-    def visit_root(node)
+    def visit_root(_node)
       @indent_width = config['width']
       @indent = 0
       yield
