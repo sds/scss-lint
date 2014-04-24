@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::FinalNewline < Linter
     include LinterRegistry
 
-    def visit_root(node)
+    def visit_root(_node)
       return if engine.lines.empty?
 
       ends_with_newline = engine.lines[-1][-1] == "\n"

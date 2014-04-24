@@ -19,11 +19,11 @@ CollectionMethods:
 
 Documentation:
   Exclude:
-    - 'spec/scss_lint/*'
-    - 'spec/scss_lint/linter/*'
+    - 'spec/scss_lint/**/*'
+    - 'spec/scss_lint/linter/**/*'
 
 Encoding:
-  Enabled: false
+  EnforcedStyle: when_needed
 
 Eval:
   Exclude:
