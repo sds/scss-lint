@@ -43,24 +43,23 @@ module SCSSLint
       end
     end
 
-    LIST_LITERAL_REGEX = %r{
+    LIST_LITERAL_REGEX = /
       \A
       (\S+\s+\S+(\s+\S+){0,2})   # Two to four values separated by spaces
       (\s+!\w+)?                 # Ignore `!important` priority overrides
       \z
-    }x
+    /x
 
     def check_script_string(prop, script_string)
       return unless script_string.type == :identifier
+      values = script_string.value.strip[LIST_LITERAL_REGEX, 1]
+      return unless values
 
-      if values = script_string.value.strip[LIST_LITERAL_REGEX, 1]
-        check_shorthand(prop, script_string, values.split)
-      end
+      check_shorthand(prop, script_string, values.split)
     end
 
     def check_shorthand(prop, node, values)
       return unless (2..4).member?(values.count)
-
       shortest_form = condensed_shorthand(*values)
       return if values == shortest_form
 
@@ -82,10 +81,10 @@ module SCSSLint
     end
 
     def can_condense_to_one_value(top, right, bottom, left)
-      if top == right
-        top == bottom && (bottom == left || left.nil?) ||
-          bottom.nil? && left.nil?
-      end
+      return unless top == right
+
+      top == bottom && (bottom == left || left.nil?) ||
+        bottom.nil? && left.nil?
     end
 
     def can_condense_to_two_values(top, right, bottom, left)

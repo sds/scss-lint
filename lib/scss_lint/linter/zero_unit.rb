@@ -21,12 +21,12 @@ module SCSSLint
 
   private
 
-    ZERO_UNIT_REGEX = %r{
+    ZERO_UNIT_REGEX = /
       \b
-      (?<!\.|\#)    # Ignore zeroes following `#` or `.` (colors / decimals)
-      (0[a-z]+)     # Zero followed by letters (indicating some sort of unit)
+      (?<!\.|\#)    # Ignore zeroes following `#` (colors) or `.` (decimals)
+      (0[a-z]+)     # Zero followed by letters indicating some sort of unit
       \b
-    }ix
+    /ix
 
     MESSAGE_FORMAT = '`%s` should be written without units as `0`'
 

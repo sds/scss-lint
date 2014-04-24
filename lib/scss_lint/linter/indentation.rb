@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::Indentation < Linter
     include LinterRegistry
 
-    def visit_root(node)
+    def visit_root(_node)
       @indent_width = config['width']
       @indent = 0
       yield
@@ -29,12 +29,12 @@ module SCSSLint
 
       actual_indent = engine.lines[node.line - 1][/^(\s*)/, 1]
 
-      if actual_indent.length != @indent
-        add_lint(node.line,
-                 "Line should be indented #{@indent} spaces, " \
-                 "but was indented #{actual_indent.length} spaces")
-        return true
-      end
+      return if actual_indent.length == @indent
+
+      add_lint(node.line,
+               "Line should be indented #{@indent} spaces, " \
+               "but was indented #{actual_indent.length} spaces")
+      true
     end
 
     # Deal with `else` statements

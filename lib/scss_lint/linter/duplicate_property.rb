@@ -42,7 +42,8 @@ module SCSSLint
           prop_hash << vendor_keyword.first
         end
 
-        if existing_prop = prop_names[prop_hash]
+        existing_prop = prop_names[prop_hash]
+        if existing_prop
           add_lint(prop, "Property `#{name}` already defined on line #{existing_prop.line}")
         else
           prop_names[prop_hash] = prop

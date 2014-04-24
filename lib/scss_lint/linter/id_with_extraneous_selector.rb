@@ -11,13 +11,12 @@ module SCSSLint
         !simple.is_a?(Sass::Selector::Id) &&
           !simple.is_a?(Sass::Selector::Pseudo)
       end
+      return unless can_be_simplified
 
-      if can_be_simplified
-        # TODO: Sass::Selector::SimpleSequence#source_range sometimes lies about
-        # its line, so reference `#line` directly
-        add_lint(seq.line, "Selector `#{seq}` can be simplified to `#{id_sel}`, " \
-                           'since IDs should be uniquely identifying')
-      end
+      # TODO: Sass::Selector::SimpleSequence#source_range sometimes lies about
+      # its line, so reference `#line` directly
+      add_lint(seq.line, "Selector `#{seq}` can be simplified to `#{id_sel}`, " \
+                         'since IDs should be uniquely identifying')
     end
   end
 end

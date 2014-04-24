@@ -1,11 +1,5 @@
-AmbiguousRegexpLiteral:
-  Enabled: false
-
 AccessModifierIndentation:
   EnforcedStyle: outdent
-
-AssignmentInCondition:
-  Enabled: false
 
 # Enforcing this results in a lot of unnecessary indentation.
 ClassAndModuleChildren:
@@ -22,18 +16,15 @@ CollectionMethods:
 
 Documentation:
   Exclude:
-    - 'spec/scss_lint/*'
-    - 'spec/scss_lint/linter/*'
+    - 'spec/scss_lint/**/*'
+    - 'spec/scss_lint/linter/**/*'
 
 Encoding:
-  Enabled: false
+  EnforcedStyle: when_needed
 
 Eval:
   Exclude:
     - 'lib/scss_lint/sass/script.rb'
-
-FormatString:
-  Enabled: false
 
 FileName:
   Exclude:
@@ -41,6 +32,9 @@ FileName:
     - 'Gemfile'
     - 'Rakefile'
     - '*.gemspec'
+
+GuardClause:
+  Enabled: true
 
 HandleExceptions:
   Exclude:
@@ -73,9 +67,6 @@ PercentLiteralDelimiters:
 PredicateName:
   Enabled: false
 
-RegexpLiteral:
-  Enabled: false
-
 SignalException:
   Enabled: false
 
@@ -84,14 +75,8 @@ SignalException:
 SingleLineBlockParams:
   Enabled: false
 
-SpecialGlobalVars:
-  Enabled: false
-
 TrailingComma:
   Enabled: false
 
 UselessAccessModifier:
-  Enabled: false
-
-Void:
   Enabled: false

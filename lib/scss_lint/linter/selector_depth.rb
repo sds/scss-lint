@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::SelectorDepth < Linter
     include LinterRegistry
 
-    def visit_root(node)
+    def visit_root(_node)
       @max_depth = config['max_depth']
       @depth = 0
       yield # Continue

@@ -31,11 +31,11 @@ module SCSSLint
 
     def check(node, selector_name = nil)
       name = node.name.join
-      if name =~ /[A-Z]/
-        selector_name ||= node.class.name.split('::').last
-        add_lint(node, "#{selector_name} `#{name}` in selector should be " \
-                       "written in all lowercase as `#{name.downcase}`")
-      end
+      return unless name =~ /[A-Z]/
+
+      selector_name ||= node.class.name.split('::').last
+      add_lint(node, "#{selector_name} `#{name}` in selector should be " \
+                     "written in all lowercase as `#{name.downcase}`")
     end
   end
 end

@@ -4,16 +4,8 @@ module SCSSLint
     include LinterRegistry
 
     def visit_prop(node)
-      prop_name = node.name.join
-
-      if PROPERTIES_WITH_MIXINS.include?(prop_name)
-        add_lint node, "Use the Compass `#{prop_name}` mixin instead of the property"
-      end
-
-      if prop_name == 'display' && node.value.to_sass == 'inline-block'
-        add_lint node,
-                 'Use the Compass `inline-block` mixin instead of `display: inline-block`'
-      end
+      check_for_properties_with_mixins(node)
+      check_for_inline_block(node)
     end
 
   private
@@ -29,5 +21,20 @@ module SCSSLint
       text-shadow
       transform
     ].to_set
+
+    def check_for_properties_with_mixins(node)
+      prop_name = node.name.join
+      return unless PROPERTIES_WITH_MIXINS.include?(prop_name)
+
+      add_lint node, "Use the Compass `#{prop_name}` mixin instead of the property"
+    end
+
+    def check_for_inline_block(node)
+      prop_name = node.name.join
+      return unless prop_name == 'display' && node.value.to_sass == 'inline-block'
+
+      add_lint node,
+               'Use the Compass `inline-block` mixin instead of `display: inline-block`'
+    end
   end
 end
