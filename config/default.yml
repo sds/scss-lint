@@ -21,9 +21,6 @@ linters:
   DuplicateProperty:
     enabled: true
 
-  DuplicateRoot:
-    enabled: true
-
   EmptyLineBetweenBlocks:
     enabled: true
     ignore_single_line_blocks: true
@@ -48,6 +45,10 @@ linters:
   LeadingZero:
     enabled: true
     style: exclude_zero # or 'include_zero'
+
+  MergeableSelector:
+    enabled: true
+    force_nesting: true
 
   NameFormat:
     enabled: true

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SCSSLint::Linter::DuplicateRoot do
+describe SCSSLint::Linter::MergeableSelector do
   context 'when single root' do
     let(:css) { <<-CSS }
       p {
@@ -87,7 +87,15 @@ describe SCSSLint::Linter::DuplicateRoot do
       }
     CSS
 
-    it { should_not report_lint }
+    context 'when forche_nesting is enabled' do
+      let(:linter_config) { { 'force_nesting' => true } }
+      it { should report_lint }
+    end
+
+    context 'when forche_nesting is disabled' do
+      let(:linter_config) { { 'force_nesting' => false } }
+      it { should_not report_lint }
+    end
   end
 
   context 'when same class roots' do
@@ -209,6 +217,53 @@ describe SCSSLint::Linter::DuplicateRoot do
         to {
           transform: translateX(100%);
         }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when having the same child rules' do
+    let(:css) { <<-CSS }
+      .foo {
+        .bar {
+          font-weight: bold;
+        }
+        .baz {
+          font-weight: bold;
+        }
+        .bar {
+          color: #ff0;
+        }
+      }
+    CSS
+
+    it { should report_lint }
+  end
+
+  context 'when having multiple rules' do
+    let(:linter_config) { { 'force_nesting' => true } }
+    let(:css) { <<-CSS }
+      .foo,
+      .bar {
+        color: #000;
+      }
+      .foo {
+        color: #f00;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when rules start with the same name, but are not a nested rule' do
+    let(:linter_config) { { 'force_nesting' => true } }
+    let(:css) { <<-CSS }
+      .foo {
+        color: #000;
+      }
+      .foobar {
+        color: #f00;
       }
     CSS
 
