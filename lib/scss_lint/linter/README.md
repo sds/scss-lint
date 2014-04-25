@@ -422,7 +422,7 @@ You can also prefer the [BEM](http://bem.info/method/) convention by setting the
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`convention`         | Name of convention to use (`hyphenated-lowercase` (default) or `BEM`), or a regex the name must match
+`convention`         | Name of convention to use (`hyphenated_lowercase` (default) or `BEM`), or a regex the name must match
 
 ## PlaceholderInExtend
 
