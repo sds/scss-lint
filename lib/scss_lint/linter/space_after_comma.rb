@@ -90,10 +90,9 @@ module SCSSLint
           spaces += 1
           offset += 1
         end
+        next if spaces == EXPECTED_SPACES_AFTER_COMMA
 
-        if spaces != EXPECTED_SPACES_AFTER_COMMA
-          add_lint arg, "Commas in #{arg_type} should be followed by a single space"
-        end
+        add_lint arg, "Commas in #{arg_type} should be followed by a single space"
       end
     end
   end

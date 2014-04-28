@@ -128,11 +128,10 @@ module SCSSLint
 
           LinterRegistry.linters.each do |linter_class|
             name = linter_name(linter_class)
+            next unless name.match(class_name_regex)
 
-            if name.match(class_name_regex)
-              old_options = options['linters'].fetch(name, {})
-              options['linters'][name] = smart_merge(old_options, wildcard_options)
-            end
+            old_options = options['linters'].fetch(name, {})
+            options['linters'][name] = smart_merge(old_options, wildcard_options)
           end
         end
 
