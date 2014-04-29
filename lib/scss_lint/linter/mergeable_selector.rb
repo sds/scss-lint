@@ -1,5 +1,5 @@
 module SCSSLint
-  # Checks for redundant selector rules.
+  # Checks for rule sets that can be merged with other rule sets.
   class Linter::MergeableSelector < Linter
     include LinterRegistry
 
@@ -11,10 +11,9 @@ module SCSSLint
         seen_nodes << child_node
         next unless mergeable_node
 
-        type = equal?(child_node, mergeable_node) ? 'identical' : 'nested'
         add_lint child_node.line,
-                 "Merge rule `#{node_rule(child_node)}` with #{type} rule at " \
-                 "same level on line #{mergeable_node.line}"
+                 "Merge rule `#{node_rule(child_node)}` with rule " \
+                 "on line #{mergeable_node.line}"
       end
 
       yield # Continue linting children
