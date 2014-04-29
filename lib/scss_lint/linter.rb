@@ -22,12 +22,12 @@ module SCSSLint
 
     # Helper for creating lint from a parse tree node
     #
-    # @param node_or_line [Sass::Script::Tree::Node, Sass::Engine::Line]
+    # @param node_or_line_or_location [Sass::Script::Tree::Node, Fixnum, SCSSLint::Location]
     # @param message [String]
-    def add_lint(node_or_line, message, location = nil)
+    def add_lint(node_or_line_or_location, message)
       @lints << Lint.new(self,
                          engine.filename,
-                         location || location_by_node_or_line(node_or_line),
+                         extract_location(node_or_line_or_location),
                          message)
     end
 
@@ -128,13 +128,16 @@ module SCSSLint
 
   private
 
-    def location_by_node_or_line(node_or_line)
-      if node_or_line.respond_to?(:source_range) && node_or_line.source_range
-        location_from_range(node_or_line.source_range)
-      elsif node_or_line.respond_to?(:line)
-        Location.new(node_or_line.line)
+    def extract_location(node_or_line_or_location)
+      if node_or_line_or_location.is_a?(Location)
+        node_or_line_or_location
+      elsif node_or_line_or_location.respond_to?(:source_range) &&
+            node_or_line_or_location.source_range
+        location_from_range(node_or_line_or_location.source_range)
+      elsif node_or_line_or_location.respond_to?(:line)
+        Location.new(node_or_line_or_location.line)
       else
-        Location.new(node_or_line)
+        Location.new(node_or_line_or_location)
       end
     end
   end

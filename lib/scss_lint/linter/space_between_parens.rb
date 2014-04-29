@@ -29,7 +29,7 @@ module SCSSLint
       location = Location.new(index + 1)
       message = "Expected #{pluralize(@spaces, 'space')} " \
                 "between parentheses instead of #{spaces}"
-      add_lint(nil, message, location)
+      add_lint(location, message)
     end
   end
 end
