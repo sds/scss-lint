@@ -5,7 +5,7 @@ module SCSSLint
 
     def check_node(node)
       node.children.each_with_object([]) do |child_node, seen_nodes|
-        next unless child_node.is_a? Sass::Tree::RuleNode
+        next unless child_node.is_a?(Sass::Tree::RuleNode)
 
         mergeable_node = find_mergeable_node(child_node, seen_nodes)
         seen_nodes << child_node
@@ -16,8 +16,10 @@ module SCSSLint
                  "Merge rule `#{node_rule(child_node)}` with #{type} rule at " \
                  "same level on line #{mergeable_node.line}"
       end
+
       yield # Continue linting children
     end
+
     alias_method :visit_root, :check_node
     alias_method :visit_rule, :check_node
 

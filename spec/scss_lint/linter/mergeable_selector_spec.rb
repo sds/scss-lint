@@ -87,12 +87,12 @@ describe SCSSLint::Linter::MergeableSelector do
       }
     CSS
 
-    context 'when forche_nesting is enabled' do
+    context 'when force_nesting is enabled' do
       let(:linter_config) { { 'force_nesting' => true } }
       it { should report_lint }
     end
 
-    context 'when forche_nesting is disabled' do
+    context 'when force_nesting is disabled' do
       let(:linter_config) { { 'force_nesting' => false } }
       it { should_not report_lint }
     end
@@ -223,7 +223,7 @@ describe SCSSLint::Linter::MergeableSelector do
     it { should_not report_lint }
   end
 
-  context 'when having the same child rules' do
+  context 'when there are duplicate rules nested in a rule set' do
     let(:css) { <<-CSS }
       .foo {
         .bar {
@@ -241,32 +241,34 @@ describe SCSSLint::Linter::MergeableSelector do
     it { should report_lint }
   end
 
-  context 'when having multiple rules' do
+  context 'when force_nesting is enabled' do
     let(:linter_config) { { 'force_nesting' => true } }
-    let(:css) { <<-CSS }
-      .foo,
-      .bar {
-        color: #000;
-      }
-      .foo {
-        color: #f00;
-      }
-    CSS
 
-    it { should_not report_lint }
-  end
+    context 'when one of the duplicate rules is in a comma sequence' do
+      let(:css) { <<-CSS }
+        .foo,
+        .bar {
+          color: #000;
+        }
+        .foo {
+          color: #f00;
+        }
+      CSS
 
-  context 'when rules start with the same name, but are not a nested rule' do
-    let(:linter_config) { { 'force_nesting' => true } }
-    let(:css) { <<-CSS }
-      .foo {
-        color: #000;
-      }
-      .foobar {
-        color: #f00;
-      }
-    CSS
+      it { should_not report_lint }
+    end
 
-    it { should_not report_lint }
+    context 'when rules start with the same prefix but are not the same' do
+      let(:css) { <<-CSS }
+        .foo {
+          color: #000;
+        }
+        .foobar {
+          color: #f00;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
   end
 end

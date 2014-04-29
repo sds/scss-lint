@@ -2,8 +2,8 @@
 
 ## master (unreleased)
 
-* Extend `DuplicateRoot` to `MergeableSelector` linter, to not only check
-  the root node for duplications and similar selectors.
+* Extend `DuplicateRoot` to `MergeableSelector` linter to check for nested
+  rule sets that can be merged in addition to root-level ones
 
 ## 0.23.1
 

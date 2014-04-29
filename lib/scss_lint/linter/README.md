@@ -379,21 +379,25 @@ after a rule with the same CSS specificity. However, coding your
 stylesheets in this way makes them more difficult to comprehend, and can
 usually be avoided.
 
-By forcing the nesting, the rules need to be totally unique - even with
-there extensions:
+You can specify that rule sets which can be nested within another rule
+set must be nested via the `force_nesting` option, e.g.
 
-```scss
 **Bad**
+```scss
 h1 {
   color: #fff;
 }
+
 h1.new {
   color: #000;
 }
+```
 
 **Good**
+```scss
 h1 {
   color: #fff;
+
   &.new {
     color: #000;
   }
@@ -402,7 +406,7 @@ h1 {
 
 Configuration Option | Description
 ---------------------|------------------------------------------------------------------
-`force_nesting`      | Also checks for nested rules on the same level (default **true**)
+`force_nesting`      | Ensure rule sets which can be nested are nested (default **true**)
 
 ## NameFormat
 
