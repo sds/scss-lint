@@ -1,9 +1,9 @@
 # SCSS-Lint
 
-[![Gem Version](https://badge.fury.io/rb/scss-lint.png)](http://badge.fury.io/rb/scss-lint)
-[![Build Status](https://travis-ci.org/causes/scss-lint.png)](https://travis-ci.org/causes/scss-lint)
+[![Gem Version](https://badge.fury.io/rb/scss-lint.svg)](http://badge.fury.io/rb/scss-lint)
+[![Build Status](https://travis-ci.org/causes/scss-lint.svg)](https://travis-ci.org/causes/scss-lint)
 [![Code Climate](https://codeclimate.com/github/causes/scss-lint.png)](https://codeclimate.com/github/causes/scss-lint)
-[![Dependency Status](https://gemnasium.com/causes/scss-lint.png)](https://gemnasium.com/causes/scss-lint)
+[![Dependency Status](https://gemnasium.com/causes/scss-lint.svg)](https://gemnasium.com/causes/scss-lint)
 
 `scss-lint` is a tool to help keep your [SCSS](http://sass-lang.com) files
 clean and readable. You can run it manually from the command-line, or integrate
