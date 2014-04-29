@@ -114,11 +114,10 @@ would normally find on its own (this can be useful for testing a particular
 configuration setting, however). Configurations loaded this way will still be
 merged with the default configuration specified by `config/default.yml`.
 
-To start using `scss-lint` you can use the `Config`
-[Formatter](#formatters) - this will return a configuration where all
-linters are disabeld that caused a lint. Starting with this as your
-`.scss-lint.yml` you can enabled the linters step by step while fixing
-the reported lints.
+To start using `scss-lint` you can use the [`Config` Formatter](#config),
+which will generate an `.scss-lint.yml` configuration file with all linters
+which caused a lint disabled. Starting with this as your configuration
+you can slowly enable each linter and fix any lints one by one.
 
 ## Formatters
 
@@ -127,11 +126,35 @@ the reported lints.
 The default formatter is intended to be easy to consume by both humans and
 external tools.
 
+```bash
+scss-lint [scss-files...]
+```
+
 ```
 test.scss:2 [W] Prefer single quoted strings
 test.scss:2 [W] Line should be indented 0 spaces, but was indented 1 space
 test.scss:5 [W] Prefer single quoted strings
 test.scss:6 [W] URLs should be enclosed in quotes
+```
+
+### Config
+
+Returns a valid `.scss-lint.yml` configuration where all linters which caused
+a lint are disabled. Starting with this as your configuration, you can slowly
+enable each linter and fix any lints one by one.
+
+```bash
+scss-lint --format=Config [scss-files...]
+```
+
+```yaml
+linters:
+  Indentation:
+    enabled: false
+  StringQuotes:
+    enabled: false
+  UrlQuotes:
+    enabled: false
 ```
 
 ### Files
@@ -141,7 +164,7 @@ just output the names of the files so that you can execute the following to
 open them all:
 
 ```bash
-scss-lint --format Files | xargs vim
+scss-lint --format=Files [scss-files...] | xargs vim
 ```
 
 ### XML
@@ -149,14 +172,11 @@ scss-lint --format Files | xargs vim
 Outputs XML with `<lint>`, `<file>`, and `<issue>` tags. Suitable for
 consumption by tools like [Jenkins](http://jenkins-ci.org/).
 
-### Config
-
-Returns a YAML configuration where all linters are disabled which caused
-a lint. You can use this as a `.scss-lint.yml` file. The point is to
-remove these configuration records one by one while fixing the reported
-lints in the code.
-
+```bash
+scss-lint --format=XML [scss-files...]
 ```
+
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <lint>
   <file name="test.css">

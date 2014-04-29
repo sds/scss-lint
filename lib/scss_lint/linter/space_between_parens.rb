@@ -15,21 +15,21 @@ module SCSSLint
             [ ]*\)
           )?
         /x) do |match|
-          check(match[2], index, engine) if match[2]
+          check(match[2], index) if match[2]
         end
       end
     end
 
   private
 
-    def check(str, index, engine)
+    def check(str, index)
       spaces = str.count ' '
       return if spaces == @spaces
 
       location = Location.new(index + 1)
       message = "Expected #{pluralize(@spaces, 'space')} " \
                 "between parentheses instead of #{spaces}"
-      add_lint(engine.filename, message, location)
+      add_lint(nil, message, location)
     end
   end
 end

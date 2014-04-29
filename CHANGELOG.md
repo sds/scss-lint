@@ -4,8 +4,8 @@
 
 * Extend `DuplicateRoot` to `MergeableSelector` linter to check for nested
   rule sets that can be merged in addition to root-level ones
-* Add `ConfigReporter` which returns a configuration where all linters
-  as disabled that caused a lint
+* Add `ConfigReporter` formatter which returns a valid `.scss-lint.yml`
+  configuration file where all linters that caused a lint are disabled
 
 ## 0.23.1
 
