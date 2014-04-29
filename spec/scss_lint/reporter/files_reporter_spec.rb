@@ -16,7 +16,7 @@ describe SCSSLint::Reporter::FilesReporter do
       let(:filenames)    { ['some-filename.scss', 'some-filename.scss', 'other-filename.scss'] }
       let(:lints) do
         filenames.map do |filename|
-          SCSSLint::Lint.new(filename, SCSSLint::Location.new, '', :warning)
+          SCSSLint::Lint.new(nil, filename, SCSSLint::Location.new, '')
         end
       end
 

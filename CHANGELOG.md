@@ -4,6 +4,8 @@
 
 * Extend `DuplicateRoot` to `MergeableSelector` linter to check for nested
   rule sets that can be merged in addition to root-level ones
+* Add `ConfigReporter` which returns a configuration where all linters
+  as disabled that caused a lint
 
 ## 0.23.1
 
