@@ -44,6 +44,7 @@ module SCSSLint
     end
 
     # Define node types that increase indentation level
+    alias_method :visit_atroot,    :check_and_visit_children
     alias_method :visit_directive, :check_and_visit_children
     alias_method :visit_each,      :check_and_visit_children
     alias_method :visit_for,       :check_and_visit_children

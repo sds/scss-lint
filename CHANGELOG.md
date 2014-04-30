@@ -6,6 +6,8 @@
   rule sets that can be merged in addition to root-level ones
 * Add `ConfigReporter` formatter which returns a valid `.scss-lint.yml`
   configuration file where all linters that caused a lint are disabled
+* Fix bug in `Indentation` linter where `@at-root` directives were not
+  treated as an increase in indentation level
 
 ## 0.23.1
 
