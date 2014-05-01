@@ -875,7 +875,7 @@ for more information.
 
 ## ZeroUnit
 
-Omit units on zero values.
+Omit length units on zero values.
 
 **Bad: unnecessary units**
 ```scss
@@ -887,4 +887,10 @@ margin: 0px;
 margin: 0;
 ```
 
-Zero is zero regardless of units.
+Zero is zero regardless of the units of length.
+
+Note that this only applies to
+[lengths](https://developer.mozilla.org/en-US/docs/Web/CSS/length),
+since it is invalid to omit units for other types such as
+[angles](https://developer.mozilla.org/en-US/docs/Web/CSS/angle) or
+[times](https://developer.mozilla.org/en-US/docs/Web/CSS/time).

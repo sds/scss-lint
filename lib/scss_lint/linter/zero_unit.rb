@@ -7,21 +7,19 @@ module SCSSLint
       return unless node.type == :identifier
 
       node.value.scan(ZERO_UNIT_REGEX) do |match|
-        next unless zero_with_length?(match.first)
+        next unless zero_with_length_units?(match.first)
         add_lint(node, MESSAGE_FORMAT % match.first)
       end
     end
 
     def visit_script_number(node)
       length = source_from_range(node.source_range)[ZERO_UNIT_REGEX, 1]
-      return unless zero_with_length?(length)
+      return unless zero_with_length_units?(length)
 
       add_lint(node, MESSAGE_FORMAT % length)
     end
 
   private
-
-    UNITS = %w[em ex ch rem vw vh vmin vmax cm mm in pt pc px]
 
     ZERO_UNIT_REGEX = /
       \b
@@ -32,8 +30,10 @@ module SCSSLint
 
     MESSAGE_FORMAT = '`%s` should be written without units as `0`'
 
-    def zero_with_length?(string)
-      string =~ /^0([a-z]+)/ && UNITS.include?(Regexp.last_match(1))
+    LENGTH_UNITS = %w[em ex ch rem vw vh vmin vmax cm mm in pt pc px].to_set
+
+    def zero_with_length_units?(string)
+      string =~ /^0([a-z]+)/ && LENGTH_UNITS.include?(Regexp.last_match(1))
     end
   end
 end

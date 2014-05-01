@@ -8,8 +8,8 @@
   configuration file where all linters that caused a lint are disabled
 * Fix bug in `Indentation` linter where `@at-root` directives were not
   treated as an increase in indentation level
-* Fix bug in `ZeroUnit` when it is not a dimension - only for dimensions
-  the unit identifier is optional
+* Fix `ZeroUnit` to only report lints for zero values in
+  [lengths](https://developer.mozilla.org/en-US/docs/Web/CSS/length)
 
 ## 0.23.1
 

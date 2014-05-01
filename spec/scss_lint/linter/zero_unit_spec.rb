@@ -101,20 +101,10 @@ describe SCSSLint::Linter::ZeroUnit do
     it { should_not report_lint }
   end
 
-  context 'when properties with zero is a dimension' do
+  context 'when property with zero value is a dimension' do
     let(:css) { <<-CSS }
       p {
         transition-delay: 0s;
-      }
-    CSS
-
-    it { should_not report_lint }
-  end
-
-  context 'when mixin include contains a zero value dimension' do
-    let(:css) { <<-CSS }
-      p {
-        @include some-mixin(0s);
       }
     CSS
 
