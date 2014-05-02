@@ -21,7 +21,7 @@ module SCSSLint
     # Sass::Script::Nodes, we need to condense it into a single string that we
     # can run a regex against.
     def condense_to_string(sequence_list)
-      sequence_list.select { |item| item.is_a?(String) }.inject(:+)
+      sequence_list.select { |item| item.is_a?(String) }.inject(:+) || ''
     end
 
     # Removes extra spacing between lines in a comma-separated sequence due to

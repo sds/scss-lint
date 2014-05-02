@@ -10,6 +10,8 @@
   treated as an increase in indentation level
 * Fix `ZeroUnit` to only report lints for zero values in
   [lengths](https://developer.mozilla.org/en-US/docs/Web/CSS/length)
+* Fix crash in `SingleLinePerSelector` for selectors containing only
+  interpolation
 
 ## 0.23.1
 

@@ -108,4 +108,10 @@ describe SCSSLint::Linter::SingleLinePerSelector do
 
     it { should_not report_lint }
   end
+
+  context 'when selector is just an interpolated string' do
+    let(:css) { '#{$selector} {}' }
+
+    it { should_not report_lint }
+  end
 end
