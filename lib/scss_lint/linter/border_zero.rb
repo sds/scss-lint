@@ -5,10 +5,9 @@ module SCSSLint
 
     def visit_prop(node)
       return unless BORDER_PROPERTIES.include?(node.name.first.to_s)
+      return unless node.value.to_sass.strip == 'none'
 
-      if node.value.to_sass.strip == 'none'
-        add_lint(node, '`border: 0;` is preferred over `border: none;`')
-      end
+      add_lint(node, '`border: 0;` is preferred over `border: none;`')
     end
 
   private

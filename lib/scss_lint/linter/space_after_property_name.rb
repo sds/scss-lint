@@ -5,9 +5,8 @@ module SCSSLint
     include LinterRegistry
 
     def visit_prop(node)
-      if character_at(node.name_source_range.end_pos) != ':'
-        add_lint node, 'Property name should be immediately followed by a colon'
-      end
+      return unless character_at(node.name_source_range.end_pos) != ':'
+      add_lint node, 'Property name should be immediately followed by a colon'
     end
   end
 end

@@ -21,10 +21,10 @@ module SCSSLint
         .sort { |a, b| compare_properties(a, b) }
 
       sorted_props.each_with_index do |prop, index|
-        if prop != sortable_prop_info[index]
-          add_lint(sortable_props[index], MESSAGE)
-          break
-        end
+        next unless prop != sortable_prop_info[index]
+
+        add_lint(sortable_props[index], MESSAGE)
+        break
       end
 
       yield # Continue linting children

@@ -37,10 +37,9 @@ module SCSSLint
       # HACK: node_parent may not be initialized at this point, so we need to
       # set it ourselves
       value.node_parent = literal
+      return unless value.is_a?(Sass::Script::Value::String)
 
-      if value.is_a?(Sass::Script::Value::String)
-        check_script_string(prop, value)
-      end
+      check_script_string(prop, value)
     end
 
     LIST_LITERAL_REGEX = /
@@ -52,10 +51,9 @@ module SCSSLint
 
     def check_script_string(prop, script_string)
       return unless script_string.type == :identifier
+      return unless values = script_string.value.strip[LIST_LITERAL_REGEX, 1]
 
-      if values = script_string.value.strip[LIST_LITERAL_REGEX, 1]
-        check_shorthand(prop, script_string, values.split)
-      end
+      check_shorthand(prop, script_string, values.split)
     end
 
     def check_shorthand(prop, node, values)
