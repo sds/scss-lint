@@ -1,6 +1,8 @@
 module SCSSLint
   # Collection of helpers used across a variety of linters.
   module Utils
+    HEX_REGEX = /(#(\h{3}|\h{6}))(?!\h)/
+
     # Given a selector array which is a list of strings with Sass::Script::Nodes
     # interspersed within them, return an array of strings representing those
     # selectors with the Sass::Script::Nodes removed (i.e., ignoring
@@ -18,17 +20,6 @@ module SCSSLint
       selector_array.reject { |item| item.is_a? Sass::Script::Node }
                     .join
                     .split
-    end
-
-    def shortest_hex_form(hex)
-      (can_be_condensed?(hex) ? (hex[0..1] + hex[3] + hex[5]) : hex).downcase
-    end
-
-    def can_be_condensed?(hex)
-      hex.length == 7 &&
-        hex[1] == hex[2] &&
-        hex[3] == hex[4] &&
-        hex[5] == hex[6]
     end
 
     # Takes a string like `hello "world" 'how are' you` and turns it into:
