@@ -16,10 +16,10 @@ module SCSSLint
 
     def visit_script_number(node)
       return unless match = REAL_NUMBER_REGEX.match(source_from_range(node.source_range))
+      return unless unnecessary_mantissa?(match[:mantissa])
 
-      if unnecessary_mantissa?(match[:mantissa])
-        add_lint(node, MESSAGE_FORMAT % [match[:number], match[:integer], match[:units]])
-      end
+      add_lint(node, MESSAGE_FORMAT % [match[:number], match[:integer],
+                                       match[:units]])
     end
 
   private

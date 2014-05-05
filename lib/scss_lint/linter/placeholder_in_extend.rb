@@ -7,11 +7,10 @@ module SCSSLint
       # The array returned by the parser is a bit awkward in that it splits on
       # every word boundary (so %placeholder becomes ['%', 'placeholder']).
       selector = node.selector.join
+      return if selector.start_with?('%')
 
-      unless selector.start_with?('%')
-        add_lint(node,
-                 'Prefer using placeholder selectors (e.g. %some-placeholder) with @extend')
-      end
+      add_lint(node, 'Prefer using placeholder selectors (e.g. ' \
+                     '%some-placeholder) with @extend')
     end
   end
 end

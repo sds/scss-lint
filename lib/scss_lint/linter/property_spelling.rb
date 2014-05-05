@@ -16,10 +16,10 @@ module SCSSLint
 
       # Ignore vendor-prefixed properties
       return if name.start_with?('-')
+      return if KNOWN_PROPERTIES.include?(name) ||
+        @extra_properties.include?(name)
 
-      unless KNOWN_PROPERTIES.include?(name) || @extra_properties.include?(name)
-        add_lint(node, "Unknown property #{name}")
-      end
+      add_lint(node, "Unknown property #{name}")
     end
 
   private
