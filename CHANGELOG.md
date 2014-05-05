@@ -12,6 +12,7 @@
   [lengths](https://developer.mozilla.org/en-US/docs/Web/CSS/length)
 * Fix crash in `SingleLinePerSelector` for selectors containing only
   interpolation
+* Add `--show-formatters` option to display all available formatters
 
 ## 0.23.1
 
