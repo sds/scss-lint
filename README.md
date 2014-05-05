@@ -61,7 +61,8 @@ Command Line Flag         | Description
 `-i`/`--include-linter`   | Specify which linters you specifically want to run
 `-x`/`--exclude-linter`   | Specify which linters you _don't_ want to run
 `-h`/`--help`             | Show command line flag documentation
-`--show-linters`          | Show all registered linters
+`--show-formatters`       | Show all available formatters
+`--show-linters`          | Show all available linters
 `-v`/`--version`          | Show version
 
 ## Configuration
