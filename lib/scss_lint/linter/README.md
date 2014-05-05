@@ -13,7 +13,9 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [EmptyLineBetweenBlocks](#emptylinebetweenblocks)
 * [EmptyRule](#emptyrule)
 * [FinalNewline](#finalnewline)
-* [HexFormat](#hexformat)
+* [HexLength](#hexlength)
+* [HexNotation](#hexnotaion)
+* [HexValidation](#hexvalidation)
 * [IdWithExtraneousSelector](#idwithextraneousselector)
 * [Indentation](#indentation)
 * [LeadingZero](#leadingzero)
@@ -253,19 +255,37 @@ Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `present`            | Whether a final newline should be present (default **true**)
 
-## HexFormat
+## HexLength
 
-Prefer the shortest possible form for hexadecimal color codes.
+You can specify whether you prefer shorthand or long-form hexadecimal
+colors by setting the style option to `short` or `long`, respectively.
 
-**Bad: can be shortened**
+**short**
+```scss
+color: #f2e;
+```
+
+**long**
 ```scss
 color: #ff22ee;
 ```
 
-**Good: color code in shortest possible form**
-```scss
-color: #f2e;
-```
+Configuration Option | Description
+---------------------|-----------------------------------------
+`style`              | Prefer short or long (default **short**)
+
+
+## HexNotation
+
+Checks if hexadecimal colors are written lowercase or uppercase.
+
+Configuration Option | Description
+---------------------|------------------------------------------------------
+`style`              | Prefer lowercase or uppercase (default **lowercase**)
+
+## HexValidation
+
+Validates hexadecimal colors (either three or six digits).
 
 ## IdWithExtraneousSelector
 
