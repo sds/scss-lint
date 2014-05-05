@@ -116,6 +116,15 @@ describe SCSSLint::CLI do
       end
     end
 
+    context 'when the show formatters flag is set' do
+      let(:flags) { ['--show-formatters'] }
+
+      it 'prints the formatters' do
+        subject.should_receive(:print_formatters)
+        safe_parse
+      end
+    end
+
     context 'when the show linters flag is set' do
       let(:flags) { ['--show-linters'] }
 

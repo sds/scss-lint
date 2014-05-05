@@ -65,6 +65,10 @@ module SCSSLint
           define_output_format(format)
         end
 
+        opts.on_tail('--show-formatters', 'Shows available formatters') do
+          print_formatters
+        end
+
         opts.on('-i', '--include-linter linter,...', Array,
                 'Specify which linters you want to run') do |linters|
           @options[:included_linters] = linters
@@ -194,6 +198,20 @@ module SCSSLint
     rescue NameError
       puts "Invalid output format specified: #{format}"
       halt :config
+    end
+
+    def print_formatters
+      puts 'Installed formatters:'
+
+      reporter_names = SCSSLint::Reporter.descendants.map do |reporter|
+        reporter.name.split('::').last.split('Reporter').first
+      end
+
+      reporter_names.sort.each do |reporter_name|
+        puts " - #{reporter_name}"
+      end
+
+      halt
     end
 
     def print_linters
