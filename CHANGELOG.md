@@ -13,6 +13,9 @@
 * Fix crash in `SingleLinePerSelector` for selectors containing only
   interpolation
 * Add `--show-formatters` option to display all available formatters
+* Add `HexValidation` to validate hex colors
+* Split `HexFormat` into `HexLength` (checking length) and `HexNotation`
+  (checking lowercase / uppercase)
 
 ## 0.23.1
 
