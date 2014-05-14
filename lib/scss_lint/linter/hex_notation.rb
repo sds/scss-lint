@@ -3,6 +3,8 @@ module SCSSLint
   class Linter::HexNotation < Linter
     include LinterRegistry
 
+    HEX_REGEX = /(#(\h{3}|\h{6}))(?!\h)/
+
     def visit_script_color(node)
       return unless hex = source_from_range(node.source_range)[HEX_REGEX, 1]
       check_hex(hex, node)
@@ -30,7 +32,7 @@ module SCSSLint
     end
 
     def lowercase_style?
-      config['style'] != 'uppercase'
+      config['style'] == 'lowercase'
     end
   end
 end

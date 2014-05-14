@@ -271,21 +271,35 @@ color: #ff22ee;
 ```
 
 Configuration Option | Description
----------------------|-----------------------------------------
-`style`              | Prefer short or long (default **short**)
-
+---------------------|--------------------------------------------
+`style`              | Prefer `short` or `long` (default **short**)
 
 ## HexNotation
 
-Checks if hexadecimal colors are written lowercase or uppercase.
+Checks if hexadecimal colors are written in lowercase. You can specify which
+case with the `style` option.
 
 Configuration Option | Description
----------------------|------------------------------------------------------
-`style`              | Prefer lowercase or uppercase (default **lowercase**)
+---------------------|---------------------------------------------------------
+`style`              | Prefer `lowercase` or `uppercase` (default **lowercase**)
 
 ## HexValidation
 
-Validates hexadecimal colors (either three or six digits).
+Ensure hexadecimal colors are valid (either three or six digits).
+
+**Bad**
+```scss
+p {
+  background: #ab; // Clearly a typo
+}
+```
+
+**Good**
+```scss
+p {
+  background: #abc;
+}
+```
 
 ## IdWithExtraneousSelector
 

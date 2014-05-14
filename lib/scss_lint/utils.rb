@@ -1,8 +1,6 @@
 module SCSSLint
   # Collection of helpers used across a variety of linters.
   module Utils
-    HEX_REGEX = /(#(\h{3}|\h{6}))(?!\h)/
-
     # Given a selector array which is a list of strings with Sass::Script::Nodes
     # interspersed within them, return an array of strings representing those
     # selectors with the Sass::Script::Nodes removed (i.e., ignoring

@@ -1,7 +1,10 @@
 module SCSSLint
-  # Checks for hexadecimal colors that can be shortened.
+  # Checks that hexadecimal colors are written in the desired number of
+  # characters.
   class Linter::HexLength < Linter
     include LinterRegistry
+
+    HEX_REGEX = /(#(\h{3}|\h{6}))(?!\h)/
 
     def visit_script_color(node)
       return unless hex = source_from_range(node.source_range)[HEX_REGEX, 1]
@@ -47,7 +50,7 @@ module SCSSLint
     end
 
     def short_style?
-      config['style'] != 'long'
+      config['style'] == 'short'
     end
   end
 end
