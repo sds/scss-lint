@@ -4,8 +4,10 @@ module SCSSLint
   class Linter::ColorKeyword < Linter
     include LinterRegistry
 
+    COLOR_REGEX = /(#?[a-f0-9]{3,6}|[a-z]+)/i
+
     def visit_script_color(node)
-      color = node.to_s
+      color = source_from_range(node.source_range)[COLOR_REGEX, 1]
       add_color_lint(node, color) if color_keyword?(color)
     end
 
