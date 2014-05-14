@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.24.0
 
 * Extend `DuplicateRoot` to `MergeableSelector` linter to check for nested
   rule sets that can be merged in addition to root-level ones
