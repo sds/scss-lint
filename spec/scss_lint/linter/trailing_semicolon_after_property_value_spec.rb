@@ -107,6 +107,22 @@ describe SCSSLint::Linter::TrailingSemicolonAfterPropertyValue do
       }
     CSS
 
-    it { should report_lint line: 6 }
+    it { should report_lint line: 2 }
+  end
+
+  context 'when a oneline rule does not end with a semicolon' do
+    let(:css) { <<-CSS }
+      .foo { border: 0 }
+    CSS
+
+    it { should report_lint line: 1 }
+  end
+
+  context 'when a oneline rule has a space before a semicolon' do
+    let(:css) { <<-CSS }
+      .foo { border: 0 ; }
+    CSS
+
+    it { should report_lint line: 1 }
   end
 end
