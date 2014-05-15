@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix bug in `TrailingSemicolonAfterPropertyValue` to not crash on a one-line
+  property without a semicolon
+
 ## 0.24.0
 
 * Extend `DuplicateRoot` to `MergeableSelector` linter to check for nested
