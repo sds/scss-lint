@@ -9,12 +9,10 @@ module SCSSLint
 
       unless has_nested_props
         if has_space_before_semicolon?(node)
-          line = node.source_range.end_pos
+          line = node.source_range.start_pos.line
           add_lint line, 'Property declaration should be terminated by a semicolon'
         elsif !ends_with_semicolon?(node)
-          # Adjust line since lack of semicolon results in end of source range
-          # being on the next line
-          line = node.source_range.end_pos.line - 1
+          line = node.source_range.start_pos.line
           add_lint line,
                    'Property declaration should not have a space before ' \
                    'the terminating semicolon'
