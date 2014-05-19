@@ -186,7 +186,7 @@ module SCSSLint
     # @param lints [Array<Lint>]
     def report_lints(lints)
       sorted_lints = lints.sort_by { |l| [l.filename, l.location] }
-      reporter = @options.fetch(:reporter, Reporter::DefaultReporter)
+      reporter = @options.fetch(:reporter, SCSSLint::Reporter::DefaultReporter)
                          .new(sorted_lints)
       output = reporter.report_lints
       print output if output
