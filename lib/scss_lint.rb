@@ -23,6 +23,6 @@ end
 
 # Load all reporters
 require 'scss_lint/reporter'
-Dir[File.expand_path('scss_lint/reporter/*.rb', File.dirname(__FILE__))].sort.each do |file|
+Dir[File.expand_path('scss_lint/reporter/**/*.rb', File.dirname(__FILE__))].sort.each do |file|
   require file
 end
