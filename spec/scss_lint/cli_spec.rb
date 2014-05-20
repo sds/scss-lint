@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'scss_lint/cli'
 
 describe SCSSLint::CLI do
   let(:config_options) do

@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'scss_lint'
+require 'scss_lint/cli'
 
 SCSSLint::CLI.new(ARGV).tap do |cli|
   cli.parse_arguments
