@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix bug in `Indentation` linter where `@at-root` directives with inline
+  selectors would erroneously report incorrect indentation levels
+
 ## 0.24.1
 
 * Fix bug in `TrailingSemicolonAfterPropertyValue` to not crash on a one-line

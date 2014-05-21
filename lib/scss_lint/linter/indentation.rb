@@ -43,8 +43,34 @@ module SCSSLint
       visit(node.else) if node.else
     end
 
+    # Need to define this explicitly since @at-root directives can contain
+    # inline selectors which produces the same parse tree as if the selector was
+    # nested within it. For example:
+    #
+    #   @at-root {
+    #     .something {
+    #       ...
+    #     }
+    #   }
+    #
+    # ...and...
+    #
+    #   @at-root .something {
+    #     ...
+    #   }
+    #
+    # ...produce the same parse tree, but result in different indentation
+    # levels.
+    def visit_atroot(node, &block)
+      if at_root_contains_inline_selector?(node)
+        return if check_indentation(node)
+        yield
+      else
+        check_and_visit_children(node, &block)
+      end
+    end
+
     # Define node types that increase indentation level
-    alias_method :visit_atroot,    :check_and_visit_children
     alias_method :visit_directive, :check_and_visit_children
     alias_method :visit_each,      :check_and_visit_children
     alias_method :visit_for,       :check_and_visit_children
@@ -66,5 +92,13 @@ module SCSSLint
     alias_method :visit_return,    :check_indentation
     alias_method :visit_variable,  :check_indentation
     alias_method :visit_warn,      :check_indentation
+
+  private
+
+    def at_root_contains_inline_selector?(node)
+      return unless node.children.any?
+
+      same_position?(node.source_range.end_pos, node.children.first.source_range.start_pos)
+    end
   end
 end

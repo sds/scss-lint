@@ -118,6 +118,30 @@ describe SCSSLint::Linter::Indentation do
     it { should_not report_lint }
   end
 
+  context 'when @at-root directive contains correctly indented children' do
+    let(:css) { <<-CSS }
+      .block {
+        @at-root {
+          .something {}
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when @at-root directive with an inline selector contains correctly indented children' do
+    let(:css) { <<-CSS }
+      .block {
+        @at-root .something {
+          .something-else {}
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
   context 'when the indentation width has been explicitly set' do
     let(:linter_config) { { 'width' => 3 } }
 

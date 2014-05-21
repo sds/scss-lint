@@ -44,5 +44,12 @@ module SCSSLint
     def pluralize(value, word)
       value == 1 ? "#{value} #{word}" : "#{value} #{word}s"
     end
+
+    # Sass doesn't define an equality operator for Sass::Source::Position
+    # objects, so we define a helper for our own use.
+    def same_position?(pos1, pos2)
+      return unless pos1 && pos2
+      pos1.line == pos2.line && pos1.offset == pos2.offset
+    end
   end
 end
