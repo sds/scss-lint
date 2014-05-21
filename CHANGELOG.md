@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.24.1
 
 * Fix bug in `TrailingSemicolonAfterPropertyValue` to not crash on a one-line
   property without a semicolon
