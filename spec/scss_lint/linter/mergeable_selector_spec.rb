@@ -270,5 +270,14 @@ describe SCSSLint::Linter::MergeableSelector do
 
       it { should_not report_lint }
     end
+
+    context 'when a rule contains interpolation' do
+      let(:css) { <<-CSS }
+        .\#{$class-name} {}
+        .foobar {}
+      CSS
+
+      it { should_not report_lint }
+    end
   end
 end
