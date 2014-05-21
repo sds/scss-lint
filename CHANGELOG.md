@@ -5,6 +5,8 @@
 * Fix bug in `TrailingSemicolonAfterPropertyValue` to not crash on a one-line
   property without a semicolon
 * Fix crash due to `DefaultReporter` not being loaded on Windows machines
+* Fix [bug in
+  `MergeableSelector`](https://github.com/causes/scss-lint/issues/168).
 
 ## 0.24.0
 
