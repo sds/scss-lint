@@ -48,6 +48,7 @@ module SCSSLint
     end
 
     def single_rule?(node)
+      return unless node.parsed_rules
       node.parsed_rules.members.count == 1
     end
 
