@@ -155,4 +155,25 @@ describe SCSSLint::Linter::Indentation do
     it { should report_lint line: 2 }
     it { should_not report_lint line: 3 }
   end
+
+  context 'when there are selectors across multiple lines' do
+    let(:css) { <<-CSS }
+      .class1,
+      .class2 {
+        margin: 0;
+        padding: 5px;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when there are selectors across multiple lines with a single line block' do
+    let(:css) { <<-CSS }
+      .class1,
+      .class2 { margin: 0; }
+    CSS
+
+    it { should_not report_lint }
+  end
 end
