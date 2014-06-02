@@ -4,6 +4,9 @@
 
 * Fix bug in `Indentation` linter where `@at-root` directives with inline
   selectors would erroneously report incorrect indentation levels
+* Fix bug in `Indentation` linter where rule nodes with selectors spread
+  over multiple lines and a single inline property would incorrectly report
+  a lint
 
 ## 0.24.1
 

@@ -25,7 +25,9 @@ module SCSSLint
 
       # Ignore the case where the node is on the same line as its previous
       # sibling or its parent, as indentation isn't possible
-      return if (previous = previous_node(node)) && previous.line == node.line
+      return if (previous = previous_node(node)) &&
+        (previous.line == node.line ||
+         previous.source_range.end_pos.line == node.line)
 
       actual_indent = engine.lines[node.line - 1][/^(\s*)/, 1]
 
