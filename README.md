@@ -138,6 +138,14 @@ test.scss:5 [W] Prefer single quoted strings
 test.scss:6 [W] URLs should be enclosed in quotes
 ```
 
+The default formatter tries to colorize the output using
+[Rainbow](https://github.com/sickill/rainbow#windows-support), which will
+silently fail on Windows systems if the gems
+[windows-pr](https://rubygems.org/gems/windows-pr) and
+[win32console](https://rubygems.org/gems/win32console)
+are not installed.
+[Read more about adding Windows support](https://github.com/sickill/rainbow#windows-support).
+
 ### Config
 
 Returns a valid `.scss-lint.yml` configuration where all linters which caused
