@@ -21,6 +21,10 @@ linters:
   DuplicateProperty:
     enabled: true
 
+  ElsePlacement:
+    enabled: true
+    style: same_line # or 'new_line'
+
   EmptyLineBetweenBlocks:
     enabled: true
     ignore_single_line_blocks: true

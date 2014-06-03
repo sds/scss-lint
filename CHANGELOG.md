@@ -7,6 +7,8 @@
 * Fix bug in `Indentation` linter where rule nodes with selectors spread
   over multiple lines and a single inline property would incorrectly report
   a lint
+* Add `ElsePlacement` linter which checks the position of `@else` directives
+  with respect to the previous curly brace
 
 ## 0.24.1
 

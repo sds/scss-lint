@@ -188,6 +188,42 @@ more helpful since you don't want to clutter your CSS with fallbacks.
 Otherwise, you may want to consider disabling this check in your
 `.scss-lint.yml` configuration.
 
+## ElsePlacement
+
+Place `@else` statements on the same line as the preceding curly brace.
+
+**Bad**
+```scss
+@if {
+  ...
+}
+@else {
+  ...
+}
+```
+
+**Good**
+```scss
+@if {
+  ...
+} @else {
+  ...
+}
+```
+
+This will ignore single line `@if`/`@else` blocks, so you can write:
+
+```scss
+@if { ... } @else { ... }
+```
+
+You can prefer to enforce having `@else` on its own line by setting the `style`
+configuration option to `new_line`.
+
+Configuration Option  | Description
+----------------------|--------------------------------------------------------
+`style`               | `same_line` or `new_line` (default `same_line`)
+
 ## EmptyLineBetweenBlocks
 
 Separate rule, function, and mixin declarations with empty lines.
