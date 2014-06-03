@@ -42,7 +42,7 @@ describe SCSSLint::Linter::HexLength do
     it { should_not report_lint }
   end
 
-  context 'short stlye' do
+  context 'when short style is preferred' do
     let(:style) { 'short' }
 
     context 'with short hex code' do
@@ -72,7 +72,7 @@ describe SCSSLint::Linter::HexLength do
     end
   end
 
-  context 'long style' do
+  context 'when long style is preferred' do
     let(:style) { 'long' }
 
     context 'with long hex code that could be condensed to 3 digits' do
