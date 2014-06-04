@@ -17,21 +17,33 @@ module SCSSLint
 
       case config['style']
       when 'no_space'
-        if spaces > 0
-          add_lint(node, 'Colon after property should not be followed by any spaces')
-        end
+        check_for_no_spaces(node, spaces)
       when 'one_space'
-        if spaces != 1
-          add_lint(node, 'Colon after property should be followed by one space')
-        end
+        check_for_one_space(node, spaces)
       when 'at_least_one_space'
-        if spaces < 1
-          add_lint(node, 'Colon after property should be followed by at least one space')
-        end
+        check_for_at_least_one_space(node, spaces)
       end
     end
 
   private
+
+    def check_for_no_spaces(node, spaces)
+      if spaces > 0
+        add_lint(node, 'Colon after property should not be followed by any spaces')
+      end
+    end
+
+    def check_for_one_space(node, spaces)
+      if spaces != 1
+        add_lint(node, 'Colon after property should be followed by one space')
+      end
+    end
+
+    def check_for_at_least_one_space(node, spaces)
+      if spaces < 1
+        add_lint(node, 'Colon after property should be followed by at least one space')
+      end
+    end
 
     def check_properties_alignment(rule_node)
       properties = rule_node.children.select { |node| node.is_a?(Sass::Tree::PropNode) }
