@@ -28,21 +28,18 @@ module SCSSLint
   private
 
     def check_for_no_spaces(node, spaces)
-      if spaces > 0
-        add_lint(node, 'Colon after property should not be followed by any spaces')
-      end
+      return if spaces == 0
+      add_lint(node, 'Colon after property should not be followed by any spaces')
     end
 
     def check_for_one_space(node, spaces)
-      if spaces != 1
-        add_lint(node, 'Colon after property should be followed by one space')
-      end
+      return if spaces == 1
+      add_lint(node, 'Colon after property should be followed by one space')
     end
 
     def check_for_at_least_one_space(node, spaces)
-      if spaces < 1
-        add_lint(node, 'Colon after property should be followed by at least one space')
-      end
+      return if spaces >= 1
+      add_lint(node, 'Colon after property should be followed by at least one space')
     end
 
     def check_properties_alignment(rule_node)
