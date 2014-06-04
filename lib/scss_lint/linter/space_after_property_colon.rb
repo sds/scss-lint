@@ -4,24 +4,53 @@ module SCSSLint
   class Linter::SpaceAfterPropertyColon < Linter
     include LinterRegistry
 
-    MINIMUM_SPACES_AFTER_COLON = 1
+    def visit_rule(node)
+      if config['style'] == 'aligned'
+        check_properties_alignment(node)
+      end
+
+      yield # Continue linting children
+    end
 
     def visit_prop(node)
       spaces = spaces_after_colon(node)
 
-      if config['allow_extra_spaces']
-        if spaces < MINIMUM_SPACES_AFTER_COLON
-          add_lint node, 'Colon after property should be followed by ' \
-                         "at least #{pluralize(MINIMUM_SPACES_AFTER_COLON, 'space')}"
+      case config['style']
+      when 'no_space'
+        if spaces > 0
+          add_lint(node, 'Colon after property should not be followed by any spaces')
         end
-      elsif spaces != MINIMUM_SPACES_AFTER_COLON
-        add_lint node, 'Colon after property should be followed by ' \
-                       "#{pluralize(MINIMUM_SPACES_AFTER_COLON, 'space')} " \
-                       "instead of #{pluralize(spaces, 'space')}"
+      when 'one_space'
+        if spaces != 1
+          add_lint(node, 'Colon after property should be followed by one space')
+        end
+      when 'at_least_one_space'
+        if spaces < 1
+          add_lint(node, 'Colon after property should be followed by at least one space')
+        end
       end
     end
 
   private
+
+    def check_properties_alignment(rule_node)
+      properties = rule_node.children.select { |node| node.is_a?(Sass::Tree::PropNode) }
+
+      properties.each_slice(2) do |prop1, prop2|
+        next unless prop2
+        next unless value_offset(prop1) != value_offset(prop2)
+        add_lint(prop1, 'Property values should be aligned')
+        break
+      end
+    end
+
+    # Offset of value for property
+    def value_offset(prop)
+      src_range = prop.name_source_range
+      src_range.start_pos.offset +
+        (src_range.end_pos.offset - src_range.start_pos.offset) +
+        spaces_after_colon(prop)
+    end
 
     def spaces_after_colon(node)
       spaces = 0

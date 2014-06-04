@@ -9,6 +9,8 @@
   a lint
 * Add `ElsePlacement` linter which checks the position of `@else` directives
   with respect to the previous curly brace
+* Replace `allow_extra_spaces` option on `SpaceAfterPropertyColon` linter with
+  `style` which accepts multiple different property spacing styles
 
 ## 0.24.1
 

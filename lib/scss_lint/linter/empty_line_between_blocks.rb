@@ -72,12 +72,5 @@ module SCSSLint
       index = siblings.index(node)
       siblings[index - 1] if index > 0 && siblings.count > 1
     end
-
-    def node_siblings(node)
-      return unless node && node.node_parent
-      node.node_parent
-          .children
-          .select { |child| child.is_a?(Sass::Tree::Node) }
-    end
   end
 end

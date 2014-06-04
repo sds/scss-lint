@@ -41,6 +41,13 @@ module SCSSLint
       end
     end
 
+    def node_siblings(node)
+      return unless node && node.node_parent
+      node.node_parent
+          .children
+          .select { |child| child.is_a?(Sass::Tree::Node) }
+    end
+
     def pluralize(value, word)
       value == 1 ? "#{value} #{word}" : "#{value} #{word}s"
     end
