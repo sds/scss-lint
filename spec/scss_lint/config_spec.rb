@@ -80,7 +80,7 @@ describe SCSSLint::Config do
       it 'stores a warning for the unknown linter' do
         subject.warnings
                .any? { |warning| warning.include?('MadeUpLinterName') }
-               .should be_true
+               .should be true
       end
     end
 
@@ -372,7 +372,7 @@ describe SCSSLint::Config do
       let(:config_file) { 'linters: {}' }
 
       it 'does not exclude any files' do
-        config.excluded_file?('anything/you/want.scss').should be_false
+        config.excluded_file?('anything/you/want.scss').should be false
       end
     end
 
@@ -380,13 +380,13 @@ describe SCSSLint::Config do
       let(:config_file) { "exclude: 'foo/bar/baz/**'" }
 
       it 'does not exclude anything not matching the glob' do
-        config.excluded_file?("#{config_dir}/foo/bar/something.scss").should be_false
-        config.excluded_file?("#{config_dir}/other/something.scss").should be_false
+        config.excluded_file?("#{config_dir}/foo/bar/something.scss").should be false
+        config.excluded_file?("#{config_dir}/other/something.scss").should be false
       end
 
       it 'excludes anything matching the glob' do
-        config.excluded_file?("#{config_dir}/foo/bar/baz/excluded.scss").should be_true
-        config.excluded_file?("#{config_dir}/foo/bar/baz/dir/excluded.scss").should be_true
+        config.excluded_file?("#{config_dir}/foo/bar/baz/excluded.scss").should be true
+        config.excluded_file?("#{config_dir}/foo/bar/baz/dir/excluded.scss").should be true
       end
     end
   end
