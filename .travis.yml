@@ -7,7 +7,3 @@ rvm:
 script:
   - bundle exec rspec
   - bundle exec rubocop
-
-matrix:
-  allow_failures:
-    - rvm: 2.1.0
