@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.25.0
 
 * Fix bug in `Indentation` linter where `@at-root` directives with inline
   selectors would erroneously report incorrect indentation levels
