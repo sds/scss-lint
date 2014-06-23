@@ -40,4 +40,24 @@ describe SCSSLint::Linter::PlaceholderInExtend do
 
     it { should_not report_lint }
   end
+
+  context 'when extending with a selector whose prefix is not a placeholder' do
+    let(:css) { <<-CSS }
+      p {
+        @extend .blah-\#{$dynamically_generated_name};
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+  end
+
+  context 'when extending with a selector whose prefix is dynamic' do
+    let(:css) { <<-CSS }
+      p {
+        @extend \#{$dynamically_generated_placeholder_name};
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end

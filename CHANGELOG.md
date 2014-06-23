@@ -11,6 +11,8 @@
   with respect to the previous curly brace
 * Replace `allow_extra_spaces` option on `SpaceAfterPropertyColon` linter with
   `style` which accepts multiple different property spacing styles
+* Fix bug in `PlaceholderInExtend` linter which erroneously report lints for
+  selectors with interpolated strings
 
 ## 0.24.1
 
