@@ -176,4 +176,13 @@ describe SCSSLint::Linter::Indentation do
 
     it { should_not report_lint }
   end
+
+  context 'when a comment node precedes a node' do
+    let(:css) { <<-CSS }
+      // A comment
+      $var: 1;
+    CSS
+
+    it { should_not report_lint }
+  end
 end

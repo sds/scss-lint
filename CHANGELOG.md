@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix bug in `Indentation` linter where it would crash when a comment
+  preceded a line whose indentation was being checked
+
 ## 0.25.0
 
 * Fix bug in `Indentation` linter where `@at-root` directives with inline

@@ -25,9 +25,7 @@ module SCSSLint
 
       # Ignore the case where the node is on the same line as its previous
       # sibling or its parent, as indentation isn't possible
-      return if (previous = previous_node(node)) &&
-        (previous.line == node.line ||
-         previous.source_range.end_pos.line == node.line)
+      return if nodes_on_same_line?(previous_node(node), node)
 
       actual_indent = engine.lines[node.line - 1][/^(\s*)/, 1]
 
@@ -96,6 +94,13 @@ module SCSSLint
     alias_method :visit_warn,      :check_indentation
 
   private
+
+    def nodes_on_same_line?(node1, node2)
+      return unless node1
+
+      node1.line == node2.line ||
+        (node1.source_range && node1.source_range.end_pos.line == node2.line)
+    end
 
     def at_root_contains_inline_selector?(node)
       return unless node.children.any?
