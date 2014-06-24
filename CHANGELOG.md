@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.25.1
 
 * Fix bug in `Indentation` linter where it would crash when a comment
   preceded a line whose indentation was being checked
