@@ -10,6 +10,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [DebugStatement](#debugstatement)
 * [DeclarationOrder](#declarationorder)
 * [DuplicateProperty](#duplicateproperty)
+* [ElsePlacement](#elseplacement)
 * [EmptyLineBetweenBlocks](#emptylinebetweenblocks)
 * [EmptyRule](#emptyrule)
 * [FinalNewline](#finalnewline)
