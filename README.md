@@ -3,6 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/scss-lint.svg)](http://badge.fury.io/rb/scss-lint)
 [![Build Status](https://travis-ci.org/causes/scss-lint.svg)](https://travis-ci.org/causes/scss-lint)
 [![Code Climate](https://codeclimate.com/github/causes/scss-lint.png)](https://codeclimate.com/github/causes/scss-lint)
+[![Inline docs](http://inch-ci.org/github/causes/scss-lint.svg?branch=master)](http://inch-ci.org/github/causes/scss-lint)
 [![Dependency Status](https://gemnasium.com/causes/scss-lint.svg)](https://gemnasium.com/causes/scss-lint)
 
 `scss-lint` is a tool to help keep your [SCSS](http://sass-lang.com) files
