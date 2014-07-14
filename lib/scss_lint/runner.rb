@@ -40,7 +40,7 @@ module SCSSLint
         next if config.excluded_file_for_linter?(file, linter)
 
         begin
-          linter.run(engine, config.linter_options(linter))
+          run_linter(linter, engine, config)
         rescue => error
           raise LinterError,
                 "#{linter.class} raised unexpected error linting file #{file}: " \
@@ -52,6 +52,11 @@ module SCSSLint
       @lints << Lint.new(nil, ex.sass_filename, Location.new(ex.sass_line), ex.to_s, :error)
     rescue FileEncodingError => ex
       @lints << Lint.new(nil, file, Location.new, ex.to_s, :error)
+    end
+
+    # For stubbing in tests.
+    def run_linter(linter, engine, config)
+      linter.run(engine, config.linter_options(linter))
     end
   end
 end

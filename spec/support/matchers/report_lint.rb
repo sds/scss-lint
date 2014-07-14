@@ -7,7 +7,7 @@ RSpec::Matchers.define :report_lint do |options|
     has_lints?(linter, expected_line, count)
   end
 
-  failure_message_for_should do |linter|
+  failure_message do |linter|
     'expected that a lint would be reported' +
       (expected_line ? " on line #{expected_line}" : '') +
       case linter.lints.count
@@ -21,7 +21,7 @@ RSpec::Matchers.define :report_lint do |options|
       end
   end
 
-  failure_message_for_should_not do
+  failure_message_when_negated do
     'expected that a lint would not be reported'
   end
 

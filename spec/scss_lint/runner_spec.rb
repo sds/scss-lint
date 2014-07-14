@@ -113,7 +113,7 @@ describe SCSSLint::Runner do
       end
 
       before do
-        SCSSLint::Linter::FakeLinter1.any_instance.stub(:run).and_raise(error)
+        runner.stub(:run_linter).and_raise(error)
       end
 
       it 'raises a LinterError' do

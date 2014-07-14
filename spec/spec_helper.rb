@@ -4,6 +4,14 @@ require 'nokogiri'
 Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each { |f| require f }
 
 RSpec.configure do |config|
+  config.expect_with :rspec do |c|
+    c.syntax = [:expect, :should]
+  end
+
+  config.mock_with :rspec do |c|
+    c.syntax = :should
+  end
+
   config.before(:each) do
     # If running a linter spec, run the described linter against the CSS code
     # for each example. This significantly DRYs up our linter specs to contain

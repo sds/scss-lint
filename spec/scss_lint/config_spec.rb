@@ -415,7 +415,7 @@ describe SCSSLint::Config do
         config.excluded_file_for_linter?(
           "#{config_dir}/anything/you/want.scss",
           SCSSLint::Linter::FakeConfigLinter.new
-        ).should be_false
+        ).should == false
       end
     end
 
@@ -432,7 +432,7 @@ describe SCSSLint::Config do
         config.excluded_file_for_linter?(
           "#{config_dir}/anything/you/want.scss",
           SCSSLint::Linter::FakeConfigLinter.new
-        ).should be_true
+        ).should == true
       end
     end
   end
