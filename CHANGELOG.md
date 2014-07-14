@@ -4,6 +4,7 @@
 
 * Fix bug in `SpaceBeforeBrace` linter where an erroneous lint would
   be reported for a brace on its own line
+* Update `sass` dependency to require 3.3.7 or later (fixes a parsing bug)
 
 ## 0.25.1
 
