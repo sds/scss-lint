@@ -27,16 +27,17 @@ module SCSSLint
 
     def check_for_space(node, string)
       line = node.source_range.end_pos.line
+      char_before_is_whitespace = ["\n", ' '].include?(string[-2])
 
       if config['allow_single_line_padding'] && node_on_single_line?(node)
-        if string[-2] != ' '
+        unless char_before_is_whitespace
           add_lint(line, 'Opening curly brace `{` should be ' \
-                              'preceded by at least one space')
+                         'preceded by at least one space')
         end
       else
-        if string[-2] != ' ' || string[-3] == ' '
+        if !char_before_is_whitespace || string[-3] == ' '
           add_lint(line, 'Opening curly brace `{` should be ' \
-                              'preceded by one space')
+                         'preceded by one space')
         end
       end
     end

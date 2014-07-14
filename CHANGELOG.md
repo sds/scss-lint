@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix bug in `SpaceBeforeBrace` linter where an erroneous lint would
+  be reported for a brace on its own line
+
 ## 0.25.1
 
 * Fix bug in `Indentation` linter where it would crash when a comment

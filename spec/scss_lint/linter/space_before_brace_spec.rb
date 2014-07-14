@@ -434,4 +434,14 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
 
     it { should_not report_lint }
   end
+
+  context 'when curly brace is on own line' do
+    let(:css) { <<-CSS }
+      .class
+      {
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end
