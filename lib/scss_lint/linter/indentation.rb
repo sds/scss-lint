@@ -4,12 +4,8 @@ module SCSSLint
     include LinterRegistry
 
     def visit_root(_node)
-      @indent_spaces = config['spaces']
-      if @indent_spaces
-        @indent_width = config['width']
-      else
-        @indent_width = 1
-      end
+      @indent_width = config['width']
+      @indent_character = config['character'] || :space
       @indent = 0
       yield
     end
