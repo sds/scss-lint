@@ -5,6 +5,7 @@ module SCSSLint
 
     def visit_root(_node)
       @indent_width = config['width']
+      @indent_character = config['character'] || 'space'
       @indent = 0
       yield
     end
@@ -27,13 +28,17 @@ module SCSSLint
       # sibling or its parent, as indentation isn't possible
       return if nodes_on_same_line?(previous_node(node), node)
 
-      actual_indent = engine.lines[node.line - 1][/^(\s*)/, 1]
+      if @indent_character == 'tab'
+        actual_indent = engine.lines[node.line - 1][/^(\t*)/, 1]
+      else
+        actual_indent = engine.lines[node.line - 1][/^([ ]*)/, 1]
+      end
 
       return if actual_indent.length == @indent
 
       add_lint(node.line,
-               "Line should be indented #{@indent} spaces, " \
-               "but was indented #{actual_indent.length} spaces")
+               "Line should be indented #{@indent} #{@indent_character}s, " \
+               "but was indented #{actual_indent.length} #{@indent_character}s")
       true
     end
 
