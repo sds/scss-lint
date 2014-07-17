@@ -52,7 +52,7 @@ linters:
 
   Indentation:
     enabled: true
-    spaces: true
+    character: :space # or ':tab'
     width: 2
 
   LeadingZero:
