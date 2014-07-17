@@ -4,8 +4,12 @@ module SCSSLint
     include LinterRegistry
 
     def visit_root(_node)
-      @indent_width = config['width']
       @indent_spaces = config['spaces']
+      if @indent_spaces
+        @indent_width = config['width']
+      else
+        @indent_width = 1
+      end
       @indent = 0
       yield
     end
@@ -28,8 +32,12 @@ module SCSSLint
       # sibling or its parent, as indentation isn't possible
       return if nodes_on_same_line?(previous_node(node), node)
 
-      actual_indent = engine.lines[node.line - 1][/^(\s*)/, 1]
-
+      if @indent_spaces
+        actual_indent = engine.lines[node.line - 1][/^(\s*)/, 1]
+      else
+        actual_indent = engine.lines[node.line - 1][/^(\t*)/, 1]
+      end
+      
       return if actual_indent.length == @indent
 
       add_lint(node.line,
