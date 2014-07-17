@@ -5,6 +5,7 @@ module SCSSLint
 
     def visit_root(_node)
       @indent_width = config['width']
+      @indent_spaces = config['spaces']
       @indent = 0
       yield
     end
