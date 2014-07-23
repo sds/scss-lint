@@ -5,6 +5,8 @@
 * Fix bug in `SpaceBeforeBrace` linter where an erroneous lint would
   be reported for a brace on its own line
 * Update `sass` dependency to require 3.3.7 or later (fixes a parsing bug)
+* Add `character` option to `Indentation` linter which allows specifying
+  tabs or spaces as the indentation character of choice
 
 ## 0.25.1
 

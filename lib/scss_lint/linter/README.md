@@ -372,7 +372,7 @@ in the first place.
 
 ## Indentation
 
-Use two spaces per indentation level. No hard tabs.
+Use two spaces per indentation level.
 
 **Bad: four spaces**
 ```scss
@@ -388,9 +388,12 @@ p {
 }
 ```
 
+You can configure this linter to prefer tabs if you like.
+
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`width`              | Number of spaces per indentation level (default **2**)
+`character`          | `tab` or `space` (default **space**)
+`width`              | Number of `character`s per indentation level (default **2**)
 
 ## LeadingZero
 
