@@ -185,4 +185,48 @@ describe SCSSLint::Linter::Indentation do
 
     it { should_not report_lint }
   end
+
+  context 'when a line is indented with tabs' do
+    let(:css) { <<-CSS }
+      p {
+      \tmargin: 0;
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+  end
+
+  context 'when tabs are preferred' do
+    let(:linter_config) { { 'character' => 'tab', 'width' => 1 } }
+
+    context 'and the line is indented correctly' do
+      let(:css) { <<-CSS }
+        p {
+        \tmargin: 0;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and the line is incorrectly indented' do
+      let(:css) { <<-CSS }
+        p {
+        \t\tmargin: 0;
+        }
+      CSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'and the line is indented with spaces' do
+      let(:css) { <<-CSS }
+        p {
+          margin: 0;
+        }
+      CSS
+
+      it { should report_lint line: 2 }
+    end
+  end
 end

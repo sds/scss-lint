@@ -4,7 +4,7 @@ module SCSSLint
     include LinterRegistry
 
     def visit_root(_node)
-      @indent_width = config['width']
+      @indent_width = config['width'].to_i
       @indent_character = config['character'] || 'space'
       @indent = 0
       yield
