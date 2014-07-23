@@ -12,8 +12,9 @@ module SCSSLint
     # Subset of semantic exit codes conforming to `sysexits` documentation.
     EXIT_CODES = {
       ok:        0,
+      warning:   1,  # One or more warnings (but no errors) were reported
+      error:     2,  # One or more errors were reported
       usage:     64, # Command line usage error
-      data:      65, # User input was incorrect (i.e. contains lints)
       no_input:  66, # Input file did not exist or was not readable
       software:  70, # Internal software error
       config:    78, # Configuration error
@@ -93,11 +94,16 @@ module SCSSLint
       end
     end
 
-    def run
+    def run # rubocop:disable MethodLength
       runner = Runner.new(@config)
       runner.run(files_to_lint)
       report_lints(runner.lints)
-      halt :data if runner.lints.any?
+
+      if runner.lints.any? { |lint| lint.error? }
+        halt :error
+      elsif runner.lints.any?
+        halt :warning
+      end
     rescue InvalidConfiguration => ex
       puts ex
       halt :config

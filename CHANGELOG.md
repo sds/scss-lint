@@ -8,7 +8,8 @@
 * Add `character` option to `Indentation` linter which allows specifying
   tabs or spaces as the indentation character of choice
 * Add `severity` option allowing the severity level of a lint to be configured
-  (the default severity for all lints has been changed to `error`)
+* Change CLI to return exit code of `1` if only warnings are reported, or `2`
+  if any errors are reported (was previously `65` for either)
 
 ## 0.25.1
 

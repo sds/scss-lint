@@ -232,6 +232,54 @@ describe SCSSLint::CLI do
       end
     end
 
+    context 'when there are only warnings' do
+      before do
+        SCSSLint::Runner.any_instance.stub(:lints).and_return([
+          SCSSLint::Lint.new(
+            SCSSLint::Linter::FakeTestLinter1.new,
+            'some-file.scss',
+            SCSSLint::Location.new(1, 1, 1),
+            'Some description',
+            :warning,
+          ),
+        ])
+      end
+
+      it 'exits cleanly' do
+        subject.should_receive(:halt).with(:warning)
+        safe_run
+      end
+
+      it 'outputs the warnings' do
+        safe_run
+        @output.should include 'Some description'
+      end
+    end
+
+    context 'when there are errors' do
+      before do
+        SCSSLint::Runner.any_instance.stub(:lints).and_return([
+          SCSSLint::Lint.new(
+            SCSSLint::Linter::FakeTestLinter1.new,
+            'some-file.scss',
+            SCSSLint::Location.new(1, 1, 1),
+            'Some description',
+            :error,
+          ),
+        ])
+      end
+
+      it 'exits with an error status code' do
+        subject.should_receive(:halt).with(:error)
+        safe_run
+      end
+
+      it 'outputs the errors' do
+        safe_run
+        @output.should include 'Some description'
+      end
+    end
+
     context 'when the runner raises an error' do
       let(:backtrace) { %w[file1.rb file2.rb] }
       let(:message) { 'Some error message' }
