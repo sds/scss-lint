@@ -206,6 +206,23 @@ scss-lint --format=XML [scss-files...]
 </lint>
 ```
 
+## Exit Status Codes
+
+`scss-lint` tries to use
+[semantic exit statuses](http://www.gsp.com/cgi-bin/man.cgi?section=3&topic=sysexits)
+wherever possible, but the full list of codes and the conditions under which they are
+returned is listed here for completeness.
+
+Exit Status | Description
+------------|-------------------------------------------------------------
+`0`         | No lints were found
+`1`         | Lints with a severity of `warning` were reported (no errors)
+`2`         | One or more errors were reported (and any number of warnings)
+`64`        | Command line usage error (invalid flag, etc.)
+`66`        | One or more files specified were not found
+`70`        | Unexpected error (i.e. a bug); please [report it](https://github.com/causes/scss-lint/issues)
+`78`        | Invalid configuration file; your [YAML](http://www.yaml.org/) is likely incorrect
+
 ## Linters
 
 `scss-lint` is a customizable tool with opinionated defaults that helps you
