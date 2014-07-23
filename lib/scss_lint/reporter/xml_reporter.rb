@@ -9,7 +9,8 @@ module SCSSLint
         output << "<file name=#{filename.encode(xml: :attr)}>"
 
         file_lints.each do |lint|
-          output << "<issue line=\"#{lint.location.line}\" " \
+          output << "<issue linter=\"#{lint.linter.name if lint.linter}\" " \
+                           "line=\"#{lint.location.line}\" " \
                            "column=\"#{lint.location.column}\" " \
                            "length=\"#{lint.location.length}\" " \
                            "severity=\"#{lint.severity}\" " \
