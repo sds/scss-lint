@@ -6,8 +6,13 @@ module SCSSLint
 
       lints.map do |lint|
         type = lint.error? ? '[E]'.color(:red) : '[W]'.color(:yellow)
-        "#{lint.filename.color(:cyan)}:" << "#{lint.location.line}".color(:magenta) <<
-                                    " #{type} #{lint.description}"
+
+        linter_name = "#{lint.linter.name}: ".color(:green) if lint.linter
+        message = "#{linter_name}#{lint.description}"
+
+        "#{lint.filename.color(:cyan)}:" <<
+          "#{lint.location.line}".color(:magenta) <<
+          " #{type} #{message}"
       end.join("\n") + "\n"
     end
   end

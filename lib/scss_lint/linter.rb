@@ -20,6 +20,12 @@ module SCSSLint
       visit(engine.tree)
     end
 
+    # Return the human-friendly name of this linter as specified in the
+    # configuration file and in lint descriptions.
+    def name
+      self.class.name.split('::')[2..-1].join('::')
+    end
+
   protected
 
     # Helper for creating lint from a parse tree node

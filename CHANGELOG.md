@@ -10,6 +10,7 @@
 * Add `severity` option allowing the severity level of a lint to be configured
 * Change CLI to return exit code of `1` if only warnings are reported, or `2`
   if any errors are reported (was previously `65` for either)
+* Include linter name in lint description
 
 ## 0.25.1
 
