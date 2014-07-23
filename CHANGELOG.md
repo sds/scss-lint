@@ -7,6 +7,8 @@
 * Update `sass` dependency to require 3.3.7 or later (fixes a parsing bug)
 * Add `character` option to `Indentation` linter which allows specifying
   tabs or spaces as the indentation character of choice
+* Add `severity` option allowing the severity level of a lint to be configured
+  (the default severity for all lints has been changed to `error`)
 
 ## 0.25.1
 

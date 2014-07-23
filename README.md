@@ -84,18 +84,21 @@ exclude: 'app/assets/stylesheets/plugins/**'
 linters:
   BorderZero:
     enabled: false
+
+  Indentation:
     exclude:
       - 'path/to/file.scss'
       - 'path/to/directory/**'
-
-  Indentation:
-    enabled: true
+    severity: warning
     width: 2
 ```
 
 All linters have an `enabled` option which can be `true` or `false`, which
 controls whether the linter is run, along with linter-specific options. The
 defaults are defined in `config/default.yml`.
+
+Furthermore, the `severity` option allows you to specify whether the lint
+should be treated as a `warning` or an `error`.
 
 The `inherit_from` directive allows a configuration file to inherit settings
 from another configuration file. The file specified by `inherit_from` is loaded

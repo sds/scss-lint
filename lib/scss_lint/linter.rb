@@ -10,6 +10,8 @@ module SCSSLint
       @lints = []
     end
 
+    # Run this linter against a parsed document with a given configuration.
+    #
     # @param engine [Engine]
     # @param config [Config]
     def run(engine, config)
@@ -28,7 +30,8 @@ module SCSSLint
       @lints << Lint.new(self,
                          engine.filename,
                          extract_location(node_or_line_or_location),
-                         message)
+                         message,
+                         @config.fetch('severity', :warning).to_sym)
     end
 
     # Extract {SCSSLint::Location} from a {Sass::Source::Range}.
