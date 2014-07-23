@@ -196,6 +196,16 @@ describe SCSSLint::Linter::Indentation do
     it { should report_lint line: 2 }
   end
 
+  context 'when a line contains a mix of tabs and spaces' do
+    let(:css) { <<-CSS }
+      p {
+        \tmargin: 0;
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+  end
+
   context 'when tabs are preferred' do
     let(:linter_config) { { 'character' => 'tab', 'width' => 1 } }
 

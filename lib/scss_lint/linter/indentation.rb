@@ -29,17 +29,34 @@ module SCSSLint
       return if nodes_on_same_line?(previous_node(node), node)
 
       if @indent_character == 'tab'
-        actual_indent = engine.lines[node.line - 1][/^(\t*)/, 1]
+        other_character = ' '
+        other_character_name = 'space'
       else
-        actual_indent = engine.lines[node.line - 1][/^([ ]*)/, 1]
+        other_character = "\t"
+        other_character_name = 'tab'
       end
 
-      return if actual_indent.length == @indent
+      check_indent_width(node, other_character, @indent_character, other_character_name)
+    end
 
-      add_lint(node.line,
-               "Line should be indented #{@indent} #{@indent_character}s, " \
-               "but was indented #{actual_indent.length} #{@indent_character}s")
-      true
+    def check_indent_width(node, other_character, character_name, other_character_name)
+      actual_indent = engine.lines[node.line - 1][/^(\s*)/, 1]
+
+      if actual_indent.include?(other_character)
+        add_lint(node.line,
+                 "Line should be indented with #{character_name}s, " \
+                 "not #{other_character_name}s")
+        return true
+      end
+
+      unless actual_indent.length == @indent
+        add_lint(node.line,
+                 "Line should be indented #{@indent} #{character_name}s, " \
+                 "but was indented #{actual_indent.length} #{character_name}s")
+        return true
+      end
+
+      false
     end
 
     # Deal with `else` statements
