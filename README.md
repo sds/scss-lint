@@ -97,6 +97,8 @@ All linters have an `enabled` option which can be `true` or `false`, which
 controls whether the linter is run, along with linter-specific options. The
 defaults are defined in `config/default.yml`.
 
+### Severities
+
 The `severity` option allows you to specify whether the lint should be treated
 as a `warning` or an `error`. Warnings cause `scss-lint` to exit with a
 different error code than errors (unless both warnings _and_ errors are
@@ -105,10 +107,14 @@ integrating `scss-lint` with build systems or other executables, as you can
 rely on its exit status code to indicate whether a lint actually requires
 attention.
 
+### Extending Configurations
+
 The `inherit_from` directive allows a configuration file to inherit settings
 from another configuration file. The file specified by `inherit_from` is loaded
 and then merged with the settings in the current file (settings in the current
 file overrule those in the inherited file).
+
+### Excluding Files
 
 The `exclude` directive allows you to specify a glob pattern of files that
 should not be linted by `scss-lint`. Paths are relative to the location of the
@@ -118,11 +124,15 @@ additional exclusions specified via the `--exclude` flag are also combined. If
 you need to exclude files for a single linter you can specify the list of files
 using the linter's `exclude` configuration option.
 
+### Explicit Configuration File
+
 You can also configure `scss-lint` by specifying a file via the `--config`
 flag, but note that this will override any configuration files that `scss-lint`
 would normally find on its own (this can be useful for testing a particular
 configuration setting, however). Configurations loaded this way will still be
 merged with the default configuration specified by `config/default.yml`.
+
+### Generating a Configuration
 
 To start using `scss-lint` you can use the [`Config` Formatter](#config),
 which will generate an `.scss-lint.yml` configuration file with all linters
