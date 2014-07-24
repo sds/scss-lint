@@ -204,4 +204,34 @@ describe SCSSLint::Linter::PropertySortOrder do
       it { should_not report_lint }
     end
   end
+
+  context 'when sort order is set to a preset order' do
+    let(:linter_config) { { 'order' => 'concentric' } }
+
+    context 'and the properties match the order' do
+      let(:css) { <<-CSS }
+        p {
+          display: block;
+          position: absolute;
+          float: left;
+          clear: both;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and the properties do not match the order' do
+      let(:css) { <<-CSS }
+        p {
+          clear: both;
+          display: block;
+          float: left;
+          position: absolute;
+        }
+      CSS
+
+      it { should report_lint }
+    end
+  end
 end

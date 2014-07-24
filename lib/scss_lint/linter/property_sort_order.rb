@@ -3,6 +3,11 @@ module SCSSLint
   class Linter::PropertySortOrder < Linter
     include LinterRegistry
 
+    def visit_root(_node)
+      @preferred_order = extract_preferred_order_from_config
+      yield
+    end
+
     def visit_rule(node)
       # Ignore properties that contain interpolation
       sortable_props = node.children.select do |child|
@@ -23,7 +28,7 @@ module SCSSLint
       sorted_props.each_with_index do |prop, index|
         next unless prop != sortable_prop_info[index]
 
-        add_lint(sortable_props[index], MESSAGE)
+        add_lint(sortable_props[index], lint_message)
         break
       end
 
@@ -31,9 +36,6 @@ module SCSSLint
     end
 
   private
-
-    MESSAGE = 'Properties should be sorted in order, with vendor-prefixed ' \
-              'extensions before the standardized CSS property'
 
     # Compares two properties which can contain a vendor prefix. It allows for a
     # sort order like:
@@ -53,8 +55,8 @@ module SCSSLint
       if a[:property] == b[:property]
         compare_by_vendor(a, b)
       else
-        if config['order']
-          compare_by_order(a, b, config['order'])
+        if @preferred_order
+          compare_by_order(a, b, @preferred_order)
         else
           a[:property] <=> b[:property]
         end
@@ -76,6 +78,45 @@ module SCSSLint
     def compare_by_order(a, b, order)
       (order.index(a[:property]) || Float::INFINITY) <=>
         (order.index(b[:property]) || Float::INFINITY)
+    end
+
+    def extract_preferred_order_from_config
+      case config['order']
+      when nil
+        nil # No custom order specified
+      when Array
+        config['order']
+      when String
+        begin
+          file = File.open(File.join(SCSS_LINT_DATA,
+                                     'property-sort-orders',
+                                     "#{config['order']}.txt"))
+          file.read.split("\n").reject { |line| line =~ /^(#|\s*$)/ }
+        rescue Errno::ENOENT
+          raise SCSSLint::LinterError,
+                "Preset property sort order '#{config['order']}' does not exist"
+        end
+      else
+        raise SCSSLint::LinterError,
+              'Invalid property sort order specified -- must be the name of a '\
+              'preset or an array of strings'
+      end
+    end
+
+    def preset_order?
+      config['order'].is_a?(String)
+    end
+
+    def lint_message
+      if preset_order?
+        "Properties should be sorted according to the #{config['order']} sort order"
+      elsif @preferred_order
+        'Properties should be sorted according to the custom order ' \
+        'specified by the configuration'
+      else
+        'Properties should be sorted in order, with vendor-prefixed ' \
+        'extensions before the standardized CSS property'
+      end
     end
   end
 end

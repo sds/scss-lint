@@ -1,4 +1,5 @@
 require 'scss_lint/constants'
+require 'scss_lint/exceptions'
 require 'scss_lint/config'
 require 'scss_lint/engine'
 require 'scss_lint/location'

@@ -560,9 +560,10 @@ execute `:sort` in `vim`), and it can
 
 You can also specify an explicit ordering via the `order` option, which allows
 you to specify an explicit array of properties representing the preferred
-order. If a property is not in your explicit list, it will be placed at the
-bottom of the list, disregarding its order relative to other unspecified
-properties.
+order, or the name of a
+[preset order](https://github.com/causes/scss-lint/tree/master/data/property-sort-orders).
+If a property is not in your explicit list, it will be placed at the bottom of
+the list, disregarding its order relative to other unspecified properties.
 
 If you need to write vendor-prefixed properties, the linter will allow you to
 order the vendor-prefixed properties before the standard CSS property they
@@ -588,7 +589,7 @@ vendor-prefixed properties will still be ordered based on the example above
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`order`              | Array of properties (default is `nil`, resulting in alphabetical ordering)
+`order`              | Array of properties, or the name of a [preset order](https://github.com/causes/scss-lint/tree/master/data/property-sort-orders) (default is `nil`, resulting in alphabetical ordering)
 
 ## PropertySpelling
 
