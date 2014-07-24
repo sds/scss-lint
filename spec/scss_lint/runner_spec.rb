@@ -117,7 +117,7 @@ describe SCSSLint::Runner do
       end
 
       it 'raises a LinterError' do
-        expect { subject }.to raise_error(SCSSLint::LinterError)
+        expect { subject }.to raise_error(SCSSLint::Exceptions::LinterError)
       end
 
       it 'has the name of the file the linter was checking' do

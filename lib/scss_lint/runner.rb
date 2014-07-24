@@ -1,5 +1,4 @@
 module SCSSLint
-  class LinterError < StandardError; end
   class NoFilesError < StandardError; end
 
   # Finds and aggregates all lints found by running the registered linters
@@ -42,7 +41,7 @@ module SCSSLint
         begin
           run_linter(linter, engine, config)
         rescue => error
-          raise LinterError,
+          raise SCSSLint::Exceptions::LinterError,
                 "#{linter.class} raised unexpected error linting file #{file}: " \
                 "'#{error.message}'",
                 error.backtrace
