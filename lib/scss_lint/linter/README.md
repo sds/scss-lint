@@ -27,6 +27,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [PropertySpelling](#propertyspelling)
 * [SelectorDepth](#selectordepth)
 * [Shorthand](#shorthand)
+* [SingleLinePerProperty](#singlelineperproperty)
 * [SingleLinePerSelector](#singlelineperselector)
 * [SpaceAfterComma](#spaceaftercomma)
 * [SpaceAfterPropertyColon](#spaceafterpropertycolon)
@@ -675,6 +676,39 @@ margin: 1px 1px 1px 1px;
 ```scss
 margin: 1px;
 ```
+
+## SingleLinePerProperty
+
+Properties within rule sets should each reside on their own line.
+
+**Bad**
+```scss
+p {
+  margin: 0; padding: 0;
+}
+```
+
+**Good**
+```scss
+p {
+  margin: 0;
+  padding: 0;
+}
+```
+
+A special exception is made for single line rule sets. For example the
+following is acceptable:
+
+```scss
+p { margin: 0; padding: 0; }
+```
+
+If you want to also report a lint for single line rule sets, set the
+`allow_single_line_rule_sets` option to `false`.
+
+Configuration Option          | Description
+------------------------------|----------------------------------------------
+`allow_single_line_rule_sets` | `true` or `false` (default **true**)
 
 ## SingleLinePerSelector
 

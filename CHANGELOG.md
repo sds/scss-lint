@@ -11,6 +11,8 @@
 * Change CLI to return exit code of `1` if only warnings are reported, or `2`
   if any errors are reported (was previously `65` for either)
 * Include linter name in lint description
+* Add `SingleLinePerProperty` linter which checks that properties each reside
+  on their own line
 
 ## 0.25.1
 
