@@ -17,6 +17,9 @@
   `order` property
 * Add [`concentric`](http://rhodesmill.org/brandon/2011/concentric-css/) preset
   sort order to the `PropertySortOrder` linter
+* Add `ignore_unspecified` option to `PropertySortOrder` to indicate that
+  unspecified properties in custom sort orderings are to be ignored (i.e. they
+  can appear anywhere)
 
 ## 0.25.1
 

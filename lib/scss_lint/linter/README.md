@@ -609,6 +609,7 @@ vendor-prefixed properties will still be ordered based on the example above
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `order`              | Array of properties, or the name of a [preset order](https://github.com/causes/scss-lint/tree/master/data/property-sort-orders) (default is `nil`, resulting in alphabetical ordering)
+`ignore_unspecified` | Whether to ignore properties that are not explicitly specified in `order` (default **false**)
 
 ## PropertySpelling
 

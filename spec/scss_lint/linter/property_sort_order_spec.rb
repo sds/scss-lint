@@ -161,7 +161,7 @@ describe SCSSLint::Linter::PropertySortOrder do
   end
 
   context 'when the order has been explicitly set' do
-    let(:linter_config) { { 'order' => %w[position display padding margin] } }
+    let(:linter_config) { { 'order' => %w[position display padding margin width] } }
 
     context 'and the properties match the specified order' do
       let(:css) { <<-CSS }
@@ -192,16 +192,25 @@ describe SCSSLint::Linter::PropertySortOrder do
         p {
           display: block;
           padding: 5px;
+          font-weight: bold; // Unspecified
           margin: 10px;
-          // All these are unspecified, so we don't care about their order
-          font-size: 10px;
-          border: 0;
-          font-weight: bold;
-          background: red;
+          border: 0;         // Unspecified
+          background: red;   // Unspecified
+          width: 100%;
         }
       CSS
 
-      it { should_not report_lint }
+      context 'and the ignored_omitted option is enabled' do
+        let(:linter_config) { super().merge('ignored_unspecified' => true) }
+
+        it { should_not report_lint }
+      end
+
+      context 'and the ignored_omitted option is disabled' do
+        let(:linter_config) { super().merge('ignored_unspecified' => false) }
+
+        it { should report_lint }
+      end
     end
   end
 

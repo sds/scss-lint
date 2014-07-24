@@ -9,10 +9,8 @@ module SCSSLint
     end
 
     def visit_rule(node)
-      # Ignore properties that contain interpolation
       sortable_props = node.children.select do |child|
-        child.is_a?(Sass::Tree::PropNode) &&
-          child.name.all? { |part| part.is_a?(String) }
+        child.is_a?(Sass::Tree::PropNode) && !ignore_property?(child)
       end
 
       sortable_prop_info = sortable_props
@@ -101,6 +99,19 @@ module SCSSLint
               'Invalid property sort order specified -- must be the name of a '\
               'preset or an array of strings'
       end
+    end
+
+    # Return whether to ignore a property in the sort order.
+    #
+    # This includes:
+    # - properties containing interpolation
+    # - properties not explicitly defined in the sort order (if ignore_unspecified is set)
+    def ignore_property?(prop_node)
+      return true if prop_node.name.any? { |part| !part.is_a?(String) }
+
+      config['ignored_unspecified'] &&
+        @preferred_order &&
+        !@preferred_order.include?(prop_node.name.join)
     end
 
     def preset_order?
