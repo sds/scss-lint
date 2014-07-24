@@ -13,6 +13,10 @@
 * Include linter name in lint description
 * Add `SingleLinePerProperty` linter which checks that properties each reside
   on their own line
+* Add support to `PropertySortOrder` to specify a preset sort order via the
+  `order` property
+* Add [`concentric`](http://rhodesmill.org/brandon/2011/concentric-css/) preset
+  sort order to the `PropertySortOrder` linter
 
 ## 0.25.1
 
