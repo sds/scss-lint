@@ -565,6 +565,25 @@ order, or the name of a
 If a property is not in your explicit list, it will be placed at the bottom of
 the list, disregarding its order relative to other unspecified properties.
 
+For example, to define a custom sort order, you can write:
+
+```yaml
+linters:
+  PropertySortOrder:
+    order:
+      - display
+      - margin
+      - etc...
+```
+
+Or you can use a preset order by writing:
+
+```yaml
+linters:
+  PropertySortOrder:
+    order: concentric
+```
+
 If you need to write vendor-prefixed properties, the linter will allow you to
 order the vendor-prefixed properties before the standard CSS property they
 apply to. For example:
