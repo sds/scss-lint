@@ -15,7 +15,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [EmptyRule](#emptyrule)
 * [FinalNewline](#finalnewline)
 * [HexLength](#hexlength)
-* [HexNotation](#hexnotaion)
+* [HexNotation](#hexnotation)
 * [HexValidation](#hexvalidation)
 * [IdWithExtraneousSelector](#idwithextraneousselector)
 * [Indentation](#indentation)
