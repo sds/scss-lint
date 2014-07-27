@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.executables      = ['scss-lint']
 
   s.files            = Dir['config/**/*.yml'] +
-                       Dir['data/**'] +
+                       Dir['data/**/*'] +
                        Dir['lib/**/*.rb']
 
   s.required_ruby_version = '>= 1.9.3'
