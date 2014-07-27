@@ -125,4 +125,44 @@ describe SCSSLint::Linter::TrailingSemicolonAfterPropertyValue do
 
     it { should report_lint line: 1 }
   end
+
+  context 'when @extend does not end with a semicolon' do
+    let(:css) { <<-CSS }
+      .foo {
+        @extend %bar
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+  end
+
+  context 'when @extend ends with a semicolon' do
+    let(:css) { <<-CSS }
+      .foo {
+        @extend %bar;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when @include does not end with a semicolon' do
+    let(:css) { <<-CSS }
+      .foo {
+        @include bar
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+  end
+
+  context 'when @extend ends with a semicolon' do
+    let(:css) { <<-CSS }
+      .foo {
+        @include bar;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end
