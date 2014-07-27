@@ -750,6 +750,10 @@ p.explanation {
 }
 ```
 
+Note that selectors containing interpolation are ignored, since the Sass parser
+cannot construct the selector parse tree at parse time, only at run time (which
+is too late for `scss-lint` to do anything with).
+
 ## SpaceAfterComma
 
 Commas in lists should be followed by a space.

@@ -25,6 +25,7 @@
   a comma would incorrectly report a lint
 * Add `ignore` option to `Compass::PropertyWithMixin` linter allowing you to
   not warn for certain properties
+* Fix `SingleLinePerSelector` to ignore any selectors that contain interpolation
 
 ## 0.25.1
 

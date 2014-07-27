@@ -14,6 +14,11 @@ module SCSSLint
 
     # A comma is invalid if it starts the line or is not the end of the line
     def invalid_comma_placement?(node)
+      # We must ignore selectors with interpolation, since there's no way to
+      # tell if the overall selector is valid since the interpolation could
+      # insert commas incorrectly. Thus we simply ignore.
+      return if node.rule.any? { |item| item.is_a?(Sass::Script::Variable) }
+
       normalize_spacing(condense_to_string(node.rule)) =~ /\n,|,[^\n]/
     end
 
@@ -21,7 +26,7 @@ module SCSSLint
     # Sass::Script::Nodes, we need to condense it into a single string that we
     # can run a regex against.
     def condense_to_string(sequence_list)
-      sequence_list.select { |item| item.is_a?(String) }.inject(:+) || ''
+      sequence_list.select { |item| item.is_a?(String) }.inject(:+)
     end
 
     # Removes extra spacing between lines in a comma-separated sequence due to
