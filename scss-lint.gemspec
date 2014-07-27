@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
                        Dir['data/**/*'] +
                        Dir['lib/**/*.rb']
 
+  s.test_files       = Dir['spec/**/*']
+
   s.required_ruby_version = '>= 1.9.3'
 
   s.add_dependency 'rainbow', '~> 2.0'

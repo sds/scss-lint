@@ -20,6 +20,7 @@
 * Add `ignore_unspecified` option to `PropertySortOrder` to indicate that
   unspecified properties in custom sort orderings are to be ignored (i.e. they
   can appear anywhere)
+* Include test files in gem distribution
 
 ## 0.25.1
 
