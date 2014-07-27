@@ -4,6 +4,7 @@ module SCSSLint
     include LinterRegistry
 
     def visit_root(_node)
+      @ignored_names = Array(config['ignored_names']).to_set
       @ignored_types = Array(config['ignored_types']).to_set
       yield
     end
@@ -36,6 +37,8 @@ module SCSSLint
 
     def check(node, selector_name = nil)
       name = node.name.join
+
+      return if @ignored_names.include?(name)
       return unless name =~ /[A-Z]/
 
       selector_name ||= node.class.name.split('::').last

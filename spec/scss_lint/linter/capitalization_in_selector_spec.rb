@@ -55,6 +55,13 @@ describe SCSSLint::Linter::CapitalizationInSelector do
     it { should_not report_lint }
   end
 
+  context 'when a selector name is whitelisted' do
+    let(:linter_config) { { 'ignored_names' => %w[Foo] } }
+    let(:css) { '.Foo {}' }
+
+    it { should_not report_lint }
+  end
+
   context 'when a certain type of selector is ignored' do
     let(:linter_config) { { 'ignored_types' => %w[class] } }
     let(:css) { '.Foo {}' }

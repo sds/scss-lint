@@ -29,8 +29,10 @@
 * Rename `TrailingSemicolonAfterPropertyValue` to `TrailingSemicolon`
 * Teach `TrailingSemicolon` to report lints for uses of `@extend`, `@include`,
   or variable declarations without semicolons
-* Add `ignored_types` option to `CapitalizationInSelector` allowing you to selectively
-  ignore capitalization in certain types of selectors
+* Add `ignored_names` option to `CapitalizationInSelector`, allowing you to
+  whitelist certain names as not needing to follow the convention
+* Add `ignored_types` option to `CapitalizationInSelector`, allowing you to
+  selectively ignore capitalization in certain types of selectors
 
 ## 0.25.1
 
