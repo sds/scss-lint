@@ -33,6 +33,8 @@
   whitelist certain names as not needing to follow the convention
 * Add `ignored_types` option to `CapitalizationInSelector`, allowing you to
   selectively ignore capitalization in certain types of selectors
+* Add `UnnecessaryParentReference` linter which checks nested selectors for
+  extraneous parent references
 
 ## 0.25.1
 

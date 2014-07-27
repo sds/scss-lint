@@ -968,6 +968,30 @@ p { margin: $margin / 2; }
 p { margin: 0.5; }
 ```
 
+## UnnecessaryParentReference
+
+Do not use parent selector references (`&`) when they would otherwise be
+unnecessary.
+
+**Bad**
+
+```scss
+.foo {
+  & > .bar {
+    ...
+  }
+}
+```
+
+**Good**
+
+```scss
+.foo {
+  > .bar {
+  }
+}
+```
+
 ## UrlFormat
 
 URLs should not contain protocols or domain names.
