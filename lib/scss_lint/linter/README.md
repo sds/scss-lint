@@ -35,7 +35,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [SpaceBeforeBrace](#spacebeforebrace)
 * [SpaceBetweenParens](#spacebetweenparens)
 * [StringQuotes](#stringquotes)
-* [TrailingSemicolonAfterPropertyValue](#trailingsemicolonafterpropertyvalue)
+* [TrailingSemicolon](#trailingsemicolon)
 * [UnnecessaryMantissa](#unnecessarymantissa)
 * [UrlFormat](#urlformat)
 * [UrlQuotes](#urlquotes)
@@ -896,9 +896,10 @@ Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `style`              | `single_quotes` or `double_quotes` (default `single_quotes`)
 
-## TrailingSemicolonAfterPropertyValue
+## TrailingSemicolon
 
-Property values should always end with a semicolon.
+Property values, `@extend` directives, and `@include` directives should always
+end with a semicolon.
 
 **Bad: no semicolon**
 ```scss
@@ -921,7 +922,7 @@ p {
 }
 ```
 
-CSS allows you to omit the semicolon if the property is the last property in
+CSS allows you to omit the semicolon if the statement is the last statement in
 the rule set. However, this introduces inconsistency and requires anyone adding
 a property after that property to remember to append a semicolon.
 

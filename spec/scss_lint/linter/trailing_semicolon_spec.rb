@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SCSSLint::Linter::TrailingSemicolonAfterPropertyValue do
+describe SCSSLint::Linter::TrailingSemicolon do
   context 'when a property does not end with a semicolon' do
     let(:css) { <<-CSS }
       p {

@@ -114,7 +114,7 @@ linters:
     enabled: true
     style: single_quotes # or double_quotes
 
-  TrailingSemicolonAfterPropertyValue:
+  TrailingSemicolon:
     enabled: true
 
   UnnecessaryMantissa:

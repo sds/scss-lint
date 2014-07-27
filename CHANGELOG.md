@@ -26,6 +26,9 @@
 * Add `ignore` option to `Compass::PropertyWithMixin` linter allowing you to
   not warn for certain properties
 * Fix `SingleLinePerSelector` to ignore any selectors that contain interpolation
+* Rename `TrailingSemicolonAfterPropertyValue` to `TrailingSemicolon`
+* Teach `TrailingSemicolon` to report lints for uses of `@extend` or `@include`
+  without semicolons
 
 ## 0.25.1
 

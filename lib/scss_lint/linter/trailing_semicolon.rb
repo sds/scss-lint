@@ -1,7 +1,6 @@
 module SCSSLint
-  # Checks properties for a trailing semicolon (unless that property is a
-  # namespace which has nested properties).
-  class Linter::TrailingSemicolonAfterPropertyValue < Linter
+  # Checks for a trailing semicolon on statements within rule sets.
+  class Linter::TrailingSemicolon < Linter
     include LinterRegistry
 
     def visit_prop(node)
@@ -38,7 +37,7 @@ module SCSSLint
       end
     end
 
-    # Checks that the property is ended by a semicolon (with no whitespace)
+    # Checks that the node is ended by a semicolon (with no whitespace)
     def ends_with_semicolon?(node)
       source_from_range(node.source_range) =~ /;$/
     end
