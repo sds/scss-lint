@@ -24,19 +24,24 @@ module SCSSLint
 
     def check_for_properties_with_mixins(node)
       prop_name = node.name.join
-      ignore_prop = !config['ignore'].nil? && config['ignore'].include?(prop_name)
-      return unless PROPERTIES_WITH_MIXINS.include?(prop_name) && !ignore_prop
+      return unless PROPERTIES_WITH_MIXINS.include?(prop_name) &&
+                    !ignore_compass_mixin?(prop_name)
 
       add_lint node, "Use the Compass `#{prop_name}` mixin instead of the property"
     end
 
     def check_for_inline_block(node)
       prop_name = node.name.join
-      ignore_prop = !config['ignore'].nil? && config['ignore'].include?('inline-block')
-      return unless prop_name == 'display' && node.value.to_sass == 'inline-block' && !ignore_prop
+      return unless prop_name == 'display' &&
+                    node.value.to_sass == 'inline-block' &&
+                    !ignore_compass_mixin?('inline-block')
 
       add_lint node,
                'Use the Compass `inline-block` mixin instead of `display: inline-block`'
+    end
+
+    def ignore_compass_mixin?(prop_name)
+      config.fetch('ignore', []).include?(prop_name)
     end
   end
 end
