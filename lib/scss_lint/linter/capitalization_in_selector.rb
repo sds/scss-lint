@@ -3,28 +3,33 @@ module SCSSLint
   class Linter::CapitalizationInSelector < Linter
     include LinterRegistry
 
+    def visit_root(_node)
+      @ignored_types = Array(config['ignored_types']).to_set
+      yield
+    end
+
     def visit_attribute(attribute)
-      check(attribute)
+      check(attribute) unless @ignored_types.include?('attribute')
     end
 
     def visit_class(klass)
-      check(klass)
+      check(klass) unless @ignored_types.include?('class')
     end
 
     def visit_element(element)
-      check(element)
+      check(element) unless @ignored_types.include?('element')
     end
 
     def visit_id(id)
-      check(id)
+      check(id) unless @ignored_types.include?('id')
     end
 
     def visit_placeholder(placeholder)
-      check(placeholder)
+      check(placeholder) unless @ignored_types.include?('placeholder')
     end
 
     def visit_pseudo(pseudo)
-      check(pseudo, 'Pseudo-selector')
+      check(pseudo, 'Pseudo-selector') unless @ignored_types.include?('pseudo-selector')
     end
 
   private

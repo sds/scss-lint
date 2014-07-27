@@ -63,6 +63,22 @@ IDs, classes, types, placeholders, and pseudo-selectors should be all lowercase.
 }
 ```
 
+You can selectively disable which kinds of selectors are linted using the
+`ignored_types` option. For example, if you use a third-party component whose CSS
+classes don't follow the standard, you can opt to ignore classes with this
+lint by adding `class` to the `ignored_types` list, e.g.
+
+```yaml
+linters:
+  CapitalizationInSelector:
+    ignored_types:
+      - class
+```
+
+Configuration Option  | Description
+----------------------|--------------------------------------------------------
+`ignored_types`       | Array containing list of types of selectors to ignore (valid values are `attribute`, `class`, `element`, `id`, `placeholder`, or `pseudo-selector`)
+
 ## ColorKeyword
 
 Prefer hexadecimal color codes over color keywords.
