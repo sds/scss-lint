@@ -66,34 +66,42 @@ module SCSSLint
     def check_commas_after_args(args, arg_type)
       # For each arg except the last, check the character following the comma
       args[0..-2].each do |arg|
-        offset = 0
+        offset = find_comma_offset(arg)
 
-        # Find the comma following this argument.
-        # The Sass parser is unpredictable in where it marks the end of the
-        # source range. Thus we need to start at the indicated range, and check
-        # left and right of that range, gradually moving further outward until
-        # we find the comma.
-        if character_at(arg.source_range.end_pos, offset) != ','
-          loop do
-            offset += 1
-            break if character_at(arg.source_range.end_pos, offset) == ','
-            offset = -offset
-            break if character_at(arg.source_range.end_pos, offset) == ','
-            offset = -offset
-          end
-        end
-
-        # Check for space or newline after arg (we allow arguments to be split
+        # Check for space or newline after comma (we allow arguments to be split
         # up over multiple lines).
         spaces = 0
-        while character_at(arg.source_range.end_pos, offset + 1) =~ / |\n/
+        while (char = character_at(arg.source_range.end_pos, offset + 1)) == ' '
           spaces += 1
           offset += 1
         end
-        next if spaces == EXPECTED_SPACES_AFTER_COMMA
+        next if char == "\n" || # Ignore trailing spaces
+                spaces == EXPECTED_SPACES_AFTER_COMMA
 
         add_lint arg, "Commas in #{arg_type} should be followed by a single space"
       end
+    end
+
+    # Find the comma following this argument.
+    #
+    # The Sass parser is unpredictable in where it marks the end of the
+    # source range. Thus we need to start at the indicated range, and check
+    # left and right of that range, gradually moving further outward until
+    # we find the comma.
+    def find_comma_offset(arg)
+      offset = 0
+
+      if character_at(arg.source_range.end_pos, offset) != ','
+        loop do
+          offset += 1
+          break if character_at(arg.source_range.end_pos, offset) == ','
+          offset = -offset
+          break if character_at(arg.source_range.end_pos, offset) == ','
+          offset = -offset
+        end
+      end
+
+      offset
     end
   end
 end

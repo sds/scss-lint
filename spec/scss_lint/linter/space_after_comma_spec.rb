@@ -300,5 +300,16 @@ describe SCSSLint::Linter::SpaceAfterComma do
 
       it { should_not report_lint }
     end
+
+    context 'when commas are followed by a space and a newline' do
+      let(:css) { <<-CSS }
+        p {
+          property: $a,\s
+                    $b;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
   end
 end

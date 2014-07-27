@@ -21,6 +21,8 @@
   unspecified properties in custom sort orderings are to be ignored (i.e. they
   can appear anywhere)
 * Include test files in gem distribution
+* Fix bug in `SpaceAfterComma` where trailing spaces followed by a newline after
+  a comma would incorrectly report a lint
 
 ## 0.25.1
 
