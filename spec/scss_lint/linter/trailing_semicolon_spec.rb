@@ -165,4 +165,24 @@ describe SCSSLint::Linter::TrailingSemicolon do
 
     it { should_not report_lint }
   end
+
+  context 'when variable declaration does not end with a semicolon' do
+    let(:css) { <<-CSS }
+      .foo {
+        $bar: 1
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+  end
+
+  context 'when @extend ends with a semicolon' do
+    let(:css) { <<-CSS }
+      .foo {
+        $bar: 1;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end

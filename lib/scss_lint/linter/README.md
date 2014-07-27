@@ -898,8 +898,8 @@ Configuration Option | Description
 
 ## TrailingSemicolon
 
-Property values, `@extend` directives, and `@include` directives should always
-end with a semicolon.
+Property values, `@extend` directives, `@include` directives, and variable
+declarations should always end with a semicolon.
 
 **Bad: no semicolon**
 ```scss

@@ -19,6 +19,10 @@ module SCSSLint
       check_semicolon(node)
     end
 
+    def visit_variable(node)
+      check_semicolon(node)
+    end
+
   private
 
     def has_nested_properties?(node)

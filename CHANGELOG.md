@@ -27,8 +27,8 @@
   not warn for certain properties
 * Fix `SingleLinePerSelector` to ignore any selectors that contain interpolation
 * Rename `TrailingSemicolonAfterPropertyValue` to `TrailingSemicolon`
-* Teach `TrailingSemicolon` to report lints for uses of `@extend` or `@include`
-  without semicolons
+* Teach `TrailingSemicolon` to report lints for uses of `@extend`, `@include`,
+  or variable declarations without semicolons
 
 ## 0.25.1
 
