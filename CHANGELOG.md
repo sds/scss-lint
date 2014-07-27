@@ -23,6 +23,8 @@
 * Include test files in gem distribution
 * Fix bug in `SpaceAfterComma` where trailing spaces followed by a newline after
   a comma would incorrectly report a lint
+* Add `ignore` option to `Compass::PropertyWithMixin` linter allowing you to
+  not warn for certain properties
 
 ## 0.25.1
 
