@@ -40,4 +40,16 @@ describe SCSSLint::Linter::Compass::PropertyWithMixin do
 
     it { should report_lint line: 2 }
   end
+
+  context 'when properties are ignored' do
+    let(:linter_config) { { 'ignore' => %w[inline-block] } }
+
+    let(:css) { <<-CSS }
+      p {
+        display: inline-block;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end
