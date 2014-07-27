@@ -192,7 +192,7 @@ describe SCSSLint::Linter::NameFormat do
     end
 
     context 'when a name contains a double underscore' do
-      let(:css) { '@extend %block--thing;' }
+      let(:css) { '@extend %block__thing;' }
 
       it { should_not report_lint }
     end
