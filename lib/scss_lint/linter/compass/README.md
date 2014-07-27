@@ -35,4 +35,4 @@ to ignore them by listing them in the `ignore` option.
 
 Configuration Option  | Description
 ----------------------|--------------------------------------------------------
-`ignore`              | Array of properties that should not be switched for Compass mixins.
+`ignore`              | Array of Compass mixins that should not be preferred.
