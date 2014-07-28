@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.26.1
 
 * Fix `TrailingSemicolon` incorrectly reporting `@include`s with block contents
 * Fix `UnnecessaryParentReference` incorrectly reporting using of `&` with
