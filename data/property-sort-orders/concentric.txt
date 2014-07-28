@@ -91,6 +91,7 @@ text-align
 text-indent
 text-transform
 text-decoration
+text-rendering
 
 line-height
 word-spacing
