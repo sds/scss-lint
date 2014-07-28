@@ -17,7 +17,7 @@ module SCSSLint
       # We must ignore selectors with interpolation, since there's no way to
       # tell if the overall selector is valid since the interpolation could
       # insert commas incorrectly. Thus we simply ignore.
-      return if node.rule.any? { |item| item.is_a?(Sass::Script::Variable) }
+      return unless node.rule.all? { |item| item.is_a?(String) }
 
       normalize_spacing(condense_to_string(node.rule)) =~ /\n,|,[^\n]/
     end
@@ -31,7 +31,7 @@ module SCSSLint
 
     # Removes extra spacing between lines in a comma-separated sequence due to
     # comments being removed in the parse phase. This makes it easy to check if
-    # a comma is where belongs.
+    # a comma is where it belongs.
     def normalize_spacing(string_sequence)
       string_sequence.gsub(/,[^\S\n]*\n\s*/, ",\n")
     end

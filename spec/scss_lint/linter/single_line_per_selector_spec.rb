@@ -81,12 +81,12 @@ describe SCSSLint::Linter::SingleLinePerSelector do
   context 'when rule contains an interpolated selector not on its own line' do
     let(:css) { <<-CSS }
       .first,
-      .second, \#{interpolated-selector}.thing,
+      .second, \#{$interpolated-selector}.thing,
       .fourth {
       }
     CSS
 
-    it { should report_lint line: 1 }
+    it { should_not report_lint }
   end
 
   context 'when rule contains an inline comment' do
@@ -114,6 +114,15 @@ describe SCSSLint::Linter::SingleLinePerSelector do
       div,
       \#{$selector},
       p {}
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when a function is used in the selector' do
+    let(:css) { <<-CSS }
+      \#{function()} {
+      }
     CSS
 
     it { should_not report_lint }
