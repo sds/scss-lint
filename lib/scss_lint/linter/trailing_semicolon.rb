@@ -3,7 +3,15 @@ module SCSSLint
   class Linter::TrailingSemicolon < Linter
     include LinterRegistry
 
-    def visit_prop(node)
+    def visit_extend(node)
+      check_semicolon(node)
+    end
+
+    def visit_variable(node)
+      check_semicolon(node)
+    end
+
+    def visit_possible_parent(node)
       if has_nested_properties?(node)
         yield # Continue checking children
       else
@@ -11,17 +19,8 @@ module SCSSLint
       end
     end
 
-    def visit_extend(node)
-      check_semicolon(node)
-    end
-
-    def visit_mixin(node)
-      check_semicolon(node)
-    end
-
-    def visit_variable(node)
-      check_semicolon(node)
-    end
+    alias_method :visit_mixin, :visit_possible_parent
+    alias_method :visit_prop,  :visit_possible_parent
 
   private
 
