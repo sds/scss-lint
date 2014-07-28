@@ -40,11 +40,19 @@ border-right-style
 border-bottom-style
 border-left-style
 
+border-radius
+border-top-left-radius
+border-top-right-radius
+border-bottom-right-radius
+border-bottom-left-radius
+
 border-color
 border-top-color
 border-right-color
 border-bottom-color
 border-left-color
+
+box-shadow
 
 background
 background-color
