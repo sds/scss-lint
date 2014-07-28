@@ -59,6 +59,7 @@ background-color
 background-image
 background-repeat
 background-position
+background-size
 cursor
 
 padding
