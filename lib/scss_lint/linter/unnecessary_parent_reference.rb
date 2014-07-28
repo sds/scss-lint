@@ -29,8 +29,10 @@ module SCSSLint
 
     def sequence_starts_with_parent?(simple_sequence)
       return unless simple_sequence.is_a?(Sass::Selector::SimpleSequence)
+      first = simple_sequence.members.first
       simple_sequence.members.size == 1 &&
-        simple_sequence.members.first.is_a?(Sass::Selector::Parent)
+        first.is_a?(Sass::Selector::Parent) &&
+        first.suffix.empty? # Ignore concatenated selectors, like `&-something`
     end
   end
 end

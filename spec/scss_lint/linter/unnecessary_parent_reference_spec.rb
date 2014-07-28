@@ -64,4 +64,14 @@ describe SCSSLint::Linter::UnnecessaryParentReference do
 
     it { should report_lint line: 2 }
   end
+
+  context 'when an ampersand is used in concatentation' do
+    let(:css) { <<-CSS }
+      .icon {
+        &-small {}
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end
