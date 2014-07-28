@@ -1,5 +1,15 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix `TrailingSemicolon` incorrectly reporting `@include`s with block contents
+* Fix `UnnecessaryParentReference` incorrectly reporting using of `&` with
+  concatenation
+* Fix `SingleLinePerSelector` crashing for selectors that contained
+  interpolated function calls
+* Add additional properties to the `concentric` preset order
+* Fix `LeadingZero` crashing on multi-line strings with interpolation
+
 ## 0.26.0
 
 ### New Features
