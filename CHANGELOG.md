@@ -2,15 +2,12 @@
 
 ## master (unreleased)
 
-* Fix bug in `SpaceBeforeBrace` linter where an erroneous lint would
-  be reported for a brace on its own line
-* Update `sass` dependency to require 3.3.7 or later (fixes a parsing bug)
+### New Features
+
+* Add `severity` option allowing the severity level of a lint to be configured
+* Include linter name in lint description
 * Add `character` option to `Indentation` linter which allows specifying
   tabs or spaces as the indentation character of choice
-* Add `severity` option allowing the severity level of a lint to be configured
-* Change CLI to return exit code of `1` if only warnings are reported, or `2`
-  if any errors are reported (was previously `65` for either)
-* Include linter name in lint description
 * Add `SingleLinePerProperty` linter which checks that properties each reside
   on their own line
 * Add support to `PropertySortOrder` to specify a preset sort order via the
@@ -20,21 +17,32 @@
 * Add `ignore_unspecified` option to `PropertySortOrder` to indicate that
   unspecified properties in custom sort orderings are to be ignored (i.e. they
   can appear anywhere)
-* Include test files in gem distribution
-* Fix bug in `SpaceAfterComma` where trailing spaces followed by a newline after
-  a comma would incorrectly report a lint
 * Add `ignore` option to `Compass::PropertyWithMixin` linter allowing you to
   not warn for certain properties
-* Fix `SingleLinePerSelector` to ignore any selectors that contain interpolation
-* Rename `TrailingSemicolonAfterPropertyValue` to `TrailingSemicolon`
-* Teach `TrailingSemicolon` to report lints for uses of `@extend`, `@include`,
-  or variable declarations without semicolons
 * Add `ignored_names` option to `CapitalizationInSelector`, allowing you to
   whitelist certain names as not needing to follow the convention
 * Add `ignored_types` option to `CapitalizationInSelector`, allowing you to
   selectively ignore capitalization in certain types of selectors
 * Add `UnnecessaryParentReference` linter which checks nested selectors for
   extraneous parent references
+* Teach `TrailingSemicolon` to report lints for uses of `@extend`, `@include`,
+  or variable declarations without semicolons
+
+### Changes
+
+* Change CLI to return exit code of `1` if only warnings are reported, or `2`
+  if any errors are reported (was previously `65` for either)
+* Update `sass` dependency to require 3.3.7 or later (fixes a parsing bug)
+* Include test files in gem distribution
+* Rename `TrailingSemicolonAfterPropertyValue` to `TrailingSemicolon`
+
+### Bug Fixes
+
+* Fix bug in `SpaceBeforeBrace` linter where an erroneous lint would
+  be reported for a brace on its own line
+* Fix bug in `SpaceAfterComma` where trailing spaces followed by a newline after
+  a comma would incorrectly report a lint
+* Fix `SingleLinePerSelector` to ignore any selectors that contain interpolation
 
 ## 0.25.1
 
