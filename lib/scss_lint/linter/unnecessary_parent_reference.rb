@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::UnnecessaryParentReference < Linter
     include LinterRegistry
 
-    MESSAGE = 'Unnecessary parent selector'
+    MESSAGE = 'Unnecessary parent selector (&)'
 
     def visit_comma_sequence(comma_sequence)
       @multiple_sequences = comma_sequence.members.size > 1
