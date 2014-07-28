@@ -16,6 +16,7 @@ established by the team at [Causes.com](https://causes.com).
 * [Usage](#usage)
 * [Configuration](#configuration)
 * [Formatters](#formatters)
+* [Exit Status Codes](#exit-status-codes)
 * [Linters](#linters)
 * [Editor Integration](#editor-integration)
 * [Git Integration](#git-integration)
