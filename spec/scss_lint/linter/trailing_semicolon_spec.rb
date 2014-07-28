@@ -168,6 +168,20 @@ describe SCSSLint::Linter::TrailingSemicolon do
     it { should_not report_lint }
   end
 
+  context 'when @include takes a block with nested props' do
+    let(:css) { <<-CSS }
+      .foo {
+        @include bar {
+          .bar {
+            border: 0;
+          }
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
   context 'when @extend ends with a semicolon' do
     let(:css) { <<-CSS }
       .foo {

@@ -25,7 +25,9 @@ module SCSSLint
   private
 
     def has_nested_properties?(node)
-      node.children.any? { |n| n.is_a?(Sass::Tree::PropNode) }
+      node.children.any? do |n|
+        n.is_a?(Sass::Tree::PropNode) || n.is_a?(Sass::Tree::RuleNode)
+      end
     end
 
     def check_semicolon(node)
