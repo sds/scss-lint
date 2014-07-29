@@ -11,24 +11,23 @@ module SCSSLint
       check_semicolon(node)
     end
 
-    def visit_possible_parent(node)
-      if has_nested_properties?(node)
+    def visit_prop(node)
+      if node.children.any? { |n| n.is_a?(Sass::Tree::PropNode) }
         yield # Continue checking children
       else
         check_semicolon(node)
       end
     end
 
-    alias_method :visit_mixin, :visit_possible_parent
-    alias_method :visit_prop,  :visit_possible_parent
-
-  private
-
-    def has_nested_properties?(node)
-      node.children.any? do |n|
-        n.is_a?(Sass::Tree::PropNode) || n.is_a?(Sass::Tree::RuleNode)
+    def visit_mixin(node)
+      if node.children.any?
+        yield # Continue checking children
+      else
+        check_semicolon(node)
       end
     end
+
+  private
 
     def check_semicolon(node)
       if has_space_before_semicolon?(node)

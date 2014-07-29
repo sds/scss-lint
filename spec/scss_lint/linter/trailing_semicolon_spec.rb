@@ -182,6 +182,20 @@ describe SCSSLint::Linter::TrailingSemicolon do
     it { should_not report_lint }
   end
 
+  context 'when @include takes a block with an if-node' do
+    let(:css) { <<-CSS }
+      .foo {
+        @include bar {
+          @if $var {
+            border: 0;
+          }
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
   context 'when @include ends with a semicolon' do
     let(:css) { <<-CSS }
       .foo {
