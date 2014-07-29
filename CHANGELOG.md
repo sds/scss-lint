@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.26.2
 
 * Fix `TrailingSemicolon` bug with `@include` blocks that didn't contain
   properties
