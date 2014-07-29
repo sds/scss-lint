@@ -117,7 +117,7 @@ font
 font-family
 font-size
 font-weight
-font-smooting
+font-smoothing
 font-style
 
 content
