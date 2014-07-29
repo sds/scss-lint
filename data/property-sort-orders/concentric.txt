@@ -14,7 +14,7 @@ column-fill
 column-rule
 column-span
 column-count
-coulumn-width
+column-width
 
 float
 clear
