@@ -1,5 +1,11 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix `TrailingSemicolon` bug with `@include` blocks that didn't contain
+  properties
+* Add more properties to `concentric` preset order
+
 ## 0.26.1
 
 * Fix `TrailingSemicolon` incorrectly reporting `@include`s with block contents
