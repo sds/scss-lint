@@ -8,7 +8,7 @@ module SCSSLint
       yield
     end
 
-    def visit_rule(node)
+    def check_sort_order(node)
       sortable_props = node.children.select do |child|
         child.is_a?(Sass::Tree::PropNode) && !ignore_property?(child)
       end
@@ -31,6 +31,14 @@ module SCSSLint
       end
 
       yield # Continue linting children
+    end
+
+    alias_method :visit_rule,  :check_sort_order
+    alias_method :visit_mixin, :check_sort_order
+
+    def visit_if(node, &block)
+      check_sort_order(node, &block)
+      visit(node.else) if node.else
     end
 
   private

@@ -160,6 +160,85 @@ describe SCSSLint::Linter::PropertySortOrder do
     it { should report_lint line: 3 }
   end
 
+  context 'when include block contains properties in sorted order' do
+    let(:css) { <<-CSS }
+      @include some-mixin {
+        background: #000;
+        display: none;
+        margin: 5px;
+        padding: 10px;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when include block contains properties not in sorted order' do
+    let(:css) { <<-CSS }
+      @include some-mixin {
+        background: #000;
+        margin: 5px;
+        display: none;
+      }
+    CSS
+
+    it { should report_lint line: 3 }
+  end
+
+  context 'when if block contains properties in sorted order' do
+    let(:css) { <<-CSS }
+      @if $var {
+        background: #000;
+        display: none;
+        margin: 5px;
+        padding: 10px;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when if block contains properties not in sorted order' do
+    let(:css) { <<-CSS }
+      @if $var {
+        background: #000;
+        margin: 5px;
+        display: none;
+      }
+    CSS
+
+    it { should report_lint line: 3 }
+  end
+
+  context 'when if block contains properties in sorted order' do
+    let(:css) { <<-CSS }
+      @if $var {
+        // Content
+      } @else {
+        background: #000;
+        display: none;
+        margin: 5px;
+        padding: 10px;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when else block contains properties not in sorted order' do
+    let(:css) { <<-CSS }
+      @if $var {
+        // Content
+      } @else {
+        background: #000;
+        margin: 5px;
+        display: none;
+      }
+    CSS
+
+    it { should report_lint line: 5 }
+  end
+
   context 'when the order has been explicitly set' do
     let(:linter_config) { { 'order' => %w[position display padding margin width] } }
 
