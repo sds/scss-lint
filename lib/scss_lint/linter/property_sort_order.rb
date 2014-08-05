@@ -109,7 +109,7 @@ module SCSSLint
     def ignore_property?(prop_node)
       return true if prop_node.name.any? { |part| !part.is_a?(String) }
 
-      config['ignored_unspecified'] &&
+      config['ignore_unspecified'] &&
         @preferred_order &&
         !@preferred_order.include?(prop_node.name.join)
     end

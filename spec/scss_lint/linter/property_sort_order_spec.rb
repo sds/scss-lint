@@ -200,14 +200,14 @@ describe SCSSLint::Linter::PropertySortOrder do
         }
       CSS
 
-      context 'and the ignored_omitted option is enabled' do
-        let(:linter_config) { super().merge('ignored_unspecified' => true) }
+      context 'and the ignore_unspecified option is enabled' do
+        let(:linter_config) { super().merge('ignore_unspecified' => true) }
 
         it { should_not report_lint }
       end
 
-      context 'and the ignored_omitted option is disabled' do
-        let(:linter_config) { super().merge('ignored_unspecified' => false) }
+      context 'and the ignore_unspecified option is disabled' do
+        let(:linter_config) { super().merge('ignore_unspecified' => false) }
 
         it { should report_lint }
       end
