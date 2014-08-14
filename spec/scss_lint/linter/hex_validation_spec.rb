@@ -11,11 +11,15 @@ describe SCSSLint::Linter::HexValidation do
   end
 
   context 'when rule contains valid hex codes or color keyword' do
+    gradient_css = 'progid:DXImageTransform.Microsoft.gradient' \
+                   '(startColorstr=#99000000, endColorstr=#99000000)'
+
     let(:css) { <<-CSS }
       p {
         background: #000;
         color: #FFFFFF;
         border-color: red;
+        filter: #{gradient_css};
       }
     CSS
 

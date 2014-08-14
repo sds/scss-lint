@@ -13,7 +13,7 @@ module SCSSLint
 
   private
 
-    HEX_REGEX = /(#(\h{3}|\h{6}))(?!\h)/
+    HEX_REGEX = /(#(\h{3}|\h{6}|\h{8}))(?!\h)/
 
     def check_hex(hex, node)
       return if HEX_REGEX.match(hex)
