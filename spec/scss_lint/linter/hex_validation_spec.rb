@@ -16,6 +16,7 @@ describe SCSSLint::Linter::HexValidation do
         background: #000;
         color: #FFFFFF;
         border-color: red;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
       }
     CSS
 
