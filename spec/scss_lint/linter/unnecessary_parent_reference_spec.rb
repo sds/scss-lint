@@ -41,6 +41,17 @@ describe SCSSLint::Linter::UnnecessaryParentReference do
     it { should_not report_lint }
   end
 
+  context 'when an ampersand precedes a sibling operator' do
+    let(:css) { <<-CSS }
+      p {
+        & + & {}
+        & ~ & {}
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
   context 'when an amperand is used in a comma sequence to DRY up code' do
     let(:css) { <<-CSS }
       p {

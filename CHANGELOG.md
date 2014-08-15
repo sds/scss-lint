@@ -6,6 +6,8 @@
 * Add linting of `@include` and `@if`/`@else` blocks in `PropertySortOrder`
 * Fix `HexValidation` bug incorrectly reporting lints for 8 character hex
   codes in Microsoft `filter` property
+* Fix `UnnecessaryParentReference` incorrectly reporting lints for nested
+  selectors with more than one parent reference
 
 ## 0.26.2
 

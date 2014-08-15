@@ -12,6 +12,12 @@ module SCSSLint
     def visit_sequence(sequence)
       return unless sequence_starts_with_parent?(sequence.members.first)
 
+      # Allow sequences that contain multiple parent references, e.g.
+      # element {
+      #   & + & { ... }
+      # }
+      return if sequence.members[1..-1].any? { |ss| sequence_starts_with_parent?(ss) }
+
       # Special case: allow an isolated parent to appear if it is part of a
       # comma sequence of more than one sequence, as this could be used to DRY
       # up code.
