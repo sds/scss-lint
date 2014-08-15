@@ -4,6 +4,8 @@
 
 * Fix broken `ignore_unspecified` option in `PropertySortOrder`
 * Add linting of `@include` and `@if`/`@else` blocks in `PropertySortOrder`
+* Fix `HexValidation` bug incorrectly reporting lints for 8 character hex
+  codes in Microsoft `filter` property
 
 ## 0.26.2
 
