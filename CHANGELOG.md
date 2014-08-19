@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.27.0
 
 * Fix broken `ignore_unspecified` option in `PropertySortOrder`
 * Add linting of `@include` and `@if`/`@else` blocks in `PropertySortOrder`
