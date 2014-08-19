@@ -55,6 +55,9 @@ LineLength:
 MethodLength:
   Max: 20
 
+PerceivedComplexity:
+  Max: 8
+
 # Prefer curly braces except for %i/%w/%W, since those return arrays.
 PercentLiteralDelimiters:
   PreferredDelimiters:
