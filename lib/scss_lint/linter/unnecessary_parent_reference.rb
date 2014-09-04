@@ -38,7 +38,7 @@ module SCSSLint
       first = simple_sequence.members.first
       simple_sequence.members.size == 1 &&
         first.is_a?(Sass::Selector::Parent) &&
-        first.suffix.empty? # Ignore concatenated selectors, like `&-something`
+        first.suffix.nil? # Ignore concatenated selectors, like `&-something`
     end
   end
 end

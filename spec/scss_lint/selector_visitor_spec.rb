@@ -36,7 +36,7 @@ describe SCSSLint::SelectorVisitor do
     context 'when visitor defines visit_attribute' do
       class TestAttributeVisitor < TrackingSelectorVisitor
         def visit_attribute(attribute)
-          @node_order << attribute.name.join
+          @node_order << attribute.name
         end
       end
 
@@ -56,7 +56,7 @@ describe SCSSLint::SelectorVisitor do
     context 'when visitor defines visit_class' do
       class TestClassVisitor < TrackingSelectorVisitor
         def visit_class(klass)
-          @node_order << klass.name.join
+          @node_order << klass.name
         end
       end
 
@@ -76,7 +76,7 @@ describe SCSSLint::SelectorVisitor do
     context 'when visitor defines visit_element' do
       class TestElementVisitor < TrackingSelectorVisitor
         def visit_element(element)
-          @node_order << element.name.join
+          @node_order << element.name
         end
       end
 
@@ -96,7 +96,7 @@ describe SCSSLint::SelectorVisitor do
     context 'when visitor defines visit_id' do
       class TestIdVisitor < TrackingSelectorVisitor
         def visit_id(id)
-          @node_order << id.name.join
+          @node_order << id.name
         end
       end
 
@@ -137,7 +137,7 @@ describe SCSSLint::SelectorVisitor do
     context 'when visitor defines visit_placeholder' do
       class TestPlaceholderVisitor < TrackingSelectorVisitor
         def visit_placeholder(placeholder)
-          @node_order << placeholder.name.join
+          @node_order << placeholder.name
         end
       end
 
@@ -156,7 +156,7 @@ describe SCSSLint::SelectorVisitor do
     context 'when visitor defines visit_pseudo' do
       class TestPseudoVisitor < TrackingSelectorVisitor
         def visit_pseudo(pseudo)
-          @node_order << pseudo.name.join
+          @node_order << pseudo.name
         end
       end
 

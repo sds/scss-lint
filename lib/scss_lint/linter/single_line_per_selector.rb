@@ -3,37 +3,25 @@ module SCSSLint
   class Linter::SingleLinePerSelector < Linter
     include LinterRegistry
 
-    def visit_rule(node)
-      add_lint(node, MESSAGE) if invalid_comma_placement?(node)
-      yield # Continue linting children
-    end
-
-  private
-
     MESSAGE = 'Each selector in a comma sequence should be on its own line'
 
-    # A comma is invalid if it starts the line or is not the end of the line
-    def invalid_comma_placement?(node)
-      # We must ignore selectors with interpolation, since there's no way to
-      # tell if the overall selector is valid since the interpolation could
-      # insert commas incorrectly. Thus we simply ignore.
-      return unless node.rule.all? { |item| item.is_a?(String) }
+    def visit_comma_sequence(node)
+      return unless node.members.count > 1
 
-      normalize_spacing(condense_to_string(node.rule)) =~ /\n,|,[^\n]/
-    end
+      if node.members[0].members[1] == "\n"
+        # Comma is on its own line
+        add_lint(node, MESSAGE)
+      end
 
-    # Since RuleNode.rule returns an array containing both String and
-    # Sass::Script::Nodes, we need to condense it into a single string that we
-    # can run a regex against.
-    def condense_to_string(sequence_list)
-      sequence_list.select { |item| item.is_a?(String) }.inject(:+)
-    end
-
-    # Removes extra spacing between lines in a comma-separated sequence due to
-    # comments being removed in the parse phase. This makes it easy to check if
-    # a comma is where it belongs.
-    def normalize_spacing(string_sequence)
-      string_sequence.gsub(/,[^\S\n]*\n\s*/, ",\n")
+      node.members[1..-1].each_with_index do |sequence, index|
+        if sequence.members[0] != "\n"
+          # Next sequence doesn't reside on its own line
+          add_lint(node.line + index, MESSAGE)
+        elsif sequence.members[1] == "\n"
+          # Comma is on its own line
+          add_lint(node.line + index, MESSAGE)
+        end
+      end
     end
   end
 end

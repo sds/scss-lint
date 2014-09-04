@@ -36,7 +36,7 @@ module SCSSLint
   private
 
     def check(node, selector_name = nil)
-      name = node.name.join
+      name = node.name
 
       return if @ignored_names.include?(name)
       return unless name =~ /[A-Z]/

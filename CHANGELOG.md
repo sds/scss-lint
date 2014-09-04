@@ -4,6 +4,7 @@
 
 * Fix bug in `StringQuotes` where strings with interpolation were incorrectly
   being linted
+* Upgrade minimum `sass` version dependency to 3.4.x series
 
 ## 0.27.0
 
