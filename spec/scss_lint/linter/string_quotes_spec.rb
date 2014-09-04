@@ -218,6 +218,26 @@ describe SCSSLint::Linter::StringQuotes do
 
         it { should_not report_lint }
       end
+
+      context 'and contains interpolation inside a substring with single quotes' do
+        let(:css) { <<-CSS }
+          p {
+            content: "<svg width='\#{$something}'>";
+          }
+        CSS
+
+        it { should_not report_lint }
+      end
+
+      context 'and contains a single-quoted string inside interpolation' do
+        let(:css) { <<-CSS }
+          p {
+            content: "<svg width='\#{func('hello')}'>";
+          }
+        CSS
+
+        it { should report_lint }
+      end
     end
 
     context 'and string is written with double quotes' do

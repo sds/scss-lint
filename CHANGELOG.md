@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix bug in `StringQuotes` where strings with interpolation were incorrectly
+  being linted
+
 ## 0.27.0
 
 * Fix broken `ignore_unspecified` option in `PropertySortOrder`
