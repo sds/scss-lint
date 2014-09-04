@@ -31,7 +31,15 @@ These mixins include the necessary vendor-prefixed properties to increase the
 number of browsers the CSS supports.
 
 In the event you don't want to be warned about certain properties, you can opt
-to ignore them by listing them in the `ignore` option.
+to ignore them by listing them in the `ignore` option, e.g. in your
+`.scss-lint.yml`:
+
+```yaml
+linters:
+  Compass::PropertyWithMixin:
+    ignore:
+      - 'inline-block'
+```
 
 Configuration Option  | Description
 ----------------------|--------------------------------------------------------
