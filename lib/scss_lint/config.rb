@@ -36,7 +36,7 @@ module SCSSLint
         @dir_to_config ||= {}
         @dir_to_config[directory] ||=
           begin
-            config_file = possible_config_files(directory).find { |path| path.file? }
+            config_file = possible_config_files(directory).find(&:file?)
             Config.load(config_file.to_s) if config_file
           end
       end

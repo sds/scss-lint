@@ -99,7 +99,7 @@ module SCSSLint
       runner.run(files_to_lint)
       report_lints(runner.lints)
 
-      if runner.lints.any? { |lint| lint.error? }
+      if runner.lints.any?(&:error?)
         halt :error
       elsif runner.lints.any?
         halt :warning

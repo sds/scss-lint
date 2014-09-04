@@ -11,7 +11,7 @@ module SCSSLint
 
     def visit_rule(node)
       children = node.children.select { |n| important_node?(n) }
-                              .map { |n| n.class }
+                              .map(&:class)
 
       sorted_children = children.sort do |a, b|
         DECLARATION_ORDER.index(a) <=> DECLARATION_ORDER.index(b)
