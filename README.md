@@ -152,10 +152,10 @@ scss-lint [scss-files...]
 ```
 
 ```
-test.scss:2 [W] Prefer single quoted strings
-test.scss:2 [W] Line should be indented 0 spaces, but was indented 1 space
-test.scss:5 [W] Prefer single quoted strings
-test.scss:6 [W] URLs should be enclosed in quotes
+test.scss:2 [W] StringQuotes: Prefer single quoted strings
+test.scss:2 [W] Indentation: Line should be indented 0 spaces, but was indented 1 space
+test.scss:5 [W] StringQuotes: Prefer single quoted strings
+test.scss:6 [W] UrlQuotes: URLs should be enclosed in quotes
 ```
 
 The default formatter tries to colorize the output using
