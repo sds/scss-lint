@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## Unreleased
+
+* Update list of known properties (used by PropertySpelling lint)
+
 ## 0.28.0
 
 * Fix bug in `StringQuotes` where strings with interpolation were incorrectly

@@ -4,6 +4,7 @@ align-items
 align-self
 alignment-adjust
 alignment-baseline
+all
 animation
 animation-delay
 animation-direction
@@ -177,7 +178,9 @@ font-variant-ligatures
 font-weight
 glyph-orientation-horizontal
 glyph-orientation-vertical
+grid
 grid-after
+grid-area
 grid-auto-columns
 grid-auto-flow
 grid-auto-rows
@@ -189,6 +192,7 @@ grid-row
 grid-rows
 grid-start
 grid-template
+grid-template-areas
 hanging-punctuation
 height
 highlight
@@ -208,6 +212,7 @@ image-resolution
 inline-box-align
 isolation
 justify-content
+justify-self
 kerning
 left
 letter-spacing
@@ -354,6 +359,7 @@ ruby-align
 ruby-overhang
 ruby-position
 ruby-span
+scroll-behavior
 shape-image-threshold
 shape-inside
 shape-margin
@@ -425,6 +431,7 @@ text-underline-width
 text-wrap
 top
 touch-action
+touch-action-delay
 transform
 transform-origin
 transform-origin-x
@@ -455,6 +462,7 @@ voice-volume
 white-space
 widows
 width
+will-change
 word-break
 word-spacing
 word-wrap
