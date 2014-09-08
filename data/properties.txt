@@ -1,8 +1,9 @@
+@keyframes
 align-content
 align-items
+align-self
 alignment-adjust
 alignment-baseline
-align-self
 animation
 animation-delay
 animation-direction
@@ -12,8 +13,8 @@ animation-iteration-count
 animation-name
 animation-play-state
 animation-timing-function
-appearance
 app-region
+appearance
 aspect-ratio
 backface-visibility
 background
@@ -123,9 +124,9 @@ column-rule
 column-rule-color
 column-rule-style
 column-rule-width
-columns
 column-span
 column-width
+columns
 content
 counter-increment
 counter-reset
@@ -208,7 +209,6 @@ inline-box-align
 isolation
 justify-content
 kerning
-@keyframes
 left
 letter-spacing
 lighting-color
@@ -375,8 +375,8 @@ stroke-miterlimit
 stroke-opacity
 stroke-width
 svg-shadow
-table-layout
 tab-size
+table-layout
 tap-highlight-color
 target
 target-name
@@ -389,8 +389,8 @@ text-combine
 text-decoration
 text-decoration-color
 text-decoration-line
-text-decorations-in-effect
 text-decoration-style
+text-decorations-in-effect
 text-emphasis
 text-emphasis-color
 text-emphasis-position
