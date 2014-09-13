@@ -261,6 +261,10 @@ you already have the plugin, just add
 Install the
 [Sublime scss-lint plugin](https://sublime.wbond.net/packages/SublimeLinter-contrib-scss-lint).
 
+### Atom
+
+Install the [Atom scss-lint plugin](https://atom.io/packages/linter-scss-lint). It is a part of the [`atomlinter`](https://atom.io/users/atomlinter) project, so if you are already using other linter plugins, you can keep them in one place.
+
 ## Git Integration
 
 If you'd like to integrate `scss-lint` into your Git workflow, check out our
