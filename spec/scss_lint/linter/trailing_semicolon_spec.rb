@@ -225,4 +225,14 @@ describe SCSSLint::Linter::TrailingSemicolon do
 
     it { should_not report_lint }
   end
+
+  context 'when variable declaration ends with multiple semicolons' do
+    let(:css) { <<-CSS }
+      .foo {
+        $bar: 1;;
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+  end
 end
