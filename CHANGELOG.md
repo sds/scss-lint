@@ -3,6 +3,8 @@
 ## Unreleased
 
 * Update list of known properties (used by PropertySpelling lint)
+* Fix bug where SassScript selectors referring to the current selector would
+  result in a crash
 
 ## 0.28.0
 

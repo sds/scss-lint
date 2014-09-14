@@ -15,7 +15,7 @@ module Sass::Script
   {
     'Value' => %w[ArgList Bool Color List Map Null Number String],
     'Tree'  => %w[Funcall Interpolation ListLiteral Literal MapLiteral
-                  Operation StringInterpolation UnaryOperation Variable],
+                  Operation Selector StringInterpolation UnaryOperation Variable],
   }.each do |namespace, types|
     types.each do |type|
       node_name = type.downcase
