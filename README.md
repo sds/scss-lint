@@ -265,6 +265,10 @@ Install the
 
 Install the [Atom scss-lint plugin](https://atom.io/packages/linter-scss-lint). It is a part of the [`atomlinter`](https://atom.io/users/atomlinter) project, so if you are already using other linter plugins, you can keep them in one place.
 
+### Emacs
+
+Install and enable both [scss-mode](https://github.com/antonj/scss-mode) and [flycheck-mode](https://github.com/flycheck/flycheck). You can enable automatic linting for scss-mode buffers with `(add-hook 'scss-mode-hook 'flycheck-mode)` in your `init.el`.
+
 ## Git Integration
 
 If you'd like to integrate `scss-lint` into your Git workflow, check out our
