@@ -14,10 +14,8 @@ module SCSSLint
     end
 
     def visit_script_number(node)
-      # TODO: Remove once https://github.com/sass/sass/issues/1343 is fixed
-      return unless source = source_from_range(node.source_range)
-
-      return unless number = source[FRACTIONAL_DIGIT_REGEX, 1]
+      return unless number =
+        source_from_range(node.source_range)[FRACTIONAL_DIGIT_REGEX, 1]
 
       check_number(node, number)
     end
