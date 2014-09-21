@@ -13,8 +13,6 @@ module SCSSLint
       end
       return unless can_be_simplified
 
-      # TODO: Sass::Selector::SimpleSequence#source_range sometimes lies about
-      # its line, so reference `#line` directly
       add_lint(seq.line, "Selector `#{seq}` can be simplified to `#{id_sel}`, " \
                          'since IDs should be uniquely identifying')
     end
