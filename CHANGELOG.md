@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-* Update list of known properties (used by PropertySpelling lint)
+* Update list of known properties (used by `PropertySpelling` lint)
 * Fix bug where SassScript selectors referring to the current selector would
   result in a crash
 * Enhance `TrailingSemicolon` to check for more than one semicolon at the end
