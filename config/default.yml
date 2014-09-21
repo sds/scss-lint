@@ -117,6 +117,9 @@ linters:
   TrailingSemicolon:
     enabled: true
 
+  TrailingZero:
+    enabled: false
+
   UnnecessaryMantissa:
     enabled: true
 

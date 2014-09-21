@@ -36,6 +36,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [SpaceBetweenParens](#spacebetweenparens)
 * [StringQuotes](#stringquotes)
 * [TrailingSemicolon](#trailingsemicolon)
+* [TrailingZero](#trailingzero)
 * [UnnecessaryMantissa](#unnecessarymantissa)
 * [UrlFormat](#urlformat)
 * [UrlQuotes](#urlquotes)
@@ -936,6 +937,23 @@ p {
 CSS allows you to omit the semicolon if the statement is the last statement in
 the rule set. However, this introduces inconsistency and requires anyone adding
 a property after that property to remember to append a semicolon.
+
+## TrailingZero
+
+Don't write trailing zeros for numeric values with a decimal point.
+
+**Bad: unnecessary trailing zero**
+```scss
+margin: .500em;
+```
+
+**Good: no trailing zero**
+```scss
+margin: .5em;
+```
+
+The extra zeros are unnecessary and just add additional bytes to the resulting
+generated CSS.
 
 ## UnnecessaryMantissa
 

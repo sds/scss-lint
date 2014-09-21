@@ -7,6 +7,8 @@
   result in a crash
 * Enhance `TrailingSemicolon` to check for more than one semicolon at the end
   of a statement
+* Add `TrailingZero` linter which checks for unnecessary zeros following a
+  decimal point
 
 ## 0.28.0
 
