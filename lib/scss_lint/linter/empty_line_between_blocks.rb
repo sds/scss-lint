@@ -36,8 +36,17 @@ module SCSSLint
     end
 
     def check_following_node(node, type)
-      return unless (following_node = next_node(node)) && (next_start_line = following_node.line)
-      return if engine.lines[next_start_line - 2].strip.empty?
+      return unless (following_node = next_node(node)) &&
+                    (next_start_line = following_node.line)
+
+      # Special case: ignore comments immediately after a closing brace
+      line = engine.lines[next_start_line - 1].strip
+      return if following_node.is_a?(Sass::Tree::CommentNode) &&
+                line =~ %r{\s*\}\s*/(/|\*)}
+
+      # Otherwise check if line before the next node's starting line is blank
+      line = engine.lines[next_start_line - 2].strip
+      return if line.empty?
 
       add_lint(next_start_line - 1, MESSAGE_FORMAT % [type, 'followed'])
     end

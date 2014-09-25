@@ -204,6 +204,18 @@ describe SCSSLint::Linter::EmptyLineBetweenBlocks do
     it { should_not report_lint }
   end
 
+  context 'when a rule set is immediately followed by a comment' do
+    let(:css) { <<-CSS }
+      a {
+      } // A comment
+
+      a {
+      } /* Another comment */
+    CSS
+
+    it { should_not report_lint }
+  end
+
   context 'when there are multiple placeholder rule sets' do
     context 'with blank lines between them' do
       let(:css) { <<-CSS }

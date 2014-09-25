@@ -9,6 +9,8 @@
   of a statement
 * Add `TrailingZero` linter which checks for unnecessary zeros following a
   decimal point
+* Fix bug in `EmptyLineBetweenBlocks` linter where lint would incorrectly be
+  reported when comments immediately followed the closing brace of a rule set
 
 ## 0.28.0
 
