@@ -26,6 +26,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [PropertySortOrder](#propertysortorder)
 * [PropertySpelling](#propertyspelling)
 * [SelectorDepth](#selectordepth)
+* [SelectorFormat](#selectorformat)
 * [Shorthand](#shorthand)
 * [SingleLinePerProperty](#singlelineperproperty)
 * [SingleLinePerSelector](#singlelineperselector)
@@ -695,6 +696,34 @@ is better to use less than 3 whenever possible.
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `max_depth`          | Maximum depth before reporting errors (default **3**)
+
+## SelectorFormat
+
+It is good practice to choose a convention for naming selectors.
+
+**Good**
+```scss
+// convention: 'hyphenated_lowercase'
+.foo-bar-77, foo-bar, #foo-bar {}
+
+// convention: 'snake_case'
+.foo_bar77, foo_bar, #foo_bar {}
+
+// convention: 'camel_case'
+.fooBar77, fooBar, #fooBar {}
+}
+```
+
+Since you might need to overwrite selectors for third party stylesheets, you
+can specify `ignored_names` as an array of individual selectors to ignore.
+Another option is to specify `ignored_types` to globally ignore a certain
+type of selector.
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`convention`         | Name of convention to use (`hyphenated_lowercase` (default) or `snake_case` or `camel_case`), or a regex the name must match
+`ignored_names`      | Array of whitelisted names to not report lints for.
+`ignored_types`      | Array containing list of types of selectors to ignore (valid values are `attribute`, `class`, `element`, `id`, `placeholder`, or `pseudo-selector`)
 
 ## Shorthand
 
