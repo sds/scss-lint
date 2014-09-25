@@ -185,6 +185,17 @@ describe SCSSLint::Linter::PropertySortOrder do
     it { should report_lint line: 3 }
   end
 
+  context 'when @media block contains properties not in sorted order' do
+    let(:css) { <<-CSS }
+      @media screen and (min-width: 500px) {
+        margin: 5px;
+        display: none;
+      }
+    CSS
+
+    it { should report_lint line: 2 }
+  end
+
   context 'when if block contains properties in sorted order' do
     let(:css) { <<-CSS }
       @if $var {

@@ -11,6 +11,8 @@
   decimal point
 * Fix bug in `EmptyLineBetweenBlocks` linter where lint would incorrectly be
   reported when comments immediately followed the closing brace of a rule set
+* Fix bug in `PropertySortOrder` where properties within media queries were
+  not checked for sort order
 
 ## 0.28.0
 

@@ -33,8 +33,9 @@ module SCSSLint
       yield # Continue linting children
     end
 
-    alias_method :visit_rule,  :check_sort_order
+    alias_method :visit_media, :check_sort_order
     alias_method :visit_mixin, :check_sort_order
+    alias_method :visit_rule,  :check_sort_order
 
     def visit_if(node, &block)
       check_sort_order(node, &block)
