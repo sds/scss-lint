@@ -13,6 +13,7 @@
   reported when comments immediately followed the closing brace of a rule set
 * Fix bug in `PropertySortOrder` where properties within media queries were
   not checked for sort order
+* Fix bug in `UrlQuotes` linter where lint would be reported for data URIs
 
 ## 0.28.0
 

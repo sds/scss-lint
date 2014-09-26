@@ -60,4 +60,14 @@ describe SCSSLint::Linter::UrlQuotes do
 
     it { should_not report_lint }
   end
+
+  context 'when property has a data URI' do
+    let(:css) { <<-CSS }
+      .tracking-pixel {
+        background: url(data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==);
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
 end
