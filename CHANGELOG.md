@@ -14,6 +14,8 @@
 * Fix bug in `PropertySortOrder` where properties within media queries were
   not checked for sort order
 * Fix bug in `UrlQuotes` linter where lint would be reported for data URIs
+* Add `SelectorFormat` linter which checks that the names of ids, classes, etc.
+  in selectors match a desired convention
 
 ## 0.28.0
 
