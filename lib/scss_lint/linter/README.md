@@ -721,7 +721,7 @@ type of selector.
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`convention`         | Name of convention to use (`hyphenated_lowercase` (default) or `snake_case` or `camel_case`), or a regex the name must match
+`convention`         | Name of convention to use (`hyphenated_lowercase` (default) or `snake_case`, `camel_case`, or `BEM`), or a regex the name must match
 `ignored_names`      | Array of whitelisted names to not report lints for.
 `ignored_types`      | Array containing list of types of selectors to ignore (valid values are `attribute`, `class`, `element`, `id`, `placeholder`, or `pseudo-selector`)
 

@@ -58,6 +58,10 @@ module SCSSLint
         explanation: 'has no spaces with capitalized words except first',
         validator: ->(name) { name =~ /^[a-z][a-zA-Z0-9]*$/ },
       },
+      'BEM' => {
+        explanation: 'in BEM (Block Element Modifier) format',
+        validator: ->(name) { name !~ /[A-Z]|-{3}|_{3}|[^_]_[^_]/ },
+      },
     }
 
     # Checks the given name and returns the violated convention if it failed.
