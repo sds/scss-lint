@@ -196,6 +196,21 @@ open them all:
 scss-lint --format=Files [scss-files...] | xargs vim
 ```
 
+### JSON
+
+Outputs JSON with filenames and an array of issue objects.
+
+```json
+{
+  "test.css": [
+    {"line": 2, "severity": "warning", "reason": "Prefer single quoted strings"},
+    {"line": 2, "severity": "warning", "reason": "Line should be indented 0 spaces, but was indented 1 spaces"},
+    {"line": 5, "severity": "warning", "reason": "Prefer single quoted strings"},
+    {"line": 6, "severity": "warning", "reason": "URLs should be enclosed in quotes"}
+  ]
+}
+```
+
 ### XML
 
 Outputs XML with `<lint>`, `<file>`, and `<issue>` tags. Suitable for
