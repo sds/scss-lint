@@ -43,7 +43,7 @@ describe SCSSLint::Reporter::JSONReporter do
       it_should_behave_like 'parsed JSON'
 
       it 'contains an <issue> node for each lint' do
-        json.values.reduce(0) { |sum, issues| sum + issues.size }.should == 3
+        json.values.inject(0) { |sum, issues| sum + issues.size }.should == 3
       end
 
       it 'contains a group of issues for each file' do
@@ -51,22 +51,22 @@ describe SCSSLint::Reporter::JSONReporter do
       end
 
       it 'contains <issue> nodes grouped by <file>' do
-        json.values.map { |issues| issues.size }.should == [2, 1]
+        json.values.map(&:size).should == [2, 1]
       end
 
       it 'marks each issue with a line number' do
         json.values.flat_map { |issues| issues.map { |issue| issue['line'] } }
-          .should =~ locations.map { |location| location.line }
+          .should =~ locations.map(&:line)
       end
 
       it 'marks each issue with a column number' do
         json.values.flat_map { |issues| issues.map { |issue| issue['column'] } }
-          .should =~ locations.map { |location| location.column }
+          .should =~ locations.map(&:column)
       end
 
       it 'marks each issue with a length' do
         json.values.flat_map { |issues| issues.map { |issue| issue['length'] } }
-          .should =~ locations.map { |location| location.length }
+          .should =~ locations.map(&:length)
       end
 
       it 'marks each issue with a reason containing the lint description' do
@@ -76,9 +76,9 @@ describe SCSSLint::Reporter::JSONReporter do
 
       context 'when lints are warnings' do
         it 'marks each issue with a severity of "warning"' do
-          json.values.reduce(0) { |sum, issues|
+          json.values.inject(0) do |sum, issues|
             sum + issues.select { |i| i['severity'] == 'warning' }.size
-          }.should == 3
+          end.should == 3
         end
       end
 
@@ -86,9 +86,9 @@ describe SCSSLint::Reporter::JSONReporter do
         let(:severities) { [:error] * 3 }
 
         it 'marks each issue with a severity of "error"' do
-          json.values.reduce(0) { |sum, issues|
+          json.values.inject(0) do |sum, issues|
             sum + issues.select { |i| i['severity'] == 'error' }.size
-          }.should == 3
+          end.should == 3
         end
       end
     end
