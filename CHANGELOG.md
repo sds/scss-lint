@@ -21,6 +21,8 @@
 * Add JSON formatter
 * Fix bug in `UnnecessaryParentReference` where selectors with multiple `&`
   references where one `&` was concatenated would incorrectly report a lint
+* Fix bug in `SpaceAfterPropertyName` linter where lint would be reported for
+  oneline properties following a selector with interpolation
 
 ## 0.28.0
 

@@ -20,4 +20,18 @@ describe SCSSLint::Linter::SpaceAfterPropertyName do
 
     it { should_not report_lint }
   end
+
+  context 'when interpolation within single quotes is followed by inline property' do
+    context 'and property name is followed by a space' do
+      let(:css) { "[class~='\#{$test}'] { width: 100%; }" }
+
+      it { should_not report_lint }
+    end
+
+    context 'and property name is not followed by a space' do
+      let(:css) { "[class~='\#{$test}'] { width : 100%; }" }
+
+      it { should report_lint }
+    end
+  end
 end

@@ -5,8 +5,23 @@ module SCSSLint
     include LinterRegistry
 
     def visit_prop(node)
-      return unless character_at(node.name_source_range.end_pos) != ':'
+      offset = property_name_colon_offset(node)
+      return unless character_at(node.name_source_range.start_pos, offset - 1) == ' '
       add_lint node, 'Property name should be immediately followed by a colon'
+    end
+
+  private
+
+    # Deals with a weird Sass bug where the name_source_range of a PropNode does
+    # not start at the beginning of the property name.
+    def property_name_colon_offset(node)
+      offset = 0
+
+      while character_at(node.name_source_range.start_pos, offset) != ':'
+        offset += 1
+      end
+
+      offset
     end
   end
 end
