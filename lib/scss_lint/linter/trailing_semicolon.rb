@@ -46,7 +46,7 @@ module SCSSLint
 
     # Checks that the node is ended by a semicolon (with no whitespace)
     def ends_with_semicolon?(node)
-      source_from_range(node.source_range) =~ /;$/
+      source_from_range(node.source_range) =~ /;(\s*})?$/
     end
 
     def ends_with_multiple_semicolons?(node)
@@ -55,7 +55,7 @@ module SCSSLint
     end
 
     def has_space_before_semicolon?(node)
-      source_from_range(node.source_range) =~ /\s;$/
+      source_from_range(node.source_range) =~ /\s;(\s*})?$/
     end
   end
 end

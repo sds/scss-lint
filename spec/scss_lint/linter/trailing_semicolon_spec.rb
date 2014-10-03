@@ -235,4 +235,18 @@ describe SCSSLint::Linter::TrailingSemicolon do
 
     it { should report_lint line: 2 }
   end
+
+  context 'when interpolation within single quotes is followed by property' do
+    context 'and property has a trailing semicolon' do
+      let(:css) { "[class~='\#{$test}'] { width: 100%; }" }
+
+      it { should_not report_lint }
+    end
+
+    context 'and property does not have a trailing semicolon' do
+      let(:css) { "[class~='\#{$test}'] { width : 100% }" }
+
+      it { should report_lint }
+    end
+  end
 end
