@@ -18,6 +18,7 @@
   in selectors match a desired convention
 * Remove `CapitalizationInSelector`, which has been superseded by the more
   powerful `SelectorFormat` linter
+* Add JSON formatter
 
 ## 0.28.0
 
