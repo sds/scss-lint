@@ -24,6 +24,9 @@
 * Fix bug in `SpaceAfterPropertyName`/`TrailingSemicolon` linters where lint
   would be reported for oneline properties following a selector with
   interpolation
+* Fix bug in `SpaceAfterPropertyColon`/`SpaceAfterPropertyName`/`TrailingSemicolon`
+  linters where lint would be reported for one-line properties following a
+  selector with interpolation
 
 ## 0.28.0
 

@@ -65,13 +65,13 @@ module SCSSLint
       spaces = 0
       offset = 1
 
-      # Handle quirk where Sass parser doesn't include colon in source range
-      # when property name is followed by spaces
-      if character_at(node.name_source_range.end_pos, offset) == ':'
+      # Find the colon after the property name
+      while character_at(node.name_source_range.start_pos, offset - 1) != ':'
         offset += 1
       end
 
-      while character_at(node.name_source_range.end_pos, offset) == ' '
+      # Count spaces after the colon
+      while character_at(node.name_source_range.start_pos, offset) == ' '
         spaces += 1
         offset += 1
       end
