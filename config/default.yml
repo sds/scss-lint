@@ -133,6 +133,9 @@ linters:
   UrlQuotes:
     enabled: true
 
+  VendorPrefixes:
+    enabled: true
+
   ZeroUnit:
     enabled: true
 

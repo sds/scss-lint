@@ -40,6 +40,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [UnnecessaryMantissa](#unnecessarymantissa)
 * [UrlFormat](#urlformat)
 * [UrlQuotes](#urlquotes)
+* [VendorPrefixes](#vendorprefixes)
 * [ZeroUnit](#urlquotes)
 
 ## BorderZero
@@ -1049,6 +1050,20 @@ rather than the different set of rules for literal URLs.
 
 See the [URL type](http://dev.w3.org/csswg/css-values/#url-value) documentation
 for more information.
+
+## VendorPrefixes
+
+Vendor prefixes should not be used. Instead, you should use Autoprefixer or mixins (exempt from this linter) to add vendor prefixes.
+
+**Bad: vendor prefixes**
+```scss
+-webkit-transition: none;
+```
+
+**Good**
+```scss
+transition: none;
+```
 
 ## ZeroUnit
 
