@@ -52,6 +52,16 @@ describe SCSSLint::Linter::UnnecessaryParentReference do
     it { should_not report_lint }
   end
 
+  context 'when multiple ampersands exist with one concatenated' do
+    let(:css) { <<-CSS }
+      p {
+        & + &:hover {}
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
   context 'when an amperand is used in a comma sequence to DRY up code' do
     let(:css) { <<-CSS }
       p {

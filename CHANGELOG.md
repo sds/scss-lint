@@ -19,6 +19,8 @@
 * Remove `CapitalizationInSelector`, which has been superseded by the more
   powerful `SelectorFormat` linter
 * Add JSON formatter
+* Fix bug in `UnnecessaryParentReference` where selectors with multiple `&`
+  references where one `&` was concatenated would incorrectly report a lint
 
 ## 0.28.0
 
