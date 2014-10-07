@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## Unreleased
+## 0.29.0
 
 * Update list of known properties (used by `PropertySpelling` lint)
 * Fix bug where SassScript selectors referring to the current selector would
