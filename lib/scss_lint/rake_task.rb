@@ -1,5 +1,6 @@
 require 'rake'
 require 'rake/tasklib'
+require 'scss_lint/cli'
 
 module SCSSLint
   # Provide task for invoking scss-lint via Rake.
