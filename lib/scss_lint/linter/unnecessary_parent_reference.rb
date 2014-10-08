@@ -12,6 +12,12 @@ module SCSSLint
     def visit_sequence(sequence)
       return unless sequence_starts_with_parent?(sequence.members.first)
 
+      # Allow concatentation, e.g.
+      # element {
+      #   &.foo {}
+      # }
+      return if sequence.members.first.members.size > 1
+
       # Allow sequences that contain multiple parent references, e.g.
       # element {
       #   & + & { ... }
@@ -36,8 +42,7 @@ module SCSSLint
     def sequence_starts_with_parent?(simple_sequence)
       return unless simple_sequence.is_a?(Sass::Selector::SimpleSequence)
       first = simple_sequence.members.first
-      simple_sequence.members.size == 1 &&
-        first.is_a?(Sass::Selector::Parent) &&
+      first.is_a?(Sass::Selector::Parent) &&
         first.suffix.nil? # Ignore concatenated selectors, like `&-something`
     end
   end
