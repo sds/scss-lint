@@ -1,4 +1,5 @@
 module SCSSLint
+  # Checks for vendor prefixes.
   class Linter::VendorPrefixes < Linter
     include LinterRegistry
 
@@ -15,9 +16,8 @@ module SCSSLint
       check_identifier(node, name.gsub(/^@/, ''))
 
       # Check for values
-      if node.respond_to?('value') && node.value.respond_to?('to_sass')
-        check_identifier(node, node.value.to_sass)
-      end
+      return unless node.respond_to?('value') && node.value.respond_to?('to_sass')
+      check_identifier(node, node.value.to_sass)
     end
 
     alias_method :visit_prop, :check_node
@@ -30,9 +30,9 @@ module SCSSLint
       return unless identifier =~ /^[_-]/
       # Strip vendor prefix to check against identifiers.
       # (Also strip closing parentheticals from values like linear-gradient.)
-      strippedIdentifier = identifier.gsub(/(^[_-][a-zA-Z0-9_]+-|\(.*\))/, '')
-      return if @exclusions.include?(strippedIdentifier)
-      return unless @identifiers.include?(strippedIdentifier)
+      stripped_identifier = identifier.gsub(/(^[_-][a-zA-Z0-9_]+-|\(.*\))/, '')
+      return if @exclusions.include?(stripped_identifier)
+      return unless @identifiers.include?(stripped_identifier)
       add_lint(node, 'Avoid vendor prefixes.')
     end
 
@@ -58,6 +58,5 @@ module SCSSLint
               'preset or an array of strings'
       end
     end
-
   end
 end

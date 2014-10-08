@@ -2,9 +2,7 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::VendorPrefixes do
 
-
   # General
-
   context 'when no vendor-prefix is used' do
     let(:css) { <<-CSS }
       div {
@@ -90,9 +88,7 @@ describe SCSSLint::Linter::VendorPrefixes do
     it { should report_lint line: 2 }
   end
 
-
   # Selectors
-
   context 'when a vendor-prefixed listed selector is used' do
     let(:css) { <<-CSS }
       ::-moz-placeholder {
@@ -194,9 +190,7 @@ describe SCSSLint::Linter::VendorPrefixes do
     it { should report_lint line: 1 }
   end
 
-
   # Values
-
   context 'when a vendor-prefixed listed value is used' do
     let(:css) { <<-CSS }
       div {
@@ -246,7 +240,6 @@ describe SCSSLint::Linter::VendorPrefixes do
   end
 
   # Identifier lists
-
   context 'when using non-default named identifier list' do
     let(:linter_config) { { 'identifier_list' => 'bourbon' } }
 
@@ -283,11 +276,9 @@ describe SCSSLint::Linter::VendorPrefixes do
     end
   end
 
-
   # Excluding and Including
-
   context 'when manually excluding identifiers' do
-    let(:linter_config) { { 'exclude' => ['transform', 'selection'] } }
+    let(:linter_config) { { 'exclude' => %w[transform selection] } }
 
     let(:css) { <<-CSS }
       div {
@@ -313,9 +304,7 @@ describe SCSSLint::Linter::VendorPrefixes do
     it { should report_lint line: 2 }
   end
 
-
   # More
-
   context 'when dealing with many-hyphened vendor-prefixed identifiers' do
     let(:css) { <<-CSS }
       div {
@@ -356,5 +345,4 @@ describe SCSSLint::Linter::VendorPrefixes do
 
     it { should_not report_lint }
   end
-
 end
