@@ -9,6 +9,7 @@ require 'scss_lint/runner'
 require 'scss_lint/selector_visitor'
 require 'scss_lint/version'
 require 'scss_lint/utils'
+require 'scss_lint/cli'
 
 # Preload Sass so we can monkey patch it
 require 'sass'
