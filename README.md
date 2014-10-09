@@ -80,6 +80,8 @@ Here's an example configuration file:
 ```yaml
 inherit_from: '../../inherited-config.yml'
 
+scss_files: 'app/assets/stylesheets/**/*.css.scss'
+
 exclude: 'app/assets/stylesheets/plugins/**'
 
 linters:
