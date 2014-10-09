@@ -34,7 +34,7 @@ module SCSSLint
         # Take the rest of the arguments as files/directories
 
         if @args.empty?
-          @options[:files] = Dir[@config.scss_files]
+          @options[:files] = @config.scss_files
         else
           @options[:files] = @args
         end

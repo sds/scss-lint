@@ -262,9 +262,15 @@ module SCSSLint
       @options['exclude'] << abs_path
     end
 
+    # @return Array
     def scss_files
       @files = Config.load(FILE_NAME).options['scss_files'] ||
                @options['scss_files']
+      if @files
+        Dir[@files]
+      else
+        []
+      end
     end
 
   private

@@ -164,6 +164,7 @@ describe SCSSLint::CLI do
 
     context 'when no files are specified' do
       let(:files) { [] }
+      let(:scss_files) { '*' }
 
       it 'sets :files option to the empty list' do
         safe_parse
