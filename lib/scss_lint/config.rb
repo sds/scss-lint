@@ -262,6 +262,11 @@ module SCSSLint
       @options['exclude'] << abs_path
     end
 
+    def scss_files
+      @files = Config.load(FILE_NAME).options['scss_files'] ||
+               @options['scss_files']
+    end
+
   private
 
     def validate_linters
