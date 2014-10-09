@@ -17,6 +17,8 @@ module SCSSLint
     def run(files)
       raise NoFilesError, 'No SCSS files specified' if files.empty?
 
+      puts "Inspecting #{files.length} files"
+
       files.each do |file|
         find_lints(file)
       end
