@@ -3,6 +3,11 @@
 scss_files: "**/*.scss"
 
 linters:
+  BangFormat:
+    enabled: true
+    space_before_bang: true
+    space_after_bang: false
+
   BorderZero:
     enabled: true
 
