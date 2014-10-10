@@ -1,5 +1,10 @@
 # Default application configuration that all configurations inherit from.
 linters:
+  BangFormat:
+    enabled: true
+    space_before_bang: true
+    space_after_bang: false
+
   BorderZero:
     enabled: true
 
