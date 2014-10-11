@@ -113,6 +113,7 @@ linters:
 
   SpaceBeforeBrace:
     enabled: true
+    style: space
     allow_single_line_padding: false
 
   SpaceBetweenParens:

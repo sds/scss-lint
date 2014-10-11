@@ -879,9 +879,19 @@ nicely align single line blocks, so you can write:
 .icon-chevron-right { &:before { content: "\e033"; } }
 ```
 
+Set `style` to `new_line` if you prefer to use a new line before braces, rather than a single space.
+
+```scss
+p
+{
+  ...
+}
+```
+
 Configuration Option        | Description
 ----------------------------|---------------------------------------------------
 `allow_single_line_padding` | Allow single line blocks to have extra spaces for nicer formatting (default **false**)
+`style`                     | `space` or `new_line` (default `space`)
 
 ## SpaceBetweenParens
 
