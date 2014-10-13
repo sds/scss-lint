@@ -13,7 +13,7 @@ module SCSSLint
       if !node.node_parent.respond_to?(:parsed_rules)
         # RootNodes will reset depth to zero
         @depth = 0
-      elsif node.node_parent === @last_parent
+      elsif node.node_parent == @last_parent
         # reset to last depth if node is a sibling
         @depth = @last_depth
       else
