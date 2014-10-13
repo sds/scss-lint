@@ -561,7 +561,7 @@ This linter will not report an error if you have selectors with a large [depth o
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`max_depth`          | Maximum depth before reporting errors (default **2**)
+`max_depth`          | Maximum depth before reporting errors (default **1**)
 
 ## PlaceholderInExtend
 
