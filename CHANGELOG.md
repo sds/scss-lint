@@ -10,6 +10,8 @@
   selector with interpolation
 * Add `VendorPrefixes` linter which ensures only whitelisted vendor-prefixed
   properties are used
+* Add `scss_files` configuration option allowing a default set of files to be
+  linted if no files are explicitly specified
 
 ## 0.29.0
 
