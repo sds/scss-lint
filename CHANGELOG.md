@@ -1,5 +1,16 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix bug in `SpaceAfterPropertyName`/`TrailingSemicolon` linters where lint
+  would be reported for oneline properties following a selector with
+  interpolation
+* Fix bug in `SpaceAfterPropertyColon`/`SpaceAfterPropertyName`/`TrailingSemicolon`
+  linters where lint would be reported for one-line properties following a
+  selector with interpolation
+* Add `VendorPrefixes` linter which ensures only whitelisted vendor-prefixed
+  properties are used
+
 ## 0.29.0
 
 * Update list of known properties (used by `PropertySpelling` lint)
@@ -21,12 +32,6 @@
 * Add JSON formatter
 * Fix bug in `UnnecessaryParentReference` where selectors with multiple `&`
   references where one `&` was concatenated would incorrectly report a lint
-* Fix bug in `SpaceAfterPropertyName`/`TrailingSemicolon` linters where lint
-  would be reported for oneline properties following a selector with
-  interpolation
-* Fix bug in `SpaceAfterPropertyColon`/`SpaceAfterPropertyName`/`TrailingSemicolon`
-  linters where lint would be reported for one-line properties following a
-  selector with interpolation
 
 ## 0.28.0
 
