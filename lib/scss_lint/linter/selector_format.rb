@@ -10,36 +10,36 @@ module SCSSLint
     end
 
     def visit_attribute(attribute)
-      check(attribute) unless @ignored_types.include?('attribute')
+      check(attribute, 'attribute') unless @ignored_types.include?('attribute')
     end
 
     def visit_class(klass)
-      check(klass) unless @ignored_types.include?('class')
+      check(klass, 'class') unless @ignored_types.include?('class')
     end
 
     def visit_element(element)
-      check(element) unless @ignored_types.include?('element')
+      check(element, 'element') unless @ignored_types.include?('element')
     end
 
     def visit_id(id)
-      check(id) unless @ignored_types.include?('id')
+      check(id, 'id') unless @ignored_types.include?('id')
     end
 
     def visit_placeholder(placeholder)
-      check(placeholder) unless @ignored_types.include?('placeholder')
+      check(placeholder, 'placeholder') unless @ignored_types.include?('placeholder')
     end
 
     def visit_pseudo(pseudo)
-      check(pseudo) unless @ignored_types.include?('pseudo-selector')
+      check(pseudo, 'pseudo') unless @ignored_types.include?('pseudo-selector')
     end
 
   private
 
-    def check(node)
+    def check(node, type)
       name = node.name
 
       return if @ignored_names.include?(name)
-      return unless violation = violated_convention(name)
+      return unless violation = violated_convention(name, type)
 
       add_lint(node, "Selector `#{name}` should be " \
                      "written #{violation[:explanation]}")
@@ -65,8 +65,10 @@ module SCSSLint
     }
 
     # Checks the given name and returns the violated convention if it failed.
-    def violated_convention(name_string)
-      convention_name = config['convention'] || 'hyphenated_lowercase'
+    def violated_convention(name_string, type)
+      convention_name = config["#{type}_convention"] ||
+                        config['convention'] ||
+                        'hyphenated_lowercase'
 
       convention = CONVENTIONS[convention_name] || {
         explanation: "must match regex /#{convention_name}/",
