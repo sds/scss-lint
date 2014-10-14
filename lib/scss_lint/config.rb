@@ -264,9 +264,7 @@ module SCSSLint
 
     # @return Array
     def scss_files
-      path = Config.load(FILE_NAME).options['scss_files'] ||
-               @options['scss_files']
-      if path
+      if path = @options['scss_files']
         Dir[path]
       else
         []

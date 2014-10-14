@@ -29,8 +29,6 @@ module SCSSLint
       require 'scss_lint'
       require 'scss_lint/cli'
 
-      puts 'Running SCSSLint...'
-
       CLI.new([]).tap do |cli|
         cli.parse_arguments
         cli.run
