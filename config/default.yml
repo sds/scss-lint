@@ -133,6 +133,12 @@ linters:
   UrlQuotes:
     enabled: true
 
+  VendorPrefixes:
+    enabled: true
+    identifier_list: base
+    include: []
+    exclude: []
+
   ZeroUnit:
     enabled: true
 

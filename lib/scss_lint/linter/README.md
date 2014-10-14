@@ -40,6 +40,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [UnnecessaryMantissa](#unnecessarymantissa)
 * [UrlFormat](#urlformat)
 * [UrlQuotes](#urlquotes)
+* [VendorPrefixes](#vendorprefixes)
 * [ZeroUnit](#urlquotes)
 
 ## BorderZero
@@ -1049,6 +1050,70 @@ rather than the different set of rules for literal URLs.
 
 See the [URL type](http://dev.w3.org/csswg/css-values/#url-value) documentation
 for more information.
+
+## VendorPrefixes
+
+Avoid vendor prefixes. That is, don't write them yourself.
+
+Instead, you can use Autoprefixer or mixins -- such as Compass or Bourbon -- to add vendor prefixes to your code. (If using your own mixins, make sure to exempt their source from this linter.)
+
+At-rules, selectors, properties, and values are all checked. (See the examples below.)
+
+The default `identifier_list`, `base`, should include everything that Autoprefixer addresses. You could also use a list covering Bourbon's CSS3 mixins: `bourbon`. If neither of those suit you, you can write your own identifier list.
+
+Additionally, you can manually include or exclude identifiers from the identifier list -- if, for example, you want to use pretty much all of the `base` list but also want to allow yourself to use vendor prefixed `transform` properties, for one reason or another.
+
+(All identifiers used by the `identifier_list`, `include`, or `exclude` are stripped of vendor prefixes. See [the predefined lists](https://github.com/causes/scss-lint/tree/master/data/prefixed-identifiers) for examples.)
+
+**Bad: vendor prefixes**
+```scss
+@-webkit-keyframes anim {
+  0% { opacity: 0; }
+}
+
+::-moz-placeholder {
+  color: red;
+}
+
+.foo {
+  -webkit-transition: none;
+}
+
+.bar {
+  position: -moz-sticky;
+}
+```
+
+**Good**
+```scss
+// With Autoprefixer ...
+@keyframes anim {
+  0% { opacity: 0; }
+}
+
+::placeholder {
+  color: red;
+}
+
+.foo {
+  transition: none;
+}
+
+.bar {
+  position: sticky;
+}
+
+// With Bourbon mixin
+@include placeholder {
+  color: red;
+}
+```
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`identifier_list`    | Name of predefined identifier list to use (`base` or `bourbon`) or an array of identifiers
+`include`            | Identifiers to lint, in addition to the `identifier_list`
+`exclude`            | Identifers in the `identifier_list` to exclude from linting
 
 ## ZeroUnit
 
