@@ -27,6 +27,9 @@ module SCSSLint
     def run_task
       # Lazy load so task doesn't impact load time of Rakefile
       require 'scss_lint'
+      require 'scss_lint/cli'
+
+      puts 'Running SCSSLint...'
 
       CLI.new([]).tap do |cli|
         cli.parse_arguments

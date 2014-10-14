@@ -32,7 +32,13 @@ module SCSSLint
         options_parser.parse!(@args)
 
         # Take the rest of the arguments as files/directories
-        @options[:files] = @args
+
+        if @args.empty?
+          @options[:files] = @config.scss_files
+        else
+          @options[:files] = @args
+        end
+
       rescue OptionParser::InvalidOption => ex
         print_help options_parser.help, ex
       end
