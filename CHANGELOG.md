@@ -14,6 +14,8 @@
   linted if no files are explicitly specified
 * Add `BangFormat` linter which enforces spacing around the `!` for
   `!important` and `!default`
+* Add `new_line` option to `SpaceBeforeBrace` linter enforcing opening curly
+  braces start on a new line
 
 ## 0.29.0
 
