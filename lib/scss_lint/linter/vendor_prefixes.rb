@@ -4,9 +4,9 @@ module SCSSLint
     include LinterRegistry
 
     def visit_root(_node)
-      @identifiers = Set.new extract_identifiers_from_config
-      @identifiers.merge(Set.new config['include'])
-      @exclusions = Set.new config['exclude']
+      @identifiers = Set.new(extract_identifiers_from_config)
+      @identifiers.merge(Set.new(config['include']))
+      @exclusions = Set.new(config['exclude'])
       yield
     end
 
@@ -16,7 +16,7 @@ module SCSSLint
       check_identifier(node, name.gsub(/^@/, ''))
 
       # Check for values
-      return unless node.respond_to?('value') && node.value.respond_to?('to_sass')
+      return unless node.respond_to?(:value) && node.value.respond_to?(:to_sass)
       check_identifier(node, node.value.to_sass)
     end
 
@@ -28,18 +28,20 @@ module SCSSLint
 
     def check_identifier(node, identifier)
       return unless identifier =~ /^[_-]/
+
       # Strip vendor prefix to check against identifiers.
       # (Also strip closing parentheticals from values like linear-gradient.)
       stripped_identifier = identifier.gsub(/(^[_-][a-zA-Z0-9_]+-|\(.*\))/, '')
       return if @exclusions.include?(stripped_identifier)
       return unless @identifiers.include?(stripped_identifier)
+
       add_lint(node, 'Avoid vendor prefixes.')
     end
 
     def extract_identifiers_from_config
       case config['identifier_list']
       when nil
-        nil # No custom order specified
+        nil
       when Array
         config['identifier_list']
       when String
@@ -49,11 +51,11 @@ module SCSSLint
                                      "#{config['identifier_list']}.txt"))
           file.read.split("\n").reject { |line| line =~ /^(#|\s*$)/ }
         rescue Errno::ENOENT
-          raise SCSSLint::LinterError,
+          raise SCSSLint::Exceptions::LinterError,
                 "Identifier list '#{config['identifier_list']}' does not exist"
         end
       else
-        raise SCSSLint::LinterError,
+        raise SCSSLint::Exceptions::LinterError,
               'Invalid identifier list specified -- must be the name of a '\
               'preset or an array of strings'
       end

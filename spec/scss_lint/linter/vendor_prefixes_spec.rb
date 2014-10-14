@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe SCSSLint::Linter::VendorPrefixes do
-
-  # General
   context 'when no vendor-prefix is used' do
     let(:css) { <<-CSS }
       div {
@@ -89,6 +87,7 @@ describe SCSSLint::Linter::VendorPrefixes do
   end
 
   # Selectors
+
   context 'when a vendor-prefixed listed selector is used' do
     let(:css) { <<-CSS }
       ::-moz-placeholder {
@@ -191,6 +190,7 @@ describe SCSSLint::Linter::VendorPrefixes do
   end
 
   # Values
+
   context 'when a vendor-prefixed listed value is used' do
     let(:css) { <<-CSS }
       div {
@@ -240,6 +240,7 @@ describe SCSSLint::Linter::VendorPrefixes do
   end
 
   # Identifier lists
+
   context 'when using non-default named identifier list' do
     let(:linter_config) { { 'identifier_list' => 'bourbon' } }
 
@@ -277,6 +278,7 @@ describe SCSSLint::Linter::VendorPrefixes do
   end
 
   # Excluding and Including
+
   context 'when manually excluding identifiers' do
     let(:linter_config) { { 'exclude' => %w[transform selection] } }
 
