@@ -4,13 +4,14 @@ module SCSSLint
     include LinterRegistry
 
     def visit_prop(node)
-      return unless node.to_sass.include? '!'
+      return unless node.to_sass.include?('!')
       return unless check_spacing(node)
+
       before_qualifier = config['space_before_bang'] ? '' : 'not '
       after_qualifier = config['space_after_bang'] ? '' : 'not '
-      message = "! should #{before_qualifier}be preceeded by a space, " \
-              "and should #{after_qualifier}be followed by a space"
-      add_lint(node, message)
+
+      add_lint(node, "! should #{before_qualifier}be preceeded by a space, " \
+                     "and should #{after_qualifier}be followed by a space")
     end
 
   private

@@ -12,6 +12,8 @@
   properties are used
 * Add `scss_files` configuration option allowing a default set of files to be
   linted if no files are explicitly specified
+* Add `BangFormat` linter which enforces spacing around the `!` for
+  `!important` and `!default`
 
 ## 0.29.0
 

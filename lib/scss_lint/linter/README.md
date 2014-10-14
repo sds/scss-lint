@@ -63,7 +63,7 @@ color: #000 !important;
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `space_before_bang`  | Whether a space should be present *before* the `!`, as in `color: #000 !important;` (default **true**)
-`space_after_bang`   | Whether a space should be present *after* the `!`, as in `color: #000 ! important;`
+`space_after_bang`   | Whether a space should be present *after* the `!`, as in `color: #000 ! important;` (default **false**)
 
 ## BorderZero
 
