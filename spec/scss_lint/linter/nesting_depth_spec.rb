@@ -10,6 +10,7 @@ describe SCSSLint::Linter::NestingDepth do
     CSS
     it { should_not report_lint }
   end
+
   context 'when nesting has a depth of one' do
     let(:css) { <<-CSS }
       .zero {
@@ -17,9 +18,13 @@ describe SCSSLint::Linter::NestingDepth do
           font-style: italic;
         }
       }
+      .one {
+        font-style: italic;
+      }
     CSS
     it { should_not report_lint }
   end
+
   context 'when nesting has a depth of two' do
     let(:css) { <<-CSS }
       .zero {
@@ -35,6 +40,7 @@ describe SCSSLint::Linter::NestingDepth do
     CSS
     it { should report_lint }
   end
+
   # linter should only be concerned about the nesting selector depth
   context 'when nesting properties' do
     let(:css) { <<-CSS }
@@ -49,6 +55,7 @@ describe SCSSLint::Linter::NestingDepth do
     CSS
     it { should_not report_lint }
   end
+
   # anim's should not be considered
   context 'when sequence contains a @keyframe' do
     let(:css) { <<-CSS }
