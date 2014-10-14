@@ -66,11 +66,9 @@ module SCSSLint
 
     # Checks the given name and returns the violated convention if it failed.
     def violated_convention(name_string, type)
-      if config["#{type}_convention"]
-        convention_name = config["#{type}_convention"]
-      else
-        convention_name = config['convention'] || 'hyphenated_lowercase'
-      end
+      convention_name = config["#{type}_convention"] \
+                      || config['convention'] \
+                      || 'hyphenated_lowercase'
 
       convention = CONVENTIONS[convention_name] || {
         explanation: "must match regex /#{convention_name}/",
