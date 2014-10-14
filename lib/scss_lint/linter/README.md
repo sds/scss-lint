@@ -22,6 +22,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [LeadingZero](#leadingzero)
 * [MergeableSelector](#mergeableselector)
 * [NameFormat](#nameformat)
+* [NestingDepth](#nestingdepth)
 * [PlaceholderInExtend](#placeholderinextend)
 * [PropertySortOrder](#propertysortorder)
 * [PropertySpelling](#propertyspelling)
@@ -531,6 +532,59 @@ You can also prefer the [BEM](http://bem.info/method/) convention by setting the
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `convention`         | Name of convention to use (`hyphenated_lowercase` (default) or `BEM`), or a regex the name must match
+
+## NestingDepth
+
+Overly nested rules will result in over-qualified CSS that could prove hard to maintain, output unnecessary selectors and is generally [considered bad practice](http://sass-lang.com/guide#topic-3).
+
+**Bad: nesting with depths of 3**
+```scss
+.one {
+  .two {
+    .three {
+      &:hover {
+        ...
+      }
+    }
+  }
+}
+```
+
+**Good**
+```scss
+.three:hover {
+}
+
+.three {
+  &:hover {
+    ...
+  }
+}
+```
+
+This linter will not report an error if you have selectors with a large [depth of applicability](http://smacss.com/book/applicability). Use [SelectorDepth](#selectordepth) for this purpose.
+
+**No error**
+```scss
+.one .two .three {
+  ...
+}
+```
+
+**Error**
+```scss
+.one {
+  .two {
+    .three {
+      ...
+    }
+  }
+}
+```
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`max_depth`          | Maximum depth before reporting errors (default **1**)
 
 ## PlaceholderInExtend
 
