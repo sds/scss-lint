@@ -18,6 +18,8 @@
   braces start on a new line
 * Add `NestingDepth` linter which ensures selectors are nested only up to a
   specified maximum depth
+* Add support to `SelectorFormat` for specifying different conventions for
+  different types of selectors via the `<type>_convention` options
 
 ## 0.29.0
 
