@@ -535,14 +535,14 @@ Configuration Option | Description
 
 ## NestingDepth
 
-Overly nested rules will result in over-qualified CSS that could prove hard to maintain, output unnecessary selectors and is generally [considered bad practice](http://sass-lang.com/guide#topic-3).
+Avoid nesting selectors too deeply.
 
-**Bad: nesting with depths of 3**
+**Bad: deeply nested**
 ```scss
 .one {
   .two {
     .three {
-      &:hover {
+      .four {
         ...
       }
     }
@@ -562,7 +562,13 @@ Overly nested rules will result in over-qualified CSS that could prove hard to m
 }
 ```
 
-This linter will not report an error if you have selectors with a large [depth of applicability](http://smacss.com/book/applicability). Use [SelectorDepth](#selectordepth) for this purpose.
+Overly nested rules will result in over-qualified CSS that could prove hard to
+maintain, output unnecessary selectors and is generally [considered bad
+practice](http://sass-lang.com/guide#topic-3).
+
+This linter will not report an error if you have selectors with a large [depth
+of applicability](http://smacss.com/book/applicability). Use
+[SelectorDepth](#selectordepth) for this purpose.
 
 **No error**
 ```scss
@@ -584,7 +590,7 @@ This linter will not report an error if you have selectors with a large [depth o
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`max_depth`          | Maximum depth before reporting errors (default **1**)
+`max_depth`          | Maximum depth before reporting errors (default **3**)
 
 ## PlaceholderInExtend
 

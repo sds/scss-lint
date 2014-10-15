@@ -16,6 +16,8 @@
   `!important` and `!default`
 * Add `new_line` option to `SpaceBeforeBrace` linter enforcing opening curly
   braces start on a new line
+* Add `NestingDepth` linter which ensures selectors are nested only up to a
+  specified maximum depth
 
 ## 0.29.0
 

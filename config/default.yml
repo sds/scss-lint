@@ -73,8 +73,8 @@ linters:
     convention: hyphenated_lowercase # or 'BEM', or a regex pattern
 
   NestingDepth:
-    enabled: false
-    max_depth: 1
+    enabled: true
+    max_depth: 3
 
   PlaceholderInExtend:
     enabled: true
