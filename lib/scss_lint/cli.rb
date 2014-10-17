@@ -23,7 +23,7 @@ module SCSSLint
     # @param args [Array]
     def initialize(args = [])
       @args    = args
-      @options = {}
+      @options = { reporters: [[SCSSLint::Reporter::DefaultReporter, :stdout]] }
       @config  = Config.default
     end
 
@@ -70,6 +70,10 @@ module SCSSLint
 
         opts.on('-f', '--format Formatter', 'Specify how to display lints', String) do |format|
           define_output_format(format)
+        end
+
+        opts.on('-o', '--out path', 'Write output to a file instead of STDOUT', String) do |path|
+          define_output_path(path)
         end
 
         opts.on_tail('--show-formatters', 'Shows available formatters') do
@@ -198,17 +202,28 @@ module SCSSLint
     # @param lints [Array<Lint>]
     def report_lints(lints)
       sorted_lints = lints.sort_by { |l| [l.filename, l.location] }
-      reporter = @options.fetch(:reporter, SCSSLint::Reporter::DefaultReporter)
-                         .new(sorted_lints)
-      output = reporter.report_lints
-      print output if output
+      @options.fetch(:reporters).each do |i|
+        reporter = i.first.new(sorted_lints)
+        output = (i.last == :stdout ? $stdout : File.new(i.last, 'w+'))
+        results = reporter.report_lints
+        output.print results if results
+      end
     end
 
     # @param format [String]
     def define_output_format(format)
-      @options[:reporter] = SCSSLint::Reporter.const_get(format + 'Reporter')
+      @options[:reporters] << [SCSSLint::Reporter.const_get(format + 'Reporter'), :stdout]
     rescue NameError
       puts "Invalid output format specified: #{format}"
+      halt :config
+    end
+
+    # @param path [String]
+    def define_output_path(path)
+      last_reporter = @options[:reporters].pop
+      @options[:reporters] << [last_reporter.first, path]
+    rescue
+      puts "Invalid output path specified: #{path}"
       halt :config
     end
 
