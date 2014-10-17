@@ -21,6 +21,7 @@
 * Add support to `SelectorFormat` for specifying different conventions for
   different types of selectors via the `<type>_convention` options
 * Add `@import` check to `TrailingSemicolon`
+* Make `PropertySortOrder` lint message more useful
 
 ## 0.29.0
 
