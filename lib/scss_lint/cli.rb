@@ -20,10 +20,12 @@ module SCSSLint
       config:    78, # Configuration error
     }
 
+    DEFAULT_REPORTER = [SCSSLint::Reporter::DefaultReporter, :stdout]
+
     # @param args [Array]
     def initialize(args = [])
       @args    = args
-      @options = {}
+      @options = { reporters: [DEFAULT_REPORTER] }
       @config  = Config.default
     end
 
@@ -70,6 +72,10 @@ module SCSSLint
 
         opts.on('-f', '--format Formatter', 'Specify how to display lints', String) do |format|
           define_output_format(format)
+        end
+
+        opts.on('-o', '--out path', 'Write output to a file instead of STDOUT', String) do |path|
+          define_output_path(path)
         end
 
         opts.on_tail('--show-formatters', 'Shows available formatters') do
@@ -198,18 +204,29 @@ module SCSSLint
     # @param lints [Array<Lint>]
     def report_lints(lints)
       sorted_lints = lints.sort_by { |l| [l.filename, l.location] }
-      reporter = @options.fetch(:reporter, SCSSLint::Reporter::DefaultReporter)
-                         .new(sorted_lints)
-      output = reporter.report_lints
-      print output if output
+      @options.fetch(:reporters).each do |reporter, output|
+        results = reporter.new(sorted_lints).report_lints
+        io = (output == :stdout ? $stdout : File.new(output, 'w+'))
+        io.print results if results
+      end
     end
 
     # @param format [String]
     def define_output_format(format)
-      @options[:reporter] = SCSSLint::Reporter.const_get(format + 'Reporter')
+      unless @options[:reporters] == [DEFAULT_REPORTER] && format == 'Default'
+        @options[:reporters].reject! { |i| i == DEFAULT_REPORTER }
+        reporter = SCSSLint::Reporter.const_get(format + 'Reporter')
+        @options[:reporters] << [reporter, :stdout]
+      end
     rescue NameError
       puts "Invalid output format specified: #{format}"
       halt :config
+    end
+
+    # @param path [String]
+    def define_output_path(path)
+      last_reporter, _output = @options[:reporters].pop
+      @options[:reporters] << [last_reporter, path]
     end
 
     def print_formatters

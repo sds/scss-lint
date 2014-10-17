@@ -93,7 +93,30 @@ describe SCSSLint::CLI do
 
       it 'includes all linters except the excluded one' do
         safe_parse
-        subject.config.enabled_linters.should == [SCSSLint::Linter::FakeTestLinter2]
+        subject.config.enabled_linters.should == \
+          [SCSSLint::Linter::FakeTestLinter2]
+      end
+    end
+
+    context 'when neither format nor out flag is set' do
+      let(:flags) { %w[] }
+
+      it 'sets the default reporter to output to stdout' do
+        safe_parse
+        subject.options[:reporters].should \
+          include([SCSSLint::Reporter::DefaultReporter, :stdout])
+      end
+    end
+
+    context 'when the out flag is set' do
+      context 'and the path is valid' do
+        let(:flags) { %w[--out foo.txt] }
+
+        it 'sets the default :output to the given path' do
+          safe_parse
+          subject.options[:reporters].should \
+            include([SCSSLint::Reporter::DefaultReporter, 'foo.txt'])
+        end
       end
     end
 
@@ -103,7 +126,18 @@ describe SCSSLint::CLI do
 
         it 'sets the :reporter option to the correct reporter' do
           safe_parse
-          subject.options[:reporter].should == SCSSLint::Reporter::XMLReporter
+          subject.options[:reporters].should \
+            include([SCSSLint::Reporter::XMLReporter, :stdout])
+        end
+      end
+
+      context 'and an out path is specified' do
+        let(:flags) { %w[--format XML --out foo.txt] }
+
+        it 'sets the specified reporter :output to the given path' do
+          safe_parse
+          subject.options[:reporters].should \
+            include([SCSSLint::Reporter::XMLReporter, 'foo.txt'])
         end
       end
 
