@@ -1009,7 +1009,7 @@ Configuration Option | Description
 
 ## TrailingSemicolon
 
-Property values, `@extend` directives, `@include` directives, and variable
+Property values; `@extend`, `@include`, and `@import` directives; and variable
 declarations should always end with a semicolon.
 
 **Bad: no semicolon**

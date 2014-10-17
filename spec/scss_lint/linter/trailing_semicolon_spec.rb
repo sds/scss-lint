@@ -206,6 +206,24 @@ describe SCSSLint::Linter::TrailingSemicolon do
     it { should_not report_lint }
   end
 
+  context 'when @import ends with a semicolon' do
+    let(:css) { '@import "something";' }
+
+    it { should_not report_lint }
+  end
+
+  context 'when @import does not end with a semicolon' do
+    let(:css) { '@import "something"' }
+
+    it { should report_lint line: 1 }
+  end
+
+  context 'when @import has a space before a semicolon' do
+    let(:css) { '@import "something" ;' }
+
+    it { should report_lint line: 1 }
+  end
+
   context 'when variable declaration does not end with a semicolon' do
     let(:css) { <<-CSS }
       .foo {
