@@ -20,6 +20,7 @@
   specified maximum depth
 * Add support to `SelectorFormat` for specifying different conventions for
   different types of selectors via the `<type>_convention` options
+* Add `@import` check to `TrailingSemicolon`
 
 ## 0.29.0
 
