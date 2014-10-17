@@ -22,6 +22,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [LeadingZero](#leadingzero)
 * [MergeableSelector](#mergeableselector)
 * [NameFormat](#nameformat)
+* [NestingDepth](#nestingdepth)
 * [PlaceholderInExtend](#placeholderinextend)
 * [PropertySortOrder](#propertysortorder)
 * [PropertySpelling](#propertyspelling)
@@ -532,6 +533,65 @@ Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `convention`         | Name of convention to use (`hyphenated_lowercase` (default) or `BEM`), or a regex the name must match
 
+## NestingDepth
+
+Avoid nesting selectors too deeply.
+
+**Bad: deeply nested**
+```scss
+.one {
+  .two {
+    .three {
+      .four {
+        ...
+      }
+    }
+  }
+}
+```
+
+**Good**
+```scss
+.three:hover {
+}
+
+.three {
+  &:hover {
+    ...
+  }
+}
+```
+
+Overly nested rules will result in over-qualified CSS that could prove hard to
+maintain, output unnecessary selectors and is generally [considered bad
+practice](http://sass-lang.com/guide#topic-3).
+
+This linter will not report an error if you have selectors with a large [depth
+of applicability](http://smacss.com/book/applicability). Use
+[SelectorDepth](#selectordepth) for this purpose.
+
+**No error**
+```scss
+.one .two .three {
+  ...
+}
+```
+
+**Error**
+```scss
+.one {
+  .two {
+    .three {
+      ...
+    }
+  }
+}
+```
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`max_depth`          | Maximum depth before reporting errors (default **3**)
+
 ## PlaceholderInExtend
 
 Always use placeholder selectors in `@extend`.
@@ -707,16 +767,23 @@ It is good practice to choose a convention for naming selectors.
 }
 ```
 
+You can specify different conventions for different types of selectors using the `[type]_convention` options.
+
 Since you might need to overwrite selectors for third party stylesheets, you
 can specify `ignored_names` as an array of individual selectors to ignore.
 Another option is to specify `ignored_types` to globally ignore a certain
 type of selector.
 
-Configuration Option | Description
----------------------|---------------------------------------------------------
-`convention`         | Name of convention to use (`hyphenated_lowercase` (default) or `snake_case`, `camel_case`, or `BEM`), or a regex the name must match
-`ignored_names`      | Array of whitelisted names to not report lints for.
-`ignored_types`      | Array containing list of types of selectors to ignore (valid values are `attribute`, `class`, `element`, `id`, `placeholder`, or `pseudo-selector`)
+Configuration Option     | Description
+-------------------------|-----------------------------------------------------
+`convention`             | Name of convention to use (`hyphenated_lowercase` (default) or `snake_case`, `camel_case`, or `BEM`), or a regex the name must match
+`ignored_names`          | Array of whitelisted names to not report lints for.
+`ignored_types`          | Array containing list of types of selectors to ignore (valid values are `attribute`, `class`, `element`, `id`, `placeholder`, or `pseudo-selector`)
+`attribute_convention`   | Convention for attribute selectors only. See the `convention` option for possible values.
+`class_convention`       | Convention for class selectors only. See the `convention` option for possible values.
+`id_convention`          | Convention for id selectors only. See the `convention` option for possible values.
+`placeholder_convention` | Convention for placeholder selectors only. See the `convention` option for possible values.
+`pseudo_convention`      | Convention for pseudo-selectors only. See the `convention` option for possible values.
 
 ## Shorthand
 
@@ -942,7 +1009,7 @@ Configuration Option | Description
 
 ## TrailingSemicolon
 
-Property values, `@extend` directives, `@include` directives, and variable
+Property values; `@extend`, `@include`, and `@import` directives; and variable
 declarations should always end with a semicolon.
 
 **Bad: no semicolon**

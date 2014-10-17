@@ -27,6 +27,10 @@ module SCSSLint
       end
     end
 
+    def visit_import(node)
+      check_semicolon(node)
+    end
+
   private
 
     def check_semicolon(node)

@@ -269,4 +269,251 @@ describe SCSSLint::Linter::SelectorFormat do
       it { should_not report_lint }
     end
   end
+
+  context 'when using a unique `id_convention`' do
+    let(:linter_config) { { 'id_convention' => 'snake_case' } }
+
+    context 'and actual id is correct' do
+      let(:css) { <<-CSS }
+        .hyphenated-lowercase {}
+        #snake_case {}
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and actual id is incorrect' do
+      let(:css) { <<-CSS }
+        .hyphenated-lowercase {}
+        #hyphenated-lowercase {}
+      CSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'and something else uses the `id_convention`' do
+      let(:css) { <<-CSS }
+        .snake_case {}
+        #hyphenated-lowercase {}
+      CSS
+
+      it { should report_lint line: 1 }
+    end
+  end
+
+  context 'when using a unique `class_convention`' do
+    let(:linter_config) { { 'class_convention' => 'camel_case' } }
+
+    context 'and actual class is correct' do
+      let(:css) { <<-CSS }
+        .camelCase {}
+        #hyphenated-lowercase {}
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and actual class is incorrect' do
+      let(:css) { <<-CSS }
+        .hyphenated-lowercase {}
+        #hyphenated-lowercase {}
+      CSS
+
+      it { should report_lint line: 1 }
+    end
+
+    context 'and something else uses the `class_convention`' do
+      let(:css) { <<-CSS }
+        .hyphenated-lowercase {}
+        #camelCase {}
+      CSS
+
+      it { should report_lint line: 2 }
+    end
+  end
+
+  context 'when using a unique `placeholder_convention`' do
+    let(:linter_config) { { 'placeholder_convention' => 'snake_case' } }
+
+    context 'and actual placeholder is correct' do
+      let(:css) { <<-CSS }
+        .hyphenated-lowercase {}
+        %snake_case {}
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and actual placeholder is incorrect' do
+      let(:css) { <<-CSS }
+        .hyphenated-lowercase {}
+        %hyphenated-lowercase {}
+      CSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'and something else uses the `placeholder_convention`' do
+      let(:css) { <<-CSS }
+        .snake_case {}
+        %snake_case {}
+      CSS
+
+      it { should report_lint line: 1 }
+    end
+  end
+
+  context 'when using a unique `element_convention`' do
+    let(:linter_config) do
+      {
+        'convention' => 'camel_case',
+        'element_convention' => 'hyphenated-lowercase'
+      }
+    end
+
+    context 'and actual element is correct' do
+      let(:css) { <<-CSS }
+        hyphenated-lowercase {}
+        #camelCase {}
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and actual element is incorrect' do
+      let(:css) { <<-CSS }
+        camelCase {}
+        #camelCase {}
+      CSS
+
+      it { should report_lint line: 1 }
+    end
+
+    context 'and something else uses the `element_convention`' do
+      let(:css) { <<-CSS }
+        hyphenated-lowercase {}
+        #hyphenated-lowercase {}
+      CSS
+
+      it { should report_lint line: 2 }
+    end
+  end
+
+  context 'when using a unique `pseudo_convention`' do
+    let(:linter_config) do
+      {
+        'convention' => 'camel_case',
+        'pseudo_convention' => 'hyphenated-lowercase'
+      }
+    end
+
+    context 'and actual pseudo is correct' do
+      let(:css) { <<-CSS }
+        :hyphenated-lowercase {}
+        #camelCase {}
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and actual pseudo is incorrect' do
+      let(:css) { <<-CSS }
+        :camelCase {}
+        #camelCase {}
+      CSS
+
+      it { should report_lint line: 1 }
+    end
+
+    context 'and something else uses the `pseudo_convention`' do
+      let(:css) { <<-CSS }
+        :hyphenated-lowercase {}
+        #hyphenated-lowercase {}
+      CSS
+
+      it { should report_lint line: 2 }
+    end
+  end
+
+  context 'when using a unique `attribute_convention`' do
+    let(:linter_config) do
+      {
+        'convention' => 'camel_case',
+        'attribute_convention' => 'hyphenated-lowercase'
+      }
+    end
+
+    context 'and actual attribute is correct' do
+      let(:css) { <<-CSS }
+        [hyphenated-lowercase] {}
+        #camelCase {}
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and actual attribute is incorrect' do
+      let(:css) { <<-CSS }
+        [camelCase] {}
+        #camelCase {}
+      CSS
+
+      it { should report_lint line: 1 }
+    end
+
+    context 'and something else uses the `attribute_convention`' do
+      let(:css) { <<-CSS }
+        [hyphenated-lowercase] {}
+        #hyphenated-lowercase {}
+      CSS
+
+      it { should report_lint line: 2 }
+    end
+  end
+
+  context 'when using a blend of unique conventions' do
+    let(:linter_config) do
+      {
+        'convention' => 'camel_case',
+        'element_convention' => 'hyphenated-lowercase',
+        'attribute_convention' => 'snake_case',
+        'class_convention' => /[a-z]+\-\-[a-z]+/
+      }
+    end
+
+    context 'and everything is correct' do
+      let(:css) { <<-CSS }
+        #camelCase {}
+        hyphenated-lowercase {}
+        [snake_case] {}
+        .foo--bar {}
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'some things are not correct' do
+      let(:css) { <<-CSS }
+        #camelCase {}
+        camelCase {}
+        [snake_case] {}
+        .fooBar {}
+      CSS
+
+      it { should report_lint line: 2 }
+      it { should report_lint line: 4 }
+    end
+
+    context 'other things are not correct' do
+      let(:css) { <<-CSS }
+        #snake_case {}
+        hyphenated-lowercase {}
+        [camelCase] {}
+        .foo--bar {}
+      CSS
+
+      it { should report_lint line: 1 }
+      it { should report_lint line: 3 }
+    end
+  end
 end

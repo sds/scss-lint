@@ -16,6 +16,12 @@
   `!important` and `!default`
 * Add `new_line` option to `SpaceBeforeBrace` linter enforcing opening curly
   braces start on a new line
+* Add `NestingDepth` linter which ensures selectors are nested only up to a
+  specified maximum depth
+* Add support to `SelectorFormat` for specifying different conventions for
+  different types of selectors via the `<type>_convention` options
+* Add `@import` check to `TrailingSemicolon`
+* Make `PropertySortOrder` lint message more useful
 
 ## 0.29.0
 
