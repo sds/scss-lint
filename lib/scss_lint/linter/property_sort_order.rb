@@ -26,7 +26,7 @@ module SCSSLint
       sorted_props.each_with_index do |prop, index|
         next unless prop != sortable_prop_info[index]
 
-        add_lint(sortable_props[index], lint_message(sortable_prop_info))
+        add_lint(sortable_props[index], lint_message(sorted_props))
         break
       end
 
