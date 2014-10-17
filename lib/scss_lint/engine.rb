@@ -20,7 +20,9 @@ module SCSSLint
         @contents = scss_or_filename
       end
 
-      @lines = @contents.lines.to_a # Need `to_a` for Ruby 1.9.3
+      # Need to force encoding to avoid Windows-related bugs.
+      # Need `to_a` for Ruby 1.9.3.
+      @lines = @contents.force_encoding('UTF-8').lines.to_a
       @tree = @engine.to_tree
     rescue Encoding::UndefinedConversionError, Sass::SyntaxError => error
       if error.is_a?(Encoding::UndefinedConversionError) ||

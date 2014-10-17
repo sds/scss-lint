@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe SCSSLint::Linter::TrailingSemicolon do
@@ -266,5 +268,18 @@ describe SCSSLint::Linter::TrailingSemicolon do
 
       it { should report_lint }
     end
+  end
+
+  context 'when triggering a bug based on Windows IBM437 encoding' do
+    CSS = <<-CSS
+      @charset "UTF-8";
+
+      .foo:before {
+        content: '▼';
+      }
+    CSS
+    let(:css) { CSS.force_encoding('IBM437') }
+
+    it { should_not report_lint }
   end
 end
