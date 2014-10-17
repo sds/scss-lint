@@ -26,7 +26,7 @@ module SCSSLint
       sorted_props.each_with_index do |prop, index|
         next unless prop != sortable_prop_info[index]
 
-        add_lint(sortable_props[index], lint_message)
+        add_lint(sortable_props[index], lint_message(sorted_props))
         break
       end
 
@@ -127,16 +127,9 @@ module SCSSLint
       config['order'].is_a?(String)
     end
 
-    def lint_message
-      if preset_order?
-        "Properties should be sorted according to the #{config['order']} sort order"
-      elsif @preferred_order
-        'Properties should be sorted according to the custom order ' \
-        'specified by the configuration'
-      else
-        'Properties should be sorted in order, with vendor-prefixed ' \
-        'extensions before the standardized CSS property'
-      end
+    def lint_message(sortable_prop_info)
+      props = sortable_prop_info.map { |prop| prop[:name] }.join(', ')
+      "Properties should be ordered #{props}"
     end
   end
 end
