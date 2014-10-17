@@ -18,6 +18,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [HexNotation](#hexnotation)
 * [HexValidation](#hexvalidation)
 * [IdWithExtraneousSelector](#idwithextraneousselector)
+* [ImportPartial](#importpartial)
 * [Indentation](#indentation)
 * [LeadingZero](#leadingzero)
 * [MergeableSelector](#mergeableselector)
@@ -390,6 +391,37 @@ ID is a violation of those principles.
 Even better would be to
 [never use IDs](http://screwlewse.com/2010/07/dont-use-id-selectors-in-css/)
 in the first place.
+
+## ImportPartial
+
+The basenames of `@import`ed SCSS partials should not begin with an underscore
+and should not include the filename extension.
+
+**Bad**
+```scss
+@import "foo/_bar.scss";
+@import "_bar.scss";
+@import "_bar";
+@import "bar.scss";
+```
+
+**Good**
+```scss
+@import "foo/bar";
+@import "bar";
+```
+
+You can configure this linter to instead ensure that you *do* include the
+leading underscore or the filename extension by setting either option to
+`true`. Being explicit might have its place, as long as you are consistent.
+
+`@import` declarations that Sass compiles directly into CSS `@import` rules
+will be ignored.
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`leading_underscore` | `false` or `true` (default **false**)
+`filename_extension` | `false` or `true` (default **false**)
 
 ## Indentation
 
