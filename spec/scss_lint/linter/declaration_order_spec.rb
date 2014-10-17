@@ -91,4 +91,225 @@ describe SCSSLint::Linter::DeclarationOrder do
 
     it { should report_lint }
   end
+
+  context 'when nested rule set' do
+    context 'contains @extend before a property' do
+      let(:css) { <<-CSS }
+        p {
+          a {
+            @extend foo;
+            color: #f00;
+          }
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'contains @extend after a property' do
+      let(:css) { <<-CSS }
+        p {
+          a {
+            color: #f00;
+            @extend foo;
+          }
+        }
+      CSS
+
+      it { should report_lint }
+    end
+
+    context 'contains @extend after nested rule set' do
+      let(:css) { <<-CSS }
+        p {
+          a {
+            span {
+              color: #000;
+            }
+            @extend foo;
+          }
+        }
+      CSS
+
+      it { should report_lint }
+    end
+  end
+
+  context 'when @include appears' do
+    context 'before a property and rule set' do
+      let(:css) { <<-CSS }
+        .error {
+          @include warn;
+          color: #f00;
+          a {
+            color: #ccc;
+          }
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'after a property and before a rule set' do
+      let(:css) { <<-CSS }
+        .error {
+          color: #f00;
+          @include warn;
+          a {
+            color: #ccc;
+          }
+        }
+      CSS
+
+      it { should report_lint }
+    end
+  end
+
+  context 'when @include that features @content appears' do
+    context 'before a property' do
+      let(:css) { <<-CSS }
+        .foo {
+          @include breakpoint("phone") {
+            color: #ccc;
+          }
+          color: #f00;
+        }
+      CSS
+
+      it { should report_lint }
+    end
+
+    context 'after a property' do
+      let(:css) { <<-CSS }
+        .foo {
+          color: #f00;
+          @include breakpoint("phone") {
+            color: #ccc;
+          }
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'before an @extend' do
+      let(:css) { <<-CSS }
+        .foo {
+          @include breakpoint("phone") {
+            color: #ccc;
+          }
+          @extend .bar;
+        }
+      CSS
+
+      it { should report_lint }
+    end
+
+    context 'before a rule set' do
+      let(:css) { <<-CSS }
+        .foo {
+          @include breakpoint("phone") {
+            color: #ccc;
+          }
+          a {
+            color: #fff;
+          }
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'after a rule set' do
+      let(:css) { <<-CSS }
+        .foo {
+          a {
+            color: #fff;
+          }
+          @include breakpoint("phone") {
+            color: #ccc;
+          }
+        }
+      CSS
+
+      it { should report_lint }
+    end
+
+    context 'with its own nested rule set' do
+      context 'before a property' do
+        let(:css) { <<-CSS }
+          .foo {
+            background: #fff;
+            @include breakpoint("phone") {
+              a {
+                color: #000;
+              }
+              color: #ccc;
+            }
+          }
+        CSS
+
+        it { should report_lint }
+      end
+
+      context 'after a property' do
+        let(:css) { <<-CSS }
+          .foo {
+            background: #fff;
+            @include breakpoint("phone") {
+              color: #ccc;
+              a {
+                color: #000;
+              }
+            }
+          }
+        CSS
+
+        it { should_not report_lint }
+      end
+    end
+  end
+
+  context 'when the nesting is crazy deep' do
+    context 'and nothing is wrong' do
+      let(:css) { <<-CSS }
+        div {
+          ul {
+            @extend .thing;
+            li {
+              @include box-shadow(yes);
+              background: green;
+              a {
+                span {
+                  @include border-radius(5px);
+                  color: #000;
+                }
+              }
+            }
+          }
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and something is wrong' do
+      let(:css) { <<-CSS }
+        div {
+          ul {
+            li {
+              a {
+                span {
+                  color: #000;
+                  @include border-radius(5px);
+                }
+              }
+            }
+          }
+        }
+      CSS
+
+      it { should report_lint }
+    end
+  end
 end
