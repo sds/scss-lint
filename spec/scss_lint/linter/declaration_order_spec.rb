@@ -312,4 +312,255 @@ describe SCSSLint::Linter::DeclarationOrder do
       it { should report_lint }
     end
   end
+
+  context 'when inside a @media query and rule set' do
+    context 'contains @extend before a property' do
+      let(:css) { <<-CSS }
+        @media only screen and (max-width: 1px) {
+          a {
+            @extend foo;
+            color: #f00;
+          }
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'contains @extend after a property' do
+      let(:css) { <<-CSS }
+        @media only screen and (max-width: 1px) {
+          a {
+            color: #f00;
+            @extend foo;
+          }
+        }
+      CSS
+
+      it { should report_lint }
+    end
+
+    context 'contains @extend after nested rule set' do
+      let(:css) { <<-CSS }
+        @media only screen and (max-width: 1px) {
+          a {
+            span {
+              color: #000;
+            }
+            @extend foo;
+          }
+        }
+      CSS
+
+      it { should report_lint }
+    end
+  end
+
+  context 'when a pseudo-element appears before a property' do
+    let(:css) { <<-CSS }
+      a {
+        &:hover {
+          color: #000;
+        }
+        color: #fff;
+      }
+    CSS
+
+    it { should report_lint }
+  end
+
+  context 'when a pseudo-element appears after a property' do
+    let(:css) { <<-CSS }
+      a {
+        color: #fff;
+        &:focus {
+          color: #000;
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when a chained selector appears after a property' do
+    let(:css) { <<-CSS }
+      a {
+        color: #fff;
+        &.is-active {
+          color: #000;
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when a chained selector appears before a property' do
+    let(:css) { <<-CSS }
+      a {
+        &.is-active {
+          color: #000;
+        }
+        color: #fff;
+      }
+    CSS
+
+    it { should report_lint }
+  end
+
+  context 'when a selector with parent reference appears after a property' do
+    let(:css) { <<-CSS }
+      a {
+        color: #fff;
+        .is-active & {
+          color: #000;
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when a selector with parent reference appears before a property' do
+    let(:css) { <<-CSS }
+      a {
+        .is-active & {
+          color: #000;
+        }
+        color: #fff;
+      }
+    CSS
+
+    it { should report_lint }
+  end
+
+  context 'when a pseudo-element appears after a property' do
+    let(:css) { <<-CSS }
+      a {
+        color: #fff;
+        &:before {
+          color: #000;
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when a pseudo-element appears before a property' do
+    let(:css) { <<-CSS }
+      a {
+        &:before {
+          color: #000;
+        }
+        color: #fff;
+      }
+    CSS
+
+    it { should report_lint }
+  end
+
+  context 'when a direct descendent appears after a property' do
+    let(:css) { <<-CSS }
+      a {
+        color: #fff;
+        > .foo {
+          color: #000;
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when a direct descendent appears before a property' do
+    let(:css) { <<-CSS }
+      a {
+        > .foo {
+          color: #000;
+        }
+        color: #fff;
+      }
+    CSS
+
+    it { should report_lint }
+  end
+
+  context 'when an adjacent sibling appears after a property' do
+    let(:css) { <<-CSS }
+      a {
+        color: #fff;
+        & + .foo {
+          color: #000;
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when an adjacent sibling appears before a property' do
+    let(:css) { <<-CSS }
+      a {
+        & + .foo {
+          color: #000;
+        }
+        color: #fff;
+      }
+    CSS
+
+    it { should report_lint }
+  end
+
+  context 'when a general sibling appears after a property' do
+    let(:css) { <<-CSS }
+      a {
+        color: #fff;
+        & ~ .foo {
+          color: #000;
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when a general sibling appears before a property' do
+    let(:css) { <<-CSS }
+      a {
+        & ~ .foo {
+          color: #000;
+        }
+        color: #fff;
+      }
+    CSS
+
+    it { should report_lint }
+  end
+
+  context 'when a descendent appears after a property' do
+    let(:css) { <<-CSS }
+      a {
+        color: #fff;
+        .foo {
+          color: #000;
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when a descendent appears before a property' do
+    let(:css) { <<-CSS }
+      a {
+        .foo {
+          color: #000;
+        }
+        color: #fff;
+      }
+    CSS
+
+    it { should report_lint }
+  end
 end

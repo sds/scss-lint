@@ -3,14 +3,6 @@ module SCSSLint
   class Linter::DeclarationOrder < Linter
     include LinterRegistry
 
-    DECLARATION_ORDER = [
-      Sass::Tree::ExtendNode,
-      Sass::Tree::MixinNode,
-      Sass::Tree::PropNode,
-      'mixin_with_content',
-      Sass::Tree::RuleNode,
-    ]
-
     def visit_rule(node)
       check_node(node)
       yield # Continue linting children
@@ -23,6 +15,16 @@ module SCSSLint
       '@extends, @includes without @content, ' \
       'properties, @includes with @content, ' \
       'nested rule sets'
+
+    MIXIN_WITH_CONTENT = 'mixin_with_content'
+
+    DECLARATION_ORDER = [
+      Sass::Tree::ExtendNode,
+      Sass::Tree::MixinNode,
+      Sass::Tree::PropNode,
+      MIXIN_WITH_CONTENT,
+      Sass::Tree::RuleNode,
+    ]
 
     def important_node?(node)
       DECLARATION_ORDER.include? node.class
@@ -48,7 +50,7 @@ module SCSSLint
       # If the node is a mixin with children, indicate that;
       # otherwise, just return the class.
       return node.class unless node.is_a?(Sass::Tree::MixinNode)
-      'mixin_with_content'
+      MIXIN_WITH_CONTENT
     end
   end
 end
