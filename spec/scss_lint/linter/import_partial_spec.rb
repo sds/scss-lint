@@ -245,19 +245,19 @@ describe SCSSLint::Linter::ImportPartial do
     end
 
     context 'and the @import contains a protocol' do
-      let(:css) { '@import "http://foo.com/bar.scss";' }
+      let(:css) { '@import "http://foo.com/_bar.css";' }
 
       it { should_not report_lint }
     end
 
     context 'and the @import contains a media query' do
-      let(:css) { '@import "_foo.scss" screen;' }
+      let(:css) { '@import "_foo.css" screen;' }
 
       it { should_not report_lint }
     end
 
     context 'and the @import is a URL' do
-      let(:css) { '@import url(_foo.scss);' }
+      let(:css) { '@import url(_foo.css);' }
 
       it { should_not report_lint }
     end
@@ -269,6 +269,32 @@ describe SCSSLint::Linter::ImportPartial do
       CSS
 
       it { should_not report_lint }
+    end
+  end
+
+  context 'when the partial has the same name as its directory' do
+    context 'and the filename has no leading underscore or filename extension' do
+      let(:css) { '@import "foo/foo";' }
+
+      it { should_not report_lint }
+    end
+
+    context 'and the filename has a leading underscore' do
+      let(:css) { '@import "_foo/_foo";' }
+
+      it { should report_lint line: 1 }
+    end
+
+    context 'and the filename has a filename extension' do
+      let(:css) { '@import "foo/foo.scss";' }
+
+      it { should report_lint line: 1 }
+    end
+
+    context 'and the filename has a leading underscore and a filename extension' do
+      let(:css) { '@import "_foo/_foo.scss";' }
+
+      it { should report_lint line: 1 }
     end
   end
 end

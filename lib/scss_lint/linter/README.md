@@ -381,7 +381,8 @@ in the first place.
 
 ## ImportPartial
 
-The basenames of `@import`ed SCSS partials should not begin with an underscore and should not include the filename extension.
+The basenames of `@import`ed SCSS partials should not begin with an underscore
+and should not include the filename extension.
 
 **Bad**
 ```scss
@@ -397,9 +398,12 @@ The basenames of `@import`ed SCSS partials should not begin with an underscore a
 @import "bar";
 ```
 
-You can configure this linter to instead ensure that you *do* include the leading underscore or the filename extension by setting either option to `true`. Being explicit might have its place, as long as you are consisten.
+You can configure this linter to instead ensure that you *do* include the
+leading underscore or the filename extension by setting either option to
+`true`. Being explicit might have its place, as long as you are consistent.
 
-`@import` declarations that Sass compiles directly into CSS `@import` rules will be ignored.
+`@import` declarations that Sass compiles directly into CSS `@import` rules
+will be ignored.
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------

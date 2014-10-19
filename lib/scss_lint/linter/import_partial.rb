@@ -4,33 +4,59 @@ module SCSSLint
     include LinterRegistry
 
     def visit_import(node)
-      # Simply return if the node is interpreted as a CSS import
-      node.css_import?
-    rescue
-      # Otherwise, check it
-      basename = node.imported_filename.split('/')[-1]
-      ok = check_underscore(basename) && check_extension(basename)
-      return if ok
-      add_lint(node, compose_message)
+      # Ignore CSS imports
+      return if File.extname(node.imported_filename) == '.css'
+      basename = File.basename(node.imported_filename)
+      return if underscore_ok?(basename) && extension_ok?(basename)
+      add_lint(node, compose_message(node.imported_filename))
     end
 
   private
 
-    def check_underscore(basename)
-      underscore_exists = basename.start_with?('_')
+    # Checks if the presence or absence of a leading underscore
+    # on a string is ok, given config option.
+    #
+    # @param str [String] the string to check
+    # @return [Boolean]
+    def underscore_ok?(str)
+      underscore_exists = str.start_with?('_')
       config['leading_underscore'] ? underscore_exists : !underscore_exists
     end
 
-    def check_extension(basename)
-      extension_exists = basename.end_with?('.scss')
+    # Checks if the presence or absence of an `scss` filename
+    # extension on a string is ok, given config option.
+    #
+    # @param str [String] the string to check
+    # @return [Boolean]
+    def extension_ok?(str)
+      extension_exists = str.end_with?('.scss')
       config['filename_extension'] ? extension_exists : !extension_exists
     end
 
-    def compose_message
-      underscore_modifier = config['leading_underscore'] ? 'should' : 'should not'
-      extension_modifier = config['filename_extension'] ? 'should' : 'should not'
-      "The basenames of @imported SCSS partials #{underscore_modifier} begin " \
-      "with an underscore, and #{extension_modifier} include the filename extension"
+    # Composes a helpful lint message based on the original filename
+    # and the config options.
+    #
+    # @param orig_filename [String] the original filename
+    # @return [String] the helpful  lint message
+    def compose_message(orig_filename)
+      orig_basename = File.basename(orig_filename)
+      fixed_basename = orig_basename
+
+      if config['leading_underscore']
+        fixed_basename = '_' + fixed_basename unless fixed_basename.match(/^_/)
+      else
+        fixed_basename = fixed_basename.sub(/^_/, '')
+      end
+
+      if config['filename_extension']
+        fixed_basename += '.scss' unless fixed_basename.match(/\.scss$/)
+      else
+        fixed_basename = fixed_basename.sub(/\.scss$/, '')
+      end
+
+      fixed_filename = orig_filename.sub(/(.*)#{Regexp.quote(orig_basename)}/,
+                                         "\\1#{fixed_basename}")
+      "Imported partial `#{orig_filename}` should be written as `#{fixed_filename}`"
     end
   end
 end
