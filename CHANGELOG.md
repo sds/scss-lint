@@ -28,6 +28,8 @@
 * Add support for checking the ordering of content within `@include`s
 * Add `ImportPath` linter which ensures paths for `@import` directives follow
   a certain format
+* Add `QualifyingElement` linter which checks for unnecessarily-qualified
+  element selectors
 
 ## 0.29.0
 
