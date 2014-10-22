@@ -26,6 +26,8 @@
 * Add support for differentiating `@include`s with actual content versus
   no-content `@include`s in `DeclarationOrder`
 * Add support for checking the ordering of content within `@include`s
+* Add `ImportPath` linter which ensures paths for `@import` directives follow
+  a certain format
 
 ## 0.29.0
 
