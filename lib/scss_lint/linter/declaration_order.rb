@@ -3,10 +3,13 @@ module SCSSLint
   class Linter::DeclarationOrder < Linter
     include LinterRegistry
 
-    def visit_rule(node)
+    def check_order(node)
       check_node(node)
       yield # Continue linting children
     end
+
+    alias_method :visit_rule, :check_order
+    alias_method :visit_mixin, :check_order
 
   private
 
@@ -27,12 +30,12 @@ module SCSSLint
     ]
 
     def important_node?(node)
-      DECLARATION_ORDER.include? node.class
+      DECLARATION_ORDER.include?(node.class)
     end
 
     def check_node(node)
       children = node.children.select { |n| important_node?(n) }
-                              .map { |n| check_for_children(n) }
+                              .map { |n| node_declaration_type(n) }
 
       sorted_children = children.sort do |a, b|
         DECLARATION_ORDER.index(a) <=> DECLARATION_ORDER.index(b)
@@ -42,11 +45,10 @@ module SCSSLint
       add_lint(node.children.first, MESSAGE)
     end
 
-    def check_for_children(node)
+    def node_declaration_type(node)
       # If the node has no children, return the class.
       return node.class unless node.has_children
-      # Check the node's children just as the node is checked.
-      check_node(node)
+
       # If the node is a mixin with children, indicate that;
       # otherwise, just return the class.
       return node.class unless node.is_a?(Sass::Tree::MixinNode)
