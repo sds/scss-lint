@@ -23,6 +23,9 @@
 * Add `@import` check to `TrailingSemicolon`
 * Improve message reported by `PropertySortOrder`
 * Enforce UTF-8 encoding by default
+* Add support for differentiating `@include`s with actual content versus
+  no-content `@include`s in `DeclarationOrder`
+* Add support for checking the ordering of content within `@include`s
 
 ## 0.29.0
 
