@@ -130,14 +130,29 @@ Reports `@debug` statements (which you probably left behind accidentally).
 
 ## DeclarationOrder
 
-Write `@extend` statements first in rule sets, followed by property
-declarations and then other nested rule sets.
+Rule sets should be ordered as follows: `@extend` declarations, `@include`
+declarations without inner `@content`, properties, `@include` declarations
+*with* inner `@content`, then nested rule sets.
 
-**Bad: `@extend` not first**
+**Bad**
 ```scss
 .fatal-error {
+  p {
+    ...
+  }
+
   color: #f00;
   @extend %error;
+  @include message-box();
+}
+```
+
+**Good**
+```scss
+.fatal-error {
+  @extend %error;
+  @include message-box();
+  color: #f00;
 
   p {
     ...
@@ -145,24 +160,22 @@ declarations and then other nested rule sets.
 }
 ```
 
-**Good: `@extend` appears first**
-```scss
-.fatal-error {
-  @extend %error;
-  color: #f00;
+The `@extend` statement functionally acts like an inheritance mechanism,
+which means the properties defined by the placeholder being extended are
+rendered before the rest of the properties in the rule set.
 
-  p {
-    ...
-  }
-}
-```
+Thus, declaring the `@extend` at the top of the rule set reminds the
+developer of this behavior.
 
-The `@extend` statement functionally acts like an inheritance mechanism, which
-means the properties defined by the placeholder being extended are rendered
-before the rest of the properties in the rule set.
+Placing `@include` declarations without inner `@content` before properties
+serves to group them with `@extend` declarations and provides the opportunity
+to overwrite them later in the rule set.
 
-Thus, declaring the `@extend` at the top of the rule set reminds the developer
-of this behavior.
+`@include`s *with* inner `@content` often involve `@media` rules that rely on
+the cascade or nested rule sets, which justifies their inclusion *after*
+regular properties.
+
+Mixin `@content` and nested rule sets are also linted for declaration order.
 
 ## DuplicateProperty
 
