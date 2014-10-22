@@ -797,7 +797,7 @@ ul .item {
 }
 ```
 
-Since IDs are unique, so will not apply to multiple elements, there is no
+Since IDs are unique, they will not apply to multiple elements, so there is no
 good reason to qualify an ID selector with an element.
 
 In most cases, qualifying a class or attribute selector with an element adds
