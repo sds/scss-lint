@@ -20,10 +20,12 @@ module SCSSLint
       config:    78, # Configuration error
     }
 
+    DEFAULT_REPORTER = [SCSSLint::Reporter::DefaultReporter, :stdout]
+
     # @param args [Array]
     def initialize(args = [])
       @args    = args
-      @options = { reporters: [[SCSSLint::Reporter::DefaultReporter, :stdout]] }
+      @options = { reporters: [DEFAULT_REPORTER] }
       @config  = Config.default
     end
 
@@ -212,7 +214,11 @@ module SCSSLint
 
     # @param format [String]
     def define_output_format(format)
-      @options[:reporters] << [SCSSLint::Reporter.const_get(format + 'Reporter'), :stdout]
+      unless @options[:reporters] == [DEFAULT_REPORTER] && format == 'Default'
+        @options[:reporters].reject! { |i| i == DEFAULT_REPORTER }
+        reporter = SCSSLint::Reporter.const_get(format + 'Reporter')
+        @options[:reporters] << [reporter, :stdout]
+      end
     rescue NameError
       puts "Invalid output format specified: #{format}"
       halt :config
