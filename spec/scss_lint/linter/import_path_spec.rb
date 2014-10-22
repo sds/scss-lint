@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SCSSLint::Linter::ImportPartial do
+describe SCSSLint::Linter::ImportPath do
   context 'when the path includes no directories' do
     context 'and the filename has no leading underscore or filename extension' do
       let(:css) { '@import "filename";' }

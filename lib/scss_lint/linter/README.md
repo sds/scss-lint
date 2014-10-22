@@ -18,7 +18,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [HexNotation](#hexnotation)
 * [HexValidation](#hexvalidation)
 * [IdWithExtraneousSelector](#idwithextraneousselector)
-* [ImportPartial](#importpartial)
+* [ImportPath](#importpath)
 * [Indentation](#indentation)
 * [LeadingZero](#leadingzero)
 * [MergeableSelector](#mergeableselector)
@@ -392,7 +392,7 @@ Even better would be to
 [never use IDs](http://screwlewse.com/2010/07/dont-use-id-selectors-in-css/)
 in the first place.
 
-## ImportPartial
+## ImportPath
 
 The basenames of `@import`ed SCSS partials should not begin with an underscore
 and should not include the filename extension.

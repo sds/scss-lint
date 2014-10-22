@@ -1,6 +1,6 @@
 module SCSSLint
   # Checks formatting of the basenames of @imported partials
-  class Linter::ImportPartial < Linter
+  class Linter::ImportPath < Linter
     include LinterRegistry
 
     def visit_import(node)

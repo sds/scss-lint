@@ -55,7 +55,7 @@ linters:
   IdWithExtraneousSelector:
     enabled: true
 
-  ImportPartial:
+  ImportPath:
     enabled: true
     leading_underscore: false
     filename_extension: false
