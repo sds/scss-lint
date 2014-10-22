@@ -27,6 +27,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [PlaceholderInExtend](#placeholderinextend)
 * [PropertySortOrder](#propertysortorder)
 * [PropertySpelling](#propertyspelling)
+* [QualifyingElement](#qualifyingelement)
 * [SelectorDepth](#selectordepth)
 * [SelectorFormat](#selectorformat)
 * [Shorthand](#shorthand)
@@ -753,6 +754,64 @@ to add it to the
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `extra_properties`   | List of extra properties to allow
+
+## QualifyingElement
+
+Avoid qualifying elements in selectors (also known as "tag-qualifying").
+
+**Bad: qualifying elements**
+```scss
+div#thing {
+  ...
+}
+
+ul.list {
+  ...
+}
+
+ul li.item {
+  ...
+}
+
+a[href="place"] {
+  ...
+}
+```
+
+**Good**
+```scss
+#thing {
+  ...
+}
+
+.list {
+  ...
+}
+
+ul .item {
+  ...
+}
+
+[href="place"] {
+  ...
+}
+```
+
+Since IDs are unique, so will not apply to multiple elements, there is no
+good reason to qualify an ID selector with an element.
+
+In most cases, qualifying a class or attribute selector with an element adds
+unnecessary or undesirable specificity. Often the element qualifier is
+already superfluous; and if it is not, you will probably be better off
+refactoring so that it *can* be removed.
+
+Use the options to allow certain qualifying elements.
+
+Configuration Option   | Description
+-----------------------|-------------------------------------------------------
+`allow_with_attribute` | Allow elements to qualify attributes (default *false*)
+`allow_with_class`     | Allow elements to qualify classes (default *false*)
+`allow_with_id`        | Allow elements to qualify ids (default *false*)
 
 ## SelectorDepth
 
