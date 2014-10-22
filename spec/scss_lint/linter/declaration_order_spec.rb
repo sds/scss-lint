@@ -238,14 +238,11 @@ describe SCSSLint::Linter::DeclarationOrder do
     context 'with its own nested rule set' do
       context 'before a property' do
         let(:css) { <<-CSS }
-          .foo {
-            background: #fff;
-            @include breakpoint("phone") {
-              a {
-                color: #000;
-              }
-              color: #ccc;
+          @include breakpoint("phone") {
+            a {
+              color: #000;
             }
+            color: #ccc;
           }
         CSS
 
@@ -254,13 +251,10 @@ describe SCSSLint::Linter::DeclarationOrder do
 
       context 'after a property' do
         let(:css) { <<-CSS }
-          .foo {
-            background: #fff;
-            @include breakpoint("phone") {
-              color: #ccc;
-              a {
-                color: #000;
-              }
+          @include breakpoint("phone") {
+            color: #ccc;
+            a {
+              color: #000;
             }
           }
         CSS
