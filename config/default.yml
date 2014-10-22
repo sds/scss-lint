@@ -55,6 +55,11 @@ linters:
   IdWithExtraneousSelector:
     enabled: true
 
+  ImportPartial:
+    enabled: true
+    leading_underscore: false
+    filename_extension: false
+
   Indentation:
     enabled: true
     character: space # or 'tab'
