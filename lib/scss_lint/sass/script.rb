@@ -6,6 +6,8 @@ module Sass::Script
   # Define the `node_name` and `visit_method` class methods for each Sass Script
   # parse tree node type so that our custom visitor can seamless traverse the
   # tree.
+  # Define the `invalid_child_method_name` and `invalid_parent_method_name`
+  # class methods to make errors understandable.
   #
   # This would be easier if we could just define an `inherited` callback, but
   # that won't work since the Sass library will have already been loaded before
@@ -28,6 +30,14 @@ module Sass::Script
 
           def self.visit_method
             :visit_script_#{node_name}
+          end
+
+          def self.invalid_child_method_name
+            :"invalid_#{node_name}_child?"
+          end
+
+          def self.invalid_parent_method_name
+            :"invalid_#{node_name}_parent?"
           end
         end
       DECL
