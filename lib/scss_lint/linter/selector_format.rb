@@ -58,9 +58,19 @@ module SCSSLint
         explanation: 'has no spaces with capitalized words except first',
         validator: ->(name) { name =~ /^[a-z][a-zA-Z0-9]*$/ },
       },
+      'hyphenated_BEM' => {
+        explanation: 'in hyphenated BEM (Block Element Modifier) format',
+        validator: ->(name) { name !~ /[A-Z]|-{3}|_{3}|[^_]_[^_]/ },
+      },
       'BEM' => {
         explanation: 'in BEM (Block Element Modifier) format',
-        validator: ->(name) { name !~ /[A-Z]|-{3}|_{3}|[^_]_[^_]/ },
+        validator: lambda do |name|
+          name =~ /
+            ^[a-z]([-]?[a-z0-9]+)*
+            (__[a-z0-9]([-]?[a-z0-9]+)*)?
+            ((_[a-z0-9]([-]?[a-z0-9]+)*){2})?$
+          /x
+        end,
       },
     }
 

@@ -30,6 +30,9 @@
   a certain format
 * Add `QualifyingElement` linter which checks for unnecessarily-qualified
   element selectors
+* Change `BEM` convention of `SelectorFormat` `convention` option to
+  `hyphenated_BEM`, and introduce `BEM` format as specified in
+  https://bem.info/method/definitions/
 
 ## 0.29.0
 
