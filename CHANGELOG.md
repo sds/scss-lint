@@ -33,6 +33,7 @@
 * Change `BEM` convention of `SelectorFormat` `convention` option to
   `hyphenated_BEM`, and introduce `BEM` format as specified in
   https://bem.info/method/definitions/
+* Fix `PropertySpelling` linter to check the names of nested properties
 
 ## 0.29.0
 

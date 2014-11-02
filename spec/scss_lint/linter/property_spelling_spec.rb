@@ -54,4 +54,31 @@ describe SCSSLint::Linter::PropertySpelling do
       it { should_not report_lint }
     end
   end
+
+  context 'with valid nested properties' do
+    let(:css) { <<-CSS }
+      p {
+        text: {
+          align: center;
+          transform: uppercase;
+        }
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'with invalid nested properties' do
+    let(:css) { <<-CSS }
+      p {
+        text: {
+          aligned: center;
+          transformed: uppercase;
+        }
+      }
+    CSS
+
+    it { should report_lint line: 3 }
+    it { should report_lint line: 4 }
+  end
 end
