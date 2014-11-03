@@ -204,11 +204,10 @@ module SCSSLint
     # @param lints [Array<Lint>]
     def report_lints(lints)
       sorted_lints = lints.sort_by { |l| [l.filename, l.location] }
-      @options.fetch(:reporters).each do |i|
-        reporter = i.first.new(sorted_lints)
-        output = (i.last == :stdout ? $stdout : File.new(i.last, 'w+'))
-        results = reporter.report_lints
-        output.print results if results
+      @options.fetch(:reporters).each do |reporter, output|
+        results = reporter.new(sorted_lints).report_lints
+        io = (output == :stdout ? $stdout : File.new(output, 'w+'))
+        io.print results if results
       end
     end
 
@@ -226,11 +225,8 @@ module SCSSLint
 
     # @param path [String]
     def define_output_path(path)
-      last_reporter = @options[:reporters].pop
-      @options[:reporters] << [last_reporter.first, path]
-    rescue
-      puts "Invalid output path specified: #{path}"
-      halt :config
+      last_reporter, _output = @options[:reporters].pop
+      @options[:reporters] << [last_reporter, path]
     end
 
     def print_formatters
