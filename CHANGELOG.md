@@ -34,6 +34,8 @@
   `hyphenated_BEM`, and introduce `BEM` format as specified in
   https://bem.info/method/definitions/
 * Fix `PropertySpelling` linter to check the names of nested properties
+* Add `--out` flag which allows the output of the last formatter specified via
+  the `--format` flag to be redirected to a file
 
 ## 0.29.0
 
