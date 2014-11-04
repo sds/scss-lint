@@ -61,6 +61,7 @@ Command Line Flag         | Description
 `-e`/`--exclude`          | Exclude one or more files from being linted
 `-f`/`--format`           | Output format (see [Formatters](#formatters))
 `-o`/`--out`              | Write output to a file instead of STDOUT
+`-r`/`--require`          | Require file/library (mind `$LOAD_PATH`, uses `Kernel.require`)
 `-i`/`--include-linter`   | Specify which linters you specifically want to run
 `-x`/`--exclude-linter`   | Specify which linters you _don't_ want to run
 `-h`/`--help`             | Show command line flag documentation

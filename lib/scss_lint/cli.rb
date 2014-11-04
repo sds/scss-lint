@@ -78,6 +78,10 @@ module SCSSLint
           define_output_path(path)
         end
 
+        opts.on('-r', '--require path', 'Require Ruby file', String) do |path|
+          require path
+        end
+
         opts.on_tail('--show-formatters', 'Shows available formatters') do
           print_formatters
         end

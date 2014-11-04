@@ -98,6 +98,15 @@ describe SCSSLint::CLI do
       end
     end
 
+    context 'when the require flag is set' do
+      let(:flags) { %w[--require uri] }
+
+      it 'requires the specified file and constants are accessible' do
+        safe_parse
+        proc { subject.instance_eval %{ URI } }.should_not raise_error
+      end
+    end
+
     context 'when neither format nor out flag is set' do
       let(:flags) { %w[] }
 
