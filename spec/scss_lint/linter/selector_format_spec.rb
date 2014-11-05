@@ -516,4 +516,86 @@ describe SCSSLint::Linter::SelectorFormat do
       it { should report_lint line: 3 }
     end
   end
+
+  context 'when the BEM convention is specified' do
+    let(:linter_config) { { 'convention' => 'BEM' } }
+
+    context 'when a name contains no underscores or hyphens' do
+      let(:css) { '.block {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains single hyphen' do
+      let(:css) { '.b-block {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains multiple hyphens' do
+      let(:css) { '.b-block-name {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains multiple hyphens in a row' do
+      let(:css) { '.b-block--modifier {}' }
+
+      it { should report_lint }
+    end
+
+    context 'when a name contains a single underscore' do
+      let(:css) { '.block_modifier {}' }
+
+      it { should report_lint }
+    end
+
+    context 'when a block has name-value modifier' do
+      let(:css) { '.block_modifier_value {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a block has name-value modifier with lots of hyphens' do
+      let(:css) { '.b-block-name_modifier-name-here_value-name-here {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name has double underscores' do
+      let(:css) { '.b-block__element {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when element goes after block with modifier' do
+      let(:css) { '.block_modifier_value__element {}' }
+
+      it { should report_lint }
+    end
+
+    context 'when element has modifier' do
+      let(:css) { '.block__element_modifier_value {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when element has not paired modifier' do
+      let(:css) { '.block__element_modifier {}' }
+
+      it { should report_lint }
+    end
+
+    context 'when element has hypenated modifier' do
+      let(:css) { '.block__element--modifier {}' }
+
+      it { should report_lint }
+    end
+
+    context 'when element has hypenated paired modifier' do
+      let(:css) { '.block__element--modifier_value {}' }
+
+      it { should report_lint }
+    end
+  end
 end
