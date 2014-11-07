@@ -36,6 +36,8 @@
 * Fix `PropertySpelling` linter to check the names of nested properties
 * Add `--out` flag which allows the output of the last formatter specified via
   the `--format` flag to be redirected to a file
+* Add `--require` flag allowing arbitrary Ruby modules to be loaded (facilitating
+  custom reporters)
 
 ## 0.29.0
 
