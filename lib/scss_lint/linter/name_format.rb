@@ -60,7 +60,7 @@ module SCSSLint
 
     CONVENTIONS = {
       'hyphenated_lowercase' => {
-        explanation: 'in lowercase with hyphens instead of underscores',
+        explanation: 'in all lowercase letters with hyphens instead of underscores',
         validator: ->(name) { name !~ /[_A-Z]/ },
       },
       'BEM' => {
