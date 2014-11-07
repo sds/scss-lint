@@ -103,7 +103,7 @@ describe SCSSLint::CLI do
 
       it 'requires the specified file and constants are accessible' do
         safe_parse
-        proc { subject.instance_eval %{ URI } }.should_not raise_error
+        expect { subject.instance_eval %{ URI } }.to_not raise_error
       end
     end
 
