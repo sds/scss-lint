@@ -9,12 +9,7 @@ module SCSSLint
         output << "<file name=#{filename.encode(xml: :attr)}>"
 
         file_lints.each do |lint|
-          output << "<issue linter=\"#{lint.linter.name if lint.linter}\" " \
-                           "line=\"#{lint.location.line}\" " \
-                           "column=\"#{lint.location.column}\" " \
-                           "length=\"#{lint.location.length}\" " \
-                           "severity=\"#{lint.severity}\" " \
-                           "reason=#{lint.description.encode(xml: :attr)} />"
+          output << issue_tag(lint)
         end
 
         output << '</file>'
@@ -22,6 +17,17 @@ module SCSSLint
       output << '</lint>'
 
       output
+    end
+
+  private
+
+    def issue_tag(lint)
+      "<issue linter=\"#{lint.linter.name if lint.linter}\" " \
+             "line=\"#{lint.location.line}\" " \
+             "column=\"#{lint.location.column}\" " \
+             "length=\"#{lint.location.length}\" " \
+             "severity=\"#{lint.severity}\" " \
+             "reason=#{lint.description.encode(xml: :attr)} />"
     end
   end
 end

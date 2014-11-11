@@ -55,6 +55,9 @@ LineLength:
 MethodLength:
   Max: 20
 
+Metrics/AbcSize:
+  Max: 20
+
 PerceivedComplexity:
   Max: 8
 
@@ -82,6 +85,9 @@ SignalException:
 # Forcing a particular name (e.g. |a, e|) for inject methods prevents you from
 # choosing intention-revealing names.
 SingleLineBlockParams:
+  Enabled: false
+
+Style/MultilineOperationIndentation:
   Enabled: false
 
 TrailingComma:

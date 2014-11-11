@@ -10,14 +10,15 @@ module SCSSLint
 
     attr_reader :contents, :filename, :lines, :tree
 
+    # Creates a parsed representation of an SCSS document from the given string
+    # or file.
+    #
+    # @param scss_or_filename [String]
     def initialize(scss_or_filename)
       if File.exist?(scss_or_filename)
-        @filename = scss_or_filename
-        @engine = Sass::Engine.for_file(scss_or_filename, ENGINE_OPTIONS)
-        @contents = File.open(scss_or_filename, 'r').read
+        build_from_file(scss_or_filename)
       else
-        @engine = Sass::Engine.new(scss_or_filename, ENGINE_OPTIONS)
-        @contents = scss_or_filename
+        build_from_string(scss_or_filename)
       end
 
       # Need to force encoding to avoid Windows-related bugs.
@@ -33,6 +34,21 @@ module SCSSLint
       else
         raise
       end
+    end
+
+  private
+
+    # @param path [String]
+    def build_from_file(path)
+      @filename = path
+      @engine = Sass::Engine.for_file(path, ENGINE_OPTIONS)
+      @contents = File.open(path, 'r').read
+    end
+
+    # @param scss [String]
+    def build_from_string(scss)
+      @engine = Sass::Engine.new(scss, ENGINE_OPTIONS)
+      @contents = scss
     end
   end
 end

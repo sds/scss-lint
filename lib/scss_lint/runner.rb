@@ -35,11 +35,8 @@ module SCSSLint
       config ||= @config
 
       @linters.each do |linter|
-        next unless config.linter_enabled?(linter)
-        next if config.excluded_file_for_linter?(file, linter)
-
         begin
-          run_linter(linter, engine, config)
+          run_linter(linter, engine, config, file)
         rescue => error
           raise SCSSLint::Exceptions::LinterError,
                 "#{linter.class} raised unexpected error linting file #{file}: " \
@@ -55,7 +52,9 @@ module SCSSLint
     end
 
     # For stubbing in tests.
-    def run_linter(linter, engine, config)
+    def run_linter(linter, engine, config, file)
+      return unless config.linter_enabled?(linter)
+      return if config.excluded_file_for_linter?(file, linter)
       linter.run(engine, config.linter_options(linter))
     end
   end

@@ -44,7 +44,7 @@ module SCSSLint
     #
     # @param range [Sass::Source::Range]
     # @return [SCSSLint::Location]
-    def location_from_range(range)
+    def location_from_range(range) # rubocop:disable Metrics/AbcSize
       length = if range.start_pos.line == range.end_pos.line
                  range.end_pos.offset - range.start_pos.offset
                else
@@ -69,7 +69,7 @@ module SCSSLint
     #
     # @param source_range [Sass::Source::Range]
     # @return [String] the original source code
-    def source_from_range(source_range)
+    def source_from_range(source_range) # rubocop:disable Metrics/AbcSize
       current_line = source_range.start_pos.line - 1
       last_line    = source_range.end_pos.line - 1
       start_pos    = source_range.start_pos.offset - 1

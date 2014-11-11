@@ -54,7 +54,7 @@ module SCSSLint
     end
 
     # @return [OptionParser]
-    def options_parser # rubocop:disable MethodLength
+    def options_parser # rubocop:disable AbcSize, MethodLength
       @options_parser ||= OptionParser.new do |opts|
         opts.banner = "Usage: #{opts.program_name} [options] [scss-files]"
 
@@ -110,7 +110,7 @@ module SCSSLint
       end
     end
 
-    def run # rubocop:disable MethodLength
+    def run # rubocop:disable AbcSize, MethodLength
       runner = Runner.new(@config)
       runner.run(files_to_lint)
       report_lints(runner.lints)

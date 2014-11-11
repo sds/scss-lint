@@ -18,13 +18,7 @@ module SCSSLint
                  'on separate line from selector')
       end
 
-      # Compare each property against the next property to see if they are on
-      # the same line
-      properties[0..-2].zip(properties[1..-1]).each do |first, second|
-        next unless first.line == second.line
-
-        add_lint(second, "Property '#{second.name.join}' should be placed on own line")
-      end
+      check_adjacent_properties(properties)
     end
 
   private
@@ -48,6 +42,18 @@ module SCSSLint
 
     def first_property_not_on_own_line?(rule, properties)
       properties.any? && properties.first.line == rule.line
+    end
+
+    # Compare each property against the next property to see if they are on
+    # the same line.
+    #
+    # @param properties [Array<Sass::Tree::PropNode>]
+    def check_adjacent_properties(properties)
+      properties[0..-2].zip(properties[1..-1]).each do |first, second|
+        next unless first.line == second.line
+
+        add_lint(second, "Property '#{second.name.join}' should be placed on own line")
+      end
     end
   end
 end
