@@ -38,6 +38,7 @@
   the `--format` flag to be redirected to a file
 * Add `--require` flag allowing arbitrary Ruby modules to be loaded (facilitating
   custom reporters)
+* Prefix all syntax error messages with "Syntax Error:"
 
 ## 0.29.0
 
