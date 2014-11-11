@@ -1,13 +1,9 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.30.0
 
-* Fix bug in `SpaceAfterPropertyName`/`TrailingSemicolon` linters where lint
-  would be reported for oneline properties following a selector with
-  interpolation
-* Fix bug in `SpaceAfterPropertyColon`/`SpaceAfterPropertyName`/`TrailingSemicolon`
-  linters where lint would be reported for one-line properties following a
-  selector with interpolation
+### New Features
+
 * Add `VendorPrefixes` linter which ensures only whitelisted vendor-prefixed
   properties are used
 * Add `scss_files` configuration option allowing a default set of files to be
@@ -21,8 +17,6 @@
 * Add support to `SelectorFormat` for specifying different conventions for
   different types of selectors via the `<type>_convention` options
 * Add `@import` check to `TrailingSemicolon`
-* Improve message reported by `PropertySortOrder`
-* Enforce UTF-8 encoding by default
 * Add support for differentiating `@include`s with actual content versus
   no-content `@include`s in `DeclarationOrder`
 * Add support for checking the ordering of content within `@include`s
@@ -30,35 +24,58 @@
   a certain format
 * Add `QualifyingElement` linter which checks for unnecessarily-qualified
   element selectors
-* Change `BEM` convention of `SelectorFormat` `convention` option to
-  `hyphenated_BEM`, and introduce `BEM` format as specified in
-  https://bem.info/method/definitions/
-* Fix `PropertySpelling` linter to check the names of nested properties
 * Add `--out` flag which allows the output of the last formatter specified via
   the `--format` flag to be redirected to a file
 * Add `--require` flag allowing arbitrary Ruby modules to be loaded (facilitating
   custom reporters)
+
+### Changes
+
+* Improve message reported by `PropertySortOrder` to specify the expected sort
+  order
+* Enforce UTF-8 encoding by default
+* Change `BEM` convention of `SelectorFormat` `convention` option to
+  `hyphenated_BEM`, and introduce `BEM` format as specified in
+  https://bem.info/method/definitions/
 * Prefix all syntax error messages with "Syntax Error:"
+
+### Bug Fixes
+
+* Fix bug in `SpaceAfterPropertyName`/`TrailingSemicolon` linters where lint
+  would be reported for oneline properties following a selector with
+  interpolation
+* Fix bug in `SpaceAfterPropertyColon`/`SpaceAfterPropertyName`/`TrailingSemicolon`
+  linters where lint would be reported for one-line properties following a
+  selector with interpolation
+* Fix `PropertySpelling` linter to check the names of nested properties
 
 ## 0.29.0
 
-* Update list of known properties (used by `PropertySpelling` lint)
-* Fix bug where SassScript selectors referring to the current selector would
-  result in a crash
-* Enhance `TrailingSemicolon` to check for more than one semicolon at the end
-  of a statement
+### New Features
+
 * Add `TrailingZero` linter which checks for unnecessary zeros following a
   decimal point
+* Add `SelectorFormat` linter which checks that the names of ids, classes, etc.
+  in selectors match a desired convention
+* Add JSON formatter
+
+### Changes
+
+* Update list of known properties (used by `PropertySpelling` lint)
+* Enhance `TrailingSemicolon` to check for more than one semicolon at the end
+  of a statement
+* Remove `CapitalizationInSelector`, which has been superseded by the more
+  powerful `SelectorFormat` linter
+
+### Bug Fixes
+
+* Fix bug where SassScript selectors referring to the current selector would
+  result in a crash
 * Fix bug in `EmptyLineBetweenBlocks` linter where lint would incorrectly be
   reported when comments immediately followed the closing brace of a rule set
 * Fix bug in `PropertySortOrder` where properties within media queries were
   not checked for sort order
 * Fix bug in `UrlQuotes` linter where lint would be reported for data URIs
-* Add `SelectorFormat` linter which checks that the names of ids, classes, etc.
-  in selectors match a desired convention
-* Remove `CapitalizationInSelector`, which has been superseded by the more
-  powerful `SelectorFormat` linter
-* Add JSON formatter
 * Fix bug in `UnnecessaryParentReference` where selectors with multiple `&`
   references where one `&` was concatenated would incorrectly report a lint
 
