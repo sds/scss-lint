@@ -807,11 +807,11 @@ refactoring so that it *can* be removed.
 
 Use the options to allow certain qualifying elements.
 
-Configuration Option   | Description
------------------------|-------------------------------------------------------
-`allow_with_attribute` | Allow elements to qualify attributes (default *false*)
-`allow_with_class`     | Allow elements to qualify classes (default *false*)
-`allow_with_id`        | Allow elements to qualify ids (default *false*)
+Configuration Option           | Description
+-------------------------------|-------------------------------------------------------
+`allow_element_with_attribute` | Allow elements to qualify attributes (default *false*)
+`allow_element_with_class`     | Allow elements to qualify classes (default *false*)
+`allow_element_with_id`        | Allow elements to qualify ids (default *false*)
 
 ## SelectorDepth
 
