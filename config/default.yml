@@ -94,9 +94,9 @@ linters:
 
   QualifyingElement:
     enabled: true
-    allow_with_attribute: false
-    allow_with_class: false
-    allow_with_id: false
+    allow_element_with_attribute: false
+    allow_element_with_class: false
+    allow_element_with_id: false
 
   SelectorDepth:
     enabled: true
