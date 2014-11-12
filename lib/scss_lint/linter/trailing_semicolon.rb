@@ -36,12 +36,12 @@ module SCSSLint
     def check_semicolon(node)
       if has_space_before_semicolon?(node)
         line = node.source_range.start_pos.line
-        add_lint line, 'Declaration should be terminated by a semicolon'
-      elsif !ends_with_semicolon?(node)
-        line = node.source_range.start_pos.line
         add_lint line,
                  'Declaration should not have a space before ' \
                  'the terminating semicolon'
+      elsif !ends_with_semicolon?(node)
+        line = node.source_range.start_pos.line
+        add_lint line, 'Declaration should be terminated by a semicolon'
       elsif ends_with_multiple_semicolons?(node)
         line = node.source_range.start_pos.line
         add_lint line, 'Declaration should be terminated by a single semicolon'
