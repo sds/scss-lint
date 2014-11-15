@@ -1,5 +1,15 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix regression in default configuration for `QualifyingElement` so that
+  elements with attributes, classes, or ids are disallowed by default
+* Fix error message for `TrailingSemicolon` where lines without a semicolon
+  would incorrectly be reported as having a space before the semicolon
+* Fix `BangFormat` linter to not report lints for exclamation points in
+  strings
+* Update minimum version of `sass` gem to 3.4.1 to fix a parser bug
+
 ## 0.30.0
 
 ### New Features
