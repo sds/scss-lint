@@ -16,25 +16,36 @@ module SCSSLint
 
   private
 
+    # Start from the back and move towards the front so that any !important or
+    # !default !'s will be found *before* quotation marks. Then we can
+    # stop at quotation marks to protect against linting !'s within strings
+    # (e.g. `content`)
     def find_bang_offset(range)
+      stopping_characters = ['!', '\'', '"']
       offset = 0
-      offset += 1 while character_at(range.start_pos, offset) != '!'
+      offset -= 1 until stopping_characters.include?(character_at(range.end_pos, offset))
       offset
+    end
+
+    def is_before_wrong?(range, offset)
+      before_expected = config['space_before_bang'] ? / / : /[^ ]/
+      before_actual = character_at(range.end_pos, offset - 1)
+      (before_actual =~ before_expected).nil?
+    end
+
+    def is_after_wrong?(range, offset)
+      after_expected = config['space_after_bang'] ? / / : /[^ ]/
+      after_actual = character_at(range.end_pos, offset + 1)
+      (after_actual =~ after_expected).nil?
     end
 
     def check_spacing(node)
       range = node.value_source_range
       offset = find_bang_offset(range)
 
-      before_expected = config['space_before_bang'] ? / / : /[^ ]/
-      before_actual = character_at(range.start_pos, offset - 1)
-      before_is_wrong = (before_actual =~ before_expected).nil?
+      return if character_at(range.end_pos, offset) != '!'
 
-      after_expected = config['space_after_bang'] ? / / : /[^ ]/
-      after_actual = character_at(range.start_pos, offset + 1)
-      after_is_wrong = (after_actual =~ after_expected).nil?
-
-      before_is_wrong || after_is_wrong
+      is_before_wrong?(range, offset) || is_after_wrong?(range, offset)
     end
   end
 end

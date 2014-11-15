@@ -76,4 +76,24 @@ describe SCSSLint::Linter::BangFormat do
 
     it { should_not report_lint }
   end
+
+  context 'when ! appears within a string' do
+    let(:css) { <<-CSS }
+      p:before { content: "!important"; }
+      p:before { content: "imp!ortant"; }
+      p:after { content: '!'; }
+      div:before { content: 'important!'; }
+      div:after { content: '  !  '; }
+      p[attr="foo!bar"] {};
+      p[attr='foo!bar'] {};
+      p[attr="!foobar"] {};
+      p[attr='foobar!'] {};
+      $foo: 'bar!';
+      $foo: "bar!";
+      $foo: "!bar";
+      $foo: "b!ar";
+    CSS
+
+    it { should_not report_lint }
+  end
 end
