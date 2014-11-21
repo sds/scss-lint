@@ -9,6 +9,8 @@
 * Fix `BangFormat` linter to not report lints for exclamation points in
   strings
 * Update minimum version of `sass` gem to 3.4.1 to fix a parser bug
+* Fix `DuplicateProperty` not reporting duplicate properties in nested rule
+  sets
 
 ## 0.30.0
 

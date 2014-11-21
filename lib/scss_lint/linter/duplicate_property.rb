@@ -3,15 +3,45 @@ module SCSSLint
   class Linter::DuplicateProperty < Linter
     include LinterRegistry
 
-    def visit_rule(node)
-      check_properties(node)
+    def check_properties(node)
+      static_properties(node).each_with_object({}) do |prop, prop_names|
+
+        prop_key = property_key(prop)
+
+        if existing_prop = prop_names[prop_key]
+          add_lint(prop, "Property `#{name}` already defined on line #{existing_prop.line}")
+        else
+          prop_names[prop_key] = prop
+        end
+      end
+
+      yield # Continue linting children
     end
 
-    def visit_mixindef(node)
-      check_properties(node)
-    end
+    alias_method :visit_rule,     :check_properties
+    alias_method :visit_mixindef, :check_properties
 
   private
+
+    def static_properties(node)
+      node.children
+          .select { |child| child.is_a?(Sass::Tree::PropNode) }
+          .reject { |prop| prop.name.any? { |item| item.is_a?(Sass::Script::Node) } }
+    end
+
+    # Returns a key identifying the bucket this property and value correspond to
+    # for purposes of uniqueness.
+    def property_key(prop)
+      prop_key = prop.name.join
+      prop_value = property_value(prop)
+
+      # Differentiate between values for different vendor prefixes
+      prop_value.to_s.scan(/^(-[^-]+-.+)/) do |vendor_keyword|
+        prop_key << vendor_keyword.first
+      end
+
+      prop_key
+    end
 
     def property_value(prop)
       case prop.value
@@ -22,31 +52,6 @@ module SCSSLint
         prop.value.value
       else
         prop.value.to_s
-      end
-    end
-
-    def check_properties(node)
-      properties = node.children
-                       .select { |child| child.is_a?(Sass::Tree::PropNode) }
-                       .reject { |prop| prop.name.any? { |item| item.is_a?(Sass::Script::Node) } }
-
-      prop_names = {}
-
-      properties.each do |prop|
-        name = prop.name.join
-
-        prop_hash = name
-        prop_value = property_value(prop)
-
-        prop_value.to_s.scan(/^(-[^-]+-.+)/) do |vendor_keyword|
-          prop_hash << vendor_keyword.first
-        end
-
-        if existing_prop = prop_names[prop_hash]
-          add_lint(prop, "Property `#{name}` already defined on line #{existing_prop.line}")
-        else
-          prop_names[prop_hash] = prop
-        end
       end
     end
   end

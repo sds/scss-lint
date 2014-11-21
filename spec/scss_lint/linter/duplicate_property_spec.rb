@@ -173,4 +173,17 @@ describe SCSSLint::Linter::DuplicateProperty do
 
     it { should report_lint line: 3 }
   end
+
+  context 'when property contains a duplicate value in a nested rule set' do
+    let(:css) { <<-CSS }
+      .outer {
+        .inner {
+          color: $some-color;
+          color: $some-color;
+        }
+      }
+    CSS
+
+    it { should report_lint line: 4 }
+  end
 end
