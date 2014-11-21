@@ -11,6 +11,7 @@
 * Update minimum version of `sass` gem to 3.4.1 to fix a parser bug
 * Fix `DuplicateProperty` not reporting duplicate properties in nested rule
   sets
+* Fix `TrailingSemicolon` handling of comma-separated `@import`s
 
 ## 0.30.0
 

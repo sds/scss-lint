@@ -226,6 +226,26 @@ describe SCSSLint::Linter::TrailingSemicolon do
     it { should report_lint line: 1 }
   end
 
+  context 'when an import directive is split over multiple lines' do
+    context 'and is missing the trailing semicolon' do
+      let(:css) { <<-CSS }
+        @import 'functions/strip-units',
+                'functions/pc'
+      CSS
+
+      it { should report_lint }
+    end
+
+    context 'and is not missing the trailing semicolon' do
+      let(:css) { <<-CSS }
+        @import 'functions/strip-units',
+                'functions/pc';
+      CSS
+
+      it { should_not report_lint }
+    end
+  end
+
   context 'when variable declaration does not end with a semicolon' do
     let(:css) { <<-CSS }
       .foo {
