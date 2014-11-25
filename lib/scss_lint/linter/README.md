@@ -42,6 +42,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [TrailingSemicolon](#trailingsemicolon)
 * [TrailingZero](#trailingzero)
 * [UnnecessaryMantissa](#unnecessarymantissa)
+* [UnnecessaryParentReference](#unnecessaryparentreference)
 * [UrlFormat](#urlformat)
 * [UrlQuotes](#urlquotes)
 * [VendorPrefixes](#vendorprefixes)
