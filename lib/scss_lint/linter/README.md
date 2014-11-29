@@ -1315,9 +1315,9 @@ Additionally, you can manually include or exclude identifiers from the identifie
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`identifier_list`    | Name of predefined identifier list to use (`base` or `bourbon`) or an array of identifiers
-`include`            | Identifiers to lint, in addition to the `identifier_list`
-`exclude`            | Identifers in the `identifier_list` to exclude from linting
+`identifier_list`    | Name of predefined identifier list to use (`base` or `bourbon`) or an array of identifiers (default `base`)
+`include`            | Identifiers to lint, in addition to the `identifier_list` (default `[]`)
+`exclude`            | Identifers in the `identifier_list` to exclude from linting (default `[]`)
 
 ## ZeroUnit
 
