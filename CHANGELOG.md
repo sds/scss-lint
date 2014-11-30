@@ -15,6 +15,7 @@
 * Fix `SelectorFormat` to not allow format of pseudo-selectors to be defined,
   as they are always hyphenated lowercase
 * Fix `Indentation` to not crash on `@at-root` directives with comments inside
+* Support rubocop style `scss-lint:disable` and `scss-lint:enable` comments
 
 ## 0.30.0
 
