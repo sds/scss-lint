@@ -142,6 +142,17 @@ describe SCSSLint::Linter::Indentation do
     it { should_not report_lint }
   end
 
+  context 'when @at-root directive with no inline selector contains comment' do
+    let(:css) { <<-CSS }
+      @at-root {
+        // A comment that causes a crash
+        .something-else {}
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
   context 'when the indentation width has been explicitly set' do
     let(:linter_config) { { 'width' => 3 } }
 

@@ -14,6 +14,7 @@
 * Fix `TrailingSemicolon` handling of comma-separated `@import`s
 * Fix `SelectorFormat` to not allow format of pseudo-selectors to be defined,
   as they are always hyphenated lowercase
+* Fix `Indentation` to not crash on `@at-root` directives with comments inside
 
 ## 0.30.0
 

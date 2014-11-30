@@ -126,8 +126,9 @@ module SCSSLint
 
     def at_root_contains_inline_selector?(node)
       return unless node.children.any?
+      return unless first_child_source = node.children.first.source_range
 
-      same_position?(node.source_range.end_pos, node.children.first.source_range.start_pos)
+      same_position?(node.source_range.end_pos, first_child_source.start_pos)
     end
   end
 end
