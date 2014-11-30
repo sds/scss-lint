@@ -37,15 +37,6 @@ describe SCSSLint::Linter::SelectorFormat do
     it { should_not report_lint }
   end
 
-  context 'when pseudo-selector has alphanumeric chars and is separated by hyphens' do
-    let(:css) { <<-CSS }
-      [foo-bar-77=text] {
-      }
-    CSS
-
-    it { should_not report_lint }
-  end
-
   context 'when selector has alphanumeric chars and is separated by underscores' do
     let(:css) { <<-CSS }
       .foo_bar {
@@ -67,15 +58,6 @@ describe SCSSLint::Linter::SelectorFormat do
   context 'when placeholder has alphanumeric chars and is separated by underscores' do
     let(:css) { <<-CSS }
       %foo_bar {
-      }
-    CSS
-
-    it { should report_lint line: 1 }
-  end
-
-  context 'psuedo-selector has alphanumeric chars and is separated by underscores' do
-    let(:css) { <<-CSS }
-      :foo_bar {
       }
     CSS
 
@@ -121,7 +103,7 @@ describe SCSSLint::Linter::SelectorFormat do
       it { should report_lint line: 1 }
     end
 
-    context 'when selector has is in camelCase' do
+    context 'when selector is in camelCase' do
       let(:css) { <<-CSS }
         .fooBar77 {
         }
@@ -219,9 +201,9 @@ describe SCSSLint::Linter::SelectorFormat do
     end
   end
 
-  context 'when ignored types is set to id, element, placeholder, pseudo-selector' do
+  context 'when ignored types is set to id, element, placeholder' do
     let(:linter_config) do
-      { 'ignored_types' => %w[id attribute element placeholder pseudo-selector] }
+      { 'ignored_types' => %w[id attribute element placeholder] }
     end
 
     context 'it ignores all invalid ids' do
@@ -254,15 +236,6 @@ describe SCSSLint::Linter::SelectorFormat do
     context 'it ignores all invalid attributes' do
       let(:css) { <<-CSS }
         [fooBar=fooBar] {
-        }
-      CSS
-
-      it { should_not report_lint }
-    end
-
-    context 'it ignores all invalid pseudo-selectors' do
-      let(:css) { <<-CSS }
-        :fooBar {
         }
       CSS
 
@@ -392,42 +365,6 @@ describe SCSSLint::Linter::SelectorFormat do
     context 'and something else uses the `element_convention`' do
       let(:css) { <<-CSS }
         hyphenated-lowercase {}
-        #hyphenated-lowercase {}
-      CSS
-
-      it { should report_lint line: 2 }
-    end
-  end
-
-  context 'when using a unique `pseudo_convention`' do
-    let(:linter_config) do
-      {
-        'convention' => 'camel_case',
-        'pseudo_convention' => 'hyphenated-lowercase'
-      }
-    end
-
-    context 'and actual pseudo is correct' do
-      let(:css) { <<-CSS }
-        :hyphenated-lowercase {}
-        #camelCase {}
-      CSS
-
-      it { should_not report_lint }
-    end
-
-    context 'and actual pseudo is incorrect' do
-      let(:css) { <<-CSS }
-        :camelCase {}
-        #camelCase {}
-      CSS
-
-      it { should report_lint line: 1 }
-    end
-
-    context 'and something else uses the `pseudo_convention`' do
-      let(:css) { <<-CSS }
-        :hyphenated-lowercase {}
         #hyphenated-lowercase {}
       CSS
 

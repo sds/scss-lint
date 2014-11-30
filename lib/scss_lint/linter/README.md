@@ -883,12 +883,11 @@ Configuration Option     | Description
 -------------------------|-----------------------------------------------------
 `convention`             | Name of convention to use (`hyphenated_lowercase` (default) or `snake_case`, `camel_case`, or `BEM`, or `hyphenated_BEM`), or a regex the name must match
 `ignored_names`          | Array of whitelisted names to not report lints for.
-`ignored_types`          | Array containing list of types of selectors to ignore (valid values are `attribute`, `class`, `element`, `id`, `placeholder`, or `pseudo-selector`)
+`ignored_types`          | Array containing list of types of selectors to ignore (valid values are `attribute`, `class`, `element`, `id`, `placeholder`)
 `attribute_convention`   | Convention for attribute selectors only. See the `convention` option for possible values.
 `class_convention`       | Convention for class selectors only. See the `convention` option for possible values.
 `id_convention`          | Convention for id selectors only. See the `convention` option for possible values.
 `placeholder_convention` | Convention for placeholder selectors only. See the `convention` option for possible values.
-`pseudo_convention`      | Convention for pseudo-selectors only. See the `convention` option for possible values.
 
 ## Shorthand
 

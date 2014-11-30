@@ -29,10 +29,6 @@ module SCSSLint
       check(placeholder, 'placeholder') unless @ignored_types.include?('placeholder')
     end
 
-    def visit_pseudo(pseudo)
-      check(pseudo, 'pseudo') unless @ignored_types.include?('pseudo-selector')
-    end
-
   private
 
     def check(node, type)
