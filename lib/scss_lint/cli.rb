@@ -1,7 +1,7 @@
 require 'find'
-require 'optparse'
 require 'rainbow'
 require 'rainbow/ext/string'
+require 'scss_lint/options'
 
 module SCSSLint
   # Responsible for parsing command-line options and executing the appropriate
@@ -20,151 +20,101 @@ module SCSSLint
       config:    78, # Configuration error
     }
 
-    DEFAULT_REPORTER = [SCSSLint::Reporter::DefaultReporter, :stdout]
-
-    # @param args [Array]
-    def initialize(args = [])
-      @args    = args
-      @options = { reporters: [DEFAULT_REPORTER] }
-      @config  = Config.default
+    def run(args)
+      options = SCSSLint::Options.new.parse(args)
+      act_on_options(options)
+    rescue => ex
+      handle_runtime_exception(ex)
     end
 
-    def parse_arguments
-      begin
-        options_parser.parse!(@args)
+  private
 
-        # Take the rest of the arguments as files/directories
+    def act_on_options(options)
+      load_required_paths(options)
 
-        if @args.empty?
-          @options[:files] = @config.scss_files
-        else
-          @options[:files] = @args
-        end
-
-      rescue OptionParser::InvalidOption => ex
-        print_help options_parser.help, ex
-      end
-
-      begin
-        setup_configuration
-      rescue InvalidConfiguration, NoSuchLinter => ex
-        puts ex.message
-        halt :config
+      if options[:help]
+        print_help(options)
+      elsif options[:version]
+        print_version
+      elsif options[:show_linters]
+        print_linters
+      elsif options[:show_formatters]
+        print_formatters
+      else
+        config = setup_configuration(options)
+        scan_for_lints(options, config)
       end
     end
 
-    # @return [OptionParser]
-    def options_parser # rubocop:disable AbcSize, MethodLength
-      @options_parser ||= OptionParser.new do |opts|
-        opts.banner = "Usage: #{opts.program_name} [options] [scss-files]"
-
-        opts.separator ''
-        opts.separator 'Common options:'
-
-        opts.on('-c', '--config file', 'Specify configuration file', String) do |file|
-          @options[:config_file] = file
-        end
-
-        opts.on('-e', '--exclude file,...', Array,
-                'List of file names to exclude') do |files|
-          @options[:excluded_files] = files
-        end
-
-        opts.on('-f', '--format Formatter', 'Specify how to display lints', String) do |format|
-          define_output_format(format)
-        end
-
-        opts.on('-o', '--out path', 'Write output to a file instead of STDOUT', String) do |path|
-          define_output_path(path)
-        end
-
-        opts.on('-r', '--require path', 'Require Ruby file', String) do |path|
-          require path
-        end
-
-        opts.on_tail('--show-formatters', 'Shows available formatters') do
-          print_formatters
-        end
-
-        opts.on('-i', '--include-linter linter,...', Array,
-                'Specify which linters you want to run') do |linters|
-          @options[:included_linters] = linters
-        end
-
-        opts.on('-x', '--exclude-linter linter,...', Array,
-                "Specify which linters you don't want to run") do |linters|
-          @options[:excluded_linters] = linters
-        end
-
-        opts.on_tail('--show-linters', 'Shows available linters') do
-          print_linters
-        end
-
-        opts.on_tail('-h', '--help', 'Show this message') do
-          print_help opts.help
-        end
-
-        opts.on_tail('-v', '--version', 'Show version') do
-          print_version opts.program_name, VERSION
-        end
-      end
-    end
-
-    def run # rubocop:disable AbcSize, MethodLength
-      runner = Runner.new(@config)
-      runner.run(files_to_lint)
-      report_lints(runner.lints)
+    def scan_for_lints(options, config)
+      runner = Runner.new(config)
+      runner.run(files_to_lint(options, config))
+      report_lints(options, runner.lints)
 
       if runner.lints.any?(&:error?)
         halt :error
       elsif runner.lints.any?
         halt :warning
+      else
+        halt :ok
       end
-    rescue InvalidConfiguration => ex
-      puts ex
-      halt :config
-    rescue NoFilesError, Errno::ENOENT => ex
-      puts ex.message
-      halt :no_input
-    rescue NoSuchLinter => ex
-      puts ex.message
-      halt :usage
-    rescue => ex
-      puts ex.message
-      puts ex.backtrace
-      puts 'Report this bug at '.color(:yellow) + BUG_REPORT_URL.color(:cyan)
-      halt :software
     end
 
-  private
-
-    def setup_configuration
-      if @options[:config_file]
-        @config = Config.load(@options[:config_file])
-        @config.preferred = true
+    def handle_runtime_exception(exception) # rubocop:disable Metrics/AbcSize
+      case exception
+      when SCSSLint::Exceptions::InvalidCLIOption
+        puts exception.message
+        puts 'Run `haml-lint --help` for usage documentation'
+        halt :usage
+      when SCSSLint::Exceptions::InvalidConfiguration
+        puts exception.message
+        halt :config
+      when NoFilesError, Errno::ENOENT
+        puts exception.message
+        halt :no_input
+      when NoSuchLinter
+        puts exception.message
+        halt :usage
+      else
+        puts exception.message
+        puts exception.backtrace
+        puts 'Report this bug at '.color(:yellow) + BUG_REPORT_URL.color(:cyan)
+        halt :software
       end
-
-      merge_command_line_flags_with_config(@config)
     end
 
+    def setup_configuration(options)
+      config =
+        if options[:config_file]
+          Config.load(options[:config_file]).tap do |conf|
+            conf.preferred = true
+          end
+        else
+          Config.default
+        end
+
+      merge_options_with_config(options, config)
+    end
+
+    # @param options [Hash]
     # @param config [Config]
     # @return [Config]
-    def merge_command_line_flags_with_config(config)
-      if @options[:excluded_files]
-        @options[:excluded_files].each do |file|
+    def merge_options_with_config(options, config)
+      if options[:excluded_files]
+        options[:excluded_files].each do |file|
           config.exclude_file(file)
         end
       end
 
-      if @options[:included_linters]
+      if options[:included_linters]
         config.disable_all_linters
-        LinterRegistry.extract_linters_from(@options[:included_linters]).each do |linter|
+        LinterRegistry.extract_linters_from(options[:included_linters]).each do |linter|
           config.enable_linter(linter)
         end
       end
 
-      if @options[:excluded_linters]
-        LinterRegistry.extract_linters_from(@options[:excluded_linters]).each do |linter|
+      if options[:excluded_linters]
+        LinterRegistry.extract_linters_from(options[:excluded_linters]).each do |linter|
           config.disable_linter(linter)
         end
       end
@@ -172,16 +122,20 @@ module SCSSLint
       config
     end
 
-    def files_to_lint
-      extract_files_from(@options[:files]).reject do |file|
-        config =
-          if !@config.preferred && (config_for_file = Config.for_file(file))
-            merge_command_line_flags_with_config(config_for_file.dup)
+    def files_to_lint(options, config)
+      if options[:files].empty?
+        options[:files] = config.scss_files
+      end
+
+      extract_files_from(options[:files]).reject do |file|
+        actual_config =
+          if !config.preferred && (config_for_file = Config.for_file(file))
+            merge_options_with_config(options, config_for_file.dup)
           else
-            @config
+            config
           end
 
-        config.excluded_file?(file)
+        actual_config.excluded_file?(file)
       end
     end
 
@@ -205,32 +159,21 @@ module SCSSLint
       VALID_EXTENSIONS.include?(File.extname(file))
     end
 
+    # @param options [Hash]
     # @param lints [Array<Lint>]
-    def report_lints(lints)
+    def report_lints(options, lints)
       sorted_lints = lints.sort_by { |l| [l.filename, l.location] }
-      @options.fetch(:reporters).each do |reporter, output|
+      options.fetch(:reporters).each do |reporter, output|
         results = reporter.new(sorted_lints).report_lints
         io = (output == :stdout ? $stdout : File.new(output, 'w+'))
         io.print results if results
       end
     end
 
-    # @param format [String]
-    def define_output_format(format)
-      unless @options[:reporters] == [DEFAULT_REPORTER] && format == 'Default'
-        @options[:reporters].reject! { |i| i == DEFAULT_REPORTER }
-        reporter = SCSSLint::Reporter.const_get(format + 'Reporter')
-        @options[:reporters] << [reporter, :stdout]
+    def load_required_paths(options)
+      Array(options[:required_paths]).each do |path|
+        require path
       end
-    rescue NameError
-      puts "Invalid output format specified: #{format}"
-      halt :config
-    end
-
-    # @param path [String]
-    def define_output_path(path)
-      last_reporter, _output = @options[:reporters].pop
-      @options[:reporters] << [last_reporter, path]
     end
 
     def print_formatters
@@ -261,25 +204,22 @@ module SCSSLint
       halt
     end
 
-    # @param help_message [String]
-    # @param err [Exception]
-    def print_help(help_message, err = nil)
-      puts err, '' if err
-      puts help_message
-      halt(err ? :usage : :ok)
+    # @param options [Hash]
+    def print_help(options)
+      puts options[:help]
+      halt :ok
     end
 
-    # @param program_name [String]
-    # @param version [String]
-    def print_version(program_name, version)
-      puts "#{program_name} #{version}"
-      halt
+    # @param options [Hash]
+    def print_version
+      puts "scss-lint #{SCSSLint::VERSION}"
+      halt :ok
     end
 
     # Used for ease-of testing
     # @param exit_status [Symbol]
     def halt(exit_status = :ok)
-      exit(EXIT_CODES[exit_status])
+      EXIT_CODES[exit_status]
     end
   end
 end

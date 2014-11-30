@@ -27,236 +27,19 @@ describe SCSSLint::CLI do
                                          SCSSLint::Linter::FakeTestLinter2])
   end
 
-  describe '#parse_arguments' do
-    let(:files)   { ['file1.scss', 'file2.scss'] }
-    let(:flags) { [] }
-    subject       { SCSSLint::CLI.new(flags + files) }
-
-    def safe_parse
-      subject.parse_arguments
-    rescue SystemExit
-      # Keep running tests
-    end
-
-    context 'when the config_file flag is set' do
-      let(:config_file) { 'my-config-file.yml' }
-      let(:flags) { ['-c', config_file] }
-
-      it 'loads that config file' do
-        SCSSLint::Config.should_receive(:load).with(config_file)
-        safe_parse
-      end
-
-      context 'and the config file is invalid' do
-        before do
-          SCSSLint::Config.should_receive(:load)
-                          .with(config_file)
-                          .and_raise(SCSSLint::InvalidConfiguration)
-        end
-
-        it 'halts with a configuration error code' do
-          subject.should_receive(:halt).with(:config)
-          safe_parse
-        end
-      end
-    end
-
-    context 'when the excluded files flag is set' do
-      let(:flags) { ['-e', 'file1.scss,file3.scss'] }
-
-      it 'sets the :excluded_files option' do
-        safe_parse
-        subject.options[:excluded_files].should =~ ['file1.scss', 'file3.scss']
-      end
-    end
-
-    context 'when the include linters flag is set' do
-      let(:flags) { %w[-i FakeTestLinter2] }
-
-      it 'enables only the included linters' do
-        safe_parse
-        subject.config.enabled_linters.should == [SCSSLint::Linter::FakeTestLinter2]
-      end
-
-      context 'and the included linter does not exist' do
-        let(:flags) { %w[-i NonExistentLinter] }
-
-        it 'halts with a configuration error code' do
-          subject.should_receive(:halt).with(:config)
-          safe_parse
-        end
-      end
-    end
-
-    context 'when the exclude linters flag is set' do
-      let(:flags) { %w[-x FakeTestLinter1] }
-
-      it 'includes all linters except the excluded one' do
-        safe_parse
-        subject.config.enabled_linters.should == \
-          [SCSSLint::Linter::FakeTestLinter2]
-      end
-    end
-
-    context 'when the require flag is set' do
-      let(:flags) { %w[--require uri] }
-
-      it 'requires the specified file and constants are accessible' do
-        safe_parse
-        expect { subject.instance_eval %{ URI } }.to_not raise_error
-      end
-    end
-
-    context 'when neither format nor out flag is set' do
-      let(:flags) { %w[] }
-
-      it 'sets the default reporter to output to stdout' do
-        safe_parse
-        subject.options[:reporters].should \
-          include([SCSSLint::Reporter::DefaultReporter, :stdout])
-      end
-    end
-
-    context 'when the out flag is set' do
-      context 'and the path is valid' do
-        let(:flags) { %w[--out foo.txt] }
-
-        it 'sets the default :output to the given path' do
-          safe_parse
-          subject.options[:reporters].should \
-            include([SCSSLint::Reporter::DefaultReporter, 'foo.txt'])
-        end
-      end
-    end
-
-    context 'when the format flag is set' do
-      context 'and the format is valid' do
-        let(:flags) { %w[--format XML] }
-
-        it 'sets the :reporter option to the correct reporter' do
-          safe_parse
-          subject.options[:reporters].should \
-            include([SCSSLint::Reporter::XMLReporter, :stdout])
-        end
-      end
-
-      context 'and an out path is specified' do
-        let(:flags) { %w[--format XML --out foo.txt] }
-
-        it 'sets the specified reporter :output to the given path' do
-          safe_parse
-          subject.options[:reporters].should \
-            include([SCSSLint::Reporter::XMLReporter, 'foo.txt'])
-        end
-      end
-
-      context 'and the format is invalid' do
-        let(:flags) { %w[--format InvalidFormat] }
-
-        it 'sets the :reporter option to the correct reporter' do
-          subject.should_receive(:halt).with(:config)
-          safe_parse
-        end
-      end
-    end
-
-    context 'when the show formatters flag is set' do
-      let(:flags) { ['--show-formatters'] }
-
-      it 'prints the formatters' do
-        subject.should_receive(:print_formatters)
-        safe_parse
-      end
-    end
-
-    context 'when the show linters flag is set' do
-      let(:flags) { ['--show-linters'] }
-
-      it 'prints the linters' do
-        subject.should_receive(:print_linters)
-        safe_parse
-      end
-    end
-
-    context 'when the help flag is set' do
-      let(:flags) { ['-h'] }
-
-      it 'prints a help message' do
-        subject.should_receive(:print_help)
-        safe_parse
-      end
-    end
-
-    context 'when the version flag is set' do
-      let(:flags) { ['-v'] }
-
-      it 'prints the program version' do
-        subject.should_receive(:print_version)
-        safe_parse
-      end
-    end
-
-    context 'when an invalid option is specified' do
-      let(:flags) { ['--non-existant-option'] }
-
-      it 'prints a help message' do
-        subject.should_receive(:print_help)
-        safe_parse
-      end
-    end
-
-    context 'when no files are specified' do
-      let(:files) { [] }
-
-      it 'sets :files option to the empty list' do
-        safe_parse
-        subject.options[:files].should be_empty
-      end
-    end
-
-    context 'when files are specified' do
-      it 'sets :files option to the list of files' do
-        safe_parse
-        subject.options[:files].should =~ files
-      end
-    end
-  end
-
   describe '#run' do
-    let(:files)   { ['file1.scss', 'file2.scss'] }
-    let(:options) { {} }
-    subject       { SCSSLint::CLI.new(options) }
+    let(:files) { ['file1.scss', 'file2.scss'] }
+    let(:flags) { [] }
+    subject     { SCSSLint::CLI.new }
 
     before do
       subject.stub(:extract_files_from).and_return(files)
     end
 
     def safe_run
-      subject.run
+      subject.run(flags + files)
     rescue SystemExit
       # Keep running tests
-    end
-
-    context 'when no files are specified' do
-      let(:files) { [] }
-
-      it 'exits with a no-input status code' do
-        subject.should_receive(:halt).with(:no_input)
-        safe_run
-      end
-    end
-
-    context 'when files are specified' do
-      it 'passes the set of files to the runner' do
-        SCSSLint::Runner.any_instance.should_receive(:run).with(files)
-        safe_run
-      end
-
-      it 'uses the default reporter' do
-        SCSSLint::Reporter::DefaultReporter.any_instance
-          .should_receive(:report_lints)
-        safe_run
-      end
     end
 
     context 'when there are no lints' do
@@ -264,9 +47,8 @@ describe SCSSLint::CLI do
         SCSSLint::Runner.any_instance.stub(:lints).and_return([])
       end
 
-      it 'exits cleanly' do
-        subject.should_not_receive(:halt)
-        safe_run
+      it 'returns a successful exit code' do
+        safe_run.should == 0
       end
 
       it 'outputs nothing' do
@@ -288,9 +70,8 @@ describe SCSSLint::CLI do
         ])
       end
 
-      it 'exits cleanly' do
-        subject.should_receive(:halt).with(:warning)
-        safe_run
+      it 'returns a exit code indicating only warnings were reported' do
+        safe_run.should == 1
       end
 
       it 'outputs the warnings' do
@@ -313,8 +94,7 @@ describe SCSSLint::CLI do
       end
 
       it 'exits with an error status code' do
-        subject.should_receive(:halt).with(:error)
-        safe_run
+        safe_run.should == 2
       end
 
       it 'outputs the errors' do

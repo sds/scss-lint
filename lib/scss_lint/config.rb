@@ -2,9 +2,6 @@ require 'pathname'
 require 'yaml'
 
 module SCSSLint
-  # Raised when the configuration file is invalid for some reason.
-  class InvalidConfiguration < StandardError; end
-
   # Loads and manages application configuration.
   class Config
     FILE_NAME = '.scss-lint.yml'
@@ -72,7 +69,8 @@ module SCSSLint
               {}
             end
         rescue => ex
-          raise InvalidConfiguration, "Invalid configuration: #{ex.message}"
+          raise SCSSLint::Exceptions::InvalidConfiguration,
+                "Invalid configuration: #{ex.message}"
         end
 
         options = convert_single_options_to_arrays(options)
