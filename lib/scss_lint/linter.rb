@@ -163,15 +163,12 @@ module SCSSLint
       match = %r{/* scss\-lint:(disable|enable) (.*?) \*/}.match(node.value[0])
       return if match.nil?
 
-      command = match[1]
       linters = match[2].split(/\s*,\s*|\s+/)
       return unless match[2] == 'all' || linters.include?(name)
 
-      case command
-      when 'disable'
-        @disable_stack << node.node_parent
-      when 'enable'
-        @disable_stack.pop
+      case match[1]
+      when 'disable' then @disable_stack << node.node_parent
+      when 'enable' then @disable_stack.pop
       end
     end
   end
