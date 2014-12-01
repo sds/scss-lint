@@ -119,6 +119,10 @@ module SCSSLint
     # @param node [Sass::Tree::Node, Sass::Script::Tree::Node,
     #   Sass::Script::Value::Base]
     def visit(node)
+      if node.is_a?(Sass::Tree::CommentNode)
+        parse_control_comment(node)
+      end
+
       # Visit the selector of a rule if parsed rules are available
       if node.is_a?(Sass::Tree::RuleNode) && node.parsed_rules
         visit_selector(node.parsed_rules)
@@ -155,7 +159,7 @@ module SCSSLint
       end
     end
 
-    def visit_comment(node)
+    def parse_control_comment(node)
       match = %r{/* scss\-lint:(disable|enable) (.*?) \*/}.match(node.value[0])
       return if match.nil?
 
