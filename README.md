@@ -162,8 +162,8 @@ p {
 ```scss
 // scss-lint:disable BorderZero, StringQuotes
 p {
-  border: none; // Does not lint
-  content: "hello"; // Does not lint
+  border: none; // No lint reported
+  content: "hello"; // No lint reported
 }
 ```
 
@@ -171,11 +171,11 @@ p {
 ```scss
 p {
   // scss-lint:disable BorderZero
-  border: none; // Does not lint
+  border: none; // No lint reported
 }
 
 a {
-  border: none; // Lints
+  border: none; // Lint reported
 }
 ```
 
@@ -183,12 +183,12 @@ a {
 ```scss
 // scss-lint:disable BorderZero
 p {
-  border: none; // Does not lint
+  border: none; // No lint reported
 }
 // scss-lint:enable BorderZero
 
 a {
-  border: none; // Lints
+  border: none; // Lint reported
 }
 ```
 
@@ -196,12 +196,12 @@ a {
 ```scss
 // scss-lint:disable all
 p {
-  border: none; // Does not lint
+  border: none; // No lint reported
 }
 // scss-lint:enable all
 
 a {
-  border: none; // Lints
+  border: none; // Lint reported
 }
 ```
 
