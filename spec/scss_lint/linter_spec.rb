@@ -142,6 +142,22 @@ describe SCSSLint::Linter do
       it { @linter2.should_not report_lint }
     end
 
+    context 'when more than one linter is disabled without commas between the linter names' do
+      let(:css) { <<-CSS }
+        // scss-lint:disable Fake1 Fake2
+        p {
+          border: fail1;
+        }
+
+        p {
+          border: fail2;
+        }
+      CSS
+
+      it { @linter1.should_not report_lint }
+      it { @linter2.should_not report_lint }
+    end
+
     context 'when two linters are disabled and only one is reenabled' do
       let(:css) { <<-CSS }
         // scss-lint:disable Fake1, Fake2

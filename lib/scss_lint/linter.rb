@@ -164,7 +164,7 @@ module SCSSLint
       return if match.nil?
 
       command = match[1]
-      linters = match[2].split(/\s*,\s*/)
+      linters = match[2].split(/\s*,\s*|\s+/)
       return unless match[2] == 'all' || linters.include?(name)
 
       if command == 'disable'
