@@ -18,6 +18,7 @@
 * Add support for disabling/enabling linters via inline comments
 * Change `IdWithExtraneousSelector` to `IdSelector` and modify behavior to
   always report a lint when an ID appears as part of a selector.
+* Fix `DuplicateProperty` to report correct name of duplicated property
 
 ## 0.30.0
 

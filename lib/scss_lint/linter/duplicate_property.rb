@@ -5,11 +5,11 @@ module SCSSLint
 
     def check_properties(node)
       static_properties(node).each_with_object({}) do |prop, prop_names|
-
         prop_key = property_key(prop)
 
         if existing_prop = prop_names[prop_key]
-          add_lint(prop, "Property `#{name}` already defined on line #{existing_prop.line}")
+          add_lint(prop, "Property `#{existing_prop.name.join}` already "\
+                         "defined on line #{existing_prop.line}")
         else
           prop_names[prop_key] = prop
         end
