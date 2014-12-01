@@ -167,9 +167,10 @@ module SCSSLint
       linters = match[2].split(/\s*,\s*|\s+/)
       return unless match[2] == 'all' || linters.include?(name)
 
-      if command == 'disable'
+      case command
+      when 'disable'
         @disable_stack << node.node_parent
-      elsif command == 'enable'
+      when 'enable'
         @disable_stack.pop
       end
     end
