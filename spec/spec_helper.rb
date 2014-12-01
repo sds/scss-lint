@@ -16,7 +16,7 @@ RSpec.configure do |config|
     # If running a linter spec, run the described linter against the CSS code
     # for each example. This significantly DRYs up our linter specs to contain
     # only tests, since all the setup code is now centralized here.
-    if described_class < SCSSLint::Linter
+    if described_class <= SCSSLint::Linter
       initial_indent = css[/\A(\s*)/, 1]
       normalized_css = css.gsub(/^#{initial_indent}/, '')
 

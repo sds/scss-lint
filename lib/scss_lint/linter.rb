@@ -4,10 +4,11 @@ module SCSSLint
     include SelectorVisitor
     include Utils
 
-    attr_reader :config, :engine, :lints
+    attr_reader :config, :engine, :lints, :disable_stack
 
     def initialize
       @lints = []
+      @disable_stack = []
     end
 
     # Run this linter against a parsed document with a given configuration.
@@ -33,6 +34,8 @@ module SCSSLint
     # @param node_or_line_or_location [Sass::Script::Tree::Node, Fixnum, SCSSLint::Location]
     # @param message [String]
     def add_lint(node_or_line_or_location, message)
+      return unless @disable_stack.length == 0
+
       @lints << Lint.new(self,
                          engine.filename,
                          extract_location(node_or_line_or_location),
@@ -121,7 +124,13 @@ module SCSSLint
         visit_selector(node.parsed_rules)
       end
 
+      if node.is_a?(Sass::Tree::CommentNode)
+        parse_control_comment(node)
+      end
+
       super
+
+      @disable_stack.pop while @disable_stack.last == node
     end
 
     # Redefine so we can set the `node_parent` of each node
@@ -147,6 +156,19 @@ module SCSSLint
         Location.new(node_or_line_or_location.line)
       else
         Location.new(node_or_line_or_location)
+      end
+    end
+
+    def parse_control_comment(node)
+      match = %r{/* scss\-lint:(disable|enable) (.*?) \*/}.match(node.value[0])
+      return if match.nil?
+
+      linters = match[2].split(/\s*,\s*|\s+/)
+      return unless match[2] == 'all' || linters.include?(name)
+
+      case match[1]
+      when 'disable' then @disable_stack << node.node_parent
+      when 'enable' then @disable_stack.pop
       end
     end
   end
