@@ -34,7 +34,7 @@ module SCSSLint
     # @param node_or_line_or_location [Sass::Script::Tree::Node, Fixnum, SCSSLint::Location]
     # @param message [String]
     def add_lint(node_or_line_or_location, message)
-      return unless @disable_stack.length == 0
+      return unless @disable_stack.empty?
 
       @lints << Lint.new(self,
                          engine.filename,
