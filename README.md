@@ -144,6 +144,67 @@ which will generate an `.scss-lint.yml` configuration file with all linters
 which caused a lint disabled. Starting with this as your configuration
 you can slowly enable each linter and fix any lints one by one.
 
+### Disabling Linters via Source
+
+For special cases where a particular lint doesn't make sense in a specific
+area of a file, special inline comments can be used to enable/disable linters.
+Some examples are provided below:
+
+**Disable for the entire file**
+```scss
+// scss-lint:disable BorderZero
+p {
+  border: none; // No lint reported
+}
+```
+
+**Disable a few linters**
+```scss
+// scss-lint:disable BorderZero, StringQuotes
+p {
+  border: none; // Does not lint
+  content: "hello"; // Does not lint
+}
+```
+
+**Disable all lints within a block (and all contained blocks)**
+```scss
+p {
+  // scss-lint:disable BorderZero
+  border: none; // Does not lint
+}
+
+a {
+  border: none; // Lints
+}
+```
+
+**Disable and enable again**
+```scss
+// scss-lint:disable BorderZero
+p {
+  border: none; // Does not lint
+}
+// scss-lint:enable BorderZero
+
+a {
+  border: none; // Lints
+}
+```
+
+**Disable/enable all linters**
+```scss
+// scss-lint:disable all
+p {
+  border: none; // Does not lint
+}
+// scss-lint:enable all
+
+a {
+  border: none; // Lints
+}
+```
+
 ## Formatters
 
 ### Default
