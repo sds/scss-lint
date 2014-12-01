@@ -52,7 +52,7 @@ linters:
   HexValidation:
     enabled: true
 
-  IdWithExtraneousSelector:
+  IdSelector:
     enabled: true
 
   ImportPath:

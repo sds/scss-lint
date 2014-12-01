@@ -16,6 +16,8 @@
   as they are always hyphenated lowercase
 * Fix `Indentation` to not crash on `@at-root` directives with comments inside
 * Add support for disabling/enabling linters via inline comments
+* Change `IdWithExtraneousSelector` to `IdSelector` and modify behavior to
+  always report a lint when an ID appears as part of a selector.
 
 ## 0.30.0
 

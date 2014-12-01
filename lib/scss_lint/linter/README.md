@@ -17,7 +17,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [HexLength](#hexlength)
 * [HexNotation](#hexnotation)
 * [HexValidation](#hexvalidation)
-* [IdWithExtraneousSelector](#idwithextraneousselector)
+* [IdSelector](#idselector)
 * [ImportPath](#importpath)
 * [Indentation](#indentation)
 * [LeadingZero](#leadingzero)
@@ -362,37 +362,29 @@ p {
 }
 ```
 
-## IdWithExtraneousSelector
+## IdSelector
 
-Don't combine additional selectors with an ID selector.
+Avoid using ID selectors.
 
-**Bad: `.button` class is unnecessary**
-```scss
-#submit-button.button {
-  ...
-}
-```
-
-**Good: standalone ID selector**
+**Bad: highly-specific styling for a single element via ID**
 ```scss
 #submit-button {
   ...
 }
 ```
 
+**Good: reusable class**
+```scss
+.submit-button {
+  ...
+}
+```
+
 While the CSS specification allows for multiple elements with the same ID to
-appear in a single document, in practice this is a smell.  When
-reasoning about IDs (including selector specificity), it should suffice to
-style an element with a particular ID based solely on the ID.
-
-Another possible pattern is to modify the style of an element with a given
-ID based on the class it has. This is also a smell, as the purpose of a CSS
-class is to be reusable and composable, and thus redefining it for a specific
-ID is a violation of those principles.
-
-Even better would be to
-[never use IDs](http://screwlewse.com/2010/07/dont-use-id-selectors-in-css/)
-in the first place.
+appear in a single document, in practice this is a smell. [ID selectors should
+never be used](http://screwlewse.com/2010/07/dont-use-id-selectors-in-css/) for
+the purposes of styling an element, as it leads to overly specific styles that
+aren't easily shared with other elements.
 
 ## ImportPath
 
