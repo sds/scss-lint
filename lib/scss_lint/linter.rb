@@ -2,7 +2,6 @@ module SCSSLint
   # Defines common functionality available to all linters.
   class Linter < Sass::Tree::Visitors::Base
     include SelectorVisitor
-    include ControlComments
     include Utils
 
     attr_reader :config, :engine, :lints
@@ -18,8 +17,9 @@ module SCSSLint
     def run(engine, config)
       @config = config
       @engine = engine
+      @comment_processor = ControlCommentProcessor.new(self)
       visit(engine.tree)
-      filter_lints
+      @lints = @comment_processor.filter_lints(@lints)
     end
 
     # Return the human-friendly name of this linter as specified in the
@@ -123,11 +123,9 @@ module SCSSLint
         visit_selector(node.parsed_rules)
       end
 
-      enter_visit_control_comment(node)
-
+      @comment_processor.before_node_visit(node)
       super
-
-      exit_visit_control_comment(node)
+      @comment_processor.after_node_visit(node)
     end
 
     # Redefine so we can set the `node_parent` of each node

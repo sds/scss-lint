@@ -1,22 +1,25 @@
 require 'set'
 
 module SCSSLint
-  # Contains functionality for enabling/disabling linters via comments.
-  module ControlComments
-  private
-
-    def initialize_vars
-      @disable_stack = [] if @disable_stack.nil?
-      @disabled_lines = Set.new if @disabled_lines.nil?
+  # Tracks which lines have been disabled for a given linter.
+  class ControlCommentProcessor
+    def initialize(linter)
+      @disable_stack = []
+      @disabled_lines = Set.new
+      @linter = linter
     end
 
-    def filter_lints
-      initialize_vars
-
-      @lints = lints.reject { |lint| @disabled_lines.include?(lint.location.line) }
+    # Filter lints given the comments that were processed in the document.
+    #
+    # @param lints [Array<SCSSLint::Lint>]
+    def filter_lints(lints)
+      lints.reject { |lint| @disabled_lines.include?(lint.location.line) }
     end
 
-    def enter_visit_control_comment(node)
+    # Executed before a node has been visited.
+    #
+    # @param node [Sass::Tree::Node]
+    def before_node_visit(node)
       return unless node.is_a?(Sass::Tree::CommentNode)
 
       return unless match = %r{
@@ -28,25 +31,27 @@ module SCSSLint
       }x.match(node.value.first)
 
       linters = match[:linters].split(/\s*,\s*|\s+/)
-      return unless linters.include?('all') || linters.include?(name)
+      return unless linters.include?('all') || linters.include?(@linter.name)
 
-      initialize_vars
       process_command(match[:command], node)
     end
+
+    # Executed after a node has been visited.
+    #
+    # @param node [Sass::Tree::Node]
+    def after_node_visit(node)
+      while @disable_stack.any? && @disable_stack.last.node_parent == node
+        pop_control_comment_stack(node)
+      end
+    end
+
+  private
 
     def process_command(command, node)
       case command
       when 'disable'
         @disable_stack << node
       when 'enable'
-        pop_control_comment_stack(node)
-      end
-    end
-
-    def exit_visit_control_comment(node)
-      initialize_vars
-
-      while @disable_stack.any? && @disable_stack.last.node_parent == node
         pop_control_comment_stack(node)
       end
     end
