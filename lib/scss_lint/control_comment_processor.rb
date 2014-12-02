@@ -22,13 +22,13 @@ module SCSSLint
     def before_node_visit(node)
       return unless node.is_a?(Sass::Tree::CommentNode)
 
-      return unless match = %r{
-        /\*\s* # Comment start marker
+      return unless match = /(?x)
+        \*\s* # Comment line start marker
         scss-lint:
         (?<command>disable|enable)\s+
         (?<linters>.*?)
-        \s*\*/ # Comment end marker
-      }x.match(node.value.first)
+        \s*(?:\*\/|\n) # Comment end marker or end of line
+      /.match(node.value.first)
 
       linters = match[:linters].split(/\s*,\s*|\s+/)
       return unless linters.include?('all') || linters.include?(@linter.name)
