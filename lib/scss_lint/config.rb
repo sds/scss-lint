@@ -120,20 +120,22 @@ module SCSSLint
         options.fetch('linters', {}).keys.each do |class_name|
           next unless class_name.include?('*')
 
-          class_name_regex = /#{class_name.gsub('*', '[^:]+')}/
-
           wildcard_options = options['linters'].delete(class_name)
 
-          LinterRegistry.linters.each do |linter_class|
-            name = linter_name(linter_class)
-            next unless name.match(class_name_regex)
-
-            old_options = options['linters'].fetch(name, {})
-            options['linters'][name] = smart_merge(old_options, wildcard_options)
+          linter_names_matching_glob(class_name).each do |linter_name|
+            old_options = options['linters'].fetch(linter_name, {})
+            options['linters'][linter_name] = smart_merge(old_options, wildcard_options)
           end
         end
 
         options
+      end
+
+      def linter_names_matching_glob(class_name_glob)
+        class_name_regex = /#{class_name_glob.gsub('*', '[^:]+')}/
+
+        LinterRegistry.linters.map { |linter_class| linter_name(linter_class) }
+                      .select { |linter_name| linter_name.match(class_name_regex) }
       end
 
       def ensure_linter_exclude_paths_are_absolute(options, original_file)
