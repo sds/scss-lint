@@ -7,6 +7,7 @@ require 'scss_lint/lint'
 require 'scss_lint/linter_registry'
 require 'scss_lint/runner'
 require 'scss_lint/selector_visitor'
+require 'scss_lint/control_comments'
 require 'scss_lint/version'
 require 'scss_lint/utils'
 
