@@ -232,5 +232,17 @@ describe SCSSLint::Linter do
 
       it { should_not report_lint }
     end
+
+    context 'when the command comment is at the end of a statement' do
+      let(:css) { <<-CSS }
+        p {
+          border: fail1; // scss-lint:disable Fake
+          border: fail1;
+        }
+      CSS
+
+      it { should_not report_lint line: 2 }
+      it { should report_lint line: 3 }
+    end
   end
 end

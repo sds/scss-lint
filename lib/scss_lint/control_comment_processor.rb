@@ -34,6 +34,11 @@ module SCSSLint
       return unless linters.include?('all') || linters.include?(@linter.name)
 
       process_command(match[:command], node)
+
+      # Is the control comment the only thing on this line?
+      return if %r{^\s*(//|/\*)}.match(@linter.engine.lines[node.line - 1])
+
+      pop_control_comment_stack(node)
     end
 
     # Executed after a node has been visited.
