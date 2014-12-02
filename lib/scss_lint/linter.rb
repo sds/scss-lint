@@ -2,13 +2,13 @@ module SCSSLint
   # Defines common functionality available to all linters.
   class Linter < Sass::Tree::Visitors::Base
     include SelectorVisitor
+    include ControlComments
     include Utils
 
-    attr_reader :config, :engine, :lints, :disable_stack
+    attr_reader :config, :engine, :lints
 
     def initialize
       @lints = []
-      @disable_stack = []
     end
 
     # Run this linter against a parsed document with a given configuration.
@@ -19,6 +19,7 @@ module SCSSLint
       @config = config
       @engine = engine
       visit(engine.tree)
+      filter_lints
     end
 
     # Return the human-friendly name of this linter as specified in the
@@ -34,8 +35,6 @@ module SCSSLint
     # @param node_or_line_or_location [Sass::Script::Tree::Node, Fixnum, SCSSLint::Location]
     # @param message [String]
     def add_lint(node_or_line_or_location, message)
-      return unless @disable_stack.empty?
-
       @lints << Lint.new(self,
                          engine.filename,
                          extract_location(node_or_line_or_location),
@@ -119,18 +118,16 @@ module SCSSLint
     # @param node [Sass::Tree::Node, Sass::Script::Tree::Node,
     #   Sass::Script::Value::Base]
     def visit(node)
-      if node.is_a?(Sass::Tree::CommentNode)
-        parse_control_comment(node)
-      end
-
       # Visit the selector of a rule if parsed rules are available
       if node.is_a?(Sass::Tree::RuleNode) && node.parsed_rules
         visit_selector(node.parsed_rules)
       end
 
+      enter_visit_control_comment(node)
+
       super
 
-      @disable_stack.pop while @disable_stack.last == node
+      exit_visit_control_comment(node)
     end
 
     # Redefine so we can set the `node_parent` of each node
@@ -156,19 +153,6 @@ module SCSSLint
         Location.new(node_or_line_or_location.line)
       else
         Location.new(node_or_line_or_location)
-      end
-    end
-
-    def parse_control_comment(node)
-      match = %r{/* scss\-lint:(disable|enable) (.*?) \*/}.match(node.value[0])
-      return if match.nil?
-
-      linters = match[2].split(/\s*,\s*|\s+/)
-      return unless match[2] == 'all' || linters.include?(name)
-
-      case match[1]
-      when 'disable' then @disable_stack << node.node_parent
-      when 'enable' then @disable_stack.pop
       end
     end
   end

@@ -8,8 +8,21 @@ describe SCSSLint::Linter do
     module SCSSLint
       class Linter::Fake < SCSSLint::Linter
         def visit_prop(node)
-          return unless node.value.to_sass.strip == 'fail'
+          return unless node.value.to_sass.strip == 'fail1'
           add_lint(node, 'everything offends me')
+        end
+
+        # Bypasses the visit order so a control comment might not be reached before a lint is
+        # added
+        def visit_rule(node)
+          node.children
+              .select { |child| child.is_a?(Sass::Tree::PropNode) }
+              .reject { |prop| prop.name.any? { |item| item.is_a?(Sass::Script::Node) } }
+              .each do |prop|
+                add_lint(prop, 'everything offends me 2') if prop.value.to_sass.strip == 'fail2'
+              end
+
+          yield
         end
       end
     end
@@ -17,10 +30,10 @@ describe SCSSLint::Linter do
     context 'when a disable is not present' do
       let(:css) { <<-CSS }
         p {
-          border: fail;
+          border: fail1;
 
           a {
-            border: fail;
+            border: fail1;
           }
         }
       CSS
@@ -32,10 +45,10 @@ describe SCSSLint::Linter do
       let(:css) { <<-CSS }
         // scss-lint:disable Fake
         p {
-          border: fail;
+          border: fail1;
 
           a {
-            border: fail;
+            border: fail1;
           }
         }
       CSS
@@ -47,7 +60,7 @@ describe SCSSLint::Linter do
       let(:css) { <<-CSS }
         // scss-lint:disable Bogus
         p {
-          border: fail;
+          border: fail1;
         }
         p {
           border: bogus;
@@ -61,11 +74,11 @@ describe SCSSLint::Linter do
       let(:css) { <<-CSS }
         // scss-lint:disable Fake
         p {
-          border: fail;
+          border: fail1;
         }
         // scss-lint:enable Fake
         p {
-          border: fail;
+          border: fail1;
         }
       CSS
 
@@ -77,15 +90,15 @@ describe SCSSLint::Linter do
       let(:css) { <<-CSS }
         p {
           // scss-lint:disable Fake
-          border: fail;
+          border: fail1;
 
           a {
-            border: fail;
+            border: fail1;
           }
         }
 
         p {
-          border: fail;
+          border: fail1;
         }
       CSS
 
@@ -98,7 +111,7 @@ describe SCSSLint::Linter do
       let(:css) { <<-CSS }
         // scss-lint:disable Bogus, Fake
         p {
-          border: fail;
+          border: fail1;
         }
 
         p {
@@ -113,7 +126,7 @@ describe SCSSLint::Linter do
       let(:css) { <<-CSS }
         // scss-lint:disable Fake,Bogus
         p {
-          border: fail;
+          border: fail1;
         }
 
         p {
@@ -128,7 +141,7 @@ describe SCSSLint::Linter do
       let(:css) { <<-CSS }
         // scss-lint:disable Fake Bogus
         p {
-          border: fail;
+          border: fail1;
         }
 
         p {
@@ -143,12 +156,12 @@ describe SCSSLint::Linter do
       let(:css) { <<-CSS }
         // scss-lint:disable Fake, Bogus
         p {
-          border: fail;
+          border: fail1;
         }
         // scss-lint:enable Fake
 
         p {
-          margin: fail;
+          margin: fail1;
           border: bogus;
         }
       CSS
@@ -161,11 +174,11 @@ describe SCSSLint::Linter do
       let(:css) { <<-CSS }
         // scss-lint:disable all
         p {
-          border: fail;
+          border: fail1;
         }
 
         p {
-          margin: fail;
+          margin: fail1;
           border: bogus;
         }
       CSS
@@ -177,18 +190,29 @@ describe SCSSLint::Linter do
       let(:css) { <<-CSS }
         // scss-lint:disable all
         p {
-          border: fail;
+          border: fail1;
         }
         // scss-lint:enable Fake
 
         p {
-          margin: fail;
+          margin: fail1;
           border: bogus;
         }
       CSS
 
       it { should_not report_lint line: 3 }
       it { should report_lint line: 8 }
+    end
+
+    context 'when a linter is bypassing the visit tree order' do
+      let(:css) { <<-CSS }
+        p {
+          // scss-lint:disable Fake
+          border: fail2;
+        }
+      CSS
+
+      it { should_not report_lint }
     end
   end
 end
