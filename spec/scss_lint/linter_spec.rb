@@ -214,5 +214,23 @@ describe SCSSLint::Linter do
 
       it { should_not report_lint }
     end
+
+    context 'when the command comment is next to other comments' do
+      let(:css) { <<-CSS }
+        p {
+          // scss-lint:disable Fake
+          // more comments
+          border: fail2;
+        }
+
+        p {
+          // more comments
+          // scss-lint:disable Fake
+          border: fail2;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
   end
 end

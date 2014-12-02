@@ -23,11 +23,11 @@ module SCSSLint
       return unless node.is_a?(Sass::Tree::CommentNode)
 
       return unless match = %r{
-        /\*\s* # Comment start marker
+        \*\s* # Comment line start marker
         scss-lint:
         (?<command>disable|enable)\s+
         (?<linters>.*?)
-        \s*\*/ # Comment end marker
+        \s*(?:\*/|\n) # Comment end marker or end of line
       }x.match(node.value.first)
 
       linters = match[:linters].split(/\s*,\s*|\s+/)
