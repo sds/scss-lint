@@ -121,14 +121,17 @@ module SCSSLint
           next unless class_name.include?('*')
 
           wildcard_options = options['linters'].delete(class_name)
-
-          linter_names_matching_glob(class_name).each do |linter_name|
-            old_options = options['linters'].fetch(linter_name, {})
-            options['linters'][linter_name] = smart_merge(old_options, wildcard_options)
-          end
+          apply_options_to_matching_linters(class_name, options, wildcard_options)
         end
 
         options
+      end
+
+      def apply_options_to_matching_linters(class_name_glob, current_options, linter_options)
+        linter_names_matching_glob(class_name_glob).each do |linter_name|
+          old_options = current_options['linters'].fetch(linter_name, {})
+          current_options['linters'][linter_name] = smart_merge(old_options, linter_options)
+        end
       end
 
       def linter_names_matching_glob(class_name_glob)
