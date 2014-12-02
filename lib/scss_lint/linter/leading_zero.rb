@@ -8,21 +8,21 @@ module SCSSLint
 
       non_string_values = remove_quoted_strings(node.value).split
       non_string_values.each do |value|
-        next unless number = value[FRACTIONAL_DIGIT_REGEX, 1]
-        check_number(node, number)
+        next unless number = value[NUMBER_WITH_LEADING_ZERO_REGEX, 1]
+        check_for_leading_zeros(node, number)
       end
     end
 
     def visit_script_number(node)
       return unless number =
-        source_from_range(node.source_range)[FRACTIONAL_DIGIT_REGEX, 1]
+        source_from_range(node.source_range)[NUMBER_WITH_LEADING_ZERO_REGEX, 1]
 
-      check_number(node, number)
+      check_for_leading_zeros(node, number)
     end
 
   private
 
-    FRACTIONAL_DIGIT_REGEX = /^-?(0?\.\d+)/
+    NUMBER_WITH_LEADING_ZERO_REGEX = /^-?(0?\.\d+)/
 
     CONVENTIONS = {
       'exclude_zero' => {
@@ -37,7 +37,7 @@ module SCSSLint
       },
     }
 
-    def check_number(node, original_number)
+    def check_for_leading_zeros(node, original_number)
       style = config.fetch('style', 'exclude_zero')
       convention = CONVENTIONS[style]
       return if convention[:validator].call(original_number)

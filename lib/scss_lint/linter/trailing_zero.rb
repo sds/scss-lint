@@ -1,5 +1,5 @@
 module SCSSLint
-  # Checks for unnecessary leading zeros in numeric values with decimal points.
+  # Checks for unnecessary trailing zeros in numeric values with decimal points.
   class Linter::TrailingZero < Linter
     include LinterRegistry
 
@@ -9,7 +9,7 @@ module SCSSLint
       non_string_values = remove_quoted_strings(node.value).split
       non_string_values.each do |value|
         next unless number = value[FRACTIONAL_DIGIT_REGEX, 1]
-        check_number(node, number)
+        check_for_trailing_zeros(node, number)
       end
     end
 
@@ -17,14 +17,14 @@ module SCSSLint
       return unless number =
         source_from_range(node.source_range)[FRACTIONAL_DIGIT_REGEX, 1]
 
-      check_number(node, number)
+      check_for_trailing_zeros(node, number)
     end
 
   private
 
     FRACTIONAL_DIGIT_REGEX = /^-?(\d*\.\d+)/
 
-    def check_number(node, original_number)
+    def check_for_trailing_zeros(node, original_number)
       return unless match = /^(\d*\.\d*)0+$/.match(original_number)
 
       fixed_number = match[1]
