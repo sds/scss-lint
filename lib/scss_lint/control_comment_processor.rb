@@ -38,6 +38,7 @@ module SCSSLint
       # Is the control comment the only thing on this line?
       return if %r{^\s*(//|/\*)}.match(@linter.engine.lines[node.line - 1])
 
+      # If so, pop since we only want the comment to apply to the single line
       pop_control_comment_stack(node)
     end
 
