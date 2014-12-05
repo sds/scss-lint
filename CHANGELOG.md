@@ -19,6 +19,7 @@
 * Change `IdWithExtraneousSelector` to `IdSelector` and modify behavior to
   always report a lint when an ID appears as part of a selector.
 * Fix `DuplicateProperty` to report correct name of duplicated property
+* Add `smacss` sort order option for `PropertySortOrder`
 
 ## 0.30.0
 
