@@ -20,6 +20,7 @@
   always report a lint when an ID appears as part of a selector.
 * Fix `DuplicateProperty` to report correct name of duplicated property
 * Add `smacss` sort order option for `PropertySortOrder`
+* Adds local build instructions to the "Contributing" section of README.md.
 
 ## 0.30.0
 
