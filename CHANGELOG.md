@@ -21,6 +21,7 @@
 * Fix `DuplicateProperty` to report correct name of duplicated property
 * Add `smacss` sort order option for `PropertySortOrder`
 * Add `recess` sort order option for `PropertySortOrder`
+* Add `leading_underscore` option for `NameFormat`
 
 ## 0.30.0
 
