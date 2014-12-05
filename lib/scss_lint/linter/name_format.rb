@@ -63,6 +63,10 @@ module SCSSLint
         explanation: 'in all lowercase letters with hyphens instead of underscores',
         validator: ->(name) { name !~ /[_A-Z]/ },
       },
+      'leading_underscore' => {
+        explanation: 'hyphenated_lowercase with leading underscores permitted',
+        validator: ->(name) { name !~ /[^_][_A-Z]/ },
+      },
       'BEM' => {
         explanation: 'in BEM (Block Element Modifier) format',
         validator: ->(name) { name !~ /[A-Z]|-{3}|_{3}|[^_]_[^_]/ },
