@@ -373,6 +373,14 @@ Speaking of tests, we use `rspec`, which can be run like so:
 bundle exec rspec
 ```
 
+After you get your unit tests passing you may want to see your version of
+SCSS-Lint in action. You can use Bundler to execute your binary locally from
+within your project's directory:
+
+```bash
+bundle exec bin/scss-lint
+```
+
 ## Changelog
 
 If you're interested in seeing the changes and bug fixes between each version
