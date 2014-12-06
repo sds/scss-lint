@@ -20,6 +20,7 @@
   always report a lint when an ID appears as part of a selector.
 * Fix `DuplicateProperty` to report correct name of duplicated property
 * Add `smacss` sort order option for `PropertySortOrder`
+* Add `recess` sort order option for `PropertySortOrder`
 
 ## 0.30.0
 
