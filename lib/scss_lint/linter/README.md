@@ -565,6 +565,10 @@ The Sass parser automatically treats underscores and hyphens the same, so even
 if you're using a library that declares a function with an underscore, you can
 refer to it using the hyphenated form instead.
 
+If you use underscores to denote private functions within your Sass, you can set
+the `leading_underscore` option which will enforce all lowercase with hyphens
+but allow a single leading underscore like `@function _private-function() {}`.
+
 You can also prefer the [BEM](http://bem.info/method/) convention by setting the
 `convention` option to `BEM`. Any other value will be treated as a regex.
 
