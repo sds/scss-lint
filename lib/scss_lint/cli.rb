@@ -64,7 +64,7 @@ module SCSSLint
       case exception
       when SCSSLint::Exceptions::InvalidCLIOption
         puts exception.message
-        puts 'Run `haml-lint --help` for usage documentation'
+        puts 'Run `scss-lint --help` for usage documentation'
         halt :usage
       when SCSSLint::Exceptions::InvalidConfiguration
         puts exception.message
