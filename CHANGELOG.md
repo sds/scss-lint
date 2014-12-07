@@ -21,7 +21,8 @@
 * Fix `DuplicateProperty` to report correct name of duplicated property
 * Add `smacss` sort order option for `PropertySortOrder`
 * Add `recess` sort order option for `PropertySortOrder`
-* Add `leading_underscore` option for `NameFormat`
+* Add `allow_leading_underscore` option to `NameFormat` to allow the leading
+  underscore convention to denote private functions
 
 ## 0.30.0
 

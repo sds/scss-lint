@@ -175,12 +175,12 @@ describe SCSSLint::Linter::NameFormat do
         }
       CSS
 
-      it { should report_lint }
+      it { should_not report_lint }
     end
   end
 
-  context 'when the leading underscore style is specified' do
-    let(:linter_config) { { 'convention' => 'leading_underscore' } }
+  context 'when leading underscores are not allowed' do
+    let(:linter_config) { { 'allow_leading_underscore' => false } }
 
     it_behaves_like 'hyphenated_lowercase'
 
@@ -190,7 +190,7 @@ describe SCSSLint::Linter::NameFormat do
         }
       CSS
 
-      it { should_not report_lint }
+      it { should report_lint line: 1 }
     end
   end
 

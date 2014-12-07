@@ -46,10 +46,21 @@ module SCSSLint
     ].to_set
 
     def check_name(node, node_type, node_text = node.name)
+      node_text = trim_underscore_prefix(node_text)
       return unless violation = violated_convention(node_text)
 
       add_lint(node, "Name of #{node_type} `#{node_text}` should be " \
                      "written #{violation[:explanation]}")
+    end
+
+    # Removes underscore prefix from name if leading underscores are allowed.
+    def trim_underscore_prefix(name)
+      if config['allow_leading_underscore']
+        # Remove if there is a single leading underscore
+        name = name.gsub(/^_(?!_)/, '')
+      end
+
+      name
     end
 
     def check_placeholder(node)
@@ -62,10 +73,6 @@ module SCSSLint
       'hyphenated_lowercase' => {
         explanation: 'in all lowercase letters with hyphens instead of underscores',
         validator: ->(name) { name !~ /[_A-Z]/ },
-      },
-      'leading_underscore' => {
-        explanation: 'hyphenated_lowercase with leading underscores permitted',
-        validator: ->(name) { name !~ /[^_][_A-Z]/ },
       },
       'BEM' => {
         explanation: 'in BEM (Block Element Modifier) format',
