@@ -23,6 +23,8 @@
 * Add `recess` sort order option for `PropertySortOrder`
 * Add `allow_leading_underscore` option to `NameFormat` to allow the leading
   underscore convention to denote private functions
+* Fix `EmptyLineBetweenBlocks` to allow trailing comments after rule sets
+  (e.g. control comments disabling linters)
 
 ## 0.30.0
 

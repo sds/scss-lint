@@ -179,18 +179,6 @@ describe SCSSLint::Linter::EmptyLineBetweenBlocks do
     end
   end
 
-  context 'when a rule set is followed by a comment' do
-    let(:css) { <<-CSS }
-      a {
-      }
-      // This is a comment
-      p {
-      }
-    CSS
-
-    it { should report_lint line: 2 }
-  end
-
   context 'when a rule set is preceded by a comment' do
     let(:css) { <<-CSS }
       a {
@@ -211,6 +199,19 @@ describe SCSSLint::Linter::EmptyLineBetweenBlocks do
 
       a {
       } /* Another comment */
+    CSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when rule set is followed by a comment on the next line' do
+    let(:css) { <<-CSS }
+      a {
+      }
+      // A trailing comment (often a control comment)
+
+      b {
+      }
     CSS
 
     it { should_not report_lint }

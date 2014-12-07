@@ -42,7 +42,7 @@ module SCSSLint
       # Special case: ignore comments immediately after a closing brace
       line = engine.lines[next_start_line - 1].strip
       return if following_node.is_a?(Sass::Tree::CommentNode) &&
-                line =~ %r{\s*\}\s*/(/|\*)}
+                line =~ %r{\s*\}?\s*/(/|\*)}
 
       # Otherwise check if line before the next node's starting line is blank
       line = engine.lines[next_start_line - 2].strip
