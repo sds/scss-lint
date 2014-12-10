@@ -2,6 +2,21 @@
 
 ## 0.31.0
 
+### New Features
+
+* Add support for disabling/enabling linters via inline comments
+* Add `smacss` sort order option for `PropertySortOrder`
+* Add `recess` sort order option for `PropertySortOrder`
+* Add `allow_leading_underscore` option to `NameFormat` to allow the leading
+  underscore convention to denote private functions
+
+### Changes
+
+* Change `IdWithExtraneousSelector` to `IdSelector` and modify behavior to
+  always report a lint when an ID appears as part of a selector.
+
+### Bug Fixes
+
 * Fix regression in default configuration for `QualifyingElement` so that
   elements with attributes, classes, or ids are disallowed by default
 * Fix error message for `TrailingSemicolon` where lines without a semicolon
@@ -15,14 +30,7 @@
 * Fix `SelectorFormat` to not allow format of pseudo-selectors to be defined,
   as they are always hyphenated lowercase
 * Fix `Indentation` to not crash on `@at-root` directives with comments inside
-* Add support for disabling/enabling linters via inline comments
-* Change `IdWithExtraneousSelector` to `IdSelector` and modify behavior to
-  always report a lint when an ID appears as part of a selector.
 * Fix `DuplicateProperty` to report correct name of duplicated property
-* Add `smacss` sort order option for `PropertySortOrder`
-* Add `recess` sort order option for `PropertySortOrder`
-* Add `allow_leading_underscore` option to `NameFormat` to allow the leading
-  underscore convention to denote private functions
 * Fix `EmptyLineBetweenBlocks` to allow trailing comments after rule sets
   (e.g. control comments disabling linters)
 
