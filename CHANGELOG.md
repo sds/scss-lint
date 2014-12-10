@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.31.0
 
 * Fix regression in default configuration for `QualifyingElement` so that
   elements with attributes, classes, or ids are disallowed by default
