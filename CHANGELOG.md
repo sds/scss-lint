@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix regression in rake task
+
 ## 0.31.0
 
 ### New Features
