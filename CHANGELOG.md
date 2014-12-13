@@ -3,6 +3,7 @@
 ## master (unreleased)
 
 * Fix regression in rake task
+* Fix grammar of lints reported by `SelectorFormat`
 
 ## 0.31.0
 
