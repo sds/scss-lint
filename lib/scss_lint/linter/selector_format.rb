@@ -37,29 +37,28 @@ module SCSSLint
       return if @ignored_names.include?(name)
       return unless violation = violated_convention(name, type)
 
-      add_lint(node, "Selector `#{name}` should be " \
-                     "written #{violation[:explanation]}")
+      add_lint(node, "Selector `#{name}` #{violation[:explanation]}")
     end
 
     CONVENTIONS = {
       'hyphenated_lowercase' => {
-        explanation: 'in lowercase with hyphens',
+        explanation: 'should be written in lowercase with hyphens',
         validator: ->(name) { name !~ /[^\-a-z0-9]/ },
       },
       'snake_case' => {
-        explanation: 'in lowercase with underscores',
+        explanation: 'should be written in lowercase with underscores',
         validator: ->(name) { name !~ /[^_a-z0-9]/ },
       },
       'camel_case' => {
-        explanation: 'has no spaces with capitalized words except first',
+        explanation: 'should be written in camelCase format',
         validator: ->(name) { name =~ /^[a-z][a-zA-Z0-9]*$/ },
       },
       'hyphenated_BEM' => {
-        explanation: 'in hyphenated BEM (Block Element Modifier) format',
+        explanation: 'should be written in hyphenated BEM (Block Element Modifier) format',
         validator: ->(name) { name !~ /[A-Z]|-{3}|_{3}|[^_]_[^_]/ },
       },
       'BEM' => {
-        explanation: 'in BEM (Block Element Modifier) format',
+        explanation: 'should be written in BEM (Block Element Modifier) format',
         validator: lambda do |name|
           name =~ /
             ^[a-z]([-]?[a-z0-9]+)*
@@ -77,7 +76,7 @@ module SCSSLint
                         'hyphenated_lowercase'
 
       convention = CONVENTIONS[convention_name] || {
-        explanation: "must match regex /#{convention_name}/",
+        explanation: "should match regex /#{convention_name}/",
         validator: ->(name) { name =~ /#{convention_name}/ }
       }
 
