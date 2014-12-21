@@ -4,6 +4,7 @@
 
 * Fix regression in rake task
 * Fix grammar of lints reported by `SelectorFormat`
+* Add .projections.json configuration file
 
 ## 0.31.0
 
