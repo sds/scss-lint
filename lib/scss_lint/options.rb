@@ -41,8 +41,7 @@ module SCSSLint
       end
 
       parser.on('-r', '--require path', 'Require Ruby file', String) do |path|
-        @options[:required_paths] ||= []
-        @options[:required_paths] << path
+        require path
       end
     end
 
