@@ -30,8 +30,6 @@ module SCSSLint
   private
 
     def act_on_options(options)
-      load_required_paths(options)
-
       if options[:help]
         print_help(options)
       elsif options[:version]
@@ -167,12 +165,6 @@ module SCSSLint
         results = reporter.new(sorted_lints).report_lints
         io = (output == :stdout ? $stdout : File.new(output, 'w+'))
         io.print results if results
-      end
-    end
-
-    def load_required_paths(options)
-      Array(options[:required_paths]).each do |path|
-        require path
       end
     end
 
