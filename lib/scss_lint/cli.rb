@@ -31,6 +31,7 @@ module SCSSLint
 
     def act_on_options(options)
       load_required_paths(options)
+      load_reporters(options)
 
       if options[:help]
         print_help(options)
@@ -173,6 +174,18 @@ module SCSSLint
     def load_required_paths(options)
       Array(options[:required_paths]).each do |path|
         require path
+      end
+    end
+
+    def load_reporters(options)
+      options[:reporters].map! do |reporter_name, output_file|
+        begin
+          reporter = SCSSLint::Reporter.const_get(reporter_name + 'Reporter')
+        rescue NameError
+          raise SCSSLint::Exceptions::InvalidCLIOption,
+                "Invalid output format specified: #{reporter_name}"
+        end
+        [reporter, output_file]
       end
     end
 

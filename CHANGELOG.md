@@ -5,6 +5,8 @@
 * Fix regression in rake task
 * Fix grammar of lints reported by `SelectorFormat`
 * Add .projections.json configuration file
+* Fix regression in `--require` switch that caused custom formatters to
+  not be `require`d before they were created
 
 ## 0.31.0
 

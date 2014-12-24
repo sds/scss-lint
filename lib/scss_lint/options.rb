@@ -3,7 +3,7 @@ require 'optparse'
 module SCSSLint
   # Handles option parsing for the command line application.
   class Options
-    DEFAULT_REPORTER = [SCSSLint::Reporter::DefaultReporter, :stdout]
+    DEFAULT_REPORTER = ['Default', :stdout]
 
     # Parses command line options into an options hash.
     #
@@ -48,14 +48,10 @@ module SCSSLint
 
     # @param format [String]
     def define_output_format(format)
-      unless @options[:reporters] == [DEFAULT_REPORTER] && format == 'Default'
-        @options[:reporters].reject! { |i| i == DEFAULT_REPORTER }
-        reporter = SCSSLint::Reporter.const_get(format + 'Reporter')
-        @options[:reporters] << [reporter, :stdout]
-      end
-    rescue NameError
-      raise SCSSLint::Exceptions::InvalidCLIOption,
-            "Invalid output format specified: #{format}"
+      return if @options[:reporters] == [DEFAULT_REPORTER] && format == 'Default'
+
+      @options[:reporters].reject! { |i| i == DEFAULT_REPORTER }
+      @options[:reporters] << [format, :stdout]
     end
 
     def add_linter_options(parser)
