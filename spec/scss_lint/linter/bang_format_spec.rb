@@ -96,4 +96,16 @@ describe SCSSLint::Linter::BangFormat do
 
     it { should_not report_lint }
   end
+
+  context 'when !<word> is not followed by a semicolon' do
+    let(:css) { <<-CSS }
+      .class {
+        margin: 0 !important
+      }
+    CSS
+
+    it 'does not loop forever' do
+      subject.should_not report_lint
+    end
+  end
 end

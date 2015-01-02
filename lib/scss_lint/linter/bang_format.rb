@@ -3,6 +3,8 @@ module SCSSLint
   class Linter::BangFormat < Linter
     include LinterRegistry
 
+    STOPPING_CHARACTERS = ['!', "'", '"', nil]
+
     def visit_prop(node)
       return unless node.to_sass.include?('!')
       return unless check_spacing(node)
@@ -21,9 +23,8 @@ module SCSSLint
     # stop at quotation marks to protect against linting !'s within strings
     # (e.g. `content`)
     def find_bang_offset(range)
-      stopping_characters = ['!', '\'', '"']
       offset = 0
-      offset -= 1 until stopping_characters.include?(character_at(range.end_pos, offset))
+      offset -= 1 until STOPPING_CHARACTERS.include?(character_at(range.end_pos, offset))
       offset
     end
 

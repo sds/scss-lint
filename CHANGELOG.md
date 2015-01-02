@@ -7,6 +7,8 @@
 * Add .projections.json configuration file
 * Fix regression in `--require` switch that caused custom formatters to
   not be `require`d before they were created
+* Fix bug in `BangFormat` where lines without a semicolon would cause an
+  infinite loop
 
 ## 0.31.0
 
