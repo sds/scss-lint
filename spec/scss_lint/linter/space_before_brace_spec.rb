@@ -654,7 +654,6 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
   end
 
   context 'when using #{} interpolation' do
-
     context 'and the `style` option is `space`' do
       let(:css) { <<-CSS }
         @mixin test-mixin($class, $prop, $pixels) {
@@ -769,7 +768,6 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
 
       it { should_not report_lint }
     end
-
   end
 
   context 'when curly brace is on own line' do
