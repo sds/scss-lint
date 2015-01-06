@@ -12,6 +12,10 @@ rvm:
   - 2.1.2
   - jruby-19mode
 
+before_script:
+  - git config --local user.email "travis@travis.ci"
+  - git config --local user.name "Travis CI"
+
 script:
   - bundle exec rspec
   - bundle exec overcommit --run
