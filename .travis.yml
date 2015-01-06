@@ -14,4 +14,4 @@ rvm:
 
 script:
   - bundle exec rspec
-  - bundle exec rubocop
+  - bundle exec overcommit --run
