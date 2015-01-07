@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.32.0
 
 * Fix regression in rake task
 * Fix grammar of lints reported by `SelectorFormat`
