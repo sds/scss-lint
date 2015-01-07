@@ -13,8 +13,8 @@ describe SCSSLint::RakeTask do
       Rake::Task['scss_lint']
     end
 
-    it 'returns a successful exit code' do
-      expect(subject.invoke.first.call).to be_truthy
+    it 'raises error when no files are specified' do
+      lambda { subject.invoke.first.call }.should raise_error SystemExit
     end
   end
 end

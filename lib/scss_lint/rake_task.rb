@@ -29,12 +29,15 @@ module SCSSLint
       require 'scss_lint'
       require 'scss_lint/cli'
 
-      CLI.new.run([])
+      exit CLI.new.run([])
     rescue SystemExit => ex
-      if ex.status == CLI::EXIT_CODES[:data]
-        abort('scss-lint found lints')
+      if (ex.status == CLI::EXIT_CODES[:error] ||
+          ex.status == CLI::EXIT_CODES[:warning])
+        puts 'scss-lint found lints'
+        exit ex.status
       elsif ex.status != 0
-        abort('scss-lint failed with an error')
+        puts 'scss-lint failed with an error'
+        exit ex.status
       end
     end
   end
