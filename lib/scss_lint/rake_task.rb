@@ -2,43 +2,105 @@ require 'rake'
 require 'rake/tasklib'
 
 module SCSSLint
-  # Provide task for invoking scss-lint via Rake.
+  # Rake task for scss-lint CLI.
   #
   # @example
+  #   # Add the following to your Rakefile...
   #   require 'scss_lint/rake_task'
   #   SCSSLint::RakeTask.new
+  #
+  #   # ...and then execute from the command line:
+  #   rake scss_lint
+  #
+  # You can also specify the list of files as explicit task arguments:
+  #
+  # @example
+  #   # Add the following to your Rakefile...
+  #   require 'scss_lint/rake_task'
+  #   SCSSLint::RakeTask.new
+  #
+  #   # ...and then execute from the command line (single quotes prevent shell
+  #   # glob expansion and allow us to have a space after commas):
+  #   rake 'scss_lint[app/assets/**/*.scss, other_files/**/*.scss]'
   class RakeTask < Rake::TaskLib
-    # The name of the task (default 'scss-lint')
+    # Name of the task.
+    # @return [String]
     attr_accessor :name
 
-    def initialize(*args, &task_block)
-      @name = args.shift || :scss_lint
+    # Configuration file to use.
+    # @return [String]
+    attr_accessor :config
 
-      desc 'Run scss-lint' unless ::Rake.application.last_comment
+    # List of files to lint (can contain shell globs).
+    #
+    # Note that this will be ignored if you explicitly pass a list of files as
+    # task arguments via the command line or in the task definition.
+    # @return [Array<String>]
+    attr_accessor :files
 
-      task(name, *args) do |_, task_args|
-        if task_block
-          task_block.call(*[self, task_args].slice(0, task_block.arity))
-        end
-        run_task
+    # Create the task so it is accessible via +Rake::Task['scss_lint']+.
+    def initialize(name = :scss_lint)
+      @name = name
+      @files = ['.'] # Search for everything under current directory by default
+      @quiet = false
+
+      yield self if block_given?
+
+      define
+    end
+
+  private
+
+    def define
+      # Generate a default description if one hasn't been provided
+      desc default_description unless ::Rake.application.last_description
+
+      task(name, [:files]) do |_task, task_args|
+        # Lazy-load so task doesn't affect Rakefile load time
+        require 'scss_lint'
+        require 'scss_lint/cli'
+
+        run_cli(task_args)
       end
     end
 
-    def run_task
-      # Lazy load so task doesn't impact load time of Rakefile
-      require 'scss_lint'
-      require 'scss_lint/cli'
+    def run_cli(task_args)
+      cli_args = ['--config', config] if config
 
-      exit CLI.new.run([])
-    rescue SystemExit => ex
-      if (ex.status == CLI::EXIT_CODES[:error] ||
-          ex.status == CLI::EXIT_CODES[:warning])
-        puts 'scss-lint found lints'
-        exit ex.status
-      elsif ex.status != 0
-        puts 'scss-lint failed with an error'
-        exit ex.status
-      end
+      result = SCSSLint::CLI.new.run(Array(cli_args) + files_to_lint(task_args))
+
+      message =
+        case result
+        when CLI::EXIT_CODES[:error], CLI::EXIT_CODES[:warning]
+          'scss-lint found one or more lints'
+        when CLI::EXIT_CODES[:ok]
+          'scss-lint found no lints'
+        else
+          'scss-lint failed with an error'
+        end
+
+      puts message
+      exit result
+    end
+
+    def files_to_lint(task_args)
+      # Note: we're abusing Rake's argument handling a bit here. We call the
+      # first argument `files` but it's actually only the first file--we pull
+      # the rest out of the `extras` from the task arguments. This is so we
+      # can specify an arbitrary list of files separated by commas on the
+      # command line or in a custom task definition.
+      explicit_files = Array(task_args[:files]) + Array(task_args.extras)
+
+      explicit_files.any? ? explicit_files : files
+    end
+
+    # Friendly description that shows the full command that will be executed.
+    def default_description
+      description = 'Run `scss-lint'
+      description += " --config #{config}" if config
+      description += " #{files.join(' ')}" if files.any?
+      description += ' [files...]`'
+      description
     end
   end
 end

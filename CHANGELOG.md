@@ -1,5 +1,12 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Call `Kernel.exit` from with status code returned by CLI in rake task
+* Allow list of files and glob patterns to be passed as task arguments
+  to rake task
+* Allow custom configuration file to be specified in rake task
+
 ## 0.32.0
 
 * Fix regression in rake task

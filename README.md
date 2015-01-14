@@ -20,6 +20,7 @@ established by the team at [Causes.com](https://causes.com).
 * [Linters](#linters)
 * [Editor Integration](#editor-integration)
 * [Git Integration](#git-integration)
+* [Rake Integration](#rake-integration)
 * [Documentation](#documentation)
 * [Contributing](#contributing)
 * [Changelog](#changelog)
@@ -353,6 +354,43 @@ Install and enable both [scss-mode](https://github.com/antonj/scss-mode) and [fl
 
 If you'd like to integrate `scss-lint` into your Git workflow, check out our
 Git hook manager, [overcommit](https://github.com/causes/overcommit).
+
+## Rake Integration
+
+To execute `scss-lint` via a [Rake](https://github.com/ruby/rake) task, add the
+following to your `Rakefile`:
+
+```ruby
+require 'scss_lint/rake_task'
+
+SCSSLint::RakeTask.new
+```
+
+When you execute `rake scss_lint`, the above configuration is equivalent to
+just running `scss-lint`, which will lint all `.scss` files in the current
+working directory and its descendants.
+
+You can customize the task by writing:
+
+```ruby
+require 'scss_lint/rake_task'
+
+SCSSLint::RakeTask.new do |t|
+  t.config = 'custom/config.yml'
+  t.files = ['app/assets', 'custom/*.scss']
+end
+```
+
+You can also use this custom configuration with a set of files specified via
+the command line:
+
+```bash
+# Single quotes prevent shell glob expansion
+rake 'scss_lint[app/assets, custom/*.scss]'
+```
+
+Files specified in this manner take precedence over the `files` attribute
+initialized in the configuration above.
 
 ## Documentation
 
