@@ -19,13 +19,12 @@ describe SCSSLint::RakeTask do
   end
 
   def run_task_and_get_status
-    Rake::Task[:scss_lint].reenable # Allows us to execute task multiple times
-
-    begin
-      Rake::Task[:scss_lint].invoke(file.path)
-    rescue SystemExit => ex
-      ex.status
+    Rake::Task[:scss_lint].tap do |t|
+      t.reenable # Allows us to execute task multiple times
+      t.invoke(file.path)
     end
+  rescue SystemExit => ex
+    ex.status
   end
 
   context 'when SCSS document is valid with no lints' do
