@@ -80,7 +80,7 @@ module SCSSLint
         end
 
       puts message
-      exit result
+      exit result unless result == 0
     end
 
     def files_to_lint(task_args)

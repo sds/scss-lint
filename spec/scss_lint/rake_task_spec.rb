@@ -18,28 +18,26 @@ describe SCSSLint::RakeTask do
     end
   end
 
-  def run_task_and_get_status
+  def run_task
     Rake::Task[:scss_lint].tap do |t|
       t.reenable # Allows us to execute task multiple times
       t.invoke(file.path)
     end
-  rescue SystemExit => ex
-    ex.status
   end
 
   context 'when SCSS document is valid with no lints' do
     let(:scss) { '' }
 
-    it 'executes successfully' do
-      run_task_and_get_status.should == 0
+    it 'does not call Kernel.exit' do
+      expect { run_task }.not_to raise_error
     end
   end
 
   context 'when SCSS document is invalid' do
     let(:scss) { '.class {' }
 
-    it 'returns an error status code' do
-      run_task_and_get_status.should == 2
+    it 'calls Kernel.exit with the status code' do
+      expect { run_task }.to raise_error SystemExit
     end
   end
 end
