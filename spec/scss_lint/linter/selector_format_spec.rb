@@ -535,4 +535,98 @@ describe SCSSLint::Linter::SelectorFormat do
       it { should report_lint }
     end
   end
+
+  context 'when the hyphenated_BEM convention is specified' do
+    let(:linter_config) { { 'convention' => 'hyphenated_BEM' } }
+
+    context 'when a name contains no underscores or hyphens' do
+      let(:css) { '.block {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains single hyphen' do
+      let(:css) { '.b-block {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains multiple hyphens' do
+      let(:css) { '.b-block-name {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains multiple hyphens in a row' do
+      let(:css) { '.b-block--modifier {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains a single underscore' do
+      let(:css) { '.block_modifier {}' }
+
+      it { should report_lint }
+    end
+
+    context 'when a block has name-value modifier' do
+      let(:css) { '.block--modifier-value {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a block has name-value modifier with lots of hyphens' do
+      let(:css) { '.b-block-name--modifier-name-here-value-name-here {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name has double underscores' do
+      let(:css) { '.b-block__element {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when element goes after block with modifier' do
+      let(:css) { '.block--modifier-value__element {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when element has modifier' do
+      let(:css) { '.block__element--modifier-value {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when element has hypenated modifier' do
+      let(:css) { '.block__element--modifier {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when element has hypenated paired modifier' do
+      let(:css) { '.block__element--modifier-value {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a block contains an underscore' do
+      let(:css) { '.a_block__element--modifier {}' }
+
+      it { should report_lint }
+    end
+
+    context 'when an element contains an underscore' do
+      let(:css) { '.block__an_element--modifier {}' }
+
+      it { should report_lint }
+    end
+
+    context 'when a modifier contains an underscore' do
+      let(:css) { '.block__element--a_modifier {}' }
+
+      it { should report_lint }
+    end
+  end
 end
