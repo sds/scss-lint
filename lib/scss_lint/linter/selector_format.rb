@@ -67,6 +67,17 @@ module SCSSLint
           /x
         end,
       },
+      'BEM--CSS-Wizardry' => {
+        explanation: 'should be written in CSS Wizardry-flavored BEM (Block Element Modifier) format [http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/]',
+        validator: lambda do |name|
+          name =~ /
+            ^[a-z]([-]?[a-z0-9]+)*
+            (__[a-z0-9]([-]?[a-z0-9]+)*)?
+            (--[a-z0-9]([-]?[a-z0-9]+)*)?
+            (__[a-z0-9]([-]?[a-z0-9]+)*)?$
+          /x
+        end,
+      },
     }
 
     # Checks the given name and returns the violated convention if it failed.
