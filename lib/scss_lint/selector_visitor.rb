@@ -15,7 +15,9 @@ module SCSSLint
     end
 
     def visit_members(sequence)
-      sequence.members.each do |member|
+      sequence.members
+              .reject { |member| member.is_a?(String) } # Skip newlines in multi-line comma seqs
+              .each do |member|
         visit_selector(member)
       end
     end

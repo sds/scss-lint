@@ -11,7 +11,7 @@ require 'scss_lint/control_comment_processor'
 require 'scss_lint/version'
 require 'scss_lint/utils'
 
-# Preload Sass so we can monkey patch it
+# Load Sass classes and then monkey patch them
 require 'sass'
 require File.expand_path('scss_lint/sass/script', File.dirname(__FILE__))
 require File.expand_path('scss_lint/sass/tree', File.dirname(__FILE__))
