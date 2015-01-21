@@ -314,15 +314,15 @@ describe SCSSLint::Linter::SpaceAfterComma do
   end
 
   context 'when declaring list variables' do
-    context 'where one does not have a trailing comma' do
+    context 'and one argument does not have a trailing comma' do
       let(:css) { <<-CSS }
         $z-list: (
-            (
-                name1
-            ),
-            (
-                name2,
-            )
+          (
+            name1
+          ),
+          (
+            name2,
+          )
         );
       CSS
 

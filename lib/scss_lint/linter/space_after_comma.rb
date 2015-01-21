@@ -67,7 +67,7 @@ module SCSSLint
       # For each arg except the last, check the character following the comma
       args[0..-2].each do |arg|
         # Sometimes the line we're looking at doesn't even contain a comma!
-        next if not engine.lines[arg.line - 1].include? ','
+        next unless engine.lines[arg.line - 1].include?(',')
 
         offset = find_comma_offset(arg)
 
