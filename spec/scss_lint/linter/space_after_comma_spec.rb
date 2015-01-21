@@ -312,4 +312,21 @@ describe SCSSLint::Linter::SpaceAfterComma do
       it { should_not report_lint }
     end
   end
+
+  context 'when declaring list variables' do
+    context 'where one does not have a trailing comma' do
+      let(:css) { <<-CSS }
+        $z-list: (
+            (
+                name1
+            ),
+            (
+                name2,
+            )
+        );
+      CSS
+
+      it { should_not report_lint }
+    end
+  end
 end

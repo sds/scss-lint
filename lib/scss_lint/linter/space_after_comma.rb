@@ -66,6 +66,9 @@ module SCSSLint
     def check_commas_after_args(args, arg_type)
       # For each arg except the last, check the character following the comma
       args[0..-2].each do |arg|
+        # Sometimes the line we're looking at doesn't even contain a comma!
+        next if not engine.lines[arg.line - 1].include? ','
+
         offset = find_comma_offset(arg)
 
         # Check for space or newline after comma (we allow arguments to be split
