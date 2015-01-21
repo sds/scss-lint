@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.33.0
 
 * Call `Kernel.exit` with status code returned by CLI in rake task (unless 0)
 * Allow list of files and glob patterns to be passed as task arguments
