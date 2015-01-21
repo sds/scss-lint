@@ -6,6 +6,8 @@
 * Allow list of files and glob patterns to be passed as task arguments
   to rake task
 * Allow custom configuration file to be specified in rake task
+* Fix infinite loop in `SpaceAfterComma` for arguments spanning multiple
+  lines
 
 ## 0.32.0
 
