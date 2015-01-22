@@ -42,6 +42,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [StringQuotes](#stringquotes)
 * [TrailingSemicolon](#trailingsemicolon)
 * [TrailingZero](#trailingzero)
+* [UseVariablesForProperties](#usevariablesforproperties)
 * [UnnecessaryMantissa](#unnecessarymantissa)
 * [UnnecessaryParentReference](#unnecessaryparentreference)
 * [UrlFormat](#urlformat)
@@ -1177,6 +1178,39 @@ margin: .5em;
 
 The extra zeros are unnecessary and just add additional bytes to the resulting
 generated CSS.
+
+## UseVariablesForProperties
+
+Properties, like color and font, are easier to read and maintain when defined
+using variables rather than literals.
+
+**Bad**
+
+```scss
+p {
+  color: red;
+}
+
+div {
+  color: #000;
+}
+```
+
+**Good**
+
+```scss
+p {
+  color: $red;
+}
+
+div {
+  color: $black;
+}
+```
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`properties`         | Array of property names to check
 
 ## UnnecessaryMantissa
 
