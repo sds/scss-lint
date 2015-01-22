@@ -55,6 +55,9 @@ linters:
   IdSelector:
     enabled: true
 
+  ImportantRule:
+    enabled: false
+
   ImportPath:
     enabled: true
     leading_underscore: false
