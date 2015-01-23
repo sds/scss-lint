@@ -161,6 +161,10 @@ linters:
   UrlQuotes:
     enabled: true
 
+  UseVariablesForProperties:
+    enabled: false
+    properties: []
+
   VendorPrefixes:
     enabled: true
     identifier_list: base
