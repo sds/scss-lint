@@ -18,6 +18,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [HexNotation](#hexnotation)
 * [HexValidation](#hexvalidation)
 * [IdSelector](#idselector)
+* [ImportantRule](#importantrule)
 * [ImportPath](#importpath)
 * [Indentation](#indentation)
 * [LeadingZero](#leadingzero)
@@ -416,6 +417,27 @@ Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `leading_underscore` | `false` or `true` (default **false**)
 `filename_extension` | `false` or `true` (default **false**)
+
+## ImportantRule
+
+Avoid using `!important` in properties. It is usually indicative of a
+misunderstanding of CSS
+[specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity)
+and can lead to brittle code.
+
+*Bad*
+```scss
+p {
+  color: #f00 !important;
+}
+```
+
+*Good*
+```scss
+p {
+  color: #f00;
+}
+```
 
 ## Indentation
 

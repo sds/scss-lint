@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SCSSLint::Linter::ImportantRule do
-  context 'when no !important is used' do
+  context 'when !important is not used' do
     let(:css) { <<-CSS }
       p {
         color: #000;

@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Add `ImportantRule` linter which checks for uses of `!important` in
+  properties (disabled by default)
+
 ## 0.33.0
 
 * Call `Kernel.exit` with status code returned by CLI in rake task (unless 0)
