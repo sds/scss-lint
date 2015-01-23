@@ -2,8 +2,7 @@
 
 ## master (unreleased)
 
-* Add `ImportantRule` linter which checks for uses of `!important` in
-  properties (disabled by default)
+* Add `ImportantRule` linter which reports uses of `!important` in properties
 
 ## 0.33.0
 
