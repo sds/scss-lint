@@ -5,6 +5,8 @@
 * Add `ImportantRule` linter which reports uses of `!important` in properties
 * Add `VariableForProperty` linter which enforces using variables for
   specified property values instead of literal values
+* Fix bug in `StringQuotes` where Sass script in non-silent comments would
+  cause a crash
 
 ## 0.33.0
 

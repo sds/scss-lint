@@ -167,6 +167,18 @@ describe SCSSLint::Linter::StringQuotes do
     it { should report_lint line: 2 }
   end
 
+  context 'when Sass script is written in a non-silent comment' do
+    let(:css) { <<-CSS }
+      /**
+       * .thing-\#{$key} {
+       *   color: \#{value}
+       * }
+       */
+    CSS
+
+    it { should_not report_lint }
+  end
+
   context 'when the configuration has been set to prefer double quotes' do
     let(:linter_config) { { 'style' => 'double_quotes' } }
 

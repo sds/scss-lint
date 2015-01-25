@@ -3,6 +3,15 @@ module SCSSLint
   class Linter::StringQuotes < Linter
     include LinterRegistry
 
+    def visit_comment(_node)
+      # Sass allows you to write Sass Script in non-silent comments (/* ... */).
+      # Unfortunately, it doesn't report correct source ranges for these script
+      # nodes.
+      # It's unlikely that a developer wanted to lint the script they wrote in a
+      # comment, so just ignore this case entirely and stop traversing the
+      # children of comment nodes.
+    end
+
     def visit_script_stringinterpolation(node)
       # We can't statically determine what the resultant string looks like when
       # string interpolation is used, e.g. "one #{$var} three" could be a very
