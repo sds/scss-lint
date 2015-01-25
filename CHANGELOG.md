@@ -3,6 +3,8 @@
 ## master (unreleased)
 
 * Add `ImportantRule` linter which reports uses of `!important` in properties
+* Add `VariableForProperty` linter which enforces using variables for
+  specified property values instead of literal values
 
 ## 0.33.0
 
