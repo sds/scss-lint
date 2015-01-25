@@ -89,6 +89,11 @@ linters:
   PlaceholderInExtend:
     enabled: true
 
+  PropertyCount:
+    enabled: false
+    include_nested: false
+    max_properties: 10
+
   PropertySortOrder:
     enabled: true
     ignore_unspecified: false

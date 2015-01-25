@@ -26,6 +26,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [NameFormat](#nameformat)
 * [NestingDepth](#nestingdepth)
 * [PlaceholderInExtend](#placeholderinextend)
+* [PropertyCount](#propertycount)
 * [PropertySortOrder](#propertysortorder)
 * [PropertySpelling](#propertyspelling)
 * [QualifyingElement](#qualifyingelement)
@@ -691,6 +692,43 @@ Sass specifically introduced placeholder selectors in order to be used with
 `@extend`.
 
 See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-sass-extends-and-placeholders/).
+
+## PropertyCount
+
+Limit the number of properties in a rule set.
+
+Specifying a large number of properties in a rule set is usually an opportunity
+to break down the rule set into smaller more reusable components. It is also
+a sign that you might not be leveraging the true power of the "cascade", as you
+are explicitly defining a large number of properties many times.
+
+**Bad: large number of properties**
+```scss
+.class {
+  color: #f00;
+  font: 15px arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+```
+
+**Good: small number of properties**
+```scss
+.class {
+  margin: 0;
+  padding: 0;
+}
+```
+
+You can specify that the count of properties include properties in nested rule
+sets via the `include_nested` option. This is useful if you care about the
+overall complexity of a generated rule set, rather than just each individual
+set.
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`include_nested`     | Whether to include the properties in nested rule sets in the count
+`max_properties`     | Maximum number of properties
 
 ## PropertySortOrder
 

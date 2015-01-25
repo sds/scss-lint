@@ -11,6 +11,8 @@
   zero
 * Add `separate_groups` option to `PropertySortOrder` to specify that groups
   of properties should be visually separated
+* Add `PropertyCount` linter which reports rule sets with a large number of
+  properties
 
 ## 0.33.0
 
