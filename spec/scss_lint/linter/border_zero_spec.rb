@@ -81,4 +81,38 @@ describe SCSSLint::Linter::BorderZero do
       it { should report_lint line: 2 }
     end
   end
+
+  context 'when a convention of `none` is preferred' do
+    let(:linter_config) { { 'convention' => 'none' } }
+
+    context 'and the border is `none`' do
+      let(:css) { <<-CSS }
+        p {
+          border: none;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and the border is `0`' do
+      let(:css) { <<-CSS }
+        p {
+          border: 0;
+        }
+      CSS
+
+      it { should report_lint }
+    end
+
+    context 'and the border is a non-zero value' do
+      let(:css) { <<-CSS }
+        p {
+          border: 5px;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+  end
 end

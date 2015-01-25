@@ -73,7 +73,14 @@ Configuration Option | Description
 
 ## BorderZero
 
-Prefer `border: 0` over `border: none`.
+Prefer the terser `border: 0` over `border: none`.
+
+You can specify preferring `border: none` over `border: 0` by setting the
+`convention` option.
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`convention`         | Whether to prefer `0` (**zero**) or `none` (**none**) (default **zero**)
 
 ## ColorKeyword
 

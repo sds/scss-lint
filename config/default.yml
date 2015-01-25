@@ -10,6 +10,7 @@ linters:
 
   BorderZero:
     enabled: true
+    convention: zero # or `none`
 
   ColorKeyword:
     enabled: true

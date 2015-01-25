@@ -7,6 +7,8 @@
   specified property values instead of literal values
 * Fix bug in `StringQuotes` where Sass script in non-silent comments would
   cause a crash
+* Add `convention` option to `BorderZero` allowing `none` to be preferred over
+  zero
 
 ## 0.33.0
 
