@@ -42,11 +42,11 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [StringQuotes](#stringquotes)
 * [TrailingSemicolon](#trailingsemicolon)
 * [TrailingZero](#trailingzero)
-* [UseVariablesForProperties](#usevariablesforproperties)
 * [UnnecessaryMantissa](#unnecessarymantissa)
 * [UnnecessaryParentReference](#unnecessaryparentreference)
 * [UrlFormat](#urlformat)
 * [UrlQuotes](#urlquotes)
+* [VariableForProperty](#variableforproperty)
 * [VendorPrefixes](#vendorprefixes)
 * [ZeroUnit](#urlquotes)
 
@@ -1179,39 +1179,6 @@ margin: .5em;
 The extra zeros are unnecessary and just add additional bytes to the resulting
 generated CSS.
 
-## UseVariablesForProperties
-
-Properties, like color and font, are easier to read and maintain when defined
-using variables rather than literals.
-
-**Bad**
-
-```scss
-p {
-  color: red;
-}
-
-div {
-  color: #000;
-}
-```
-
-**Good**
-
-```scss
-p {
-  color: $red;
-}
-
-div {
-  color: $black;
-}
-```
-
-Configuration Option | Description
----------------------|---------------------------------------------------------
-`properties`         | Array of property names to check
-
 ## UnnecessaryMantissa
 
 Numeric values should not contain unnecessary fractional portions.
@@ -1307,6 +1274,56 @@ rather than the different set of rules for literal URLs.
 
 See the [URL type](http://dev.w3.org/csswg/css-values/#url-value) documentation
 for more information.
+
+## VariableForProperty
+
+Properties, like `color` and `font`, are easier to read and maintain when
+defined using variables rather than literals.
+
+**Bad**
+
+```scss
+p {
+  color: red;
+}
+
+.warning {
+  color: #ff0;
+}
+```
+
+**Good**
+
+```scss
+p {
+  color: $body_text;
+}
+
+.warning {
+  color: $body_warning;
+}
+```
+
+By using variables, you can describe the semantics of the property value rather
+than just using the literal value (improving readability) and also make it
+easier to perform side-wide changes as you only need to change the value in one
+place, rather than several.
+
+By default, this linter does not enforce the use of variables for any property.
+To enable it, set the `properties` option in your configuration, e.g.
+
+```yaml
+linters:
+  VariableForProperty:
+    enabled: true
+    properties:
+      - color
+      - font
+```
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`properties`         | Array of property names to check
 
 ## VendorPrefixes
 

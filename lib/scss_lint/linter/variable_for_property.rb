@@ -1,7 +1,6 @@
 module SCSSLint
-  # Reports the use of literals for specified properties where
-  # variables are prefered
-  class Linter::UseVariablesForProperties < Linter
+  # Reports the use of literals for properties where variables are prefered.
+  class Linter::VariableForProperty < Linter
     include LinterRegistry
 
     def visit_root(_node)
@@ -15,7 +14,7 @@ module SCSSLint
       return if node.children.first.is_a?(Sass::Script::Tree::Variable)
 
       add_lint(node, "Property #{property_name} should use " \
-                     "a variable rather than a literal value")
+                     'a variable rather than a literal value')
     end
   end
 end

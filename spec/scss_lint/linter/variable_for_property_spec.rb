@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe SCSSLint::Linter::UseVariablesForProperties do
+describe SCSSLint::Linter::VariableForProperty do
   context 'when properties are specified' do
-    let(:linter_config) { { 'properties' => ['color', 'font'] } }
+    let(:linter_config) { { 'properties' => %w[color font] } }
 
     context 'when configured property value is a variable' do
       let(:css) { <<-CSS }
@@ -24,7 +24,7 @@ describe SCSSLint::Linter::UseVariablesForProperties do
       it { should report_lint line: 2 }
     end
 
-    context 'when configured property value is a color' do
+    context 'when configured property value is a color keyword' do
       let(:css) { <<-CSS }
         p {
           color: red;
@@ -34,7 +34,7 @@ describe SCSSLint::Linter::UseVariablesForProperties do
       it { should report_lint line: 2 }
     end
 
-    context 'when an un-specified property value is a variable' do
+    context 'when an unspecified property value is a variable' do
       let(:css) { <<-CSS }
         p {
           background-color: $black;
@@ -44,7 +44,7 @@ describe SCSSLint::Linter::UseVariablesForProperties do
       it { should_not report_lint }
     end
 
-    context 'when an un-specified property value is not a variable' do
+    context 'when an unspecified property value is not a variable' do
       let(:css) { <<-CSS }
         p {
           background-color: #000;
@@ -73,8 +73,8 @@ describe SCSSLint::Linter::UseVariablesForProperties do
         }
       CSS
 
-      it { should report_lint line: 2}
-      it { should report_lint line: 3}
+      it { should report_lint line: 2 }
+      it { should report_lint line: 3 }
     end
 
     context 'when configured property values are mixed' do
@@ -85,7 +85,7 @@ describe SCSSLint::Linter::UseVariablesForProperties do
         }
       CSS
 
-      it { should report_lint line: 3}
+      it { should report_lint line: 3 }
     end
   end
 
