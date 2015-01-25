@@ -1,48 +1,102 @@
 module SCSSLint
   # Checks the declaration order of properties.
-  class Linter::PropertySortOrder < Linter
+  class Linter::PropertySortOrder < Linter # rubocop:disable ClassLength
     include LinterRegistry
 
     def visit_root(_node)
       @preferred_order = extract_preferred_order_from_config
-      yield
+
+      if @preferred_order && config['separate_groups']
+        @group = assign_groups(@preferred_order)
+      end
+
+      yield # Continue linting children
     end
 
-    def check_sort_order(node)
+    def check_order(node)
       sortable_props = node.children.select do |child|
         child.is_a?(Sass::Tree::PropNode) && !ignore_property?(child)
       end
 
       sortable_prop_info = sortable_props
-        .map { |child| child.name.join }
-        .map do |name|
+        .map do |child|
+          name = child.name.join
           /^(?<vendor>-\w+(-osx)?-)?(?<property>.+)/ =~ name
-          { name: name, vendor: vendor, property: property }
+          { name: name, vendor: vendor, property: property, node: child }
         end
 
+      if sortable_props.any?
+        check_sort_order(sortable_prop_info)
+        check_group_separation(sortable_prop_info) if @group
+      end
+
+      yield # Continue linting children
+    end
+
+    alias_method :visit_media, :check_order
+    alias_method :visit_mixin, :check_order
+    alias_method :visit_rule,  :check_order
+
+    def visit_if(node, &block)
+      check_order(node, &block)
+      visit(node.else) if node.else
+    end
+
+  private
+
+    # When enforcing whether a blank line should separate "groups" of
+    # properties, we need to assign those properties to group numbers so we can
+    # quickly tell traversing from one property to the other that a blank line
+    # is required (since the group number would change).
+    def assign_groups(order)
+      group_number = 0
+      last_was_empty = false
+
+      order.each_with_object({}) do |property, group|
+        # A gap indicates the start of the next group
+        if property.nil? || property.strip.empty?
+          group_number += 1 unless last_was_empty # Treat multiple gaps as single gap
+          last_was_empty = true
+          next
+        end
+
+        last_was_empty = false
+
+        group[property] = group_number
+      end
+    end
+
+    def check_sort_order(sortable_prop_info)
       sorted_props = sortable_prop_info
         .sort { |a, b| compare_properties(a, b) }
 
       sorted_props.each_with_index do |prop, index|
         next unless prop != sortable_prop_info[index]
 
-        add_lint(sortable_props[index], lint_message(sorted_props))
+        add_lint(sortable_prop_info[index][:node], lint_message(sorted_props))
         break
       end
-
-      yield # Continue linting children
     end
 
-    alias_method :visit_media, :check_sort_order
-    alias_method :visit_mixin, :check_sort_order
-    alias_method :visit_rule,  :check_sort_order
+    def check_group_separation(sortable_prop_info) # rubocop:disable AbcSize
+      group_number = @group[sortable_prop_info.first[:property]]
 
-    def visit_if(node, &block)
-      check_sort_order(node, &block)
-      visit(node.else) if node.else
+      sortable_prop_info[0..-2].zip(sortable_prop_info[1..-1]).each do |first, second|
+        next unless @group[second[:property]] != group_number
+
+        # We're now in the next group
+        group_number = @group[second[:property]]
+
+        # The group number has changed, so ensure this property is separated
+        # from the previous property by at least a line (could be a comment,
+        # we don't care, but at least one line that isn't another property).
+        next if first[:node].line < second[:node].line - 1
+
+        add_lint second[:node], "Property #{second[:name]} should be " \
+                                'separated from the previous group of ' \
+                                "properties ending with #{first[:name]}"
+      end
     end
-
-  private
 
     # Compares two properties which can contain a vendor prefix. It allows for a
     # sort order like:

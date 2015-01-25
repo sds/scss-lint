@@ -333,4 +333,94 @@ describe SCSSLint::Linter::PropertySortOrder do
       it { should report_lint }
     end
   end
+
+  context 'when separation between groups of properties is enforced' do
+    let(:order) do
+      %w[display position top right bottom left] + [nil] +
+      %w[width height margin padding] + [nil] +
+      %w[float clear]
+    end
+
+    let(:linter_config) { { 'separate_groups' => true, 'order' => order } }
+
+    context 'and the groups are separated correctly' do
+      let(:css) { <<-CSS }
+        p {
+          display: none;
+          position: absolute;
+
+          margin: 0;
+          padding: 0;
+
+          float: left;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and the groups are separated incorrectly' do
+      let(:css) { <<-CSS }
+        p {
+          display: none;
+          position: absolute;
+          margin: 0;
+
+          padding: 0;
+
+          float: left;
+        }
+      CSS
+
+      it { should report_lint line: 4 }
+    end
+
+    context 'and the groups are separated by a comment' do
+      let(:css) { <<-CSS }
+        p {
+          display: none;
+          position: absolute;
+          //
+          margin: 0;
+          padding: 0;
+          //
+          float: left;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when the sort order has multiple gaps separating two groups' do
+      let(:order) { %w[display position] + [nil, nil] + %w[margin padding] }
+
+      context 'and the groups are separated correctly' do
+        let(:css) { <<-CSS }
+          p {
+            display: none;
+            position: absolute;
+
+            margin: 0;
+            padding: 0;
+          }
+        CSS
+
+        it { should_not report_lint }
+      end
+
+      context 'and the groups are separated incorrectly' do
+        let(:css) { <<-CSS }
+          p {
+            display: none;
+            position: absolute;
+            margin: 0;
+
+            padding: 0;
+          }
+        CSS
+
+        it { should report_lint line: 4 }
+      end
+    end
+  end
 end

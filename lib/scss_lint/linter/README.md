@@ -725,6 +725,39 @@ linters:
     order: concentric
 ```
 
+You can enforce that "groups" of properties be visually separated by setting
+the `separate_groups` option to `true`. When specifying a custom order, you
+can indicate that you want two groups of properties to be visually separate
+by inserting an empty item, e.g.
+
+```yaml
+linters:
+  PropertySortOrder:
+    order:
+      - display
+      - position
+      -            # This empty element signals a visual separation
+      - margin
+      - padding
+    separate_groups: true
+```
+
+This would result in the following separation being enforced:
+
+```scss
+p {
+  display: block;
+  position: absolute;
+
+  margin: 0;
+  padding: 0;
+}
+```
+
+Note that `separate_groups` is only enforced if a custom order is specified via
+the `order` option. Also note that if `ignore_unspecified` is `true` then
+properties which are "ignored" are considered as visual separators.
+
 If you need to write vendor-prefixed properties, the linter will allow you to
 order the vendor-prefixed properties before the standard CSS property they
 apply to. For example:
@@ -749,8 +782,9 @@ vendor-prefixed properties will still be ordered based on the example above
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`order`              | Array of properties, or the name of a [preset order](https://github.com/causes/scss-lint/tree/master/data/property-sort-orders) (default is `nil`, resulting in alphabetical ordering)
 `ignore_unspecified` | Whether to ignore properties that are not explicitly specified in `order` (default **false**)
+`order`              | Array of properties, or the name of a [preset order](https://github.com/causes/scss-lint/tree/master/data/property-sort-orders) (default is `nil`, resulting in alphabetical ordering)
+`separate_groups`    | Whether gaps between groups of properties should be enforced.
 
 ## PropertySpelling
 

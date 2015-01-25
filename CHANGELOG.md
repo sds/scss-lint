@@ -9,6 +9,8 @@
   cause a crash
 * Add `convention` option to `BorderZero` allowing `none` to be preferred over
   zero
+* Add `separate_groups` option to `PropertySortOrder` to specify that groups
+  of properties should be visually separated
 
 ## 0.33.0
 
