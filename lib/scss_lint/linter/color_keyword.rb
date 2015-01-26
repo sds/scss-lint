@@ -4,11 +4,9 @@ module SCSSLint
   class Linter::ColorKeyword < Linter
     include LinterRegistry
 
-    COLOR_REGEX = /(#?[a-f0-9]{3,6}|[a-z]+)/i
-
     def visit_script_color(node)
-      color = source_from_range(node.source_range)[COLOR_REGEX, 1]
-      add_color_lint(node, color) if color_keyword?(color)
+      word = source_from_range(node.source_range)[/([a-z]+)/i, 1]
+      add_color_lint(node, word) if color_keyword?(word)
     end
 
     def visit_script_string(node)
@@ -22,21 +20,13 @@ module SCSSLint
   private
 
     def add_color_lint(node, original)
-      hex_form = Sass::Script::Value::Color.new(color_rgb(original)).tap do |color|
+      hex_form = Sass::Script::Value::Color.new(color_keyword_to_code(original)).tap do |color|
         color.options = {} # `inspect` requires options to be set
       end.inspect
 
       add_lint(node,
                "Color `#{original}` should be written in hexadecimal form " \
                "as `#{hex_form}`")
-    end
-
-    def color_keyword?(string)
-      color_rgb(string) && string != 'transparent'
-    end
-
-    def color_rgb(string)
-      Sass::Script::Value::Color::COLOR_NAMES[string]
     end
   end
 end

@@ -1,6 +1,40 @@
 module SCSSLint
   # Collection of helpers used across a variety of linters.
   module Utils
+    COLOR_REGEX = /#?[a-f0-9]{3,6}/i
+
+    # Returns whether the given string is a color literal (keyword or hex code).
+    #
+    # @param string [String]
+    # @return [true,false]
+    def color?(string)
+      color_keyword?(string) || color_hex?(string)
+    end
+
+    # Returns whether the given string is a color hexadecimal code.
+    #
+    # @param string [String]
+    # @return [true,false]
+    def color_hex?(string)
+      string =~ COLOR_REGEX
+    end
+
+    # Returns whether the given string is a valid color keyword.
+    #
+    # @param string [String]
+    # @return [true,false]
+    def color_keyword?(string)
+      color_keyword_to_code(string) && string != 'transparent'
+    end
+
+    # Returns the hexadecimal code for the given color keyword.
+    #
+    # @param string [String]
+    # @return [String] 7-character hexadecimal code (includes `#` prefix)
+    def color_keyword_to_code(string)
+      Sass::Script::Value::Color::COLOR_NAMES[string]
+    end
+
     # Given a selector array which is a list of strings with Sass::Script::Nodes
     # interspersed within them, return an array of strings representing those
     # selectors with the Sass::Script::Nodes removed (i.e., ignoring
