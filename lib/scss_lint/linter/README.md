@@ -5,6 +5,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [BangFormat](#bangformat)
 * [BorderZero](#borderzero)
 * [ColorKeyword](#colorkeyword)
+* [ColorVariable](#colorvariable)
 * [Comment](#comment)
 * [Compass Linters](#compass-linters)
 * [DebugStatement](#debugstatement)
@@ -95,6 +96,33 @@ color: green;
 **Good: hexadecimal color**
 ```scss
 color: #0f0;
+```
+
+Color keywords look like variables but are not variables. See the
+[ColorVariable](#colorvariable) linter for more justification on why you should
+always refer to colors via variables.
+
+## ColorVariable
+
+Prefer color literals (keywords or hexadecimal codes) to be used only in
+variable declarations. They should be referred to via variables everywhere else.
+
+**Bad: literal color**
+```scss
+p {
+  color: green;
+}
+```
+
+**Good: refer to color by variable name**
+```scss
+$body-color: #0f0;
+
+...
+
+p {
+  color: $body-color;
+}
 ```
 
 Defining colors directly in properties is usually a smell. When you color your
@@ -1375,11 +1403,11 @@ p {
 
 ```scss
 p {
-  color: $body_text;
+  color: $body-text;
 }
 
 .warning {
-  color: $body_warning;
+  color: $body-warning;
 }
 ```
 

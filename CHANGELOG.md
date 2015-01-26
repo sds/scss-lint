@@ -13,6 +13,8 @@
   of properties should be visually separated
 * Add `PropertyCount` linter which reports rule sets with a large number of
   properties
+* Add `ColorVariable` linter which enforces the use of color literals in
+  variable declarations only
 
 ## 0.33.0
 

@@ -15,6 +15,9 @@ linters:
   ColorKeyword:
     enabled: true
 
+  ColorVariable:
+    enabled: true
+
   Comment:
     enabled: true
 
