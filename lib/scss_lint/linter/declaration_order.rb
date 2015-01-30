@@ -15,8 +15,8 @@ module SCSSLint
 
     MESSAGE =
       'Rule sets should be ordered as follows: '\
-      '@extends, @includes without @content, ' \
-      'properties, @includes with @content, ' \
+      '`@extends`, `@includes` without `@content`, ' \
+      'properties, `@includes` with `@content`, ' \
       'nested rule sets'
 
     MIXIN_WITH_CONTENT = 'mixin_with_content'
