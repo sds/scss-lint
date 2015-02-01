@@ -244,5 +244,20 @@ describe SCSSLint::Linter do
       it { should_not report_lint line: 2 }
       it { should report_lint line: 3 }
     end
+
+    context 'when global disable comes before an @include' do
+      let(:css) { <<-CSS }
+        // scss-lint:disable Fake
+        p {
+          border: fail1;
+        }
+
+        @include mixin(param) {
+          border: fail1;
+        }
+      CSS
+
+      it { should_not report_lint }
+    end
   end
 end

@@ -71,13 +71,29 @@ module SCSSLint
       # apply (if it is a control comment enable node, it will be the line of
       # the comment itself).
       child = node
-      while child.children.last.is_a?(Sass::Tree::Node)
-        child = child.children.last
+      prev_child = node
+      while (child = last_child(child)) != prev_child
+        prev_child = child
       end
 
       end_line = child.line
 
       @disabled_lines.merge(start_line..end_line)
+    end
+
+    # Gets the child of the node that resides on the lowest line in the file.
+    #
+    # This is necessary due to the fact that our monkey patching of the parse
+    # tree's {#children} method does not return nodes sorted by their line
+    # number.
+    #
+    # @param node [Sass::Tree::Node, Sass::Script::Tree::Node]
+    # @return [Sass::Tree::Node, Sass::Script::Tree::Node]
+    def last_child(node)
+      node.children.inject(node) do |lowest, child|
+        return lowest unless child.respond_to?(:line)
+        lowest.line < child.line ? child : lowest
+      end
     end
   end
 end
