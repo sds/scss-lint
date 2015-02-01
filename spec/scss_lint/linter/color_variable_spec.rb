@@ -49,6 +49,17 @@ describe SCSSLint::Linter::ColorVariable do
     it { should report_lint line: 2 }
   end
 
+  context 'when a number is used in a property' do
+    let(:css) { <<-CSS }
+      p {
+        z-index: 9000;
+        transition-duration: 250ms;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
   context 'when a variable is used in a property' do
     let(:css) { <<-CSS }
       p {

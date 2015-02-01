@@ -6,23 +6,25 @@ module SCSSLint
     def visit_script_color(node)
       return if in_variable_declaration?(node)
 
-      record_lint(node)
+      # Source range sometimes includes closing parenthesis, so extract it
+      color = source_from_range(node.source_range)[/(#?[a-z0-9]+)/i, 1]
+
+      record_lint(node, color)
     end
 
     def visit_script_string(node)
-      remove_quoted_strings(node.value).scan(/(^|\s)(#?[a-z0-9]+)(?=\s|$)/i) do |_, word|
-        next unless color?(word)
-
-        record_lint(node)
-      end
+      remove_quoted_strings(node.value)
+        .scan(/(^|\s)(#[a-f0-9]+|[a-z]+)(?=\s|$)/i)
+        .select { |_, word| color?(word) }
+        .each   { |_, color| record_lint(node, color) }
     end
 
   private
 
-    def record_lint(node)
-      add_lint node, 'Color literals should only be used in variable ' \
-                     'declarations; they should be referred to via variable ' \
-                     'everywhere else.'
+    def record_lint(node, color)
+      add_lint node, "Color literals like `#{color}` should only be used in " \
+                     'variable declarations; they should be referred to via ' \
+                     'variable everywhere else.'
     end
 
     def in_variable_declaration?(node)
