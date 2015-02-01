@@ -102,6 +102,9 @@ box-pack
 box-reflect
 box-shadow
 box-sizing
+break-after
+break-before
+break-inside
 buffered-rendering
 caption-side
 clear
