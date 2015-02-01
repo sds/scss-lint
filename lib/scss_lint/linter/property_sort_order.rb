@@ -154,11 +154,11 @@ module SCSSLint
                                      "#{config['order']}.txt"))
           file.read.split("\n").reject { |line| line =~ /^(#|\s*$)/ }
         rescue Errno::ENOENT
-          raise SCSSLint::LinterError,
+          raise SCSSLint::Exceptions::LinterError,
                 "Preset property sort order '#{config['order']}' does not exist"
         end
       else
-        raise SCSSLint::LinterError,
+        raise SCSSLint::Exceptions::LinterError,
               'Invalid property sort order specified -- must be the name of a '\
               'preset or an array of strings'
       end
