@@ -1,7 +1,7 @@
 module SCSSLint
   # Collection of helpers used across a variety of linters.
   module Utils
-    COLOR_REGEX = /#?[a-f0-9]{3,6}/i
+    COLOR_REGEX = /^#[a-f0-9]{3,6}$/i
 
     # Returns whether the given string is a color literal (keyword or hex code).
     #

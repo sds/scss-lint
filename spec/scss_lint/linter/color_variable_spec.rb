@@ -60,6 +60,16 @@ describe SCSSLint::Linter::ColorVariable do
     it { should_not report_lint }
   end
 
+  context 'when a non-color keyword is used in a property' do
+    let(:css) { <<-CSS }
+      p {
+        overflow: hidden;
+      }
+    CSS
+
+    it { should_not report_lint }
+  end
+
   context 'when a variable is used in a property' do
     let(:css) { <<-CSS }
       p {
