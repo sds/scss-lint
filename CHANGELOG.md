@@ -15,6 +15,9 @@
   properties
 * Add `ColorVariable` linter which enforces the use of color literals in
   variable declarations only
+* Fix control comments placed before `@include` blocks to apply within them
+* Fix crash in `PropertySortOrder` when non-existent preset sort order or
+  otherwise invalid sort order are specified in the configuration
 
 ## 0.33.0
 
