@@ -19,6 +19,7 @@
 * Fix crash in `PropertySortOrder` when non-existent preset sort order or
   otherwise invalid sort order are specified in the configuration
 * Add `break-after`, `break-before`, and `break-inside` to list of properties
+* Fix recognition of control comments in selector comma sequences
 
 ## 0.33.0
 

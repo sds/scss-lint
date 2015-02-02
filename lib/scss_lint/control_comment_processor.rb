@@ -20,25 +20,18 @@ module SCSSLint
     #
     # @param node [Sass::Tree::Node]
     def before_node_visit(node)
-      return unless node.is_a?(Sass::Tree::CommentNode)
+      return unless command = extract_command(node)
 
-      return unless match = /(?x)
-        \*\s* # Comment line start marker
-        scss-lint:
-        (?<command>disable|enable)\s+
-        (?<linters>.*?)
-        \s*(?:\*\/|\n) # Comment end marker or end of line
-      /.match(node.value.first)
-
-      linters = match[:linters].split(/\s*,\s*|\s+/)
+      linters = command[:linters]
       return unless linters.include?('all') || linters.include?(@linter.name)
 
-      process_command(match[:command], node)
+      process_command(command[:action], node)
 
       # Is the control comment the only thing on this line?
-      return if %r{^\s*(//|/\*)}.match(@linter.engine.lines[node.line - 1])
+      return if node.is_a?(Sass::Tree::RuleNode) ||
+                %r{^\s*(//|/\*)}.match(@linter.engine.lines[node.line - 1])
 
-      # If so, pop since we only want the comment to apply to the single line
+      # Otherwise, pop since we only want comment to apply to the single line
       pop_control_comment_stack(node)
     end
 
@@ -52,6 +45,29 @@ module SCSSLint
     end
 
   private
+
+    def extract_command(node)
+      comment =
+        case node
+        when Sass::Tree::CommentNode
+          node.value.first
+        when Sass::Tree::RuleNode
+          node.rule.select { |chunk| chunk.is_a?(String) }.join
+        end
+
+      return unless match = %r{
+        (/|\*)\s* # Comment start marker
+        scss-lint:
+        (?<action>disable|enable)\s+
+        (?<linters>.*?)
+        \s*(?:\*/|\n) # Comment end marker or end of line
+      }x.match(comment)
+
+      {
+        action: match[:action],
+        linters: match[:linters].split(/\s*,\s*|\s+/),
+      }
+    end
 
     def process_command(command, node)
       case command

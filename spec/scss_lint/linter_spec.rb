@@ -12,6 +12,11 @@ describe SCSSLint::Linter do
           add_lint(node, 'everything offends me')
         end
 
+        def visit_class(klass)
+          return unless klass.to_s == '.badClass'
+          add_lint(klass, 'a bad class was used')
+        end
+
         # Bypasses the visit order so a control comment might not be reached before a lint is
         # added
         def visit_rule(node)
@@ -258,6 +263,30 @@ describe SCSSLint::Linter do
       CSS
 
       it { should_not report_lint }
+    end
+
+    context 'when // control comment appears in the middle of a comma sequence' do
+      let(:css) { <<-CSS }
+        .badClass, // scss-lint:disable Fake
+        .good-selector {
+          border: fail1;
+        }
+      CSS
+
+      it { should_not report_lint line: 1 }
+      it { should report_lint line: 3 }
+    end
+
+    context 'when /* control comment appears in the middle of a comma sequence' do
+      let(:css) { <<-CSS }
+        .badClass, /* scss-lint:disable Fake */
+        .good-selector {
+          border: fail1;
+        }
+      CSS
+
+      it { should_not report_lint line: 1 }
+      it { should report_lint line: 3 }
     end
   end
 end
