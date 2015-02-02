@@ -504,8 +504,8 @@ without actually nesting selectors (which has a performance cost). For example:
 .component {}
   .component__image {}
   .component__text {}
-     .component-subblock {}
-     .component-subblock__text {}
+    .component-subblock {}
+    .component-subblock__text {}
   .component-category {}
     .component-other {}
 ```
