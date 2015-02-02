@@ -250,4 +250,64 @@ describe SCSSLint::Linter::Indentation do
       it { should report_lint line: 2 }
     end
   end
+
+  context 'when indentation in non-nested code is allowed' do
+    let(:linter_config) do
+      { 'allow_non_nested_indentation' => true,
+        'character' => 'space',
+        'width' => 2,
+      }
+    end
+
+    context 'and non-nested code is indented' do
+      let(:css) { <<-CSS }
+        .component {}
+          .component__image {}
+          .component__text {}
+            .component-subblock {}
+            .component-subblock__text {}
+          .component-category {}
+            .component-other {}
+      CSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and nested code is indented too much' do
+      let(:css) { <<-CSS }
+        .component {
+          .component__image {}
+          .component__text {}
+            .component-subblock {}
+        }
+      CSS
+
+      it { should_not report_lint line: 2 }
+      it { should_not report_lint line: 3 }
+      it { should report_lint line: 4 }
+    end
+
+    context 'and nested code is indented too little' do
+      let(:css) { <<-CSS }
+        .component {
+          .component__image {}
+          .component__text {}
+        .component-subblock {}
+        }
+      CSS
+
+      it { should_not report_lint line: 2 }
+      it { should_not report_lint line: 3 }
+      it { should report_lint line: 4 }
+    end
+
+    context 'and a non-nested non-ruleset is incorrectly indented' do
+      let(:css) { <<-CSS }
+        p {}
+          $var: one;
+      CSS
+
+      it { should report_lint line: 2 }
+    end
+  end
 end

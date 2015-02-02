@@ -20,6 +20,7 @@
   otherwise invalid sort order are specified in the configuration
 * Add `break-after`, `break-before`, and `break-inside` to list of properties
 * Fix recognition of control comments in selector comma sequences
+* Add `allow_non_nested_indentation` option to `Indentation` linter
 
 ## 0.33.0
 

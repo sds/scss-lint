@@ -496,10 +496,28 @@ p {
 
 You can configure this linter to prefer tabs if you like.
 
-Configuration Option | Description
----------------------|---------------------------------------------------------
-`character`          | `tab` or `space` (default **space**)
-`width`              | Number of `character`s per indentation level (default **2**)
+For projects that follow BEM, you may prefer to allow arbitrary indentation for
+rule sets that aren't nested in order to give the visual hints of hierarchy
+without actually nesting selectors (which has a performance cost). For example:
+
+```scss
+.component {}
+  .component__image {}
+  .component__text {}
+     .component-subblock {}
+     .component-subblock__text {}
+  .component-category {}
+    .component-other {}
+```
+
+You can set `allow_non_nested_indentation` to `true` if this convention is
+preferred.
+
+Configuration Option           | Description
+-------------------------------|---------------------------------------------------------
+`allow_non_nested_indentation` | Whether non-nested rule sets can be arbitrarily indented (default **false**)
+`character`                    | `tab` or `space` (default **space**)
+`width`                        | Number of `character`s per indentation level (default **2**)
 
 ## LeadingZero
 
