@@ -46,7 +46,7 @@ describe SCSSLint::Linter::SelectorFormat do
     it { should report_lint line: 1 }
   end
 
-  context 'when selector has is in camelCase' do
+  context 'when selector is camelCase' do
     let(:css) { <<-CSS }
       fooBar77 {
       }
@@ -116,7 +116,7 @@ describe SCSSLint::Linter::SelectorFormat do
   context 'when convention is set to camel_case' do
     let(:linter_config) { { 'convention' => 'camel_case' } }
 
-    context 'when selector has is in camelCase' do
+    context 'when selector is camelCase' do
       let(:css) { <<-CSS }
         .fooBar77 {
         }
