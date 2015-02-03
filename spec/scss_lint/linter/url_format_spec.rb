@@ -34,21 +34,21 @@ describe SCSSLint::Linter::UrlFormat do
   end
 
   context 'when URL is enclosed in quotes' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       .block {
         background: url('#{url}');
       }
-    CSS
+    SCSS
 
     it_should_behave_like 'UrlFormat linter'
   end
 
   context 'when URL is not enclosed in quotes' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       .block {
         background: url(#{url});
       }
-    CSS
+    SCSS
 
     it_should_behave_like 'UrlFormat linter'
   end

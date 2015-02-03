@@ -2,42 +2,42 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::ElsePlacement do
   context 'when @if contains no accompanying @else' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @if $condition {
         $var: 1;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when @else is on different line' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @if $condition {
         $var: 1;
       }
       @else {
         $var: 0;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 4 }
   end
 
   context 'when @else is on the same line as previous curly' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @if $condition {
         $var: 1;
       } @else {
         $var: 0;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when `@else if` is on different line' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @if $condition {
         $var: 1;
       }
@@ -47,14 +47,14 @@ describe SCSSLint::Linter::ElsePlacement do
       @else {
         $var: 0;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 4 }
     it { should report_lint line: 7 }
   end
 
   context 'when `@else if` is on the same line as previous curly' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @if $condition {
         $var: 1;
       } @else if $other_condition {
@@ -62,15 +62,15 @@ describe SCSSLint::Linter::ElsePlacement do
       } @else {
         $var: 0;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when @else is on same line as @if' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @if $condition { $var: 1; } @else { $var: 0; }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
@@ -79,26 +79,26 @@ describe SCSSLint::Linter::ElsePlacement do
     let(:linter_config) { { 'style' => 'new_line' } }
 
     context 'when @else is on a new line' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @if $condition {
           $var: 1;
         }
         @else {
           $var: 0;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when @else is on the same line as previous curly brace' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @if $condition {
           $var: 1;
         } @else {
           $var: 0;
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 3 }
     end

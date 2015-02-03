@@ -2,33 +2,33 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::Comment do
   context 'when no comments exist' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         margin: 0;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when comment is a single line comment' do
-    let(:css) { '// Single line comment' }
+    let(:scss) { '// Single line comment' }
 
     it { should_not report_lint }
   end
 
   context 'when comment is a single line comment at the end of a line' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         margin: 0; // Comment at end of line
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when comment is a multi-line comment' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       h1 {
         color: #eee;
       }
@@ -38,17 +38,17 @@ describe SCSSLint::Linter::Comment do
       p {
         color: #DDD;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 4 }
   end
 
   context 'when multi-line-style comment is a at the end of a line' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       h1 {
         color: #eee; /* This is a comment */
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end

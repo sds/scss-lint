@@ -2,16 +2,16 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::MergeableSelector do
   context 'when single root' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when different roots' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         background: #000;
         margin: 5px;
@@ -20,13 +20,13 @@ describe SCSSLint::Linter::MergeableSelector do
         background: #000;
         margin: 5px;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when different roots with matching inner rules' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         background: #000;
         margin: 5px;
@@ -41,13 +41,13 @@ describe SCSSLint::Linter::MergeableSelector do
           color: red;
         }
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when multi-selector roots and parital rule match' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p, a {
         background: #000;
         margin: 5px;
@@ -62,13 +62,13 @@ describe SCSSLint::Linter::MergeableSelector do
           color: red;
         }
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when nested and unnested selectors match' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       a.current {
         background: #000;
         margin: 5px;
@@ -85,7 +85,7 @@ describe SCSSLint::Linter::MergeableSelector do
           }
         }
       }
-    CSS
+    SCSS
 
     context 'when force_nesting is enabled' do
       let(:linter_config) { { 'force_nesting' => true } }
@@ -99,7 +99,7 @@ describe SCSSLint::Linter::MergeableSelector do
   end
 
   context 'when same class roots' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       .warn {
         font-weight: bold;
       }
@@ -110,13 +110,13 @@ describe SCSSLint::Linter::MergeableSelector do
           color: #ccc;
         }
       }
-    CSS
+    SCSS
 
     it { should report_lint }
   end
 
   context 'when same compond selector roots' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       .warn .alert {
         font-weight: bold;
       }
@@ -127,13 +127,13 @@ describe SCSSLint::Linter::MergeableSelector do
           color: #ccc;
         }
       }
-    CSS
+    SCSS
 
     it { should report_lint }
   end
 
   context 'when same class roots separated by another class' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       .warn {
         font-weight: bold;
       }
@@ -147,13 +147,13 @@ describe SCSSLint::Linter::MergeableSelector do
           color: #ccc;
         }
       }
-    CSS
+    SCSS
 
     it { should report_lint }
   end
 
   context 'when rule in a mixin @include matches a root root' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         font-weight: bold;
       }
@@ -162,13 +162,13 @@ describe SCSSLint::Linter::MergeableSelector do
           font-weight: normal;
         }
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when rule in a mixin definition matches a root rule' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         font-weight: bold;
       }
@@ -177,13 +177,13 @@ describe SCSSLint::Linter::MergeableSelector do
           font-weight: normal;
         }
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when rule in a media directive matches a root rule' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         font-weight: bold;
       }
@@ -192,13 +192,13 @@ describe SCSSLint::Linter::MergeableSelector do
           font-weight: normal;
         }
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when rule in a keyframes directive matches a root rule' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @keyframes slideouttoleft {
         from {
           transform: translateX(0);
@@ -218,13 +218,13 @@ describe SCSSLint::Linter::MergeableSelector do
           transform: translateX(100%);
         }
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when there are duplicate rules nested in a rule set' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       .foo {
         .bar {
           font-weight: bold;
@@ -236,7 +236,7 @@ describe SCSSLint::Linter::MergeableSelector do
           color: #ff0;
         }
       }
-    CSS
+    SCSS
 
     it { should report_lint }
   end
@@ -245,7 +245,7 @@ describe SCSSLint::Linter::MergeableSelector do
     let(:linter_config) { { 'force_nesting' => true } }
 
     context 'when one of the duplicate rules is in a comma sequence' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .foo,
         .bar {
           color: #000;
@@ -253,29 +253,29 @@ describe SCSSLint::Linter::MergeableSelector do
         .foo {
           color: #f00;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when rules start with the same prefix but are not the same' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .foo {
           color: #000;
         }
         .foobar {
           color: #f00;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when a rule contains interpolation' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .\#{$class-name} {}
         .foobar {}
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end

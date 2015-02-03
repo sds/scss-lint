@@ -33,7 +33,7 @@ describe SCSSLint::Linter do
     end
 
     context 'when a disable is not present' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           border: fail1;
 
@@ -41,13 +41,13 @@ describe SCSSLint::Linter do
             border: fail1;
           }
         }
-      CSS
+      SCSS
 
       it { should report_lint }
     end
 
     context 'when a disable is present at the top level' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         // scss-lint:disable Fake
         p {
           border: fail1;
@@ -56,13 +56,13 @@ describe SCSSLint::Linter do
             border: fail1;
           }
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when a disable is present at the top level for another linter' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         // scss-lint:disable Bogus
         p {
           border: fail1;
@@ -70,13 +70,13 @@ describe SCSSLint::Linter do
         p {
           border: bogus;
         }
-      CSS
+      SCSS
 
       it { should report_lint lint: 3 }
     end
 
     context 'when a linter is disabled then enabled again' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         // scss-lint:disable Fake
         p {
           border: fail1;
@@ -85,14 +85,14 @@ describe SCSSLint::Linter do
         p {
           border: fail1;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint line: 3 }
       it { should report_lint line: 7 }
     end
 
     context 'when a linter is disabled within a rule' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           // scss-lint:disable Fake
           border: fail1;
@@ -105,7 +105,7 @@ describe SCSSLint::Linter do
         p {
           border: fail1;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint line: 3 }
       it { should_not report_lint line: 6 }
@@ -113,7 +113,7 @@ describe SCSSLint::Linter do
     end
 
     context 'when more than one linter is disabled' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         // scss-lint:disable Bogus, Fake
         p {
           border: fail1;
@@ -122,13 +122,13 @@ describe SCSSLint::Linter do
         p {
           border: bogus;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when more than one linter is disabled without spaces between the linter names' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         // scss-lint:disable Fake,Bogus
         p {
           border: fail1;
@@ -137,13 +137,13 @@ describe SCSSLint::Linter do
         p {
           border: Bogus;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when more than one linter is disabled without commas between the linter names' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         // scss-lint:disable Fake Bogus
         p {
           border: fail1;
@@ -152,13 +152,13 @@ describe SCSSLint::Linter do
         p {
           border: bogus;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when two linters are disabled and only one is reenabled' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         // scss-lint:disable Fake, Bogus
         p {
           border: fail1;
@@ -169,14 +169,14 @@ describe SCSSLint::Linter do
           margin: fail1;
           border: bogus;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint line: 3 }
       it { should report_lint line: 8 }
     end
 
     context 'when all linters are disabled' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         // scss-lint:disable all
         p {
           border: fail1;
@@ -186,13 +186,13 @@ describe SCSSLint::Linter do
           margin: fail1;
           border: bogus;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when all linters are disabled and then one is re-enabled' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         // scss-lint:disable all
         p {
           border: fail1;
@@ -203,25 +203,25 @@ describe SCSSLint::Linter do
           margin: fail1;
           border: bogus;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint line: 3 }
       it { should report_lint line: 8 }
     end
 
     context 'when a linter is bypassing the visit tree order' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           // scss-lint:disable Fake
           border: fail2;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when the command comment is next to other comments' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           // scss-lint:disable Fake
           // more comments
@@ -233,25 +233,25 @@ describe SCSSLint::Linter do
           // scss-lint:disable Fake
           border: fail2;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when the command comment is at the end of a statement' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           border: fail1; // scss-lint:disable Fake
           border: fail1;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint line: 2 }
       it { should report_lint line: 3 }
     end
 
     context 'when global disable comes before an @include' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         // scss-lint:disable Fake
         p {
           border: fail1;
@@ -260,30 +260,30 @@ describe SCSSLint::Linter do
         @include mixin(param) {
           border: fail1;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when // control comment appears in the middle of a comma sequence' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .badClass, // scss-lint:disable Fake
         .good-selector {
           border: fail1;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint line: 1 }
       it { should report_lint line: 3 }
     end
 
     context 'when /* control comment appears in the middle of a comma sequence' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .badClass, /* scss-lint:disable Fake */
         .good-selector {
           border: fail1;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint line: 1 }
       it { should report_lint line: 3 }

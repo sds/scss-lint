@@ -3,127 +3,127 @@ require 'spec_helper'
 describe SCSSLint::Linter::NameFormat do
   shared_examples 'hyphenated_lowercase' do
     context 'when no variable, functions, or mixin declarations exist' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           margin: 0;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when a variable name contains a hyphen' do
-      let(:css) { '$content-padding: 10px;' }
+      let(:scss) { '$content-padding: 10px;' }
 
       it { should_not report_lint }
     end
 
     context 'when a variable name contains an underscore' do
-      let(:css) { '$content_padding: 10px;' }
+      let(:scss) { '$content_padding: 10px;' }
 
       it { should report_lint line: 1 }
     end
 
     context 'when a variable name contains an uppercase character' do
-      let(:css) { '$contentPadding: 10px;' }
+      let(:scss) { '$contentPadding: 10px;' }
 
       it { should report_lint line: 1 }
     end
 
     context 'when a function is declared with a capital letter' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @function badFunction() {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when a function is declared with an underscore' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @function bad_function() {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when a mixin is declared with a capital letter' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @mixin badMixin() {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when a mixin is declared with an underscore' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @mixin bad_mixin() {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when no invalid usages exist' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           margin: 0;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when a referenced variable name has a capital letter' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           margin: $badVar;
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'when a referenced variable name has an underscore' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           margin: $bad_var;
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'when a referenced function name has a capital letter' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           margin: badFunc();
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'when a referenced function name has an underscore' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           margin: bad_func();
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'when an included mixin name has a capital letter' do
-      let(:css) { '@include badMixin();' }
+      let(:scss) { '@include badMixin();' }
 
       it { should report_lint line: 1 }
     end
 
     context 'when an included mixin name has an underscore' do
-      let(:css) { '@include bad_mixin();' }
+      let(:scss) { '@include bad_mixin();' }
 
       it { should report_lint line: 1 }
     end
@@ -133,34 +133,34 @@ describe SCSSLint::Linter::NameFormat do
          scaleX scaleY scaleZ
          skewX skewY
          translateX translateY translateZ].each do |function|
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           p {
             transform: #{function}(2);
           }
-        CSS
+        SCSS
 
         it { should_not report_lint }
       end
     end
 
     context 'when mixin is a transform function' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           @include translateX(2);
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when a mixin contains keyword arguments with underscores' do
-      let(:css) { '@include mixin($some_var: 4);' }
+      let(:scss) { '@include mixin($some_var: 4);' }
 
       it { should report_lint }
     end
 
     context 'when a mixin contains keyword arguments with hyphens' do
-      let(:css) { '@include mixin($some-var: 4);' }
+      let(:scss) { '@include mixin($some-var: 4);' }
 
       it { should_not report_lint }
     end
@@ -170,10 +170,10 @@ describe SCSSLint::Linter::NameFormat do
     it_behaves_like 'hyphenated_lowercase'
 
     context 'when a name contains a leading underscore' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @function _private-method() {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
@@ -185,10 +185,10 @@ describe SCSSLint::Linter::NameFormat do
     it_behaves_like 'hyphenated_lowercase'
 
     context 'when a name contains a leading underscore' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @function _private-method() {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
@@ -198,37 +198,37 @@ describe SCSSLint::Linter::NameFormat do
     let(:linter_config) { { 'convention' => 'BEM' } }
 
     context 'when a name contains no underscores or hyphens' do
-      let(:css) { '@extend %block;' }
+      let(:scss) { '@extend %block;' }
 
       it { should_not report_lint }
     end
 
     context 'when a name contains a single underscore' do
-      let(:css) { '@extend %block_thing;' }
+      let(:scss) { '@extend %block_thing;' }
 
       it { should report_lint }
     end
 
     context 'when a name contains a single hyphen' do
-      let(:css) { '@extend %block-thing;' }
+      let(:scss) { '@extend %block-thing;' }
 
       it { should_not report_lint }
     end
 
     context 'when a name contains a double hyphen' do
-      let(:css) { '@extend %block--thing;' }
+      let(:scss) { '@extend %block--thing;' }
 
       it { should_not report_lint }
     end
 
     context 'when a name contains a double underscore' do
-      let(:css) { '@extend %block__thing;' }
+      let(:scss) { '@extend %block__thing;' }
 
       it { should_not report_lint }
     end
 
     context 'when a name contains a double underscore and double hyphen' do
-      let(:css) { '@extend %block--thing__word;' }
+      let(:scss) { '@extend %block--thing__word;' }
 
       it { should_not report_lint }
     end

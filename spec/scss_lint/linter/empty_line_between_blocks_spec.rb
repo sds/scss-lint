@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SCSSLint::Linter::EmptyLineBetweenBlocks do
   context 'when there are multiple rule sets' do
     context 'with blank lines between them' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         a {
         }
 
@@ -12,20 +12,20 @@ describe SCSSLint::Linter::EmptyLineBetweenBlocks do
 
         p {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'with no blank line between them' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         a {
         }
         b {
         }
         p {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
       it { should report_lint line: 4 }
@@ -35,21 +35,21 @@ describe SCSSLint::Linter::EmptyLineBetweenBlocks do
 
   context 'when a rule set contains nested rule sets' do
     context 'and the nested rule sets have no blank line between them' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           a {
           }
           b {
           }
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 3 }
       it { should_not report_lint line: 5 }
     end
 
     context 'and the nested rule sets have a blank line between them' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           a {
           }
@@ -57,32 +57,32 @@ describe SCSSLint::Linter::EmptyLineBetweenBlocks do
           b {
           }
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'and the nested rule set has a property preceding it' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           margin: 0;
           a {
           }
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 3 }
     end
 
     context 'and the nested rule set has a property and empty line preceding it' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           margin: 0;
 
           a {
           }
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
@@ -90,57 +90,57 @@ describe SCSSLint::Linter::EmptyLineBetweenBlocks do
 
   context 'when mixins are defined' do
     context 'and there is no blank line between them' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @mixin mixin1() {
         }
         @mixin mixin2() {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'and there is a blank line between them' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @mixin mixin1() {
         }
 
         @mixin mixin2() {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
   end
 
   context 'when mixins are included without content' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         @include mixin1();
         property: blah;
         @include mixin2(4);
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when mixins are included with content' do
     context 'and there is no blank line between them' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @include mixin1() {
           property: value;
         }
         @include mixin2() {
           property: value;
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 3 }
     end
 
     context 'and there is a blank line between them' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @include mixin1() {
           property: value;
         }
@@ -148,7 +148,7 @@ describe SCSSLint::Linter::EmptyLineBetweenBlocks do
         @include mixin2() {
           property: value;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
@@ -156,70 +156,70 @@ describe SCSSLint::Linter::EmptyLineBetweenBlocks do
 
   context 'when functions are defined' do
     context 'and there is no blank line between them' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @function func1() {
         }
         @function func2() {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'and there is a blank line between them' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @function func1() {
         }
 
         @function func2() {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
   end
 
   context 'when a rule set is preceded by a comment' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       a {
       }
 
       // This is a comment
       p {
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when a rule set is immediately followed by a comment' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       a {
       } // A comment
 
       a {
       } /* Another comment */
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when rule set is followed by a comment on the next line' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       a {
       }
       // A trailing comment (often a control comment)
 
       b {
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when there are multiple placeholder rule sets' do
     context 'with blank lines between them' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         %a {
         }
 
@@ -228,20 +228,20 @@ describe SCSSLint::Linter::EmptyLineBetweenBlocks do
 
         %c {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'with no blank line between them' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         %a {
         }
         %b {
         }
         %c {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
       it { should report_lint line: 4 }
@@ -252,12 +252,12 @@ describe SCSSLint::Linter::EmptyLineBetweenBlocks do
   context 'when blocks occupy a single line' do
     let(:linter_config) { { 'ignore_single_line_blocks' => ignore_single_line_blocks } }
 
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       .icon-up { &:before { content: '^'; } }
       .icon-right { &:before { content: '>'; } }
       @include some-mixin { content: '<'; }
       @include some-other-mixin { content: 'v'; }
-    CSS
+    SCSS
 
     context 'and the `ignore_single_line_blocks` option is true' do
       let(:ignore_single_line_blocks) { true }

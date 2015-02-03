@@ -2,111 +2,111 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::SpaceBetweenParens do
   context 'when the opening parens is followed by a space' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         property: ( value);
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when the closing parens is preceded by a space' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         property: (value );
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when both parens are space padded' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         property: ( value );
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2, count: 2 }
   end
 
   context 'when neither parens are space padded' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         property: (value);
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when parens are multi-line' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         property: (
           value
         );
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when parens are multi-line with tabs' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
 \t\t\tp {
 \t\t\t\tproperty: (
 \t\t\t\t\tvalue
 \t\t\t\t);
 \t\t\t}
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when outer parens are space padded' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         property: fn( fn2(val1, val2) );
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2, count: 2 }
   end
 
   context 'when inner parens are space padded' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         property: fn(fn2( val1, val2 ));
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2, count: 2 }
   end
 
   context 'when both parens are not space padded' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         property: fn(fn2(val1, val2));
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when both parens are space padded' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         property: fn( fn2( val1, val2 ) );
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2, count: 4 }
   end
 
   context 'when multi level parens are multi-line' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         property: fn(
           fn2(
@@ -114,27 +114,27 @@ describe SCSSLint::Linter::SpaceBetweenParens do
           )
         );
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when parens exist in a silent comment' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         margin: 0; // Some comment ( with parens )
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when parens exist in an outputted comment' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         margin: 0; /* Some comment ( with parens ) */
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
@@ -143,111 +143,111 @@ describe SCSSLint::Linter::SpaceBetweenParens do
     let(:linter_config) { { 'spaces' => 1 } }
 
     context 'when the opening parens is followed by a space' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           property: ( value);
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'when the closing parens is preceded by a space' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           property: (value );
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'when neither parens are space padded' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           property: (value);
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2, count: 2 }
     end
 
     context 'when both parens are space padded' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           property: ( value );
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when parens are multi-line' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           property: (
             value
           );
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when parens are multi-line with tabs' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
 \t\t\t\tp {
 \t\t\t\t\tproperty: (
 \t\t\t\t\t\tvalue
 \t\t\t\t\t);
 \t\t\t\t}
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when outer parens are space padded' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           property: fn( fn2(val1, val2) );
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2, count: 2 }
     end
 
     context 'when inner parens are space padded' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           property: fn(fn2( val1, val2 ));
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2, count: 2 }
     end
 
     context 'when both parens are not space padded' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           property: fn(fn2(val1, val2));
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2, count: 4 }
     end
 
     context 'when both parens are space padded' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           property: fn( fn2( val1, val2 ) );
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when multi level parens are multi-line' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           property: fn(
             fn2(
@@ -255,7 +255,7 @@ describe SCSSLint::Linter::SpaceBetweenParens do
             )
           );
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end

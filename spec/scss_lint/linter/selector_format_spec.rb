@@ -2,82 +2,82 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::SelectorFormat do
   context 'when class has alphanumeric chars and is separated by hyphens' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       .foo-bar-77 {
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when id has alphanumeric chars and is separated by hyphens' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       #foo-bar-77 {
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when element has alphanumeric chars and is separated by hyphens' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       foo-bar-77 {
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when placeholder has alphanumeric chars and is separated by hyphens' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       %foo-bar-77 {
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when selector has alphanumeric chars and is separated by underscores' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       .foo_bar {
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 1 }
   end
 
   context 'when selector is camelCase' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       fooBar77 {
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 1 }
   end
 
   context 'when placeholder has alphanumeric chars and is separated by underscores' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       %foo_bar {
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 1 }
   end
 
   context 'when attribute has alphanumeric chars and is separated by underscores' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       [data_text] {
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 1 }
   end
 
   context 'when attribute selector has alphanumeric chars and is separated by underscores' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       [data-text=some_text] {
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
@@ -86,28 +86,28 @@ describe SCSSLint::Linter::SelectorFormat do
     let(:linter_config) { { 'convention' => 'snake_case' } }
 
     context 'when selector has alphanumeric chars and is separated by underscores' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .foo_bar_77 {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when selector has alphanumeric chars and is separated by hyphens' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .foo-bar-77 {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when selector is in camelCase' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .fooBar77 {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
@@ -117,37 +117,37 @@ describe SCSSLint::Linter::SelectorFormat do
     let(:linter_config) { { 'convention' => 'camel_case' } }
 
     context 'when selector is camelCase' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .fooBar77 {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when selector capitalizes first word' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .FooBar77 {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when selector has alphanumeric chars and is separated by underscores' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .foo_bar_77 {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when selector has alphanumeric chars and is separated by hyphens' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .foo-bar-77 {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
@@ -157,19 +157,19 @@ describe SCSSLint::Linter::SelectorFormat do
     let(:linter_config) { { 'convention' => /^[0-9]*$/ } }
 
     context 'when selector uses regex properly' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .1337 {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when selector does not use regex properly' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .leet {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
@@ -179,10 +179,10 @@ describe SCSSLint::Linter::SelectorFormat do
     let(:linter_config) { { 'ignored_names' => ['fooBar'] } }
 
     context 'it ignores exact string matches' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         fooBar {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
@@ -192,10 +192,10 @@ describe SCSSLint::Linter::SelectorFormat do
     let(:linter_config) { { 'ignored_types' => ['class'] } }
 
     context 'it ignores all invalid classes' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .fooBar {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
@@ -207,37 +207,37 @@ describe SCSSLint::Linter::SelectorFormat do
     end
 
     context 'it ignores all invalid ids' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         #fooBar {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'it ignores all invalid elements' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         fooBar {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'it ignores all invalid placeholders' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         %fooBar {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'it ignores all invalid attributes' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         [fooBar=fooBar] {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
@@ -247,28 +247,28 @@ describe SCSSLint::Linter::SelectorFormat do
     let(:linter_config) { { 'id_convention' => 'snake_case' } }
 
     context 'and actual id is correct' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .hyphenated-lowercase {}
         #snake_case {}
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'and actual id is incorrect' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .hyphenated-lowercase {}
         #hyphenated-lowercase {}
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'and something else uses the `id_convention`' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .snake_case {}
         #hyphenated-lowercase {}
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
@@ -278,28 +278,28 @@ describe SCSSLint::Linter::SelectorFormat do
     let(:linter_config) { { 'class_convention' => 'camel_case' } }
 
     context 'and actual class is correct' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .camelCase {}
         #hyphenated-lowercase {}
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'and actual class is incorrect' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .hyphenated-lowercase {}
         #hyphenated-lowercase {}
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'and something else uses the `class_convention`' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .hyphenated-lowercase {}
         #camelCase {}
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
@@ -309,28 +309,28 @@ describe SCSSLint::Linter::SelectorFormat do
     let(:linter_config) { { 'placeholder_convention' => 'snake_case' } }
 
     context 'and actual placeholder is correct' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .hyphenated-lowercase {}
         %snake_case {}
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'and actual placeholder is incorrect' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .hyphenated-lowercase {}
         %hyphenated-lowercase {}
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'and something else uses the `placeholder_convention`' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .snake_case {}
         %snake_case {}
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
@@ -345,28 +345,28 @@ describe SCSSLint::Linter::SelectorFormat do
     end
 
     context 'and actual element is correct' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         hyphenated-lowercase {}
         #camelCase {}
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'and actual element is incorrect' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         camelCase {}
         #camelCase {}
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'and something else uses the `element_convention`' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         hyphenated-lowercase {}
         #hyphenated-lowercase {}
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
@@ -381,28 +381,28 @@ describe SCSSLint::Linter::SelectorFormat do
     end
 
     context 'and actual attribute is correct' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         [hyphenated-lowercase] {}
         #camelCase {}
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'and actual attribute is incorrect' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         [camelCase] {}
         #camelCase {}
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'and something else uses the `attribute_convention`' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         [hyphenated-lowercase] {}
         #hyphenated-lowercase {}
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
@@ -419,35 +419,35 @@ describe SCSSLint::Linter::SelectorFormat do
     end
 
     context 'and everything is correct' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         #camelCase {}
         hyphenated-lowercase {}
         [snake_case] {}
         .foo--bar {}
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'some things are not correct' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         #camelCase {}
         camelCase {}
         [snake_case] {}
         .fooBar {}
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
       it { should report_lint line: 4 }
     end
 
     context 'other things are not correct' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         #snake_case {}
         hyphenated-lowercase {}
         [camelCase] {}
         .foo--bar {}
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
       it { should report_lint line: 3 }
@@ -458,79 +458,79 @@ describe SCSSLint::Linter::SelectorFormat do
     let(:linter_config) { { 'convention' => 'BEM' } }
 
     context 'when a name contains no underscores or hyphens' do
-      let(:css) { '.block {}' }
+      let(:scss) { '.block {}' }
 
       it { should_not report_lint }
     end
 
     context 'when a name contains single hyphen' do
-      let(:css) { '.b-block {}' }
+      let(:scss) { '.b-block {}' }
 
       it { should_not report_lint }
     end
 
     context 'when a name contains multiple hyphens' do
-      let(:css) { '.b-block-name {}' }
+      let(:scss) { '.b-block-name {}' }
 
       it { should_not report_lint }
     end
 
     context 'when a name contains multiple hyphens in a row' do
-      let(:css) { '.b-block--modifier {}' }
+      let(:scss) { '.b-block--modifier {}' }
 
       it { should report_lint }
     end
 
     context 'when a name contains a single underscore' do
-      let(:css) { '.block_modifier {}' }
+      let(:scss) { '.block_modifier {}' }
 
       it { should report_lint }
     end
 
     context 'when a block has name-value modifier' do
-      let(:css) { '.block_modifier_value {}' }
+      let(:scss) { '.block_modifier_value {}' }
 
       it { should_not report_lint }
     end
 
     context 'when a block has name-value modifier with lots of hyphens' do
-      let(:css) { '.b-block-name_modifier-name-here_value-name-here {}' }
+      let(:scss) { '.b-block-name_modifier-name-here_value-name-here {}' }
 
       it { should_not report_lint }
     end
 
     context 'when a name has double underscores' do
-      let(:css) { '.b-block__element {}' }
+      let(:scss) { '.b-block__element {}' }
 
       it { should_not report_lint }
     end
 
     context 'when element goes after block with modifier' do
-      let(:css) { '.block_modifier_value__element {}' }
+      let(:scss) { '.block_modifier_value__element {}' }
 
       it { should report_lint }
     end
 
     context 'when element has modifier' do
-      let(:css) { '.block__element_modifier_value {}' }
+      let(:scss) { '.block__element_modifier_value {}' }
 
       it { should_not report_lint }
     end
 
     context 'when element has not paired modifier' do
-      let(:css) { '.block__element_modifier {}' }
+      let(:scss) { '.block__element_modifier {}' }
 
       it { should report_lint }
     end
 
     context 'when element has hypenated modifier' do
-      let(:css) { '.block__element--modifier {}' }
+      let(:scss) { '.block__element--modifier {}' }
 
       it { should report_lint }
     end
 
     context 'when element has hypenated paired modifier' do
-      let(:css) { '.block__element--modifier_value {}' }
+      let(:scss) { '.block__element--modifier_value {}' }
 
       it { should report_lint }
     end
@@ -540,91 +540,91 @@ describe SCSSLint::Linter::SelectorFormat do
     let(:linter_config) { { 'convention' => 'hyphenated_BEM' } }
 
     context 'when a name contains no underscores or hyphens' do
-      let(:css) { '.block {}' }
+      let(:scss) { '.block {}' }
 
       it { should_not report_lint }
     end
 
     context 'when a name contains single hyphen' do
-      let(:css) { '.b-block {}' }
+      let(:scss) { '.b-block {}' }
 
       it { should_not report_lint }
     end
 
     context 'when a name contains multiple hyphens' do
-      let(:css) { '.b-block-name {}' }
+      let(:scss) { '.b-block-name {}' }
 
       it { should_not report_lint }
     end
 
     context 'when a name contains multiple hyphens in a row' do
-      let(:css) { '.b-block--modifier {}' }
+      let(:scss) { '.b-block--modifier {}' }
 
       it { should_not report_lint }
     end
 
     context 'when a name contains a single underscore' do
-      let(:css) { '.block_modifier {}' }
+      let(:scss) { '.block_modifier {}' }
 
       it { should report_lint }
     end
 
     context 'when a block has name-value modifier' do
-      let(:css) { '.block--modifier-value {}' }
+      let(:scss) { '.block--modifier-value {}' }
 
       it { should_not report_lint }
     end
 
     context 'when a block has name-value modifier with lots of hyphens' do
-      let(:css) { '.b-block-name--modifier-name-here-value-name-here {}' }
+      let(:scss) { '.b-block-name--modifier-name-here-value-name-here {}' }
 
       it { should_not report_lint }
     end
 
     context 'when a name has double underscores' do
-      let(:css) { '.b-block__element {}' }
+      let(:scss) { '.b-block__element {}' }
 
       it { should_not report_lint }
     end
 
     context 'when element goes after block with modifier' do
-      let(:css) { '.block--modifier-value__element {}' }
+      let(:scss) { '.block--modifier-value__element {}' }
 
       it { should_not report_lint }
     end
 
     context 'when element has modifier' do
-      let(:css) { '.block__element--modifier-value {}' }
+      let(:scss) { '.block__element--modifier-value {}' }
 
       it { should_not report_lint }
     end
 
     context 'when element has hypenated modifier' do
-      let(:css) { '.block__element--modifier {}' }
+      let(:scss) { '.block__element--modifier {}' }
 
       it { should_not report_lint }
     end
 
     context 'when element has hypenated paired modifier' do
-      let(:css) { '.block__element--modifier-value {}' }
+      let(:scss) { '.block__element--modifier-value {}' }
 
       it { should_not report_lint }
     end
 
     context 'when a block contains an underscore' do
-      let(:css) { '.a_block__element--modifier {}' }
+      let(:scss) { '.a_block__element--modifier {}' }
 
       it { should report_lint }
     end
 
     context 'when an element contains an underscore' do
-      let(:css) { '.block__an_element--modifier {}' }
+      let(:scss) { '.block__an_element--modifier {}' }
 
       it { should report_lint }
     end
 
     context 'when a modifier contains an underscore' do
-      let(:css) { '.block__element--a_modifier {}' }
+      let(:scss) { '.block__element--a_modifier {}' }
 
       it { should report_lint }
     end

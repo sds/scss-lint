@@ -2,61 +2,61 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::PlaceholderInExtend do
   context 'when extending with a class' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         @extend .error;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when extending with a type' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         @extend span;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when extending with an id' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         @extend #some-identifer;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when extending with a placeholder' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         @extend %placeholder;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when extending with a selector whose prefix is not a placeholder' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         @extend .blah-\#{$dynamically_generated_name};
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when extending with a selector whose prefix is dynamic' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         @extend \#{$dynamically_generated_placeholder_name};
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::NestingDepth do
   context 'and selectors are nested up to depth 3' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       .one {
         .two {
           .three {
@@ -10,13 +10,13 @@ describe SCSSLint::Linter::NestingDepth do
           }
         }
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'and selectors are nested greater than depth 3' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       .one {
         .two {
           .three {
@@ -29,7 +29,7 @@ describe SCSSLint::Linter::NestingDepth do
           }
         }
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 4 }
     it { should report_lint line: 7 }
@@ -39,17 +39,17 @@ describe SCSSLint::Linter::NestingDepth do
     let(:linter_config) { { 'max_depth' => 1 } }
 
     context 'when nesting has a depth of one' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .one {
           font-style: italic;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when nesting has a depth of two' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .one {
           .two {
             font-style: italic;
@@ -58,13 +58,13 @@ describe SCSSLint::Linter::NestingDepth do
         .one {
           font-style: italic;
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'when nesting has a depth of three' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .one {
           .two {
             .three {
@@ -75,7 +75,7 @@ describe SCSSLint::Linter::NestingDepth do
             font-style: italic;
           }
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
       it { should report_lint line: 7 }
@@ -83,20 +83,20 @@ describe SCSSLint::Linter::NestingDepth do
     end
 
     context 'when nesting properties' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .one {
           font: {
             family: monospace;
             style: italic;
           }
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when sequence contains a @keyframe' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @keyframe my-keyframe {
           0% {
             background: #000;
@@ -106,7 +106,7 @@ describe SCSSLint::Linter::NestingDepth do
             background: #fff;
           }
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end

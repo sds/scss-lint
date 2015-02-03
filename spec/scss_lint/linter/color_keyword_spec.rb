@@ -2,81 +2,81 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::ColorKeyword do
   context 'when a color is specified as a hex' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         color: #fff;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when a color is specified as a keyword' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         color: white;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when a color keyword exists in a shorthand property' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         border: 1px solid black;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when a property contains a color keyword as a string' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         content: 'white';
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when a function call contains a color keyword' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         color: function(red);
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when a mixin include contains a color keyword' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         @include some-mixin(red);
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when the "transparent" color keyword is used' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         @include mixin(transparent);
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when color keyword appears in a string identifier' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         content: content-with-blue-in-name;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end

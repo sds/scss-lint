@@ -5,39 +5,39 @@ describe SCSSLint::Linter::HexLength do
   let(:style) { 'short' }
 
   context 'when rule is empty' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when rule contains properties with valid hex code' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         color: #1234ab;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when ID selector starts with a hex code' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       #aabbcc {
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when color is specified as a color keyword' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         @include box-shadow(0 0 1px 1px gold);
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
@@ -46,25 +46,25 @@ describe SCSSLint::Linter::HexLength do
     let(:style) { 'short' }
 
     context 'with short hex code' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           background: #ccc;
           background: #CCC;
           @include crazy-color(#fff);
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'with long hex code that could be condensed to 3 digits' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           background: #cccccc;
           background: #CCCCCC;
           @include crazy-color(#ffffff);
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
       it { should report_lint line: 3 }
@@ -76,25 +76,25 @@ describe SCSSLint::Linter::HexLength do
     let(:style) { 'long' }
 
     context 'with long hex code that could be condensed to 3 digits' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           background: #cccccc;
           background: #CCCCCC;
           @include crazy-color(#ffffff);
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'with short hex code' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           background: #ccc;
           background: #CCC;
           @include crazy-color(#fff);
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
       it { should report_lint line: 3 }

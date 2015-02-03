@@ -3,12 +3,12 @@ require 'spec_helper'
 describe SCSSLint::Linter::SpaceBeforeBrace do
   context 'with a @at-root block' do
     context 'when brace is preceded by a space' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .parent {
           @at-root .child {
           }
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
 
@@ -21,36 +21,36 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
     end
 
     context 'when brace is preceded by multiple spaces' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .parent {
           @at-root .child  {
           }
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'when brace is not preceded by a space' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .parent {
           @at-root .child{
           }
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'when brace is preceded by a new line' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .parent
         {
           @at-root .child
           {
           }
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
       it { should report_lint line: 4 }
@@ -65,10 +65,10 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
 
   context 'with an @each block' do
     context 'when brace is preceded by a space' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @each $item in $list {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
 
@@ -80,29 +80,29 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
     end
 
     context 'when brace is preceded by multiple spaces' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @each $item in $list  {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when brace is not preceded by a space' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @each $item in $list{
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when brace is preceded by a new line' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @each $item in $list
         {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
 
@@ -116,10 +116,10 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
 
   context 'with a @for block' do
     context 'when brace is preceded by a space' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @for $i from $start to $end {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
 
@@ -131,29 +131,29 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
     end
 
     context 'when brace is preceded by multiple spaces' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @for $i from $start to $end  {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when brace is not preceded by a space' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @for $i from $start to $end{
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when brace is preceded by a new line' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @for $i from $start to $end
         {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
 
@@ -167,10 +167,10 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
 
   context 'with a @while block' do
     context 'when brace is preceded by a space' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @while $condition {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
 
@@ -182,29 +182,29 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
     end
 
     context 'when brace is preceded by multiple spaces' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @while $condition  {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when brace is not preceded by a space' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @while $condition{
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when brace is preceded by a new line' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @while $condition
         {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
 
@@ -218,10 +218,10 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
 
   context 'with a rule selector' do
     context 'when brace is preceded by a space' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
 
@@ -233,48 +233,48 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
     end
 
     context 'when brace is preceded by multiple spaces' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p  {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when brace is not preceded by a space' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p{
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when brace is in a single line rule set' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .single-line-selector{color: #f00;}
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'when brace is following a multi-selector rule set' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .selector1,
         .selector2,
         .selector3{
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 3 }
     end
 
     context 'when brace is preceded by a new line' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p
         {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
 
@@ -289,10 +289,10 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
   context 'with a function declaration' do
     context 'with arguments' do
       context 'when brace is preceded by a space' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @function func($arg, $arg2) {
           }
-        CSS
+        SCSS
 
         it { should_not report_lint }
 
@@ -304,29 +304,29 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
       end
 
       context 'when brace is preceded by multiple spaces' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @function func($arg, $arg2)  {
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'when brace is not preceded by a space' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @function func($arg, $arg2){
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'when brace is preceded by a new line' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @function func($arg, $arg2)
           {
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 2 }
 
@@ -340,10 +340,10 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
 
     context 'without arguments' do
       context 'when brace is preceded by a space' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @function func() {
           }
-        CSS
+        SCSS
 
         it { should_not report_lint }
 
@@ -355,29 +355,29 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
       end
 
       context 'when brace is preceded by multiple spaces' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @function func()  {
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'when brace is not preceded by a space' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @function func(){
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'when brace is preceded by a new line' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @function func()
           {
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 2 }
 
@@ -393,10 +393,10 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
   context 'with a mixin declaration' do
     context 'with arguments' do
       context 'when brace is preceded by a space' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @mixin mixin($arg, $arg2) {
           }
-        CSS
+        SCSS
 
         it { should_not report_lint }
 
@@ -408,29 +408,29 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
       end
 
       context 'when brace is preceded by multiple spaces' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @mixin mixin($arg, $arg2)  {
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'when brace is not preceded by a space' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @mixin mixin($arg, $arg2){
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'when brace is preceded by a new line' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @mixin mixin($arg, $arg2)
           {
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 2 }
 
@@ -444,10 +444,10 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
 
     context 'without arguments' do
       context 'when brace is preceded by a space' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @mixin mixin {
           }
-        CSS
+        SCSS
 
         it { should_not report_lint }
 
@@ -459,29 +459,29 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
       end
 
       context 'when brace is preceded by multiple spaces' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @mixin mixin  {
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'when brace is not preceded by a space' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @mixin mixin{
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'when brace is preceded by a new line' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @mixin mixin
           {
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 2 }
 
@@ -497,10 +497,10 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
   context 'with a mixin include with braces' do
     context 'with arguments' do
       context 'when brace is preceded by a space' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @include mixin(arg, arg2) {
           }
-        CSS
+        SCSS
 
         it { should_not report_lint }
 
@@ -512,29 +512,29 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
       end
 
       context 'when brace is preceded by multiple spaces' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @include mixin(arg, arg2)  {
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'when brace is not preceded by a space' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @include mixin(arg, arg2){
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'when brace is preceded by a new line' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @include mixin(arg, arg2)
           {
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 2 }
 
@@ -548,10 +548,10 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
 
     context 'without arguments' do
       context 'when brace is preceded by a space' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @include mixin {
           }
-        CSS
+        SCSS
 
         it { should_not report_lint }
 
@@ -563,29 +563,29 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
       end
 
       context 'when brace is preceded by multiple spaces' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @include mixin  {
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'when brace is not preceded by a space' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @include mixin{
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'when brace is preceded by a new line' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           @include mixin
           {
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 2 }
 
@@ -600,9 +600,9 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
 
   context 'with a mixin include with no braces' do
     context 'with arguments' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @include mixin(arg, arg2);
-      CSS
+      SCSS
 
       it { should_not report_lint }
 
@@ -614,9 +614,9 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
     end
 
     context 'without arguments' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @include mixin;
-      CSS
+      SCSS
 
       it { should_not report_lint }
 
@@ -630,11 +630,11 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
 
   context 'when curly brace appears in a string' do
     context 'and the `style` option is `space`' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         a {
           content: "{";
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
@@ -642,12 +642,12 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
     context 'and the `style` option is `new_line`' do
       let(:linter_config) { { 'style' => 'new_line' } }
 
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         a
         {
           content: "{";
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
@@ -655,13 +655,13 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
 
   context 'when using #{} interpolation' do
     context 'and the `style` option is `space`' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @mixin test-mixin($class, $prop, $pixels) {
           .\#{$class} {
             \#{$prop}: \#{$pixels}px;
           }
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
@@ -669,7 +669,7 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
     context 'and the `style` option is `new_line`' do
       let(:linter_config) { { 'style' => 'new_line' } }
 
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @mixin test-mixin($class, $prop, $pixels)
         {
           .\#{$class}
@@ -677,14 +677,14 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
             \#{$prop}: \#{$pixels}px;
           }
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
   end
 
   context 'when using braces in comments' do
-    let(:css) { '// ({x})' }
+    let(:scss) { '// ({x})' }
 
     it { should_not report_lint }
 
@@ -703,12 +703,12 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
       }
     end
 
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p{ }
       p { }
       p           { &:before { } }
       p           { &:before{ } }
-    CSS
+    SCSS
 
     context 'and the `allow_single_line_padding` option is true' do
       let(:allow_single_line_padding) { true }
@@ -750,32 +750,32 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
   end
 
   context 'when curly brace is in single quotes' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @if $token == '{' {
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
 
     context 'and the `style` option is `new_line`' do
       let(:linter_config) { { 'style' => 'new_line' } }
 
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         @if $token == '{'
         {
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
   end
 
   context 'when curly brace is on own line' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       .class
       {
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
 
@@ -790,25 +790,25 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
     let(:linter_config) { { 'style' => 'new_line' } }
 
     context 'and the curly brace is preceded by a space' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .class {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'and the curly brace is preceded by multiple spaces' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         .class    {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'and there are multiple levels of nesting' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         ul
         {
           li
@@ -821,7 +821,7 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
             }
           }
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SCSSLint::SelectorVisitor do
   describe '#visit' do
-    let(:engine) { SCSSLint::Engine.new(css) }
+    let(:engine) { SCSSLint::Engine.new(scss) }
     before { RuleVisitor.new(visitor).run(engine) }
 
     # Visits every rule in the given parse tree and passes the parsed selector
@@ -42,11 +42,11 @@ describe SCSSLint::SelectorVisitor do
 
       let(:visitor) { TestAttributeVisitor.new }
 
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         [rel="nofollow"] {}
         a[href="http"] {}
         .class [data-count] {}
-      CSS
+      SCSS
 
       it 'visits all attribute nodes' do
         visitor.node_order.should == %w[rel href data-count]
@@ -62,11 +62,11 @@ describe SCSSLint::SelectorVisitor do
 
       let(:visitor) { TestClassVisitor.new }
 
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         a.link {}
         .menu .menu-item {}
         .button[data-source], .overlay {}
-      CSS
+      SCSS
 
       it 'visits all class nodes' do
         visitor.node_order.should == %w[link menu menu-item button overlay]
@@ -82,11 +82,11 @@ describe SCSSLint::SelectorVisitor do
 
       let(:visitor) { TestElementVisitor.new }
 
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         a, b {}
         .class {}
         i + p {}
-      CSS
+      SCSS
 
       it 'visits all element nodes' do
         visitor.node_order.should == %w[a b i p]
@@ -102,10 +102,10 @@ describe SCSSLint::SelectorVisitor do
 
       let(:visitor) { TestIdVisitor.new }
 
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         #something, #thing {}
         #object + #entity {}
-      CSS
+      SCSS
 
       it 'visits all id nodes' do
         visitor.node_order.should == %w[something thing object entity]
@@ -121,13 +121,13 @@ describe SCSSLint::SelectorVisitor do
 
       let(:visitor) { TestParentVisitor.new }
 
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           &.class {}
           .container & {}
           .nothing {}
         }
-      CSS
+      SCSS
 
       it 'visits all parent nodes' do
         visitor.node_order.should == [2, 3]
@@ -143,10 +143,10 @@ describe SCSSLint::SelectorVisitor do
 
       let(:visitor) { TestPlaceholderVisitor.new }
 
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         %placeholder, %other-placeholder {}
         .button, %button {}
-      CSS
+      SCSS
 
       it 'visits all placeholder nodes' do
         visitor.node_order.should == %w[placeholder other-placeholder button]
@@ -162,12 +162,12 @@ describe SCSSLint::SelectorVisitor do
 
       let(:visitor) { TestPseudoVisitor.new }
 
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         li:first-child, li:last-child {}
         p {
           &:first-letter {}
         }
-      CSS
+      SCSS
 
       it 'visits all pseudo-selector nodes' do
         visitor.node_order.should == %w[first-child last-child first-letter]
@@ -183,12 +183,12 @@ describe SCSSLint::SelectorVisitor do
 
       let(:visitor) { TestUniversalVisitor.new }
 
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p > * {}
         * {}
         li {}
         *:first-child {}
-      CSS
+      SCSS
 
       it 'visits all universal-selector nodes' do
         visitor.node_order.should == [1, 2, 4]
@@ -204,13 +204,13 @@ describe SCSSLint::SelectorVisitor do
 
       let(:visitor) { TestSimpleSequenceVisitor.new }
 
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         a, b, p[lang] {}
         a.link + b.word {}
         li {}
         ul > li {}
         p span {}
-      CSS
+      SCSS
 
       it 'visits all simple sequences' do
         visitor.node_order.count.should == 10
@@ -226,13 +226,13 @@ describe SCSSLint::SelectorVisitor do
 
       let(:visitor) { TestSequenceVisitor.new }
 
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         a, b, p[lang] {}
         a.link + b.word {}
         li {}
         ul > li {}
         p span {}
-      CSS
+      SCSS
 
       it 'visits all sequences' do
         visitor.node_order.count.should == 7
@@ -248,13 +248,13 @@ describe SCSSLint::SelectorVisitor do
 
       let(:visitor) { TestCommaSequenceVisitor.new }
 
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         a, b, p[lang] {}
         a.link + b.word {}
         li {}
         ul > li {}
         p span {}
-      CSS
+      SCSS
 
       it 'visits all comma (i.e. selector) sequences' do
         visitor.node_order.count.should == 5

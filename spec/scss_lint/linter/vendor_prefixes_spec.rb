@@ -2,20 +2,20 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::VendorPrefixes do
   context 'when no vendor-prefix is used' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
         transition: none;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when a rule is empty' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
@@ -23,31 +23,31 @@ describe SCSSLint::Linter::VendorPrefixes do
   # Properties
 
   context 'when a vendor-prefixed listed property is used' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
         -webkit-transition: none;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when an unprefixed listed property is used' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
         transition: none;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when a vendor-prefixed unlisted property is used' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
         -webkit-appearance: none;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
@@ -55,21 +55,21 @@ describe SCSSLint::Linter::VendorPrefixes do
   context 'when a vendor-prefixed custom-listed property is used' do
     let(:linter_config) { { 'identifier_list' => ['transform'] } }
 
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
         -webkit-transform: none;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when a proprietary unlisted vendor-prefixed property is used' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
         -moz-padding-end: 0;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
@@ -77,11 +77,11 @@ describe SCSSLint::Linter::VendorPrefixes do
   context 'when a proprietary listed vendor-prefixed property is used' do
     let(:linter_config) { { 'identifier_list' => ['padding-end'] } }
 
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
         -moz-padding-end: 0;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
@@ -89,7 +89,7 @@ describe SCSSLint::Linter::VendorPrefixes do
   # Selectors
 
   context 'when a vendor-prefixed listed selector is used' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       ::-moz-placeholder {
         color: red;
       }
@@ -99,7 +99,7 @@ describe SCSSLint::Linter::VendorPrefixes do
       :-moz-fullscreen p {
         font-size: 200%;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 1 }
     it { should report_lint line: 4 }
@@ -107,14 +107,14 @@ describe SCSSLint::Linter::VendorPrefixes do
   end
 
   context 'when an unprefixed listed selector is used' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       ::placeholder {
         color: red;
       }
       :fullscreen p {
         font-size: 200%;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
@@ -122,11 +122,11 @@ describe SCSSLint::Linter::VendorPrefixes do
   context 'when a vendor-prefixed unlisted selector is used' do
     let(:linter_config) { { 'identifier_list' => ['transform'] } }
 
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       ::-moz-placeholder {
         color: red;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
@@ -134,11 +134,11 @@ describe SCSSLint::Linter::VendorPrefixes do
   context 'when a vendor-prefixed custom-listed selector is used' do
     let(:linter_config) { { 'identifier_list' => ['placeholder'] } }
 
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       ::-moz-placeholder {
         color: red;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 1 }
   end
@@ -146,21 +146,21 @@ describe SCSSLint::Linter::VendorPrefixes do
   # Directives
 
   context 'when a vendor-prefixed listed directive is used' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @-webkit-keyframes anim {
         0% { opacity: 0; }
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 1 }
   end
 
   context 'when an unprefixed listed directive is used' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @keyframes anim {
         0% { opacity: 0; }
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
@@ -168,11 +168,11 @@ describe SCSSLint::Linter::VendorPrefixes do
   context 'when an vendor-prefixed unlisted directive is used' do
     let(:linter_config) { { 'identifier_list' => ['placeholder'] } }
 
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @-webkit-keyframes anim {
         0% { opacity: 0; }
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
@@ -180,11 +180,11 @@ describe SCSSLint::Linter::VendorPrefixes do
   context 'when an vendor-prefixed custom-listed directive is used' do
     let(:linter_config) { { 'identifier_list' => ['keyframes'] } }
 
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @-webkit-keyframes anim {
         0% { opacity: 0; }
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 1 }
   end
@@ -192,23 +192,23 @@ describe SCSSLint::Linter::VendorPrefixes do
   # Values
 
   context 'when a vendor-prefixed listed value is used' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
         background-image: -webkit-linear-gradient(#000, #fff);
         position: -moz-sticky;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
     it { should report_lint line: 3 }
   end
 
   context 'when an unprefixed listed value is used' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
         background-image: linear-gradient(#000, #fff);
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
@@ -216,12 +216,12 @@ describe SCSSLint::Linter::VendorPrefixes do
   context 'when a vendor-unprefixed unlisted value is used' do
     let(:linter_config) { { 'identifier_list' => ['keyframes'] } }
 
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
         background-image: -webkit-linear-gradient(#000, #fff);
         position: -moz-sticky;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
@@ -229,12 +229,12 @@ describe SCSSLint::Linter::VendorPrefixes do
   context 'when a vendor-unprefixed custom-listed value is used' do
     let(:linter_config) { { 'identifier_list' => ['linear-gradient'] } }
 
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
         background-image: -webkit-linear-gradient(#000, #fff);
         position: -moz-sticky;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
@@ -245,33 +245,33 @@ describe SCSSLint::Linter::VendorPrefixes do
     let(:linter_config) { { 'identifier_list' => 'bourbon' } }
 
     context 'and a standard vendor-prefixed property is used' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         div {
           background-image: -webkit-linear-gradient(#000, #fff);
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'and a list-specific vendor-prefixed property is used' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         div {
           image-rendering: -moz-crisp-edges;
           -webkit-appearance: none;
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
       it { should report_lint line: 3 }
     end
 
     context 'and a list-exempt vendor-prefixed property is used' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         div {
           -webkit-mask-repeat: inherit;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
@@ -282,14 +282,14 @@ describe SCSSLint::Linter::VendorPrefixes do
   context 'when manually excluding identifiers' do
     let(:linter_config) { { 'exclude' => %w[transform selection] } }
 
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
         -wekit-transform: translateZ(0);
       }
       ::-moz-selection {
         color: #000;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
@@ -297,24 +297,24 @@ describe SCSSLint::Linter::VendorPrefixes do
   context 'when manually including identifiers' do
     let(:linter_config) { { 'include' => ['padding-end'] } }
 
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
         -moz-padding-end: 0;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   # More
   context 'when dealing with many-hyphened vendor-prefixed identifiers' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
         -moz-animation-timing-function: ease-out;
         -webkit-border-bottom-right-radius: 5px;
         background: -o-repeating-radial-gradient(#000, #000 5px, #fff 5px, #fff 10px)
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
     it { should report_lint line: 3 }
@@ -322,19 +322,19 @@ describe SCSSLint::Linter::VendorPrefixes do
   end
 
   context 'when dealing with many-hyphened unprefixed identifiers' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       div {
         animation-timing-function: ease-out;
         border-bottom-right-radius: 5px;
         background: repeating-radial-gradient(#000, #000 5px, #fff 5px, #fff 10px)
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when vendor-prefixed media queries are used' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
     @media
       only screen and (-webkit-min-device-pixel-ratio: 1.3),
       only screen and (-o-min-device-pixel-ratio: 13/10),
@@ -343,7 +343,7 @@ describe SCSSLint::Linter::VendorPrefixes do
           background: #fff;
         }
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end

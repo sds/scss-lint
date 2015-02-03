@@ -2,39 +2,39 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::DuplicateProperty do
   context 'when rule set is empty' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when rule set contains no duplicates' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         margin: 0;
         padding: 0;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when rule set contains duplicates' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         margin: 0;
         padding: 0;
         margin: 1em;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 4 }
   end
 
   context 'when rule set contains duplicates but only on vendor-prefixed property values' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         background: -moz-linear-gradient(center top , #fff, #000);
         background: -ms-linear-gradient(center top , #fff, #000);
@@ -43,59 +43,59 @@ describe SCSSLint::Linter::DuplicateProperty do
         background: linear-gradient(center top , #fff, #000);
         margin: 1em;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when placeholder contains duplicates but only on vendor-prefixed values' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       %cursor-grabbing {
         cursor: -moz-grabbing;
         cursor: -webkit-grabbing;
         cursor: grabbing;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when placeholder contains exact duplicates besides for vendor-prefixed values' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       %cursor-grabbing {
         cursor: grabbing;
         cursor: grabbing;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 3 }
   end
 
   context 'when mixin contains duplicates but only on vendor-prefixed values' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @mixin cursor-grabbing($num) {
         cursor: -moz-grabbing;
         cursor: -webkit-grabbing;
         cursor: grabbing;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when mixin contains duplicates besides for vendor-prefixed values' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @mixin cursor-grabbing($num) {
         cursor: grabbing;
         cursor: grabbing;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 3 }
   end
 
   context 'when rule set contains exact duplicates besides for vendor-prefixed property values' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         background: -moz-linear-gradient(center top , #fff, #000);
         background: -ms-linear-gradient(center top , #fff, #000);
@@ -105,13 +105,13 @@ describe SCSSLint::Linter::DuplicateProperty do
         background: linear-gradient(center top , #fff, #000);
         margin: 1em;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 7 }
   end
 
   context 'when rule set contains non-exact duplicates besides for vendor-prefixed values' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         background: -moz-linear-gradient(center top , #fff, #000);
         background: -ms-linear-gradient(center top , #fff, #000);
@@ -121,68 +121,68 @@ describe SCSSLint::Linter::DuplicateProperty do
         background: linear-gradient-b(center top , #fff, #000);
         margin: 1em;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 7 }
   end
 
   context 'when rule set contains multiple duplicates' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         margin: 0;
         padding: 0;
         margin: 1em;
         margin: 2em;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 4 }
     it { should report_lint line: 5 }
   end
 
   context 'when rule set contains duplicate properties with interpolation' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         $direction: 'right';
         margin-\#{direction}: 0;
         $direction: 'left';
         margin-\#{direction}: 0;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when property contains a variable' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         color: $some-color;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when property contains a duplicate variable' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         color: $some-color;
         color: $some-color;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 3 }
   end
 
   context 'when property contains a duplicate value in a nested rule set' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       .outer {
         .inner {
           color: $some-color;
           color: $some-color;
         }
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 4 }
   end

@@ -2,37 +2,37 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::UnnecessaryMantissa do
   context 'when value is zero' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         margin: 0;
         padding: func(0);
         top: 0em;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when value contains no mantissa' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         margin: 1;
         padding: func(1);
         top: 1em;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when value contains a mantissa with a zero' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         margin: 1.0;
         padding: func(1.0);
         top: 1.0em;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
     it { should report_lint line: 3 }
@@ -40,13 +40,13 @@ describe SCSSLint::Linter::UnnecessaryMantissa do
   end
 
   context 'when value contains a mantissa with multiple zeroes' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         margin: 1.000;
         padding: func(1.000);
         top: 1.000em;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
     it { should report_lint line: 3 }
@@ -54,13 +54,13 @@ describe SCSSLint::Linter::UnnecessaryMantissa do
   end
 
   context 'when value contains a mantissa with multiple zeroes followed by a number' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         margin: 1.0001;
         padding: func(1.0001);
         top: 1.0001em;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end

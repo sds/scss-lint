@@ -2,31 +2,31 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::ImportantRule do
   context 'when !important is not used' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         color: #000;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when !important is used' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         color: #000 !important;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when !important is used in property containing Sass script' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         color: \#{$my-var} !important;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end

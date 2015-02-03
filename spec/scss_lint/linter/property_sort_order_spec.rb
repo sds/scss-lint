@@ -2,29 +2,29 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::PropertySortOrder do
   context 'when rule is empty' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when rule contains properties in sorted order' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         background: #000;
         display: none;
         margin: 5px;
         padding: 10px;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when rule contains mixins followed by properties in sorted order' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         @include border-radius(5px);
         background: #000;
@@ -32,13 +32,13 @@ describe SCSSLint::Linter::PropertySortOrder do
         margin: 5px;
         padding: 10px;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when rule contains nested rules after sorted properties' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         background: #000;
         display: none;
@@ -48,25 +48,25 @@ describe SCSSLint::Linter::PropertySortOrder do
           color: #555;
         }
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when rule contains properties in random order' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         padding: 5px;
         display: block;
         margin: 10px;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when there are multiple rules with out of order properties' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         display: block;
         background: #fff;
@@ -75,14 +75,14 @@ describe SCSSLint::Linter::PropertySortOrder do
         margin: 5px;
         color: #444;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
     it { should report_lint line: 6 }
   end
 
   context 'when there are nested rules with out of order properties' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         display: block;
         background: #fff;
@@ -91,138 +91,138 @@ describe SCSSLint::Linter::PropertySortOrder do
           color: #444;
         }
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
     it { should report_lint line: 5 }
   end
 
   context 'when out-of-order property is the second last in the list of sorted properties' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         border: 0;
         border-radius: 3px;
         float: left;
         display: block;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 4 }
   end
 
   context 'when vendor-prefixed properties are ordered after the non-prefixed property' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         border-radius: 3px;
         -moz-border-radius: 3px;
         -o-border-radius: 3px;
         -webkit-border-radius: 3px;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when vendor-prefixed properties are ordered before the non-prefixed property' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         -moz-border-radius: 3px;
         -o-border-radius: 3px;
         -webkit-border-radius: 3px;
         border-radius: 3px;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when using -moz-osx vendor-prefixed property' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when vendor properties are ordered out-of-order before the non-prefixed property' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         -o-border-radius: 3px;
         border-radius: 3px;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 3 }
   end
 
   context 'when include block contains properties in sorted order' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @include some-mixin {
         background: #000;
         display: none;
         margin: 5px;
         padding: 10px;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when include block contains properties not in sorted order' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @include some-mixin {
         background: #000;
         margin: 5px;
         display: none;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 3 }
   end
 
   context 'when @media block contains properties not in sorted order' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @media screen and (min-width: 500px) {
         margin: 5px;
         display: none;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when if block contains properties in sorted order' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @if $var {
         background: #000;
         display: none;
         margin: 5px;
         padding: 10px;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when if block contains properties not in sorted order' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @if $var {
         background: #000;
         margin: 5px;
         display: none;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 3 }
   end
 
   context 'when if block contains properties in sorted order' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @if $var {
         // Content
       } @else {
@@ -231,13 +231,13 @@ describe SCSSLint::Linter::PropertySortOrder do
         margin: 5px;
         padding: 10px;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when else block contains properties not in sorted order' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @if $var {
         // Content
       } @else {
@@ -245,7 +245,7 @@ describe SCSSLint::Linter::PropertySortOrder do
         margin: 5px;
         display: none;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 5 }
   end
@@ -254,31 +254,31 @@ describe SCSSLint::Linter::PropertySortOrder do
     let(:linter_config) { { 'order' => %w[position display padding margin width] } }
 
     context 'and the properties match the specified order' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           display: block;
           padding: 5px;
           margin: 10px;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'and the properties do not match the specified order' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           padding: 5px;
           display: block;
           margin: 10px;
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'and there are properties that are not specified in the explicit ordering' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           display: block;
           padding: 5px;
@@ -288,7 +288,7 @@ describe SCSSLint::Linter::PropertySortOrder do
           background: red;   // Unspecified
           width: 100%;
         }
-      CSS
+      SCSS
 
       context 'and the ignore_unspecified option is enabled' do
         let(:linter_config) { super().merge('ignore_unspecified' => true) }
@@ -308,27 +308,27 @@ describe SCSSLint::Linter::PropertySortOrder do
     let(:linter_config) { { 'order' => 'concentric' } }
 
     context 'and the properties match the order' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           display: block;
           position: absolute;
           float: left;
           clear: both;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'and the properties do not match the order' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           clear: both;
           display: block;
           float: left;
           position: absolute;
         }
-      CSS
+      SCSS
 
       it { should report_lint }
     end
@@ -344,7 +344,7 @@ describe SCSSLint::Linter::PropertySortOrder do
     let(:linter_config) { { 'separate_groups' => true, 'order' => order } }
 
     context 'and the groups are separated correctly' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           display: none;
           position: absolute;
@@ -354,13 +354,13 @@ describe SCSSLint::Linter::PropertySortOrder do
 
           float: left;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'and the groups are separated incorrectly' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           display: none;
           position: absolute;
@@ -370,13 +370,13 @@ describe SCSSLint::Linter::PropertySortOrder do
 
           float: left;
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 4 }
     end
 
     context 'and the groups are separated by a comment' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           display: none;
           position: absolute;
@@ -386,7 +386,7 @@ describe SCSSLint::Linter::PropertySortOrder do
           //
           float: left;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
@@ -395,7 +395,7 @@ describe SCSSLint::Linter::PropertySortOrder do
       let(:order) { %w[display position] + [nil, nil] + %w[margin padding] }
 
       context 'and the groups are separated correctly' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           p {
             display: none;
             position: absolute;
@@ -403,13 +403,13 @@ describe SCSSLint::Linter::PropertySortOrder do
             margin: 0;
             padding: 0;
           }
-        CSS
+        SCSS
 
         it { should_not report_lint }
       end
 
       context 'and the groups are separated incorrectly' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           p {
             display: none;
             position: absolute;
@@ -417,7 +417,7 @@ describe SCSSLint::Linter::PropertySortOrder do
 
             padding: 0;
           }
-        CSS
+        SCSS
 
         it { should report_lint line: 4 }
       end

@@ -2,84 +2,84 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::QualifyingElement do
   context 'when selector does not include an element' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       .foo {}
       #bar {}
       [foobar] {}
       .foo .bar {}
       #bar > .foo {}
       [foobar] #bar .foo {}
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when selector includes an element' do
     context 'and element does not qualify' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         ul {}
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'and element qualifies class' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         ul.list {}
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'and element qualifies attribute' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         a[href] {}
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'and element qualifies id' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         ul#list {}
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end
 
     context 'and selector is in a group' do
       context 'and element does not qualify' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           .list li,
           .item > span {}
-        CSS
+        SCSS
 
         it { should_not report_lint }
       end
 
       context 'and element qualifies class' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           .item span,
           ul > li.item {}
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'and element qualifies attribute' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           .item + span,
           li a[href] {}
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'and element qualifies id' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           #foo,
           li#item + li {}
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
@@ -87,36 +87,36 @@ describe SCSSLint::Linter::QualifyingElement do
 
     context 'and selector involves a combinator' do
       context 'and element does not qualify' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           .list li {}
           .list > li {}
           .item + li {}
           .item ~ li {}
-        CSS
+        SCSS
 
         it { should_not report_lint }
       end
 
       context 'and element qualifies class' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           ul > li.item {}
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'and element qualifies attribute' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           li a[href] {}
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end
 
       context 'and element qualifies id' do
-        let(:css) { <<-CSS }
+        let(:scss) { <<-SCSS }
           li#item + li {}
-        CSS
+        SCSS
 
         it { should report_lint line: 1 }
       end

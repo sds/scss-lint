@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::HexValidation do
   context 'when rule is empty' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
@@ -14,25 +14,25 @@ describe SCSSLint::Linter::HexValidation do
     gradient_css = 'progid:DXImageTransform.Microsoft.gradient' \
                    '(startColorstr=#99000000, endColorstr=#99000000)'
 
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         background: #000;
         color: #FFFFFF;
         border-color: red;
         filter: #{gradient_css};
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when rule contains invalid hex codes' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         background: #dd;
         color: #dddd;
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
     it { should report_lint line: 3 }

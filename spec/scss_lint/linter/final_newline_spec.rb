@@ -7,19 +7,19 @@ describe SCSSLint::Linter::FinalNewline do
     let(:present) { true }
 
     context 'when the file is empty' do
-      let(:css) { '' }
+      let(:scss) { '' }
 
       it { should_not report_lint }
     end
 
     context 'when the file ends with a newline' do
-      let(:css) { "p {}\n" }
+      let(:scss) { "p {}\n" }
 
       it { should_not report_lint }
     end
 
     context 'when the file does not end with a newline' do
-      let(:css) { 'p {}' }
+      let(:scss) { 'p {}' }
 
       it { should report_lint }
     end
@@ -29,19 +29,19 @@ describe SCSSLint::Linter::FinalNewline do
     let(:present) { false }
 
     context 'when the file is empty' do
-      let(:css) { '' }
+      let(:scss) { '' }
 
       it { should_not report_lint }
     end
 
     context 'when the file ends with a newline' do
-      let(:css) { "p {}\n" }
+      let(:scss) { "p {}\n" }
 
       it { should report_lint }
     end
 
     context 'when the file does not end with a newline' do
-      let(:css) { 'p {}' }
+      let(:scss) { 'p {}' }
 
       it { should_not report_lint }
     end

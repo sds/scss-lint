@@ -2,16 +2,16 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::EmptyRule do
   context 'when rule is empty' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 1 }
   end
 
   context 'when rule contains an empty nested rule' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         background: #000;
         display: none;
@@ -20,7 +20,7 @@ describe SCSSLint::Linter::EmptyRule do
         a {
         }
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 6 }
   end

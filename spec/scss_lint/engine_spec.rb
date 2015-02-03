@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe SCSSLint::Engine do
-  let(:engine) { described_class.new(css) }
+  let(:engine) { described_class.new(scss) }
 
   context 'when a @media directive is present' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       @media only screen {
       }
-    CSS
+    SCSS
 
     it 'has a parse tree' do
       engine.tree.should_not be_nil
@@ -15,7 +15,7 @@ describe SCSSLint::Engine do
   end
 
   context 'when the file being linted has an invalid byte sequence' do
-    let(:css) { "\xC0\u0001" }
+    let(:scss) { "\xC0\u0001" }
 
     it 'raises a SyntaxError' do
       expect { engine }.to raise_error(SCSSLint::FileEncodingError)

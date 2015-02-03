@@ -2,59 +2,59 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::IdSelector do
   context 'when rule is a type' do
-    let(:css) { 'p {}' }
+    let(:scss) { 'p {}' }
 
     it { should_not report_lint }
   end
 
   context 'when rule is an ID' do
-    let(:css) { '#identifier {}' }
+    let(:scss) { '#identifier {}' }
 
     it { should report_lint line: 1 }
   end
 
   context 'when rule is a class' do
-    let(:css) { '.class {}' }
+    let(:scss) { '.class {}' }
 
     it { should_not report_lint }
   end
 
   context 'when rule is a type with a class' do
-    let(:css) { 'a.class {}' }
+    let(:scss) { 'a.class {}' }
 
     it { should_not report_lint }
   end
 
   context 'when rule is a type with an ID' do
-    let(:css) { 'a#identifier {}' }
+    let(:scss) { 'a#identifier {}' }
 
     it { should report_lint line: 1 }
   end
 
   context 'when rule is an ID with a pseudo-selector' do
-    let(:css) { '#identifier:active {}' }
+    let(:scss) { '#identifier:active {}' }
 
     it { should report_lint line: 1 }
   end
 
   context 'when rule contains a nested rule with type and ID' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         a#identifier {}
       }
-    CSS
+    SCSS
 
     it { should report_lint line: 2 }
   end
 
   context 'when rule contains multiple selectors' do
     context 'when all of the selectors are just IDs, classes, or types' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         #identifier,
         .class,
         a {
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
     end

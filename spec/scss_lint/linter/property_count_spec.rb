@@ -4,7 +4,7 @@ describe SCSSLint::Linter::PropertyCount do
   let(:linter_config) { { 'max_properties' => 3 } }
 
   context 'when the number of properties in each individual rule set is under the limit' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         margin: 0;
         padding: 0;
@@ -22,13 +22,13 @@ describe SCSSLint::Linter::PropertyCount do
         text-decoration: underline;
         text-transform: lowercase;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint }
   end
 
   context 'when the number of properties in an individual rule set is over the limit' do
-    let(:css) { <<-CSS }
+    let(:scss) { <<-SCSS }
       p {
         margin: 0;
         padding: 0;
@@ -47,7 +47,7 @@ describe SCSSLint::Linter::PropertyCount do
         text-decoration: underline;
         text-transform: lowercase;
       }
-    CSS
+    SCSS
 
     it { should_not report_lint line: 1 }
     it { should report_lint line: 6 }
@@ -57,7 +57,7 @@ describe SCSSLint::Linter::PropertyCount do
     let(:linter_config) { super().merge('include_nested' => true) }
 
     context 'when the number of total nested properties under the limit' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           margin: 0;
 
@@ -72,13 +72,13 @@ describe SCSSLint::Linter::PropertyCount do
           text-decoration: underline;
           text-transform: lowercase;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when the number of total nested properties is over the limit' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           margin: 0;
           padding: 0;
@@ -95,7 +95,7 @@ describe SCSSLint::Linter::PropertyCount do
           text-decoration: underline;
           text-transform: lowercase;
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 1 }
       it { should_not report_lint line: 12 }

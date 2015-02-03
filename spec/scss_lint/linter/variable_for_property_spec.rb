@@ -5,85 +5,85 @@ describe SCSSLint::Linter::VariableForProperty do
     let(:linter_config) { { 'properties' => %w[color font] } }
 
     context 'when configured property value is a variable' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           color: $black;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when configured property value is a hex string' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           color: #000;
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'when configured property value is a color keyword' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           color: red;
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
     end
 
     context 'when an unspecified property value is a variable' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           background-color: $black;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when an unspecified property value is not a variable' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           background-color: #000;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when multiple configured property values are variables' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           color: $black;
           font: $small;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when multiple configured property values are not variables' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           color: #000;
           font: 8px;
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 2 }
       it { should report_lint line: 3 }
     end
 
     context 'when configured property values are mixed' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           color: $black;
           font: 8px;
         }
-      CSS
+      SCSS
 
       it { should report_lint line: 3 }
     end
@@ -93,21 +93,21 @@ describe SCSSLint::Linter::VariableForProperty do
     let(:linter_config) { { 'properties' => [] } }
 
     context 'when property value is a variable' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           color: $black;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
 
     context 'when property value is not a variable' do
-      let(:css) { <<-CSS }
+      let(:scss) { <<-SCSS }
         p {
           color: #000;
         }
-      CSS
+      SCSS
 
       it { should_not report_lint }
     end
