@@ -424,6 +424,27 @@ never be used](http://screwlewse.com/2010/07/dont-use-id-selectors-in-css/) for
 the purposes of styling an element, as it leads to overly specific styles that
 aren't easily shared with other elements.
 
+## ImportantRule
+
+Avoid using `!important` in properties. It is usually indicative of a
+misunderstanding of CSS
+[specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity)
+and can lead to brittle code.
+
+*Bad*
+```scss
+p {
+  color: #f00 !important;
+}
+```
+
+*Good*
+```scss
+p {
+  color: #f00;
+}
+```
+
 ## ImportPath
 
 The basenames of `@import`ed SCSS partials should not begin with an underscore
@@ -454,27 +475,6 @@ Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `leading_underscore` | `false` or `true` (default **false**)
 `filename_extension` | `false` or `true` (default **false**)
-
-## ImportantRule
-
-Avoid using `!important` in properties. It is usually indicative of a
-misunderstanding of CSS
-[specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity)
-and can lead to brittle code.
-
-*Bad*
-```scss
-p {
-  color: #f00 !important;
-}
-```
-
-*Good*
-```scss
-p {
-  color: #f00;
-}
-```
 
 ## Indentation
 
