@@ -18,7 +18,8 @@
 * Fix control comments placed before `@include` blocks to apply within them
 * Fix crash in `PropertySortOrder` when non-existent preset sort order or
   otherwise invalid sort order are specified in the configuration
-* Add `break-after`, `break-before`, and `break-inside` to list of properties
+* Add `break-after`, `break-before`, `break-inside`, and `text-size-adjust`
+  to list of recognized properties
 * Fix recognition of control comments in selector comma sequences
 * Add `allow_non_nested_indentation` option to `Indentation` linter
 

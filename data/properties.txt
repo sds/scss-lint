@@ -421,6 +421,7 @@ text-overline-style
 text-overline-width
 text-rendering
 text-security
+text-size-adjust
 text-shadow
 text-stroke
 text-stroke-color
