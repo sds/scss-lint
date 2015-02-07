@@ -62,7 +62,7 @@ describe SCSSLint::Config do
       let(:config_file) { '' }
 
       it 'returns the default configuration' do
-        subject.should == described_class.default
+        subject.options.should == described_class.default.options
       end
     end
 
@@ -70,7 +70,7 @@ describe SCSSLint::Config do
       let(:config_file) { '# This is a comment' }
 
       it 'returns the default configuration' do
-        subject.should == described_class.default
+        subject.options.should == described_class.default.options
       end
     end
 
@@ -88,7 +88,7 @@ describe SCSSLint::Config do
       let(:config_file) { default_file }
 
       it 'returns a configuration equivalent to the default' do
-        subject.should == described_class.default
+        subject.options.should == described_class.default.options
       end
     end
 
@@ -100,7 +100,7 @@ describe SCSSLint::Config do
       FILE
 
       it 'returns a configuration equivalent to the default' do
-        subject.should == described_class.default
+        subject.options.should == described_class.default.options
       end
     end
 

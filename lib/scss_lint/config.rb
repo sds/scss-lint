@@ -211,11 +211,6 @@ module SCSSLint
       validate_linters
     end
 
-    def ==(other)
-      super || @options == other.options
-    end
-    alias_method :eql?, :==
-
     def enabled_linters
       LinterRegistry.extract_linters_from(@options['linters'].keys).select do |linter|
         linter_options(linter)['enabled']
