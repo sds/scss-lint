@@ -24,6 +24,8 @@
 * Add `allow_non_nested_indentation` option to `Indentation` linter
 * Remove support for per-directory configuration and `inherit_from` from
   the configuration system
+* Allow files without `.scss`/`.css` extension to be linted if they are
+  passed explicitly (i.e. you do not specify a directory, but the file itself)
 
 ## 0.33.0
 

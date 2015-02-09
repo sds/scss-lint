@@ -1,4 +1,3 @@
-require 'find'
 require 'rainbow'
 require 'rainbow/ext/string'
 require 'scss_lint/options'
@@ -49,7 +48,7 @@ module SCSSLint
 
     def scan_for_lints(options, config)
       runner = Runner.new(config)
-      runner.run(files_to_lint(options, config))
+      runner.run(FileFinder.new(config).find(options[:files]))
       report_lints(options, runner.lints)
 
       if runner.lints.any?(&:error?)
@@ -121,36 +120,6 @@ module SCSSLint
       end
 
       config
-    end
-
-    def files_to_lint(options, config)
-      if options[:files].empty?
-        options[:files] = config.scss_files
-      end
-
-      extract_files_from(options[:files]).reject do |file|
-        config.excluded_file?(file)
-      end
-    end
-
-    # @param list [Array]
-    def extract_files_from(list)
-      files = []
-      list.each do |file|
-        Find.find(file) do |f|
-          files << f if scssish_file?(f)
-        end
-      end
-      files.uniq
-    end
-
-    VALID_EXTENSIONS = %w[.css .scss]
-    # @param file [String]
-    # @return [Boolean]
-    def scssish_file?(file)
-      return false unless FileTest.file?(file)
-
-      VALID_EXTENSIONS.include?(File.extname(file))
     end
 
     # @param options [Hash]

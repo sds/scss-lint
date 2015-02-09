@@ -33,7 +33,7 @@ describe SCSSLint::CLI do
     subject     { SCSSLint::CLI.new }
 
     before do
-      subject.stub(:extract_files_from).and_return(files)
+      SCSSLint::FileFinder.any_instance.stub(:find).and_return(files)
     end
 
     def safe_run
