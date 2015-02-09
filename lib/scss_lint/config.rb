@@ -1,4 +1,3 @@
-require 'pathname'
 require 'yaml'
 
 module SCSSLint
@@ -7,7 +6,6 @@ module SCSSLint
     FILE_NAME = '.scss-lint.yml'
     DEFAULT_FILE = File.join(SCSS_LINT_HOME, 'config', 'default.yml')
 
-    attr_accessor :preferred # If this config should be preferred over others
     attr_reader :options, :warnings
 
     class << self
@@ -27,30 +25,12 @@ module SCSSLint
         Config.new(config_options)
       end
 
-      # Loads the configuration for a given file.
-      def for_file(file_path)
-        directory = File.dirname(File.expand_path(file_path))
-        @dir_to_config ||= {}
-        @dir_to_config[directory] ||=
-          begin
-            config_file = possible_config_files(directory).find(&:file?)
-            Config.load(config_file.to_s) if config_file
-          end
-      end
-
       def linter_name(linter)
         linter = linter.is_a?(Class) ? linter : linter.class
         linter.name.split('::')[2..-1].join('::')
       end
 
     private
-
-      def possible_config_files(directory)
-        files = Pathname.new(directory)
-                        .enum_for(:ascend)
-                        .map { |path| path + FILE_NAME }
-        files << Pathname.new(FILE_NAME)
-      end
 
       def default_options_hash
         @default_options_hash ||= load_options_hash_from_file(DEFAULT_FILE)
@@ -74,7 +54,6 @@ module SCSSLint
         end
 
         options = convert_single_options_to_arrays(options)
-        options = extend_inherited_configs(options, file)
         options = merge_wildcard_linter_options(options)
         options = ensure_exclude_paths_are_absolute(options, file)
         options = ensure_linter_exclude_paths_are_absolute(options, file)
@@ -88,29 +67,11 @@ module SCSSLint
 
         if options['exclude']
           # Ensure exclude is an array, since we allow user to specify a single
-          # string. We do this before merging with the config loaded via
-          # inherit_from since this allows us to merge the excludes from that,
-          # rather than overwriting them.
+          # string.
           options['exclude'] = [options['exclude']].flatten
         end
 
         options
-      end
-
-      # Loads and extends a list of inherited options with the given options.
-      def extend_inherited_configs(options, original_file)
-        return options unless options['inherit_from']
-        options = options.dup
-
-        includes = [options.delete('inherit_from')].flatten.map do |include_file|
-          load_options_hash_from_file(path_relative_to_config(include_file, original_file))
-        end
-
-        merged_includes = includes[1..-1].inject(includes.first) do |merged, include_file|
-          smart_merge(merged, include_file)
-        end
-
-        smart_merge(merged_includes, options)
       end
 
       # Merge options from wildcard linters into individual linter configs

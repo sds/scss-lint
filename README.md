@@ -72,17 +72,17 @@ Command Line Flag         | Description
 
 ## Configuration
 
-`scss-lint` will automatically recognize and load any file with the name
-`.scss-lint.yml` as a configuration file. It loads the configuration based on
-the location of the file being linted, starting from that file's directory and
-ascending until a configuration file is found. Any configuration loaded is
-automatically merged with the default configuration (see `config/default.yml`).
+`scss-lint` will automatically load the file `.scss-lint.yml` if one exists in
+the current working directory merging it with the [default
+configuration](config/default.yml). Otherwise, it uses the default
+configuration as-is.
+
+You can also specify that a specific configuration file be used via the
+`--config` flag. It will still be merged with the default configuration.
 
 Here's an example configuration file:
 
 ```yaml
-inherit_from: '../../inherited-config.yml'
-
 scss_files: 'app/assets/stylesheets/**/*.css.scss'
 
 exclude: 'app/assets/stylesheets/plugins/**'
@@ -113,13 +113,6 @@ integrating `scss-lint` with build systems or other executables, as you can
 rely on its exit status code to indicate whether a lint actually requires
 attention.
 
-### Extending Configurations
-
-The `inherit_from` directive allows a configuration file to inherit settings
-from another configuration file. The file specified by `inherit_from` is loaded
-and then merged with the settings in the current file (settings in the current
-file overrule those in the inherited file).
-
 ### Excluding Files
 
 The `exclude` directive allows you to specify a glob pattern of files that
@@ -129,14 +122,6 @@ specifies the `exclude` directive, the two exclusion lists are combined. Any
 additional exclusions specified via the `--exclude` flag are also combined. If
 you need to exclude files for a single linter you can specify the list of files
 using the linter's `exclude` configuration option.
-
-### Explicit Configuration File
-
-You can also configure `scss-lint` by specifying a file via the `--config`
-flag, but note that this will override any configuration files that `scss-lint`
-would normally find on its own (this can be useful for testing a particular
-configuration setting, however). Configurations loaded this way will still be
-merged with the default configuration specified by `config/default.yml`.
 
 ### Generating a Configuration
 

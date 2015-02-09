@@ -17,7 +17,6 @@ describe SCSSLint::Runner do
     SCSSLint::LinterRegistry.stub(:linters)
                             .and_return([SCSSLint::Linter::FakeLinter1,
                                          SCSSLint::Linter::FakeLinter2])
-    SCSSLint::Config.stub(:for_file)
   end
 
   class SCSSLint::Linter::FakeLinter1 < SCSSLint::Linter; end

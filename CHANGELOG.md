@@ -22,6 +22,8 @@
   to list of recognized properties
 * Fix recognition of control comments in selector comma sequences
 * Add `allow_non_nested_indentation` option to `Indentation` linter
+* Remove support for per-directory configuration and `inherit_from` from
+  the configuration system
 
 ## 0.33.0
 

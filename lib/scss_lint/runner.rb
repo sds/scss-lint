@@ -31,12 +31,10 @@ module SCSSLint
     # @param file [String]
     def find_lints(file)
       engine = Engine.new(file)
-      config = @config.preferred ? @config : Config.for_file(file)
-      config ||= @config
 
       @linters.each do |linter|
         begin
-          run_linter(linter, engine, config, file)
+          run_linter(linter, engine, file)
         rescue => error
           raise SCSSLint::Exceptions::LinterError,
                 "#{linter.class} raised unexpected error linting file #{file}: " \
@@ -52,10 +50,10 @@ module SCSSLint
     end
 
     # For stubbing in tests.
-    def run_linter(linter, engine, config, file)
-      return unless config.linter_enabled?(linter)
-      return if config.excluded_file_for_linter?(file, linter)
-      linter.run(engine, config.linter_options(linter))
+    def run_linter(linter, engine, file)
+      return unless @config.linter_enabled?(linter)
+      return if @config.excluded_file_for_linter?(file, linter)
+      linter.run(engine, @config.linter_options(linter))
     end
   end
 end

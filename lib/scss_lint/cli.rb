@@ -87,9 +87,9 @@ module SCSSLint
     def setup_configuration(options)
       config =
         if options[:config_file]
-          Config.load(options[:config_file]).tap do |conf|
-            conf.preferred = true
-          end
+          Config.load(options[:config_file])
+        elsif File.exist?(Config::FILE_NAME)
+          Config.load(Config::FILE_NAME)
         else
           Config.default
         end
@@ -129,14 +129,7 @@ module SCSSLint
       end
 
       extract_files_from(options[:files]).reject do |file|
-        actual_config =
-          if !config.preferred && (config_for_file = Config.for_file(file))
-            merge_options_with_config(options, config_for_file.dup)
-          else
-            config
-          end
-
-        actual_config.excluded_file?(file)
+        config.excluded_file?(file)
       end
     end
 
