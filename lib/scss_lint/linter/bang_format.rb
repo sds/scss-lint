@@ -6,7 +6,7 @@ module SCSSLint
     STOPPING_CHARACTERS = ['!', "'", '"', nil]
 
     def visit_prop(node)
-      return unless node.to_sass.include?('!')
+      return unless source_from_range(node.source_range).include?('!')
       return unless check_spacing(node)
 
       before_qualifier = config['space_before_bang'] ? '' : 'not '

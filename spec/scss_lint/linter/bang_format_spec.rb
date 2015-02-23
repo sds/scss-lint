@@ -108,4 +108,14 @@ describe SCSSLint::Linter::BangFormat do
       subject.should_not report_lint
     end
   end
+
+  context 'when property contains a list literal with an empty list' do
+    let(:scss) { <<-SCSS }
+      p {
+        content: 0 ();
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
 end

@@ -16,8 +16,8 @@ module SCSSLint
       check_identifier(node, name.gsub(/^@/, ''))
 
       # Check for values
-      return unless node.respond_to?(:value) && node.value.respond_to?(:to_sass)
-      check_identifier(node, node.value.to_sass)
+      return unless node.respond_to?(:value) && node.value.respond_to?(:source_range)
+      check_identifier(node, source_from_range(node.value.source_range))
     end
 
     alias_method :visit_prop, :check_node
@@ -31,7 +31,7 @@ module SCSSLint
 
       # Strip vendor prefix to check against identifiers.
       # (Also strip closing parentheticals from values like linear-gradient.)
-      stripped_identifier = identifier.gsub(/(^[_-][a-zA-Z0-9_]+-|\(.*\))/, '')
+      stripped_identifier = identifier.gsub(/(^[_-][a-zA-Z0-9_]+-|\(.*\)|;)/, '').strip
       return if @exclusions.include?(stripped_identifier)
       return unless @identifiers.include?(stripped_identifier)
 

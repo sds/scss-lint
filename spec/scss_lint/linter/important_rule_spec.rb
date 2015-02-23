@@ -30,4 +30,14 @@ describe SCSSLint::Linter::ImportantRule do
 
     it { should report_lint line: 2 }
   end
+
+  context 'when property contains a list literal with an empty list' do
+    let(:scss) { <<-SCSS }
+      p {
+        content: 0 ();
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
 end

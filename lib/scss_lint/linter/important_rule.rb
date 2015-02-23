@@ -4,7 +4,7 @@ module SCSSLint
     include LinterRegistry
 
     def visit_prop(node)
-      return unless node.to_sass.include?('!important')
+      return unless source_from_range(node.source_range).include?('!important')
 
       add_lint(node, '!important should not be used')
     end

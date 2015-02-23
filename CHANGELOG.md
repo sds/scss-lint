@@ -27,6 +27,8 @@
 * Allow files without `.scss`/`.css` extension to be linted if they are
   passed explicitly (i.e. you do not specify a directory, but the file itself)
 * Add documentation and specs for `NameFormat` with regexp convention
+* Fix crash in `BangFormat`, `ImportantRule`, and `VendorPrefixes` when linting
+  properties with list literals containing empty lists
 
 ## 0.33.0
 
