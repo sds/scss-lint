@@ -2,11 +2,11 @@
 
 ## master (unreleased)
 
+### New Features
+
 * Add `ImportantRule` linter which reports uses of `!important` in properties
 * Add `VariableForProperty` linter which enforces using variables for
   specified property values instead of literal values
-* Fix bug in `StringQuotes` where Sass script in non-silent comments would
-  cause a crash
 * Add `convention` option to `BorderZero` allowing `none` to be preferred over
   zero
 * Add `separate_groups` option to `PropertySortOrder` to specify that groups
@@ -15,18 +15,25 @@
   properties
 * Add `ColorVariable` linter which enforces the use of color literals in
   variable declarations only
+* Add `break-after`, `break-before`, `break-inside`, and `text-size-adjust`
+  to list of recognized properties
+* Add `allow_non_nested_indentation` option to `Indentation` linter
+* Allow files without `.scss`/`.css` extension to be linted if they are
+  passed explicitly (i.e. you do not specify a directory, but the file itself)
+
+### Changes
+
+* Remove support for per-directory configuration and `inherit_from` from
+  the configuration system
+
+### Bug Fixes
+
+* Fix bug in `StringQuotes` where Sass script in non-silent comments would
+  cause a crash
 * Fix control comments placed before `@include` blocks to apply within them
 * Fix crash in `PropertySortOrder` when non-existent preset sort order or
   otherwise invalid sort order are specified in the configuration
-* Add `break-after`, `break-before`, `break-inside`, and `text-size-adjust`
-  to list of recognized properties
 * Fix recognition of control comments in selector comma sequences
-* Add `allow_non_nested_indentation` option to `Indentation` linter
-* Remove support for per-directory configuration and `inherit_from` from
-  the configuration system
-* Allow files without `.scss`/`.css` extension to be linted if they are
-  passed explicitly (i.e. you do not specify a directory, but the file itself)
-* Add documentation and specs for `NameFormat` with regexp convention
 * Fix crash in `BangFormat`, `ImportantRule`, and `VendorPrefixes` when linting
   properties with list literals containing empty lists
 
