@@ -264,8 +264,7 @@ Outputs JSON with filenames and an array of issue objects.
 
 ### XML
 
-Outputs XML with `<lint>`, `<file>`, and `<issue>` tags. Suitable for
-consumption by tools like [Jenkins](http://jenkins-ci.org/).
+Outputs XML with `<lint>`, `<file>`, and `<issue>` tags.
 
 ```bash
 scss-lint --format=XML [scss-files...]
