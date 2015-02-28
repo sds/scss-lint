@@ -282,6 +282,34 @@ scss-lint --format=XML [scss-files...]
 </lint>
 ```
 
+### Plugins
+
+There are also formatters that integrate with third-party tools which are available as plugins.
+
+#### CheckStyle
+
+Outputs an XML document with `<checkstyle>`, `<file>`, and `<error>` tags.
+Suitable for consumption by tools like
+[Jenkins](http://jenkins-ci.org/) with the
+[CheckStyle plugin](https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin).
+
+```bash
+gem install scss_lint_reporter_checkstyle
+scss-lint --require=scss_lint_reporter_checkstyle --format=CheckStyle [scss-files...]
+```
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="1.5.6">
+  <file name="test.css">
+    <error line="2" severity="warning" message="Prefer single quoted strings" />
+    <error line="2" severity="warning" message="Line should be indented 0 spaces, but was indented 1 spaces" />
+    <error line="5" severity="warning" message="Prefer single quoted strings" />
+    <error line="6" severity="warning" message="URLs should be enclosed in quotes" />
+  </file>
+</checkstyle>
+```
+
 ## Exit Status Codes
 
 `scss-lint` tries to use
