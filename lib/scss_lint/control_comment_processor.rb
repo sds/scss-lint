@@ -88,11 +88,13 @@ module SCSSLint
       # the comment itself).
       child = node
       prev_child = node
-      while (child = last_child(child)) != prev_child
+      until [nil, prev_child].include?(child = last_child(child))
         prev_child = child
       end
 
-      end_line = child.line
+      # Fall back to prev_child if last_child() returned nil (i.e. node had no
+      # children with line numbers)
+      end_line = (child || prev_child).line
 
       @disabled_lines.merge(start_line..end_line)
     end
@@ -103,13 +105,22 @@ module SCSSLint
     # tree's {#children} method does not return nodes sorted by their line
     # number.
     #
+    # Returns `nil` if node has no children or no children with associated line
+    # numbers.
+    #
     # @param node [Sass::Tree::Node, Sass::Script::Tree::Node]
     # @return [Sass::Tree::Node, Sass::Script::Tree::Node]
     def last_child(node)
-      node.children.inject(node) do |lowest, child|
+      last = node.children.inject(node) do |lowest, child|
         return lowest unless child.respond_to?(:line)
         lowest.line < child.line ? child : lowest
       end
+
+      # In this case, none of the children have associated line numbers or the
+      # node has no children at all, so return `nil`.
+      return if last == node
+
+      last
     end
   end
 end

@@ -4,6 +4,8 @@
 
 * Fix `ColorVariable` to not report occurrences of `transparent` when appearing
   in function calls or list literals
+* Fix infinite loop in control comment processor when dealing with parse nodes
+  with no children with line numbers
 
 ## 0.34.0
 
