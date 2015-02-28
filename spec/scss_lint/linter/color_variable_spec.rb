@@ -99,4 +99,24 @@ describe SCSSLint::Linter::ColorVariable do
 
     it { should_not report_lint }
   end
+
+  context 'when a property contains "transparent"' do
+    let(:scss) { <<-SCSS }
+      p {
+        border: 1px solid transparent;
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when a property with function calls contains "transparent"' do
+    let(:scss) { <<-SCSS }
+      p {
+        border: 1px solid some-func(transparent);
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
 end

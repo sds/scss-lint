@@ -9,7 +9,7 @@ module SCSSLint
       # Source range sometimes includes closing parenthesis, so extract it
       color = source_from_range(node.source_range)[/(#?[a-z0-9]+)/i, 1]
 
-      record_lint(node, color)
+      record_lint(node, color) if color?(color)
     end
 
     def visit_script_string(node)

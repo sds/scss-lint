@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix `ColorVariable` to not report occurrences of `transparent` when appearing
+  in function calls or list literals
+
 ## 0.34.0
 
 ### New Features
