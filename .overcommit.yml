@@ -3,5 +3,5 @@ CommitMsg:
     enabled: true
 
 PreCommit:
-  Reek:
-    enabled: false
+  TravisLint:
+    flags: ['lint', '--skip-version-check']
