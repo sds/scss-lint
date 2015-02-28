@@ -286,16 +286,16 @@ scss-lint --format=XML [scss-files...]
 
 There are also formatters that integrate with third-party tools which are available as plugins.
 
-#### CheckStyle
+#### Checkstyle
 
 Outputs an XML document with `<checkstyle>`, `<file>`, and `<error>` tags.
 Suitable for consumption by tools like
 [Jenkins](http://jenkins-ci.org/) with the
-[CheckStyle plugin](https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin).
+[Checkstyle plugin](https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin).
 
 ```bash
 gem install scss_lint_reporter_checkstyle
-scss-lint --require=scss_lint_reporter_checkstyle --format=CheckStyle [scss-files...]
+scss-lint --require=scss_lint_reporter_checkstyle --format=Checkstyle [scss-files...]
 ```
 
 ```xml
