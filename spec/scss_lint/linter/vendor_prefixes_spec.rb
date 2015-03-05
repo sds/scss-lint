@@ -280,11 +280,16 @@ describe SCSSLint::Linter::VendorPrefixes do
   # Excluding and Including
 
   context 'when manually excluding identifiers' do
-    let(:linter_config) { { 'exclude' => %w[transform selection] } }
+    let(:linter_config) do
+      {
+        'identifier_list' => 'base',
+        'excluded_identifiers' => %w[transform selection],
+      }
+    end
 
     let(:scss) { <<-SCSS }
       div {
-        -wekit-transform: translateZ(0);
+        -webkit-transform: translateZ(0);
       }
       ::-moz-selection {
         color: #000;
@@ -295,7 +300,13 @@ describe SCSSLint::Linter::VendorPrefixes do
   end
 
   context 'when manually including identifiers' do
-    let(:linter_config) { { 'include' => ['padding-end'] } }
+    let(:linter_config) do
+      {
+        'identifier_list' => 'base',
+        'additional_identifiers' => ['padding-end'],
+        'excluded_identifiers' => [],
+      }
+    end
 
     let(:scss) { <<-SCSS }
       div {

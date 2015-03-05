@@ -1462,7 +1462,10 @@ The default `identifier_list`, `base`, should include everything that Autoprefix
 
 Additionally, you can manually include or exclude identifiers from the identifier list -- if, for example, you want to use pretty much all of the `base` list but also want to allow yourself to use vendor prefixed `transform` properties, for one reason or another.
 
-(All identifiers used by the `identifier_list`, `include`, or `exclude` are stripped of vendor prefixes. See [the predefined lists](https://github.com/causes/scss-lint/tree/master/data/prefixed-identifiers) for examples.)
+All identifiers used by the `identifier_list`, `additional_identifiers`, or
+`excluded_identifiers` are stripped of vendor prefixes. See [the predefined
+lists](https://github.com/causes/scss-lint/tree/master/data/prefixed-identifiers)
+for examples.
 
 **Bad: vendor prefixes**
 ```scss
@@ -1508,11 +1511,11 @@ Additionally, you can manually include or exclude identifiers from the identifie
 }
 ```
 
-Configuration Option | Description
----------------------|---------------------------------------------------------
-`identifier_list`    | Name of predefined identifier list to use (`base` or `bourbon`) or an array of identifiers (default `base`)
-`include`            | Identifiers to lint, in addition to the `identifier_list` (default `[]`)
-`exclude`            | Identifers in the `identifier_list` to exclude from linting (default `[]`)
+Configuration Option     | Description
+-------------------------|---------------------------------------------------------
+`identifier_list`        | Name of predefined identifier list to use (`base` or `bourbon`) or an array of identifiers (default `base`)
+`additional_identifiers` | Identifiers to lint, in addition to the `identifier_list` (default `[]`)
+`excluded_identifiers`   | Identifers in the `identifier_list` and `additional_identifiers` to exclude from linting (default `[]`)
 
 ## ZeroUnit
 

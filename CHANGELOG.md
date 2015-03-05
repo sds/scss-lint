@@ -6,6 +6,8 @@
   in function calls or list literals
 * Fix infinite loop in control comment processor when dealing with parse nodes
   with no children with line numbers
+* Change `VendorPrefix` config options `include` and `exclude` to
+  `additional_identifers` and `excluded_identifers`, respectively
 
 ## 0.34.0
 

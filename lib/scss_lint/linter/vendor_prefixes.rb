@@ -5,8 +5,8 @@ module SCSSLint
 
     def visit_root(_node)
       @identifiers = Set.new(extract_identifiers_from_config)
-      @identifiers.merge(Set.new(config['include']))
-      @exclusions = Set.new(config['exclude'])
+      @identifiers.merge(Set.new(config['additional_identifiers']))
+      @exclusions = Set.new(config['excluded_identifiers'])
       yield
     end
 
