@@ -49,7 +49,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [UrlFormat](#urlformat)
 * [UrlQuotes](#urlquotes)
 * [VariableForProperty](#variableforproperty)
-* [VendorPrefixes](#vendorprefixes)
+* [VendorPrefix](#vendorprefix)
 * [ZeroUnit](#urlquotes)
 
 ## BangFormat
@@ -1450,7 +1450,7 @@ Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `properties`         | Array of property names to check
 
-## VendorPrefixes
+## VendorPrefix
 
 Avoid vendor prefixes. That is, don't write them yourself.
 

@@ -1,6 +1,6 @@
 module SCSSLint
   # Checks for vendor prefixes.
-  class Linter::VendorPrefixes < Linter
+  class Linter::VendorPrefix < Linter
     include LinterRegistry
 
     def visit_root(_node)

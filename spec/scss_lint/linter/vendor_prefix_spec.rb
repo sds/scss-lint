@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SCSSLint::Linter::VendorPrefixes do
+describe SCSSLint::Linter::VendorPrefix do
   context 'when no vendor-prefix is used' do
     let(:scss) { <<-SCSS }
       div {

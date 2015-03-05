@@ -8,6 +8,7 @@
   with no children with line numbers
 * Change `VendorPrefix` config options `include` and `exclude` to
   `additional_identifers` and `excluded_identifers`, respectively
+* Rename `VendorPrefixes` to `VendorPrefix`
 
 ## 0.34.0
 
