@@ -122,3 +122,12 @@ font-style
 
 content
 quotes
+
+animation
+animation-name
+animation-fill-mode
+animation-delay
+animation-duration
+animation-iteration-count
+animation-play-state
+animation-timing-function
