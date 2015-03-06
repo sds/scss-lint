@@ -9,6 +9,7 @@
 * Change `VendorPrefix` config options `include` and `exclude` to
   `additional_identifers` and `excluded_identifers`, respectively
 * Rename `VendorPrefixes` to `VendorPrefix`
+* Add `animation*` properties to concentric.txt
 
 ## 0.34.0
 
