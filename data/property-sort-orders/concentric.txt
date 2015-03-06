@@ -22,6 +22,16 @@ clear
 transform
 transition
 
+animation
+animation-name
+animation-duration
+animation-timing-function
+animation-delay
+animation-iteration-count
+animation-direction
+animation-fill-mode
+animation-play-state
+
 visibility
 opacity
 z-index
@@ -122,12 +132,3 @@ font-style
 
 content
 quotes
-
-animation
-animation-name
-animation-fill-mode
-animation-delay
-animation-duration
-animation-iteration-count
-animation-play-state
-animation-timing-function
