@@ -21,6 +21,7 @@ established by the team at [Causes.com](https://causes.com).
 * [Editor Integration](#editor-integration)
 * [Git Integration](#git-integration)
 * [Rake Integration](#rake-integration)
+* [Maven Integration](#maven-integration)
 * [Documentation](#documentation)
 * [Contributing](#contributing)
 * [Changelog](#changelog)
@@ -403,6 +404,13 @@ rake 'scss_lint[app/assets, custom/*.scss]'
 
 Files specified in this manner take precedence over the `files` attribute
 initialized in the configuration above.
+
+## Maven Integration
+
+[Maven](https://maven.apache.org/) integration is available as part of the [Sass maven plugin](https://github.com/GeoDienstenCentrum/sass-maven-plugin) `scss-lint` since [version 2.3](http://www.geodienstencentrum.nl/sass-maven-plugin/releasenotes.html#a2.3_Release_Notes). 
+Check out the [plugin documentation](https://GeoDienstenCentrum.github.io/sass-maven-plugin/plugin-info.html).
+
+The Maven plugin comes with the nessecary libraries included, a separate installation of `ruby` or `scss-lint` is not required.
 
 ## Documentation
 
