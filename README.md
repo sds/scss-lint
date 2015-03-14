@@ -407,10 +407,17 @@ initialized in the configuration above.
 
 ## Maven Integration
 
-[Maven](https://maven.apache.org/) integration is available as part of the [Sass maven plugin](https://github.com/GeoDienstenCentrum/sass-maven-plugin) `scss-lint` since [version 2.3](http://www.geodienstencentrum.nl/sass-maven-plugin/releasenotes.html#a2.3_Release_Notes). 
-Check out the [plugin documentation](https://GeoDienstenCentrum.github.io/sass-maven-plugin/plugin-info.html).
+[Maven] integration is available as part of the [Sass maven
+plugin][maven-plugin] `scss-lint` since [version 2.3][maven-plugin-2.3] Check
+out the [plugin documentation][maven-plugin-info].
 
-The Maven plugin comes with the nessecary libraries included, a separate installation of `ruby` or `scss-lint` is not required.
+The Maven plugin comes with the necessary libraries included, a separate
+installation of `ruby` or `scss-lint` is not required.
+
+[maven]: https://maven.apache.org/
+[maven-plugin]: https://github.com/GeoDienstenCentrum/sass-maven-plugin
+[maven-plugin-2.3]: http://www.geodienstencentrum.nl/sass-maven-plugin/releasenotes.html#a2.3_Release_Notes
+[maven-plugin-info]: https://GeoDienstenCentrum.github.io/sass-maven-plugin/plugin-info.html
 
 ## Documentation
 
