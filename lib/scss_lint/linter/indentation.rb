@@ -49,7 +49,9 @@ module SCSSLint
         return true
       end
 
-      unless allow_arbitrary_indent?(node) || actual_indent.length == @indent
+      unless allow_arbitrary_indent?(node) ||
+          actual_indent.length == @indent ||
+          actual_indent.length % @indent_width == 0
         add_lint(node.line,
                  "Line should be indented #{@indent} #{character_name}s, " \
                  "but was indented #{actual_indent.length} #{character_name}s")
