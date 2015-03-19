@@ -49,7 +49,7 @@ module SCSSLint
         return true
       end
 
-      unless allow_arbitrary_indent?(node) || actual_indent.length == @indent
+      unless allow_arbitrary_indent?(node, actual_indent.length) || actual_indent.length == @indent
         add_lint(node.line,
                  "Line should be indented #{@indent} #{character_name}s, " \
                  "but was indented #{actual_indent.length} #{character_name}s")
@@ -131,10 +131,19 @@ module SCSSLint
       same_position?(node.source_range.end_pos, first_child_source.start_pos)
     end
 
-    def allow_arbitrary_indent?(node)
-      @indent == 0 &&
-        config['allow_non_nested_indentation'] &&
-        node.is_a?(Sass::Tree::RuleNode)
+    def allow_arbitrary_indent?(node, actual_indent)
+      if !config['allow_non_nested_indentation']
+        return false
+      end
+
+      if node.is_a?(Sass::Tree::RuleNode) && @indent == 0
+        return actual_indent % @indent_width == 0
+      end
+
+      if !node.is_a?(Sass::Tree::RuleNode)
+        return @indent != 0 && actual_indent != 0 &&
+          actual_indent % @indent_width == 0
+      end
     end
   end
 end
