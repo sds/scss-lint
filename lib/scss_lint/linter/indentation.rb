@@ -1,6 +1,6 @@
 module SCSSLint
   # Checks for consistent indentation of nested declarations and rule sets.
-  class Linter::Indentation < Linter
+  class Linter::Indentation < Linter # rubocop:disable ClassLength
     include LinterRegistry
 
     def visit_root(_node)
@@ -40,7 +40,7 @@ module SCSSLint
     end
 
     def check_indent_width(node, other_character, character_name, other_character_name)
-      actual_indent = engine.lines[node.line - 1][/^(\s*)/, 1]
+      actual_indent = node_indent(node)
 
       if actual_indent.include?(other_character)
         add_lint(node.line,
@@ -49,14 +49,11 @@ module SCSSLint
         return true
       end
 
-      unless allow_arbitrary_indent?(node, actual_indent.length) || actual_indent.length == @indent
-        add_lint(node.line,
-                 "Line should be indented #{@indent} #{character_name}s, " \
-                 "but was indented #{actual_indent.length} #{character_name}s")
-        return true
+      if config['allow_non_nested_indentation']
+        check_arbitrary_indent(node, actual_indent.length, character_name)
+      else
+        check_regular_indent(node, actual_indent.length, character_name)
       end
-
-      false
     end
 
     # Deal with `else` statements
@@ -131,19 +128,70 @@ module SCSSLint
       same_position?(node.source_range.end_pos, first_child_source.start_pos)
     end
 
-    def allow_arbitrary_indent?(node, actual_indent)
-      if !config['allow_non_nested_indentation']
-        return false
+    def check_regular_indent(node, actual_indent, character_name)
+      return if actual_indent == @indent
+
+      add_lint(node.line,
+               "Line should be indented #{@indent} #{character_name}s, " \
+               "but was indented #{actual_indent} #{character_name}s")
+      true
+    end
+
+    def check_arbitrary_indent(node, actual_indent, character_name) # rubocop:disable CyclomaticComplexity, MethodLength, LineLength
+      # Allow rulesets to be indented any amount when the indent is zero, as
+      # long as it's a multiple of the indent width
+      if ruleset_under_root_node?(node)
+        unless actual_indent % @indent_width == 0
+          add_lint(node.line,
+                   "Line must be indented a multiple of #{@indent_width} " \
+                   "#{character_name}s, but was indented #{actual_indent} #{character_name}s")
+          return true
+        end
       end
 
-      if node.is_a?(Sass::Tree::RuleNode) && @indent == 0
-        return actual_indent % @indent_width == 0
-      end
+      if @indent == 0
+        unless node.is_a?(Sass::Tree::RuleNode) || actual_indent == 0
+          add_lint(node.line,
+                   "Line should be indented 0 #{character_name}s, " \
+                   "but was indented #{actual_indent} #{character_name}s")
+          return true
+        end
+      elsif !one_shift_greater_than_parent?(node, actual_indent)
+        parent_indent = node_indent(node.node_parent).length
+        expected_indent = parent_indent + @indent_width
 
-      if !node.is_a?(Sass::Tree::RuleNode)
-        return @indent != 0 && actual_indent != 0 &&
-          actual_indent % @indent_width == 0
+        add_lint(node.line,
+                 "Line should be indented #{expected_indent} #{character_name}s, " \
+                 "but was indented #{actual_indent} #{character_name}s")
+        return true
       end
+    end
+
+    # Returns whether node is a ruleset not nested within any other ruleset.
+    #
+    # @param node [Sass::Tree::Node]
+    # @return [true,false]
+    def ruleset_under_root_node?(node)
+      @indent == 0 && node.is_a?(Sass::Tree::RuleNode)
+    end
+
+    # Returns whether node is indented exactly one indent width greater than its
+    # parent.
+    #
+    # @param node [Sass::Tree::Node]
+    # @return [true,false]
+    def one_shift_greater_than_parent?(node, actual_indent)
+      parent_indent = node_indent(node.node_parent).length
+      expected_indent = parent_indent + @indent_width
+      expected_indent == actual_indent
+    end
+
+    # Return indentation of a node.
+    #
+    # @param node [Sass::Tree::Node]
+    # @return [Integer]
+    def node_indent(node)
+      engine.lines[node.line - 1][/^(\s*)/, 1]
     end
   end
 end

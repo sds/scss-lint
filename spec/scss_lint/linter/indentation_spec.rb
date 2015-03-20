@@ -309,5 +309,39 @@ describe SCSSLint::Linter::Indentation do
 
       it { should report_lint line: 2 }
     end
+
+    context 'and a nested non-ruleset is correctly indented' do
+      let(:scss) { <<-SCSS }
+        .one {
+          color: #000;
+        }
+          .two {
+            margin: 0;
+          }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and a nested non-ruleset is incorrectly indented' do
+      let(:scss) { <<-SCSS }
+        .one {
+          color: #000;
+        }
+          .two {
+              margin: 0;
+          }
+      SCSS
+
+      it { should report_lint line: 5 }
+    end
+
+    context 'and a non-nested non-ruleset is correctly indented' do
+      let(:scss) { <<-SCSS }
+        $var: 1
+      SCSS
+
+      it { should_not report_lint }
+    end
   end
 end
