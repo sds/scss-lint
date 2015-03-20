@@ -71,7 +71,7 @@ describe SCSSLint::Runner do
       end
 
       before do
-        SCSSLint::Engine.stub(:new).with(files.last).and_raise(error)
+        SCSSLint::Engine.stub(:new).with(file: files.last).and_raise(error)
       end
 
       it 'records the error as a lint' do

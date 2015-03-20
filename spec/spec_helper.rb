@@ -28,7 +28,7 @@ RSpec.configure do |config|
                        SCSSLint::Config.default.linter_options(subject)
                      end
 
-      subject.run(SCSSLint::Engine.new(normalized_css), local_config)
+      subject.run(SCSSLint::Engine.new(code: normalized_css), local_config)
     end
   end
 end

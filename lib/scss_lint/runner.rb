@@ -30,7 +30,7 @@ module SCSSLint
 
     # @param file [String]
     def find_lints(file)
-      engine = Engine.new(file)
+      engine = Engine.new(file: file)
 
       @linters.each do |linter|
         begin

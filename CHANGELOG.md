@@ -10,6 +10,7 @@
   `additional_identifers` and `excluded_identifers`, respectively
 * Rename `VendorPrefixes` to `VendorPrefix`
 * Add `animation*` properties to concentric.txt
+* Fix bug where attempting to lint a non-existent file would result in a crash
 
 ## 0.34.0
 

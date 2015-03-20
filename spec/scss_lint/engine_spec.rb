@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SCSSLint::Engine do
-  let(:engine) { described_class.new(scss) }
+  let(:engine) { described_class.new(code: scss) }
 
   context 'when a @media directive is present' do
     let(:scss) { <<-SCSS }

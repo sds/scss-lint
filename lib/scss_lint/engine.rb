@@ -13,12 +13,14 @@ module SCSSLint
     # Creates a parsed representation of an SCSS document from the given string
     # or file.
     #
-    # @param scss_or_filename [String]
-    def initialize(scss_or_filename)
-      if File.exist?(scss_or_filename)
-        build_from_file(scss_or_filename)
-      else
-        build_from_string(scss_or_filename)
+    # @param options [Hash]
+    # @option options [String] :file The file to load
+    # @option options [String] :code The code to parse
+    def initialize(options = {})
+      if options[:file]
+        build_from_file(options[:file])
+      elsif options[:code]
+        build_from_string(options[:code])
       end
 
       # Need to force encoding to avoid Windows-related bugs.

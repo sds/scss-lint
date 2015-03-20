@@ -34,6 +34,7 @@ describe SCSSLint::CLI do
 
     before do
       SCSSLint::FileFinder.any_instance.stub(:find).and_return(files)
+      SCSSLint::Runner.any_instance.stub(:find_lints)
     end
 
     def safe_run

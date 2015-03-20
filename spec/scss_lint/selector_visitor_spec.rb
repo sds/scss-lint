@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SCSSLint::SelectorVisitor do
   describe '#visit' do
-    let(:engine) { SCSSLint::Engine.new(scss) }
+    let(:engine) { SCSSLint::Engine.new(code: scss) }
     before { RuleVisitor.new(visitor).run(engine) }
 
     # Visits every rule in the given parse tree and passes the parsed selector
