@@ -69,6 +69,18 @@ describe SCSSLint::Linter::SpaceAfterPropertyColon do
         it { should report_lint }
       end
     end
+
+    context 'when there are nested properties with incorrect spacing' do
+      let(:scss) { <<-SCSS }
+        .class {
+          font: {
+            weight :bold;
+          }
+        }
+      SCSS
+
+      it { should report_lint line: 3 }
+    end
   end
 
   context 'when no spaces are allowed' do

@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix `SpaceAfterPropertyColon` to report nested properties
+
 ## 0.35.0
 
 * Fix `ColorVariable` to not report occurrences of `transparent` when appearing

@@ -23,6 +23,8 @@ module SCSSLint
       when 'at_least_one_space'
         check_for_at_least_one_space(node, spaces)
       end
+
+      yield # Continue linting children
     end
 
   private
