@@ -298,7 +298,7 @@ Suitable for consumption by tools like
 gem install scss_lint_reporter_checkstyle
 scss-lint --require=scss_lint_reporter_checkstyle --format=Checkstyle [scss-files...]
 ```
-
+e
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <checkstyle version="1.5.6">
@@ -349,6 +349,10 @@ You can have `scss-lint` automatically run against your SCSS files after saving
 by using the [Syntastic](https://github.com/scrooloose/syntastic) plugin. If
 you already have the plugin, just add
 `let g:syntastic_scss_checkers = ['scss_lint']` to your `.vimrc`.
+
+### IntelliJ (PhpStorm, WebStorm...)
+
+Instal the [SCSS Lint plugin for intellij](https://github.com/idok/scss-lint-plugin)
 
 ### Sublime Text
 
