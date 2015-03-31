@@ -740,7 +740,7 @@ Sass specifically introduced placeholder selectors in order to be used with
 
 See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-sass-extends-and-placeholders/).
 
-## No pixels
+## NoPixels
 
 Allow usage of pixel values.
 
