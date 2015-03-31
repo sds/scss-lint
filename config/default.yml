@@ -90,6 +90,9 @@ linters:
     enabled: true
     max_depth: 3
 
+  NoPixels:
+    enabled: false
+
   PlaceholderInExtend:
     enabled: true
 
