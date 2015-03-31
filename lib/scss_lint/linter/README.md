@@ -26,6 +26,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [MergeableSelector](#mergeableselector)
 * [NameFormat](#nameformat)
 * [NestingDepth](#nestingdepth)
+* [NoPixels](#nopixels)
 * [PlaceholderInExtend](#placeholderinextend)
 * [PropertyCount](#propertycount)
 * [PropertySortOrder](#propertysortorder)
@@ -738,6 +739,34 @@ Sass specifically introduced placeholder selectors in order to be used with
 `@extend`.
 
 See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-sass-extends-and-placeholders/).
+
+## No pixels
+
+Allow usage of pixel values.
+
+If you want all relative units, say:
+
+**Bad: pixel units**
+```scss
+p {
+  margin: 20px;
+}
+```
+
+**Good: using a relative unit**
+```scss
+p {
+  margin: 2.0rem;
+}
+// or
+p {
+  margin: 2.0em;
+}
+// or
+p {
+  margin: 2%;
+}
+```
 
 ## PropertyCount
 
