@@ -742,7 +742,7 @@ See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-
 
 ## NoPixels
 
-Allow usage of pixel values.
+Disallow usage of pixel values. Optionally, skip enforcement on specific properties defined in `ignored_properties`.
 
 If you want all relative units, say:
 
@@ -767,6 +767,18 @@ p {
   margin: 2%;
 }
 ```
+
+```yaml
+linters:
+  NoPixels:
+    enabled: true
+    ignored_properties:
+      - font-size
+```
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`ignored_properties` | Array of property names to skip check (optional)
 
 ## PropertyCount
 
