@@ -92,6 +92,7 @@ linters:
 
   NoPixels:
     enabled: false
+    ignored_properties: []
 
   PlaceholderInExtend:
     enabled: true
