@@ -26,7 +26,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [MergeableSelector](#mergeableselector)
 * [NameFormat](#nameformat)
 * [NestingDepth](#nestingdepth)
-* [NoPixels](#nopixels)
+* [PropertyUnits](#propertyunits)
 * [PlaceholderInExtend](#placeholderinextend)
 * [PropertyCount](#propertycount)
 * [PropertySortOrder](#propertysortorder)
@@ -740,46 +740,6 @@ Sass specifically introduced placeholder selectors in order to be used with
 
 See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-sass-extends-and-placeholders/).
 
-## NoPixels
-
-Disallow usage of pixel values. Optionally, skip enforcement on specific properties defined in `ignored_properties`.
-
-If you want all relative units, say:
-
-**Bad: pixel units**
-```scss
-p {
-  margin: 20px;
-}
-```
-
-**Good: using a relative unit**
-```scss
-p {
-  margin: 2.0rem;
-}
-// or
-p {
-  margin: 2.0em;
-}
-// or
-p {
-  margin: 2%;
-}
-```
-
-```yaml
-linters:
-  NoPixels:
-    enabled: true
-    ignored_properties:
-      - font-size
-```
-
-Configuration Option | Description
----------------------|---------------------------------------------------------
-`ignored_properties` | Array of property names to skip check (optional)
-
 ## PropertyCount
 
 Limit the number of properties in a rule set.
@@ -942,6 +902,58 @@ to add it to the
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `extra_properties`   | List of extra properties to allow
+
+## PropertyUnits
+
+Configure what units are allowed globally, and/or on a per-property basis.
+
+By default the linter will allow all property units by default, and developers can adjust the globally allowed units or set per-property exceptions as they see fit.
+
+Defaults:
+```yaml
+  global: ['em', 'ex', '%', 'px', 'ch', 'cm', 'mm', 'in', 'pt', 'pc', 'rem', 'vh', 'vw', 'vmin', 'vmax']
+  properties: []
+```
+
+### Example setup
+
+```yaml
+PropertyUnits:
+  global: ['rem', 'em', '%'] # Allow relative units globally
+  properties:
+    margin: ['em', 'rem']
+    border: ['px']
+    line-height: [] # No units allowed
+```
+
+```scss
+// Bad
+p {
+  // not allowed globally
+  padding: 10px;
+
+  // not allowed on property
+  line-height: 55px;
+  border: 1rem solid blue;
+  margin: 10%;
+}
+
+// Good
+p {
+   // allowed globally
+  padding: 1rem;
+
+  // allowed on property
+  line-height: 1;
+  border: 10px solid blue;
+  margin: 1em;
+}
+```
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`global`             | List of globally allowed units
+`properties`         | Property configurations. Each property has a list of allowed units.
 
 ## QualifyingElement
 

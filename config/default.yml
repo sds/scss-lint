@@ -90,10 +90,6 @@ linters:
     enabled: true
     max_depth: 3
 
-  NoPixels:
-    enabled: false
-    ignored_properties: []
-
   PlaceholderInExtend:
     enabled: true
 
@@ -101,6 +97,11 @@ linters:
     enabled: false
     include_nested: false
     max_properties: 10
+
+  PropertyUnits:
+    enabled: false
+    global: ['em', 'ex', '%', 'px', 'ch', 'cm', 'mm', 'in', 'pt', 'pc', 'rem', 'vh', 'vw', 'vmin', 'vmax']
+    properties: []
 
   PropertySortOrder:
     enabled: true
