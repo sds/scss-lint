@@ -1,15 +1,14 @@
 # SCSS-Lint
 
 [![Gem Version](https://badge.fury.io/rb/scss-lint.svg)](http://badge.fury.io/rb/scss-lint)
-[![Build Status](https://travis-ci.org/causes/scss-lint.svg)](https://travis-ci.org/causes/scss-lint)
-[![Code Climate](https://codeclimate.com/github/causes/scss-lint.png)](https://codeclimate.com/github/causes/scss-lint)
-[![Inline docs](http://inch-ci.org/github/causes/scss-lint.svg?branch=master)](http://inch-ci.org/github/causes/scss-lint)
-[![Dependency Status](https://gemnasium.com/causes/scss-lint.svg)](https://gemnasium.com/causes/scss-lint)
+[![Build Status](https://travis-ci.org/brigade/scss-lint.svg)](https://travis-ci.org/brigade/scss-lint)
+[![Code Climate](https://codeclimate.com/github/brigade/scss-lint.png)](https://codeclimate.com/github/brigade/scss-lint)
+[![Inline docs](http://inch-ci.org/github/brigade/scss-lint.svg?branch=master)](http://inch-ci.org/github/brigade/scss-lint)
+[![Dependency Status](https://gemnasium.com/brigade/scss-lint.svg)](https://gemnasium.com/brigade/scss-lint)
 
 `scss-lint` is a tool to help keep your [SCSS](http://sass-lang.com) files
 clean and readable. You can run it manually from the command-line, or integrate
-it into your [SCM hooks](https://github.com/causes/overcommit). It uses rules
-established by the team at [Causes.com](https://causes.com).
+it into your [SCM hooks](https://github.com/brigade/overcommit).
 
 * [Requirements](#requirements)
 * [Installation](#installation)
@@ -325,7 +324,7 @@ Exit Status | Description
 `2`         | One or more errors were reported (and any number of warnings)
 `64`        | Command line usage error (invalid flag, etc.)
 `66`        | One or more files specified were not found
-`70`        | Unexpected error (i.e. a bug); please [report it](https://github.com/causes/scss-lint/issues)
+`70`        | Unexpected error (i.e. a bug); please [report it](https://github.com/brigade/scss-lint/issues)
 `78`        | Invalid configuration file; your [YAML](http://www.yaml.org/) is likely incorrect
 
 ## Linters
@@ -370,7 +369,7 @@ Install and enable both [scss-mode](https://github.com/antonj/scss-mode) and [fl
 ## Git Integration
 
 If you'd like to integrate `scss-lint` into your Git workflow, check out our
-Git hook manager, [overcommit](https://github.com/causes/overcommit).
+Git hook manager, [overcommit](https://github.com/brigade/overcommit).
 
 ## Rake Integration
 
@@ -427,7 +426,7 @@ installation of `ruby` or `scss-lint` is not required.
 
 [Code documentation] is generated with [YARD] and hosted by [RubyDoc.info].
 
-[Code documentation]: http://rdoc.info/github/causes/scss-lint/master/frames
+[Code documentation]: http://rdoc.info/github/brigade/scss-lint/master/frames
 [YARD]: http://yardoc.org/
 [RubyDoc.info]: http://rdoc.info/
 
