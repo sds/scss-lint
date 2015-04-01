@@ -1,4 +1,3 @@
-require 'pry'
 module SCSSLint
   # Check for pixel value usage
   class Linter::PropertyUnits < Linter
