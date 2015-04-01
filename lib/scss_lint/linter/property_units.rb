@@ -1,5 +1,5 @@
 module SCSSLint
-  # Check for pixel value usage
+  # Check for allowed units
   class Linter::PropertyUnits < Linter
     include LinterRegistry
 
