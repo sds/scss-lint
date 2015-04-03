@@ -19,7 +19,7 @@ module SCSSLint
   private
 
     def global_allows_ok?
-      not_allowed = any_units_not_allowed_globally?
+      not_allowed = units_not_allowed_globally
       unless property_units_defined?
         unless not_allowed.empty?
           add_lint(@node, "Units are not allowed globally: #{not_allowed.join(' ')}")
@@ -30,7 +30,7 @@ module SCSSLint
     end
 
     def property_allows_ok?
-      not_allowed = any_units_not_allowed_on_property?
+      not_allowed = units_not_allowed_on_property
       unless not_allowed.empty?
         add_lint(@node, "Units are not allowed on #{@property}: #{not_allowed.join(' ')}")
         return false
@@ -38,15 +38,15 @@ module SCSSLint
       true
     end
 
-    def any_units_not_allowed_globally?
-      any_units_not_allowed? @units, @global_allowed
+    def units_not_allowed_globally
+      units_not_allowed @units, @global_allowed
     end
 
-    def any_units_not_allowed_on_property?
-      any_units_not_allowed? @units, @properties[property_key]
+    def units_not_allowed_on_property
+      units_not_allowed @units, @properties[property_key]
     end
 
-    def any_units_not_allowed?(units, allowed)
+    def units_not_allowed(units, allowed)
       units.select { |unit| !allowed.include?(unit) }
     end
 
