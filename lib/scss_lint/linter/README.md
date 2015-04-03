@@ -912,7 +912,7 @@ By default the linter will allow all property units by default, and developers c
 Defaults:
 ```yaml
   global: ['em', 'ex', '%', 'px', 'ch', 'cm', 'mm', 'in', 'pt', 'pc', 'rem', 'vh', 'vw', 'vmin', 'vmax']
-  properties: []
+  properties: {}
 ```
 
 ### Example setup
