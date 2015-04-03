@@ -26,6 +26,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [MergeableSelector](#mergeableselector)
 * [NameFormat](#nameformat)
 * [NestingDepth](#nestingdepth)
+* [PropertyUnits](#propertyunits)
 * [PlaceholderInExtend](#placeholderinextend)
 * [PropertyCount](#propertycount)
 * [PropertySortOrder](#propertysortorder)
@@ -901,6 +902,58 @@ to add it to the
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `extra_properties`   | List of extra properties to allow
+
+## PropertyUnits
+
+Configure what units are allowed globally, and/or on a per-property basis.
+
+By default the linter will allow all property units by default, and developers can adjust the globally allowed units or set per-property exceptions as they see fit.
+
+Defaults:
+```yaml
+  global: ['em', 'ex', '%', 'px', 'ch', 'cm', 'mm', 'in', 'pt', 'pc', 'rem', 'vh', 'vw', 'vmin', 'vmax']
+  properties: {}
+```
+
+### Example setup
+
+```yaml
+PropertyUnits:
+  global: ['rem', 'em', '%'] # Allow relative units globally
+  properties:
+    margin: ['em', 'rem']
+    border: ['px']
+    line-height: [] # No units allowed
+```
+
+```scss
+// Bad
+p {
+  // not allowed globally
+  padding: 10px;
+
+  // not allowed on property
+  line-height: 55px;
+  border: 1rem solid blue;
+  margin: 10%;
+}
+
+// Good
+p {
+   // allowed globally
+  padding: 1rem;
+
+  // allowed on property
+  line-height: 1;
+  border: 10px solid blue;
+  margin: 1em;
+}
+```
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`global`             | List of globally allowed units
+`properties`         | Property configurations. Each property has a list of allowed units.
 
 ## QualifyingElement
 
