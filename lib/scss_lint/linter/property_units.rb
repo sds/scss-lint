@@ -1,4 +1,3 @@
-require 'pry'
 module SCSSLint
   # Check for allowed units
   class Linter::PropertyUnits < Linter
