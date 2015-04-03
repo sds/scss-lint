@@ -101,7 +101,7 @@ linters:
   PropertyUnits:
     enabled: false
     global: ['em', 'ex', '%', 'px', 'ch', 'cm', 'mm', 'in', 'pt', 'pc', 'rem', 'vh', 'vw', 'vmin', 'vmax']
-    properties: []
+    properties: {}
 
   PropertySortOrder:
     enabled: true
