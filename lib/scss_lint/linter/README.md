@@ -26,11 +26,11 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [MergeableSelector](#mergeableselector)
 * [NameFormat](#nameformat)
 * [NestingDepth](#nestingdepth)
-* [PropertyUnits](#propertyunits)
 * [PlaceholderInExtend](#placeholderinextend)
 * [PropertyCount](#propertycount)
 * [PropertySortOrder](#propertysortorder)
 * [PropertySpelling](#propertyspelling)
+* [PropertyUnits](#propertyunits)
 * [QualifyingElement](#qualifyingelement)
 * [SelectorDepth](#selectordepth)
 * [SelectorFormat](#selectorformat)
@@ -905,55 +905,37 @@ Configuration Option | Description
 
 ## PropertyUnits
 
-Configure what units are allowed globally, and/or on a per-property basis.
+Configure which units are allowed for property values.
 
-By default the linter will allow all property units by default, and developers can adjust the globally allowed units or set per-property exceptions as they see fit.
-
-Defaults:
-```yaml
-  global: ['em', 'ex', '%', 'px', 'ch', 'cm', 'mm', 'in', 'pt', 'pc', 'rem', 'vh', 'vw', 'vmin', 'vmax']
-  properties: {}
-```
-
-### Example setup
+By default a value may have any kind of unit. You can adjust which units are
+allowed globally by setting the `global` option. Alternately, you can specify a
+list of units for a single property by adding it to the `properties` option,
+e.g.
 
 ```yaml
 PropertyUnits:
-  global: ['rem', 'em', '%'] # Allow relative units globally
+  global: ['em', 'rem', '%'] # Allow relative units globally
   properties:
-    margin: ['em', 'rem']
-    border: ['px']
+    border: ['px'] # Only pixels
     line-height: [] # No units allowed
+    margin: ['em', 'rem']
 ```
 
+With the above configuration, the following issues would be reported:
+
 ```scss
-// Bad
 p {
-  // not allowed globally
-  padding: 10px;
-
-  // not allowed on property
-  line-height: 55px;
-  border: 1rem solid blue;
-  margin: 10%;
-}
-
-// Good
-p {
-   // allowed globally
-  padding: 1rem;
-
-  // allowed on property
-  line-height: 1;
-  border: 10px solid blue;
-  margin: 1em;
+  border: 1rem solid blue; // rem not in `border` list
+  line-height: 55px; // px not in `line-height` list
+  padding: 10px; // px not in `global` list
+  margin: 10%; // % not in `margin` list
 }
 ```
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`global`             | List of globally allowed units
-`properties`         | Property configurations. Each property has a list of allowed units.
+`global`             | List of allowed units (by default any unit is allowed)
+`properties`         | Hash of property names and their list of allowed units. (empty by default)
 
 ## QualifyingElement
 
