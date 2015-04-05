@@ -5,6 +5,8 @@
 * Fix `SpaceAfterPropertyColon` to report nested properties
 * Add `PropertyUnits` allowing customization of which units are allowed for
   specific properties
+* Allow color literals in map declarations and the `rgba` helper function in
+  `ColorVariable`
 
 ## 0.35.0
 

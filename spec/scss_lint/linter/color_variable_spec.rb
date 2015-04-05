@@ -119,4 +119,27 @@ describe SCSSLint::Linter::ColorVariable do
 
     it { should_not report_lint }
   end
+
+  context 'when a color literal is used in the special rgba shorthand helper' do
+    let(:scss) { <<-SCSS }
+      p {
+        color: rgba(#fff, .5);
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when a color literal is used in a map declaration' do
+    let(:scss) { <<-SCSS }
+      $shades-of-gray: (
+        darker:  #4c4c4c,
+        dark:    #626262,
+        light:   #7d7d7d,
+        lighter: #979797
+      );
+    SCSS
+
+    it { should_not report_lint }
+  end
 end

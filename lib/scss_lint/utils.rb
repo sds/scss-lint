@@ -82,6 +82,22 @@ module SCSSLint
           .select { |child| child.is_a?(Sass::Tree::Node) }
     end
 
+    # Return nth-ancestor of a node, where 1 is the parent, 2 is grandparent,
+    # etc.
+    #
+    # @param node [Sass::Tree::Node, Sass::Script::Tree::Node]
+    # @param level [Integer]
+    # @return [Sass::Tree::Node, Sass::Script::Tree::Node, nil]
+    def node_ancestor(node, levels)
+      while levels > 0
+        node = node.node_parent
+        return unless node
+        levels -= 1
+      end
+
+      node
+    end
+
     def pluralize(value, word)
       value == 1 ? "#{value} #{word}" : "#{value} #{word}s"
     end

@@ -4,7 +4,9 @@ module SCSSLint
     include LinterRegistry
 
     def visit_script_color(node)
-      return if in_variable_declaration?(node)
+      return if in_variable_declaration?(node) ||
+                in_map_declaration?(node) ||
+                in_rgba_function_call?(node)
 
       # Source range sometimes includes closing parenthesis, so extract it
       color = source_from_range(node.source_range)[/(#?[a-z0-9]+)/i, 1]
@@ -31,6 +33,17 @@ module SCSSLint
       parent = node.node_parent
       parent.is_a?(Sass::Script::Tree::Literal) &&
         parent.node_parent.is_a?(Sass::Tree::VariableNode)
+    end
+
+    def in_rgba_function_call?(node)
+      grandparent = node_ancestor(node, 2)
+
+      grandparent.is_a?(Sass::Script::Tree::Funcall) &&
+        grandparent.name == 'rgba'
+    end
+
+    def in_map_declaration?(node)
+      node_ancestor(node, 2).is_a?(Sass::Script::Tree::MapLiteral)
     end
   end
 end
