@@ -140,4 +140,32 @@ describe SCSSLint::Linter::PropertyUnits do
       it { should_not report_lint }
     end
   end
+
+  context 'when nested properties are used' do
+    let(:linter_config) { { 'global' => ['rem'], 'properties' => { 'font-size' => ['em'] } } }
+
+    context 'and an allowed unit is used' do
+      let(:scss) { <<-SCSS }
+        p {
+          font: {
+            size: 1em;
+          }
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and a disallowed unit is used' do
+      let(:scss) { <<-SCSS }
+        p {
+          font: {
+            size: 16px;
+          }
+        }
+      SCSS
+
+      it { should report_lint line: 3 }
+    end
+  end
 end

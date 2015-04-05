@@ -12,9 +12,19 @@ module SCSSLint
 
     def visit_prop(node)
       property = node.name.join
-      return unless units = node.value.value.to_s.scan(/[a-zA-Z%]+/ix).first
 
-      check_units(node, property, units)
+      # Handle nested properties by ensuring the full name is extracted
+      if @nested_under
+        property = "#{@nested_under}-#{property}"
+      end
+
+      if units = node.value.value.to_s.scan(/[a-zA-Z%]+/ix).first
+        check_units(node, property, units)
+      end
+
+      @nested_under = property
+      yield # Continue linting nested properties
+      @nested_under = nil
     end
 
   private
