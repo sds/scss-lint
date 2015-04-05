@@ -12,48 +12,37 @@ module SCSSLint
 
     def visit_prop(node)
       property = node.name.join
-      units = node.value.value.to_s.scan(/[a-zA-Z%]+/ix)
-      return if units.empty?
+      return unless units = node.value.value.to_s.scan(/[a-zA-Z%]+/ix).first
 
-      global_allows_ok?(node, property, units) && property_allows_ok?(node, property, units)
+      check_units(node, property, units)
     end
 
   private
 
-    def global_allows_ok?(node, property, units)
-      not_allowed = units_not_allowed_globally(units)
-      unless property_units_defined?(property)
-        unless not_allowed.empty?
-          add_lint(node, "Units are not allowed globally: #{not_allowed.join(' ')}")
-        end
-        return false
+    # Checks if a property value's units are allowed.
+    #
+    # @param node [Sass::Tree::Node]
+    # @param property [String]
+    # @param units [String]
+    def check_units(node, property, units)
+      allowed_units = allowed_units_for_property(property)
+      return if allowed_units.include?(units)
+
+      add_lint(node,
+               "#{units} units not allowed on `#{property}`; must be one of " \
+               "(#{allowed_units.to_a.sort.join(', ')})")
+    end
+
+    # Return the list of allowed units for a property.
+    #
+    # @param property [String]
+    # @return Array<String>
+    def allowed_units_for_property(property)
+      if @allowed_units_for_property.key?(property)
+        @allowed_units_for_property[property]
+      else
+        @globally_allowed_units
       end
-      true
-    end
-
-    def property_allows_ok?(node, property, units)
-      not_allowed = units_not_allowed_on_property(property, units)
-      unless not_allowed.empty?
-        add_lint(node, "Units are not allowed on #{property}: #{not_allowed.join(' ')}")
-        return false
-      end
-      true
-    end
-
-    def units_not_allowed_globally(units)
-      units_not_allowed units, @globally_allowed_units
-    end
-
-    def units_not_allowed_on_property(property, units)
-      units_not_allowed units, @allowed_units_for_property[property]
-    end
-
-    def units_not_allowed(units, allowed)
-      units.select { |unit| !allowed.include?(unit) }
-    end
-
-    def property_units_defined?(property)
-      @allowed_units_for_property.key?(property)
     end
   end
 end
