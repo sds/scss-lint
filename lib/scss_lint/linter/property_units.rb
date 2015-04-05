@@ -11,19 +11,18 @@ module SCSSLint
     end
 
     def visit_prop(node)
-      @property = node.name.join
-      @units = node.value.value.to_s.scan(/[a-zA-Z%]+/ix)
+      property = node.name.join
+      units = node.value.value.to_s.scan(/[a-zA-Z%]+/ix)
+      return if units.empty?
 
-      return if @units.empty?
-
-      global_allows_ok?(node) && property_allows_ok?(node)
+      global_allows_ok?(node, property, units) && property_allows_ok?(node, property, units)
     end
 
   private
 
-    def global_allows_ok?(node)
-      not_allowed = units_not_allowed_globally
-      unless property_units_defined?
+    def global_allows_ok?(node, property, units)
+      not_allowed = units_not_allowed_globally(units)
+      unless property_units_defined?(property)
         unless not_allowed.empty?
           add_lint(node, "Units are not allowed globally: #{not_allowed.join(' ')}")
         end
@@ -32,33 +31,29 @@ module SCSSLint
       true
     end
 
-    def property_allows_ok?(node)
-      not_allowed = units_not_allowed_on_property
+    def property_allows_ok?(node, property, units)
+      not_allowed = units_not_allowed_on_property(property, units)
       unless not_allowed.empty?
-        add_lint(node, "Units are not allowed on #{@property}: #{not_allowed.join(' ')}")
+        add_lint(node, "Units are not allowed on #{property}: #{not_allowed.join(' ')}")
         return false
       end
       true
     end
 
-    def units_not_allowed_globally
-      units_not_allowed @units, @globally_allowed_units
+    def units_not_allowed_globally(units)
+      units_not_allowed units, @globally_allowed_units
     end
 
-    def units_not_allowed_on_property
-      units_not_allowed @units, @allowed_units_for_property[property_key]
+    def units_not_allowed_on_property(property, units)
+      units_not_allowed units, @allowed_units_for_property[property]
     end
 
     def units_not_allowed(units, allowed)
       units.select { |unit| !allowed.include?(unit) }
     end
 
-    def property_units_defined?
-      @allowed_units_for_property.key? property_key
-    end
-
-    def property_key
-      @property.gsub('-', '_')
+    def property_units_defined?(property)
+      @allowed_units_for_property.key?(property)
     end
   end
 end

@@ -26,7 +26,7 @@ describe SCSSLint::Linter::PropertyUnits do
   end
 
   context 'when global and local units are set' do
-    let(:linter_config) { { 'global' => ['rem'], 'properties' => { 'font_size' => ['px'] } } }
+    let(:linter_config) { { 'global' => ['rem'], 'properties' => { 'font-size' => ['px'] } } }
 
     context 'when unit is allowed locally not globally' do
       let(:scss) { <<-SCSS }
@@ -118,7 +118,7 @@ describe SCSSLint::Linter::PropertyUnits do
   end
 
   context 'when no local units are allowed' do
-    let(:linter_config) { { 'global' => ['px'], 'properties' => { 'line_height' => [] } } }
+    let(:linter_config) { { 'global' => ['px'], 'properties' => { 'line-height' => [] } } }
 
     context 'when a disallowed unit is used' do
       let(:scss) { <<-SCSS }
