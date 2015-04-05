@@ -7,7 +7,9 @@ describe SCSSLint::Linter::PropertyUnits do
     context 'when unit is allowed' do
       let(:scss) { <<-SCSS }
         p {
+          font-size: 1.54rem;
           margin: 1rem;
+          padding: .1rem;
         }
       SCSS
 
@@ -17,11 +19,37 @@ describe SCSSLint::Linter::PropertyUnits do
     context 'when unit is not allowed' do
       let(:scss) { <<-SCSS }
         p {
+          font-size: 16.54px;
           margin: 1px;
+          padding: .1px;
         }
       SCSS
 
       it { should report_lint line: 2 }
+      it { should report_lint line: 3 }
+      it { should report_lint line: 4 }
+    end
+
+    context 'when using a shorthand property' do
+      context 'and the unit is allowed' do
+        let(:scss) { <<-SCSS }
+          p {
+            font: italic 1rem Serif;
+          }
+        SCSS
+
+        it { should_not report_lint }
+      end
+
+      context 'and the unit is not allowed' do
+        let(:scss) { <<-SCSS }
+          p {
+            font: italic 16px Serif;
+          }
+        SCSS
+
+        it { should report_lint line: 2 }
+      end
     end
   end
 
