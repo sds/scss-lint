@@ -99,7 +99,7 @@ linters:
     max_properties: 10
 
   PropertyUnits:
-    enabled: false
+    enabled: true
     global: ['em', 'ex', '%', 'px', 'ch', 'cm', 'mm', 'in', 'pt', 'pc', 'rem', 'vh', 'vw', 'vmin', 'vmax']
     properties: {}
 
