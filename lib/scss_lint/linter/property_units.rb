@@ -3,9 +3,14 @@ module SCSSLint
   class Linter::PropertyUnits < Linter
     include LinterRegistry
 
+    def visit_root(_node)
+      @globally_allowed_units = config['global'].to_set
+      @allowed_units_for_property = config['properties']
+
+      yield # Continue linting children
+    end
+
     def visit_prop(node)
-      @global_allowed = config['global'].to_set
-      @properties = config['properties']
       @property = node.name.join
       @units = node.value.value.to_s.scan(/[a-zA-Z%]+/ix)
 
@@ -37,11 +42,11 @@ module SCSSLint
     end
 
     def units_not_allowed_globally
-      units_not_allowed @units, @global_allowed
+      units_not_allowed @units, @globally_allowed_units
     end
 
     def units_not_allowed_on_property
-      units_not_allowed @units, @properties[property_key]
+      units_not_allowed @units, @allowed_units_for_property[property_key]
     end
 
     def units_not_allowed(units, allowed)
@@ -49,7 +54,7 @@ module SCSSLint
     end
 
     def property_units_defined?
-      @properties.key? property_key
+      @allowed_units_for_property.key? property_key
     end
 
     def property_key
