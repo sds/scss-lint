@@ -4,7 +4,6 @@ module SCSSLint
     include LinterRegistry
 
     def visit_prop(node)
-      @node = node
       @global_allowed = config['global'].to_set
       @properties = config['properties']
       @property = node.name.join
@@ -12,26 +11,26 @@ module SCSSLint
 
       return if @units.empty?
 
-      global_allows_ok? && property_allows_ok?
+      global_allows_ok?(node) && property_allows_ok?(node)
     end
 
   private
 
-    def global_allows_ok?
+    def global_allows_ok?(node)
       not_allowed = units_not_allowed_globally
       unless property_units_defined?
         unless not_allowed.empty?
-          add_lint(@node, "Units are not allowed globally: #{not_allowed.join(' ')}")
+          add_lint(node, "Units are not allowed globally: #{not_allowed.join(' ')}")
         end
         return false
       end
       true
     end
 
-    def property_allows_ok?
+    def property_allows_ok?(node)
       not_allowed = units_not_allowed_on_property
       unless not_allowed.empty?
-        add_lint(@node, "Units are not allowed on #{@property}: #{not_allowed.join(' ')}")
+        add_lint(node, "Units are not allowed on #{@property}: #{not_allowed.join(' ')}")
         return false
       end
       true
