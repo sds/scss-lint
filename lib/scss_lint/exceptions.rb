@@ -1,4 +1,8 @@
 module SCSSLint::Exceptions
+  # Raised when all files matched by the specified glob patterns were filtered
+  # by exclude patterns.
+  class AllFilesFilteredError < StandardError; end
+
   # Raised when an invalid flag is given via the command line.
   class InvalidCLIOption < StandardError; end
 
@@ -7,6 +11,10 @@ module SCSSLint::Exceptions
 
   # Raised when an unexpected error occurs in a linter
   class LinterError < StandardError; end
+
+  # Raised when no files were specified or specified glob patterns did not match
+  # any files.
+  class NoFilesError < StandardError; end
 
   # Raised when a required library (specified via command line) does not exist.
   class RequiredLibraryMissingError < StandardError; end

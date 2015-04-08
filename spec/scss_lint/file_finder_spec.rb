@@ -14,7 +14,9 @@ describe SCSSLint::FileFinder do
       let(:patterns) { [] }
 
       context 'and there are no SCSS files under the current directory' do
-        it { should == [] }
+        it 'raises an error' do
+          expect { subject }.to raise_error SCSSLint::Exceptions::NoFilesError
+        end
       end
 
       context 'and there are SCSS files under the current directory' do
@@ -68,6 +70,16 @@ describe SCSSLint::FileFinder do
           end
 
           it { should == ['some-dir/test.scss'] }
+
+          context 'and those SCSS files are excluded by the config' do
+            before do
+              config.exclude_file('some-dir/test.scss')
+            end
+
+            it 'raises an error' do
+              expect { subject }.to raise_error SCSSLint::Exceptions::AllFilesFilteredError
+            end
+          end
         end
 
         context 'and they contain CSS files' do
@@ -85,14 +97,26 @@ describe SCSSLint::FileFinder do
           end
 
           it { should == ['some-dir/more-dir/test.scss'] }
+
+          context 'and those SCSS files are excluded by the config' do
+            before do
+              config.exclude_file('**/*.scss')
+            end
+
+            it 'raises an error' do
+              expect { subject }.to raise_error SCSSLint::Exceptions::AllFilesFilteredError
+            end
+          end
         end
 
-        context 'and they contain files with some other extension' do
+        context 'and they contain no SCSS files' do
           before do
             `touch some-dir/test.txt`
           end
 
-          it { should == [] }
+          it 'raises an error' do
+            expect { subject }.to raise_error SCSSLint::Exceptions::NoFilesError
+          end
         end
       end
 

@@ -208,6 +208,10 @@ module SCSSLint
       end
     end
 
+    def exclude_patterns
+      @options.fetch('exclude', [])
+    end
+
     def excluded_file_for_linter?(file_path, linter)
       abs_path = File.expand_path(file_path)
 

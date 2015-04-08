@@ -11,6 +11,9 @@
   and return a semantic exit code `EX_UNAVAILABLE` (`69`)
 * Improve message of `DeclarationOrder` to specify the line number of the
   out-of-order item and the line number of where it was expected to be
+* Return helpful error message and unsuccessful exit code when all files
+  matched by specified glob patterns are excluded by `--exclude` flags and
+  `exclude` configuration settings
 
 ## 0.35.0
 

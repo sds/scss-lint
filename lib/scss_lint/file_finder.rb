@@ -22,9 +22,20 @@ module SCSSLint
       # If no explicit patterns given, use patterns listed in config
       patterns = @config.scss_files if patterns.empty?
 
-      extract_files_from(patterns).reject do |file|
-        @config.excluded_file?(file)
+      matched_files = extract_files_from(patterns)
+      if matched_files.empty?
+        raise SCSSLint::Exceptions::NoFilesError,
+              "No SCSS files matched by the patterns: #{patterns.join(' ')}"
       end
+
+      filtered_files = matched_files.reject { |file| @config.excluded_file?(file) }
+      if filtered_files.empty?
+        raise SCSSLint::Exceptions::AllFilesFilteredError,
+              "All files matched by the patterns [#{patterns.join(', ')}] " \
+              "were excluded by the patterns: [#{@config.exclude_patterns.join(', ')}]"
+      end
+
+      filtered_files
     end
 
   private

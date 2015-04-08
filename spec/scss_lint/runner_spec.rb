@@ -36,14 +36,6 @@ describe SCSSLint::Runner do
       subject
     end
 
-    context 'when no files are given' do
-      let(:files) { [] }
-
-      it 'raises an error' do
-        expect { subject }.to raise_error SCSSLint::NoFilesError
-      end
-    end
-
     context 'when all linters are disabled' do
       let(:config_options) do
         {
