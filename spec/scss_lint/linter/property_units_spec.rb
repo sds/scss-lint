@@ -196,4 +196,14 @@ describe SCSSLint::Linter::PropertyUnits do
       it { should report_lint line: 3 }
     end
   end
+
+  context 'when property contains a function call' do
+    let(:scss) { <<-SCSS }
+      p {
+        color: my-special-color(5);
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
 end

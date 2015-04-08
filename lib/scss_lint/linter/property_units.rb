@@ -18,7 +18,8 @@ module SCSSLint
         property = "#{@nested_under}-#{property}"
       end
 
-      if units = node.value.value.to_s[/(?:\d+|\d*\.?\d+)([a-z%]+)/i, 1]
+      if node.value.respond_to?(:value) &&
+         units = node.value.value.to_s[/(?:\d+|\d*\.?\d+)([a-z%]+)/i, 1]
         check_units(node, property, units)
       end
 

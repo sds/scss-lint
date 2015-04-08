@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix `PropertyUnits` to not error on properties with function call values
+
 ## 0.36.0
 
 * Fix `SpaceAfterPropertyColon` to report nested properties
