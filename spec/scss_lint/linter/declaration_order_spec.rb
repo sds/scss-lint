@@ -55,7 +55,7 @@ describe SCSSLint::Linter::DeclarationOrder do
       }
     SCSS
 
-    it { should report_lint line: 6 }
+    it { should report_lint }
   end
 
   context 'when @extend appears before any properties or rules' do
