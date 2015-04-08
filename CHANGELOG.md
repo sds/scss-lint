@@ -14,6 +14,8 @@
 * Return helpful error message and unsuccessful exit code when all files
   matched by specified glob patterns are excluded by `--exclude` flags and
   `exclude` configuration settings
+* Change exit code returned when file globs patterns did not match any files to
+  be different from the exit code returned when a specified file does not exist
 
 ## 0.35.0
 

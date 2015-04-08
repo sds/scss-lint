@@ -327,6 +327,7 @@ Exit Status | Description
 `69`        | Required library specified via `-r`/`--require` flag was not found
 `70`        | Unexpected error (i.e. a bug); please [report it](https://github.com/brigade/scss-lint/issues)
 `78`        | Invalid configuration file; your [YAML](http://www.yaml.org/) is likely incorrect
+`80`        | Files glob patterns specified did not match any files.
 `81`        | All files specified were filtered by exclusions (e.g. via `--exclude` flag or the `exclude` option in your configuration).
 
 ## Linters

@@ -18,6 +18,7 @@ module SCSSLint
       unavailable:    69, # Required library is unavailable
       software:       70, # Internal software error
       config:         78, # Configuration error
+      no_files:       80, # No files matched by specified glob patterns
       files_filtered: 81, # All matched files were filtered by exclusions
     }
 
@@ -77,7 +78,10 @@ module SCSSLint
       when SCSSLint::Exceptions::AllFilesFilteredError
         puts exception.message
         halt :files_filtered
-      when SCSSLint::Exceptions::NoFilesError, Errno::ENOENT
+      when SCSSLint::Exceptions::NoFilesError
+        puts exception.message
+        halt :no_files
+      when Errno::ENOENT
         puts exception.message
         halt :no_input
       when NoSuchLinter
