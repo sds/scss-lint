@@ -324,6 +324,7 @@ Exit Status | Description
 `2`         | One or more errors were reported (and any number of warnings)
 `64`        | Command line usage error (invalid flag, etc.)
 `66`        | One or more files specified were not found
+`69`        | Required library specified via `-r`/`--require` flag was not found
 `70`        | Unexpected error (i.e. a bug); please [report it](https://github.com/brigade/scss-lint/issues)
 `78`        | Invalid configuration file; your [YAML](http://www.yaml.org/) is likely incorrect
 

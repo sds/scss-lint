@@ -10,13 +10,14 @@ module SCSSLint
 
     # Subset of semantic exit codes conforming to `sysexits` documentation.
     EXIT_CODES = {
-      ok:        0,
-      warning:   1,  # One or more warnings (but no errors) were reported
-      error:     2,  # One or more errors were reported
-      usage:     64, # Command line usage error
-      no_input:  66, # Input file did not exist or was not readable
-      software:  70, # Internal software error
-      config:    78, # Configuration error
+      ok:          0,
+      warning:     1,  # One or more warnings (but no errors) were reported
+      error:       2,  # One or more errors were reported
+      usage:       64, # Command line usage error
+      no_input:    66, # Input file did not exist or was not readable
+      unavailable: 69, # Required library is unavailable
+      software:    70, # Internal software error
+      config:      78, # Configuration error
     }
 
     def run(args)
@@ -60,7 +61,7 @@ module SCSSLint
       end
     end
 
-    def handle_runtime_exception(exception) # rubocop:disable Metrics/AbcSize
+    def handle_runtime_exception(exception) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       case exception
       when SCSSLint::Exceptions::InvalidCLIOption
         puts exception.message
@@ -69,6 +70,9 @@ module SCSSLint
       when SCSSLint::Exceptions::InvalidConfiguration
         puts exception.message
         halt :config
+      when SCSSLint::Exceptions::RequiredLibraryMissingError
+        puts exception.message
+        halt :unavailable
       when NoFilesError, Errno::ENOENT
         puts exception.message
         halt :no_input
@@ -137,6 +141,9 @@ module SCSSLint
       Array(options[:required_paths]).each do |path|
         require path
       end
+    rescue LoadError => ex
+      raise SCSSLint::Exceptions::RequiredLibraryMissingError,
+            "Required library not found: #{ex.message}"
     end
 
     def load_reporters(options)

@@ -134,5 +134,20 @@ describe SCSSLint::CLI do
         @output.should include SCSSLint::BUG_REPORT_URL
       end
     end
+
+    context 'when a required library is not found' do
+      let(:flags) { ['--require', 'some_non_existent_library'] }
+
+      before do
+        Kernel.stub(:require).with('some_non_existent_library').and_raise(
+          SCSSLint::Exceptions::RequiredLibraryMissingError
+        )
+      end
+
+      it 'exits with an appropriate status code' do
+        subject.should_receive(:halt).with(:unavailable)
+        safe_run
+      end
+    end
   end
 end

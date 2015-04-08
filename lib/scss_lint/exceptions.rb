@@ -7,4 +7,7 @@ module SCSSLint::Exceptions
 
   # Raised when an unexpected error occurs in a linter
   class LinterError < StandardError; end
+
+  # Raised when a required library (specified via command line) does not exist.
+  class RequiredLibraryMissingError < StandardError; end
 end

@@ -7,6 +7,8 @@
   specific properties
 * Allow color literals in map declarations and the `rgba` helper function in
   `ColorVariable`
+* Gracefully handle when a library specified via `-r`/`--require` is not found
+  and return a semantic exit code `EX_UNAVAILABLE` (`69`)
 
 ## 0.35.0
 
