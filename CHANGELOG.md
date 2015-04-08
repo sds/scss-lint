@@ -3,6 +3,7 @@
 ## master (unreleased)
 
 * Fix `PropertyUnits` to not error on properties with function call values
+* Fix `DeclarationOrder` false positives on lines of the same type of node
 
 ## 0.36.0
 

@@ -34,11 +34,12 @@ module SCSSLint
     end
 
     def check_node(node)
-      children = node.children.select { |n| important_node?(n) }
-                              .map { |n| [n, node_declaration_type(n)] }
+      children = node.children.each_with_index
+                              .select { |n, _| important_node?(n) }
+                              .map { |n, i| [n, node_declaration_type(n), i] }
 
-      sorted_children = children.sort do |(_, a_type), (_, b_type)|
-        DECLARATION_ORDER.index(a_type) <=> DECLARATION_ORDER.index(b_type)
+      sorted_children = children.sort do |(_, a_type, i), (_, b_type, j)|
+        [DECLARATION_ORDER.index(a_type), i] <=> [DECLARATION_ORDER.index(b_type), j]
       end
 
       check_children_order(sorted_children, children)
