@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.36.1
 
 * Fix `PropertyUnits` to not error on properties with function call values
 * Fix `DeclarationOrder` false positives on lines of the same type of node
