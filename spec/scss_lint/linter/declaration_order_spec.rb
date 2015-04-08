@@ -55,7 +55,7 @@ describe SCSSLint::Linter::DeclarationOrder do
       }
     SCSS
 
-    it { should report_lint }
+    it { should report_lint line: 6 }
   end
 
   context 'when @extend appears before any properties or rules' do
@@ -89,7 +89,7 @@ describe SCSSLint::Linter::DeclarationOrder do
       }
     SCSS
 
-    it { should report_lint }
+    it { should report_lint line: 6 }
   end
 
   context 'when nested rule set' do
@@ -116,7 +116,7 @@ describe SCSSLint::Linter::DeclarationOrder do
         }
       SCSS
 
-      it { should report_lint }
+      it { should report_lint line: 4 }
     end
 
     context 'contains @extend after nested rule set' do
@@ -131,7 +131,7 @@ describe SCSSLint::Linter::DeclarationOrder do
         }
       SCSS
 
-      it { should report_lint }
+      it { should report_lint line: 6 }
     end
   end
 
@@ -161,7 +161,7 @@ describe SCSSLint::Linter::DeclarationOrder do
         }
       SCSS
 
-      it { should report_lint }
+      it { should report_lint line: 3 }
     end
   end
 
@@ -176,7 +176,7 @@ describe SCSSLint::Linter::DeclarationOrder do
         }
       SCSS
 
-      it { should report_lint }
+      it { should report_lint line: 5 }
     end
 
     context 'after a property' do
@@ -202,7 +202,7 @@ describe SCSSLint::Linter::DeclarationOrder do
         }
       SCSS
 
-      it { should report_lint }
+      it { should report_lint line: 5 }
     end
 
     context 'before a rule set' do
@@ -232,7 +232,7 @@ describe SCSSLint::Linter::DeclarationOrder do
         }
       SCSS
 
-      it { should report_lint }
+      it { should report_lint line: 5 }
     end
 
     context 'with its own nested rule set' do
@@ -246,7 +246,7 @@ describe SCSSLint::Linter::DeclarationOrder do
           }
         SCSS
 
-        it { should report_lint }
+        it { should report_lint line: 5 }
       end
 
       context 'after a property' do
@@ -303,7 +303,7 @@ describe SCSSLint::Linter::DeclarationOrder do
         }
       SCSS
 
-      it { should report_lint }
+      it { should report_lint line: 7 }
     end
   end
 
@@ -331,7 +331,7 @@ describe SCSSLint::Linter::DeclarationOrder do
         }
       SCSS
 
-      it { should report_lint }
+      it { should report_lint line: 4 }
     end
 
     context 'contains @extend after nested rule set' do
@@ -346,7 +346,7 @@ describe SCSSLint::Linter::DeclarationOrder do
         }
       SCSS
 
-      it { should report_lint }
+      it { should report_lint line: 6 }
     end
   end
 
@@ -360,7 +360,7 @@ describe SCSSLint::Linter::DeclarationOrder do
       }
     SCSS
 
-    it { should report_lint }
+    it { should report_lint line: 5 }
   end
 
   context 'when a pseudo-element appears after a property' do
@@ -399,7 +399,7 @@ describe SCSSLint::Linter::DeclarationOrder do
       }
     SCSS
 
-    it { should report_lint }
+    it { should report_lint line: 5 }
   end
 
   context 'when a selector with parent reference appears after a property' do
@@ -425,7 +425,7 @@ describe SCSSLint::Linter::DeclarationOrder do
       }
     SCSS
 
-    it { should report_lint }
+    it { should report_lint line: 5 }
   end
 
   context 'when a pseudo-element appears after a property' do
@@ -451,7 +451,7 @@ describe SCSSLint::Linter::DeclarationOrder do
       }
     SCSS
 
-    it { should report_lint }
+    it { should report_lint line: 5 }
   end
 
   context 'when a direct descendent appears after a property' do
@@ -477,7 +477,7 @@ describe SCSSLint::Linter::DeclarationOrder do
       }
     SCSS
 
-    it { should report_lint }
+    it { should report_lint line: 5 }
   end
 
   context 'when an adjacent sibling appears after a property' do
@@ -503,7 +503,7 @@ describe SCSSLint::Linter::DeclarationOrder do
       }
     SCSS
 
-    it { should report_lint }
+    it { should report_lint line: 5 }
   end
 
   context 'when a general sibling appears after a property' do
@@ -529,7 +529,7 @@ describe SCSSLint::Linter::DeclarationOrder do
       }
     SCSS
 
-    it { should report_lint }
+    it { should report_lint line: 5 }
   end
 
   context 'when a descendent appears after a property' do
@@ -555,6 +555,6 @@ describe SCSSLint::Linter::DeclarationOrder do
       }
     SCSS
 
-    it { should report_lint }
+    it { should report_lint line: 5 }
   end
 end

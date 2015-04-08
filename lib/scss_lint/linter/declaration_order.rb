@@ -35,14 +35,25 @@ module SCSSLint
 
     def check_node(node)
       children = node.children.select { |n| important_node?(n) }
-                              .map { |n| node_declaration_type(n) }
+                              .map { |n| [n, node_declaration_type(n)] }
 
-      sorted_children = children.sort do |a, b|
-        DECLARATION_ORDER.index(a) <=> DECLARATION_ORDER.index(b)
+      sorted_children = children.sort do |(_, a_type), (_, b_type)|
+        DECLARATION_ORDER.index(a_type) <=> DECLARATION_ORDER.index(b_type)
       end
 
-      return unless children != sorted_children
-      add_lint(node.children.first, MESSAGE)
+      check_children_order(sorted_children, children)
+    end
+
+    # Find the child that is out of place
+    def check_children_order(sorted_children, children)
+      sorted_children.each_with_index do |sorted_item, index|
+        next if sorted_item == children[index]
+
+        add_lint(sorted_item.first.line,
+                 "Expected item on line #{sorted_item.first.line} to appear " \
+                 "before line #{children[index].first.line}. #{MESSAGE}")
+        break
+      end
     end
 
     def node_declaration_type(node)
