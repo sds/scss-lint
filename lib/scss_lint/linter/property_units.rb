@@ -19,7 +19,7 @@ module SCSSLint
       end
 
       if node.value.respond_to?(:value) &&
-         units = node.value.value.to_s[/(?:\d+|\d*\.?\d+)([a-z%]+)/i, 1]
+         units = node.value.value.to_s[/(?:^|\s)(?:\d+|\d*\.?\d+)([a-z%]+)/i, 1]
         check_units(node, property, units)
       end
 

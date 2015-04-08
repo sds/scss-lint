@@ -4,6 +4,8 @@
 
 * Fix `PropertyUnits` to not error on properties with function call values
 * Fix `DeclarationOrder` false positives on lines of the same type of node
+* Fix `PropertyUnits` false positives on unicode escape sequences and string
+  values that look like units
 
 ## 0.36.0
 

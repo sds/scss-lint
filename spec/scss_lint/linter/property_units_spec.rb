@@ -206,4 +206,24 @@ describe SCSSLint::Linter::PropertyUnits do
 
     it { should_not report_lint }
   end
+
+  context 'when property contains a unicode sequence' do
+    let(:scss) { <<-SCSS }
+      p {
+        content: "\\25be";
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when property contains a string in quotes that looks like a value' do
+    let(:scss) { <<-SCSS }
+      p {
+        content: "This is 12px";
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
 end
