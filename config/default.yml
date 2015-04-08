@@ -100,7 +100,16 @@ linters:
 
   PropertyUnits:
     enabled: true
-    global: ['em', 'ex', '%', 'px', 'ch', 'cm', 'mm', 'in', 'pt', 'pc', 'rem', 'vh', 'vw', 'vmin', 'vmax']
+    global: [
+      'ch', 'em', 'ex', 'rem',                 # Font-relative lengths
+      'cm', 'in', 'mm', 'pc', 'pt', 'px', 'q', # Absolute lengths
+      'vh', 'vw', 'vmin', 'vmax',              # Viewport-percentage lengths
+      'deg', 'grad', 'rad', 'turn',            # Angle
+      'ms', 's',                               # Duration
+      'Hz', 'kHz',                             # Frequency
+      'dpi', 'dpcm', 'dppx',                   # Resolution
+      '%',                                     # Other
+    ]
     properties: {}
 
   PropertySortOrder:

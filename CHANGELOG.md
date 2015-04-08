@@ -6,6 +6,8 @@
 * Fix `DeclarationOrder` false positives on lines of the same type of node
 * Fix `PropertyUnits` false positives on unicode escape sequences and string
   values that look like units
+* Add additional units to default configuration for `PropertyUnits`, including
+  durations, frequencies, angles, and resolutions
 
 ## 0.36.0
 
