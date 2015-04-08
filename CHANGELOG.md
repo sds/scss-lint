@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.36.0
 
 * Fix `SpaceAfterPropertyColon` to report nested properties
 * Add `PropertyUnits` allowing customization of which units are allowed for
