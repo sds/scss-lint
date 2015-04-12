@@ -57,7 +57,7 @@ module SCSSLint
         explanation: 'should be written in hyphenated BEM (Block Element Modifier) format',
         validator: ->(name) { name !~ /[A-Z]|-{3}|_{3}|[^_]_[^_]/ },
       },
-      'BEM' => {
+      'strict_BEM' => {
         explanation: 'should be written in BEM (Block Element Modifier) format',
         validator: lambda do |name|
           name =~ /

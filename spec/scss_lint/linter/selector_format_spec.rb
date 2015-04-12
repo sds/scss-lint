@@ -454,8 +454,8 @@ describe SCSSLint::Linter::SelectorFormat do
     end
   end
 
-  context 'when the BEM convention is specified' do
-    let(:linter_config) { { 'convention' => 'BEM' } }
+  context 'when the strict_BEM convention is specified' do
+    let(:linter_config) { { 'convention' => 'strict_BEM' } }
 
     context 'when a name contains no underscores or hyphens' do
       let(:scss) { '.block {}' }

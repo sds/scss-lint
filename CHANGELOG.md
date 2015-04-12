@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Rename `BEM` option on `SelectorFormat` to `strict_BEM` to emphasize that
+  this is a particular dialect which may not be what developers expect
+
 ## 0.36.1
 
 * Fix `PropertyUnits` to not error on properties with function call values

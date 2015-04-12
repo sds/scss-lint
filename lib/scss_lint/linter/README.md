@@ -1062,7 +1062,7 @@ type of selector.
 
 Configuration Option     | Description
 -------------------------|-----------------------------------------------------
-`convention`             | Name of convention to use (`hyphenated_lowercase` (default) or `snake_case`, `camel_case`, or `BEM`, or `hyphenated_BEM`), or a regex the name must match
+`convention`             | Name of convention to use (`hyphenated_lowercase` (default) or `snake_case`, `camel_case`, or `strict_BEM`, or `hyphenated_BEM`), or a regex the name must match. **Note:** If your project uses BEM, pay attention to the dialect of BEM you use. It may be [`strict_BEM`](https://en.bem.info/method/definitions/) or [`hyphenated_BEM`](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)
 `ignored_names`          | Array of whitelisted names to not report lints for.
 `ignored_types`          | Array containing list of types of selectors to ignore (valid values are `attribute`, `class`, `element`, `id`, `placeholder`)
 `attribute_convention`   | Convention for attribute selectors only. See the `convention` option for possible values.
