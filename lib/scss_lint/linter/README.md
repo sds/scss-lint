@@ -1062,13 +1062,12 @@ type of selector.
 
 Configuration Option     | Description
 -------------------------|-----------------------------------------------------
-`convention`             | Name of convention to use (`hyphenated_lowercase` (default) or `snake_case`, `camel_case`, or `strict_BEM`, or `hyphenated_BEM`), or a regex the name must match. **Note:** If your project uses BEM, pay attention to the dialect of BEM you use. It may be [`strict_BEM`](https://en.bem.info/method/definitions/) or [`hyphenated_BEM`](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)
+`convention`             | Name of convention to use (`hyphenated_lowercase` (default) or `snake_case`, `camel_case`, or `strict_BEM`, or `hyphenated_BEM`), or a regex the name must match. **Note:** If your project uses BEM, pay attention to the dialect of BEM you use. It may be [`strict_BEM`](https://en.bem.info/method/definitions/) or [`hyphenated_BEM`](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/).
+`convention_explanation` | Custom catch-all explanation if you do not want to use the built-in explanations
 `ignored_names`          | Array of whitelisted names to not report lints for.
 `ignored_types`          | Array containing list of types of selectors to ignore (valid values are `attribute`, `class`, `element`, `id`, `placeholder`)
-`attribute_convention`   | Convention for attribute selectors only. See the `convention` option for possible values.
-`class_convention`       | Convention for class selectors only. See the `convention` option for possible values.
-`id_convention`          | Convention for id selectors only. See the `convention` option for possible values.
-`placeholder_convention` | Convention for placeholder selectors only. See the `convention` option for possible values.
+`#{type}_convention`   | Convention for `#{type}` selectors only, where `#{type}` is one of `attribute`, `class`, `id`, or `placeholder`. See the `convention` option for possible values.
+`#{type}_convention_explanation` | Custom explanation for `#{type}` selector convention, where `#{type}` is one of `attribute`, `class`, `id`, or `placeholder`.
 
 ## Shorthand
 
