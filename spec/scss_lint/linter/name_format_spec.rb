@@ -249,4 +249,34 @@ describe SCSSLint::Linter::NameFormat do
       it { should report_lint }
     end
   end
+
+  context 'when type-specific convention is defined with a global convention' do
+    let(:linter_config) do
+      { 'convention' => 'camel_case', 'variable_convention' => 'snake_case' }
+    end
+
+    context 'when specific type satisfies the type-specific convention' do
+      let(:scss) { '$my_variable: 1;' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when specific type does not satisfy the type-specific convention' do
+      let(:scss) { '$myVariable: 1;' }
+
+      it { should report_lint }
+    end
+
+    context 'when other type satisfies the global convention' do
+      let(:scss) { '@function myFunction() {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when other type does not satisfy the global convention' do
+      let(:scss) { '@function my_function() {}' }
+
+      it { should report_lint }
+    end
+  end
 end
