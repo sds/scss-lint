@@ -654,7 +654,7 @@ You can also prefer the [BEM](http://bem.info/method/) convention by setting the
 Configuration Option       | Description
 ---------------------------|---------------------------------------------------
 `allow_leading_underscore` | Whether to allow names to start with a single underscore (default `true`)
-`convention`               | Name of convention to use (`hyphenated_lowercase` (default) or `BEM`), or a regex the name must match (eg: `^[a-zA-Z]+$`)
+`convention`               | Name of convention to use (`hyphenated_lowercase` (default), `snake_case`, or `BEM`), or a regex the name must match (eg: `^[a-zA-Z]+$`)
 
 ## NestingDepth
 

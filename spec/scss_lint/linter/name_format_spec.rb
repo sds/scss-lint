@@ -194,6 +194,34 @@ describe SCSSLint::Linter::NameFormat do
     end
   end
 
+  context 'when the snake_case convention is specified' do
+    let(:linter_config) { { 'convention' => 'snake_case' } }
+
+    context 'when a name contains all lowercase letters' do
+      let(:scss) { '$variable: 1;' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains all lowercase letters and underscores' do
+      let(:scss) { '$my_variable: 1;' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains all lowercase letters and hyphens' do
+      let(:scss) { '$my-variable: 1;' }
+
+      it { should report_lint }
+    end
+
+    context 'when a name contains any uppercase letters' do
+      let(:scss) { '$myVariable: 1;' }
+
+      it { should report_lint }
+    end
+  end
+
   context 'when the BEM convention is specified' do
     let(:linter_config) { { 'convention' => 'BEM' } }
 

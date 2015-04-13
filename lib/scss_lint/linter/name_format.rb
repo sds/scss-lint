@@ -70,6 +70,10 @@ module SCSSLint
     end
 
     CONVENTIONS = {
+      'snake_case' => {
+        explanation: 'in snake_case',
+        validator: ->(name) { name !~ /[^_a-z0-9]/ },
+      },
       'hyphenated_lowercase' => {
         explanation: 'in all lowercase letters with hyphens instead of underscores',
         validator: ->(name) { name !~ /[_A-Z]/ },

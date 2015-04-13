@@ -6,6 +6,7 @@
   this is a particular dialect which may not be what developers expect
 * Allow `SelectorFormat` convention explanations to be customized via the
   `#{type}_convention_explanation` and `convention_explanation` options
+* Add `snake_case` convention to `NameFormat`
 
 ## 0.36.1
 
