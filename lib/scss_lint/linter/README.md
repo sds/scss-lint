@@ -639,13 +639,13 @@ code, you can set the `allow_leading_underscore` option (enabled by default)
 which will ignore leading underscores in names if they exist, allowing
 declarations like `@function _private-function() { ... }`.
 
-Configuration Option           | Description
--------------------------------|-----------------------------------------------
-`allow_leading_underscore`     | Whether to allow names to start with a single underscore (default `true`)
-`convention`                   | Name of convention to use (`hyphenated_lowercase` (default), `camel_case`, `snake_case`), or a regex the name must match (eg: `^[a-zA-Z]+$`)
-`convention_explanation`       | Custom catch-all explanation if you do not want to use the built-in explanations
-`{type}_convention`            | Convention to use for `{type}`s, where `{type}` is on of `function`, `mixin`, `variable`, or `placeholder`
-`{type}_convention_explanation | Custom explanation for `{type}` convention, where `{type}` is one of `function`, `mixin`, `variable`, or `placeholder`
+Configuration Option            | Description
+--------------------------------|----------------------------------------------
+`allow_leading_underscore`      | Whether to allow names to start with a single underscore (default `true`)
+`convention`                    | Name of convention to use (`hyphenated_lowercase` (default), `camel_case`, `snake_case`), or a regex the name must match (eg: `^[a-zA-Z]+$`)
+`convention_explanation`        | Custom catch-all explanation if you do not want to use the built-in explanations
+`{type}_convention`             | Convention to use for `{type}`s, where `{type}` is on of `function`, `mixin`, `variable`, or `placeholder`
+`{type}_convention_explanation` | Custom explanation for `{type}` convention, where `{type}` is one of `function`, `mixin`, `variable`, or `placeholder`
 
 ## NestingDepth
 
