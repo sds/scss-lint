@@ -630,15 +630,6 @@ $my-var: 10px;
 }
 ```
 
-Using lowercase with hyphens in CSS has become the _de facto_ standard, and
-brings with it a couple of benefits. First of all, hyphens are easier to type
-than underscores, due to the additional `Shift` key required for underscores on
-most popular keyboard layouts. Furthermore, using hyphens in class names in
-particular allows you to take advantage of the
-[`|=` attribute selector](http://www.w3.org/TR/CSS21/selector.html#attribute-selectors),
-which allows you to write a selector like `[class|="inactive"]` to match both
-`inactive-user` and `inactive-button` classes.
-
 The Sass parser automatically treats underscores and hyphens the same, so even
 if you're using a library that declares a function with an underscore, you can
 refer to it using the hyphenated form instead.
@@ -648,13 +639,13 @@ code, you can set the `allow_leading_underscore` option (enabled by default)
 which will ignore leading underscores in names if they exist, allowing
 declarations like `@function _private-function() { ... }`.
 
-You can also prefer the [BEM](http://bem.info/method/) convention by setting the
-`convention` option to `BEM`. Any other value will be treated as a regex.
-
-Configuration Option       | Description
----------------------------|---------------------------------------------------
-`allow_leading_underscore` | Whether to allow names to start with a single underscore (default `true`)
-`convention`               | Name of convention to use (`hyphenated_lowercase` (default), `camel_case`, `snake_case`), or a regex the name must match (eg: `^[a-zA-Z]+$`)
+Configuration Option           | Description
+-------------------------------|-----------------------------------------------
+`allow_leading_underscore`     | Whether to allow names to start with a single underscore (default `true`)
+`convention`                   | Name of convention to use (`hyphenated_lowercase` (default), `camel_case`, `snake_case`), or a regex the name must match (eg: `^[a-zA-Z]+$`)
+`convention_explanation`       | Custom catch-all explanation if you do not want to use the built-in explanations
+`{type}_convention`            | Convention to use for `{type}`s, where `{type}` is on of `function`, `mixin`, `variable`, or `placeholder`
+`{type}_convention_explanation | Custom explanation for `{type}` convention, where `{type}` is one of `function`, `mixin`, `variable`, or `placeholder`
 
 ## NestingDepth
 

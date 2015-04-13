@@ -9,6 +9,9 @@
 * Add `camel_case` and `snake_case` conventions to `NameFormat`
 * Remove `BEM` convention from `NameFormat`, as it didn't make sense in this
   context since `NameFormat` does not deal with selectors
+* Add support for function, mixin, or variable-specific conventions to
+  `NameFormat`
+* Add support for custom convention explanations to `NameFormat`
 
 ## 0.36.1
 

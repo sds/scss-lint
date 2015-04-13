@@ -47,7 +47,7 @@ module SCSSLint
 
     def check_name(node, node_type, node_text = node.name)
       node_text = trim_underscore_prefix(node_text)
-      return unless violation = violated_convention(node_text)
+      return unless violation = violated_convention(node_text, node_type)
 
       add_lint(node,
                "Name of #{node_type} `#{node_text}` #{violation[:explanation]}")
@@ -85,16 +85,33 @@ module SCSSLint
       },
     }
 
-    # Checks the given name and returns the violated convention if it failed.
-    def violated_convention(name_string)
-      convention_name = config['convention'] || 'hyphenated_lowercase'
+    def violated_convention(name_string, type)
+      convention_name = convention_name(type)
 
-      convention = CONVENTIONS[convention_name] || {
-        explanation: "must match regex /#{convention_name}/",
+      existing_convention = CONVENTIONS[convention_name]
+
+      convention = (existing_convention || {
         validator: ->(name) { name =~ /#{convention_name}/ }
-      }
+      }).merge(
+        explanation: convention_explanation(type), # Allow explanation to be customized
+      )
 
       convention unless convention[:validator].call(name_string)
+    end
+
+    def convention_name(type)
+      config["#{type}_convention"] ||
+        config['convention'] ||
+        'hyphenated_lowercase'
+    end
+
+    def convention_explanation(type)
+      existing_convention = CONVENTIONS[convention_name(type)]
+
+      config["#{type}_convention_explanation"] ||
+        config['convention_explanation'] ||
+        (existing_convention && existing_convention[:explanation]) ||
+        "should match regex /#{convention_name(type)}/"
     end
   end
 end
