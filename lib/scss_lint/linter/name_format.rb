@@ -49,8 +49,8 @@ module SCSSLint
       node_text = trim_underscore_prefix(node_text)
       return unless violation = violated_convention(node_text)
 
-      add_lint(node, "Name of #{node_type} `#{node_text}` should be " \
-                     "written #{violation[:explanation]}")
+      add_lint(node,
+               "Name of #{node_type} `#{node_text}` #{violation[:explanation]}")
     end
 
     # Removes underscore prefix from name if leading underscores are allowed.
@@ -71,15 +71,16 @@ module SCSSLint
 
     CONVENTIONS = {
       'snake_case' => {
-        explanation: 'in snake_case',
+        explanation: 'should be written in snake_case',
         validator: ->(name) { name !~ /[^_a-z0-9]/ },
       },
       'hyphenated_lowercase' => {
-        explanation: 'in all lowercase letters with hyphens instead of underscores',
+        explanation: 'should be written in all lowercase letters with hyphens ' \
+                     'instead of underscores',
         validator: ->(name) { name !~ /[_A-Z]/ },
       },
       'BEM' => {
-        explanation: 'in BEM (Block Element Modifier) format',
+        explanation: 'should be written in BEM (Block Element Modifier) format',
         validator: ->(name) { name !~ /[A-Z]|-{3}|_{3}|[^_]_[^_]/ },
       },
     }
