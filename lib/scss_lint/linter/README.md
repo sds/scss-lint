@@ -1066,8 +1066,8 @@ Configuration Option     | Description
 `convention_explanation` | Custom catch-all explanation if you do not want to use the built-in explanations
 `ignored_names`          | Array of whitelisted names to not report lints for.
 `ignored_types`          | Array containing list of types of selectors to ignore (valid values are `attribute`, `class`, `element`, `id`, `placeholder`)
-`#{type}_convention`   | Convention for `#{type}` selectors only, where `#{type}` is one of `attribute`, `class`, `id`, or `placeholder`. See the `convention` option for possible values.
-`#{type}_convention_explanation` | Custom explanation for `#{type}` selector convention, where `#{type}` is one of `attribute`, `class`, `id`, or `placeholder`.
+`{type}_convention`   | Convention for `{type}` selectors only, where `{type}` is one of `attribute`, `class`, `id`, or `placeholder`. See the `convention` option for possible values.
+`{type}_convention_explanation` | Custom explanation for `{type}` selector convention, where `{type}` is one of `attribute`, `class`, `id`, or `placeholder`.
 
 ## Shorthand
 
