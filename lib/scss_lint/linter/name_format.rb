@@ -79,10 +79,6 @@ module SCSSLint
                      'instead of underscores',
         validator: ->(name) { name !~ /[_A-Z]/ },
       },
-      'BEM' => {
-        explanation: 'should be written in BEM (Block Element Modifier) format',
-        validator: ->(name) { name !~ /[A-Z]|-{3}|_{3}|[^_]_[^_]/ },
-      },
     }
 
     # Checks the given name and returns the violated convention if it failed.

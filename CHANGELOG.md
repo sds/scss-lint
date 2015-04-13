@@ -7,6 +7,8 @@
 * Allow `SelectorFormat` convention explanations to be customized via the
   `#{type}_convention_explanation` and `convention_explanation` options
 * Add `snake_case` convention to `NameFormat`
+* Remove `BEM` convention from `NameFormat`, as it didn't make sense in this
+  context since `NameFormat` does not deal with selectors
 
 ## 0.36.1
 
