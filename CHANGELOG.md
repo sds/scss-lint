@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.37.0
 
 * Rename `BEM` option on `SelectorFormat` to `strict_BEM` to emphasize that
   this is a particular dialect which may not be what developers expect
