@@ -1,6 +1,6 @@
 module SCSSLint
-  # Checks that the declared names of functions, mixins, and variables are all
-  # lowercase and use hyphens instead of underscores.
+  # Checks the format of declared names of functions, mixins, variables, and
+  # placeholders.
   class Linter::NameFormat < Linter
     include LinterRegistry
 
@@ -70,6 +70,10 @@ module SCSSLint
     end
 
     CONVENTIONS = {
+      'camel_case' => {
+        explanation: 'should be written in camelCase format',
+        validator: ->(name) { name =~ /^[a-z][a-zA-Z0-9]*$/ },
+      },
       'snake_case' => {
         explanation: 'should be written in snake_case',
         validator: ->(name) { name !~ /[^_a-z0-9]/ },
