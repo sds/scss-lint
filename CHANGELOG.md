@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Change configuration loading behavior so that defining lists in a custom
+  configuration will completely override the old list instead of adding to it
+
 ## 0.37.0
 
 * Rename `BEM` option on `SelectorFormat` to `strict_BEM` to emphasize that

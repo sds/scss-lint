@@ -46,6 +46,7 @@ describe SCSSLint::Config do
     linters:
       FakeConfigLinter:
         enabled: true
+        list: [1, 2, 3]
       OtherFakeConfigLinter:
         enabled: false
     FILE
@@ -101,6 +102,18 @@ describe SCSSLint::Config do
 
       it 'returns a configuration equivalent to the default' do
         subject.options.should == described_class.default.options
+      end
+    end
+
+    context 'with a config file setting a list value different from the default' do
+      let(:config_file) { <<-FILE }
+      linters:
+        FakeConfigLinter:
+          list: [4, 5, 6]
+      FILE
+
+      it 'overrides the default value with the new value' do
+        subject.options['linters']['FakeConfigLinter']['list'].should == [4, 5, 6]
       end
     end
 
