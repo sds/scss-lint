@@ -557,4 +557,19 @@ describe SCSSLint::Linter::DeclarationOrder do
 
     it { should report_lint line: 5 }
   end
+
+  context 'when order within a media query is incorrect' do
+    let(:scss) { <<-SCSS }
+      @media screen and (max-width: 600px) {
+        @include mix1();
+
+        width: 100%;
+        height: 100%;
+
+        @include mix2();
+      }
+    SCSS
+
+    it { should report_lint }
+  end
 end

@@ -10,6 +10,7 @@ module SCSSLint
 
     alias_method :visit_rule, :check_order
     alias_method :visit_mixin, :check_order
+    alias_method :visit_media, :check_order
 
   private
 

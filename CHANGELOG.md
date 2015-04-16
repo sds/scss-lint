@@ -4,6 +4,7 @@
 
 * Change configuration loading behavior so that defining lists in a custom
   configuration will completely override the old list instead of adding to it
+* Fix `DeclarationOrder` linter to report lints for items within media queries
 
 ## 0.37.0
 
