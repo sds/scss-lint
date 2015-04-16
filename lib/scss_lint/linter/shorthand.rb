@@ -72,7 +72,7 @@ module SCSSLint
         [top]
       elsif can_condense_to_two_values(top, right, bottom, left)
         [top, right]
-      elsif right == left
+      elsif can_condense_to_three_values(top, right, bottom, left)
         [top, right, bottom]
       else
         [top, right, bottom, left].compact
@@ -80,6 +80,7 @@ module SCSSLint
     end
 
     def can_condense_to_one_value(top, right, bottom, left)
+      return unless allowed(1)
       return unless top == right
 
       top == bottom && (bottom == left || left.nil?) ||
@@ -87,8 +88,20 @@ module SCSSLint
     end
 
     def can_condense_to_two_values(top, right, bottom, left)
+      return unless allowed(2)
+
       top == bottom && right == left ||
         top == bottom && left.nil? && top != right
+    end
+
+    def can_condense_to_three_values(top, right, bottom, left)
+      return unless allowed(3)
+
+      right == left
+    end
+
+    def allowed(size)
+      config['allowed_shorthands'] && config['allowed_shorthands'].map(&:to_i).include?(size)
     end
   end
 end
