@@ -174,7 +174,7 @@ describe SCSSLint::Linter::Shorthand do
     let(:linter_config) { { 'allowed_shorthands' => allowed } }
 
     context 'can be shortened to 1, 2, or 3, but 1 is not allowed' do
-      let(:allowed) { [2, 4] }
+      let(:allowed) { [2, 3] }
       let(:scss) { <<-SCSS }
         p {
           margin: 4px 4px 4px 4px;
@@ -185,7 +185,7 @@ describe SCSSLint::Linter::Shorthand do
     end
 
     context 'can be shortened to 1, but 1 is not allowed' do
-      let(:allowed) { [4] }
+      let(:allowed) { [2, 3] }
       let(:scss) { <<-SCSS }
         p {
           margin: 4px 4px 4px;
