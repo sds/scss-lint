@@ -68,40 +68,41 @@ module SCSSLint
     end
 
     def condensed_shorthand(top, right, bottom = nil, left = nil)
-      if can_condense_to_one_value(top, right, bottom, left)
+      if condense_to_one_value?(top, right, bottom, left)
         [top]
-      elsif can_condense_to_two_values(top, right, bottom, left)
+      elsif condense_to_two_values?(top, right, bottom, left)
         [top, right]
-      elsif can_condense_to_three_values(top, right, bottom, left)
+      elsif condense_to_three_values?(top, right, bottom, left)
         [top, right, bottom]
       else
         [top, right, bottom, left].compact
       end
     end
 
-    def can_condense_to_one_value(top, right, bottom, left)
-      return unless allowed(1)
+    def condense_to_one_value?(top, right, bottom, left)
+      return unless allowed?(1)
       return unless top == right
 
       top == bottom && (bottom == left || left.nil?) ||
         bottom.nil? && left.nil?
     end
 
-    def can_condense_to_two_values(top, right, bottom, left)
-      return unless allowed(2)
+    def condense_to_two_values?(top, right, bottom, left)
+      return unless allowed?(2)
 
       top == bottom && right == left ||
         top == bottom && left.nil? && top != right
     end
 
-    def can_condense_to_three_values(top, right, bottom, left)
-      return unless allowed(3)
+    def condense_to_three_values?(_, right, __, left)
+      return unless allowed?(3)
 
       right == left
     end
 
-    def allowed(size)
-      config['allowed_shorthands'] && config['allowed_shorthands'].map(&:to_i).include?(size)
+    def allowed?(size)
+      return false unless config['allowed_shorthands']
+      config['allowed_shorthands'].map(&:to_i).include?(size)
     end
   end
 end
