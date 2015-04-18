@@ -1074,6 +1074,13 @@ margin: 1px 1px 1px 1px;
 margin: 1px;
 ```
 
+If you don't want to allow all possible shorthands, you can limit them by
+setting the `allowed_shorthands` array option to a subset of `[1, 2, 3]`.
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`allowed_shorthands` | Array of allowed shorthand lengths (default `[1, 2, 3]`)
+
 ## SingleLinePerProperty
 
 Properties within rule sets should each reside on their own line.

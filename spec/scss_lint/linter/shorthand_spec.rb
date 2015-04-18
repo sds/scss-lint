@@ -169,4 +169,30 @@ describe SCSSLint::Linter::Shorthand do
       it { should report_lint line: 3 }
     end
   end
+
+  context 'when configured with allowed_shorthands, and a rule' do
+    let(:linter_config) { { 'allowed_shorthands' => allowed } }
+
+    context 'can be shortened to 1, 2, or 3, but 1 is not allowed' do
+      let(:allowed) { [2, 4] }
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 4px 4px 4px 4px;
+        }
+      SCSS
+
+      it { should report_lint }
+    end
+
+    context 'can be shortened to 1, but 1 is not allowed' do
+      let(:allowed) { [4] }
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 4px 4px 4px;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+  end
 end
