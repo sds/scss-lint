@@ -54,7 +54,7 @@ describe SCSSLint::Linter::Comment do
   end
 
   context 'when multi-line comment is allowed by config' do
-    let(:linter_config) { { 'allowed' => "^[/\\* ]*Copyright" } }
+    let(:linter_config) { { 'allowed' => '^[/\\* ]*Copyright' } }
     let(:scss) { <<-SCSS }
       /* Copyright someone. */
       a {
@@ -66,7 +66,7 @@ describe SCSSLint::Linter::Comment do
   end
 
   context 'when multi-line comment is not allowed by config' do
-    let(:linter_config) { { 'allowed' => "^[/\\* ]*Copyright" } }
+    let(:linter_config) { { 'allowed' => '^[/\\* ]*Copyright' } }
     let(:scss) { <<-SCSS }
       /* Other multiline. */
       p {
