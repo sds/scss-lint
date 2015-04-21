@@ -6,6 +6,8 @@
   configuration will completely override the old list instead of adding to it
 * Fix `DeclarationOrder` linter to report lints for items within media queries
 * Add `allowed_shorthands` option for `Shorthand` linter
+* Add `allowed` option to `Comment` linter specifying regex of allowed
+  multi-line comments, such as copyright notices
 
 ## 0.37.0
 
