@@ -63,11 +63,11 @@ describe SCSSLint::Runner do
       end
 
       before do
-        SCSSLint::Engine.stub(:new).with(file: files.last).and_raise(error)
+        SCSSLint::Engine.stub(:new).and_raise(error)
       end
 
       it 'records the error as a lint' do
-        expect { subject }.to change { runner.lints.count }.by(1)
+        subject.count.should == 2
       end
     end
 

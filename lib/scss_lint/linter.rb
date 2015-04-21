@@ -6,15 +6,19 @@ module SCSSLint
 
     attr_reader :config, :engine, :lints
 
+    # Create a linter.
     def initialize
       @lints = []
     end
 
-    # Run this linter against a parsed document with a given configuration.
+    # Run this linter against a parsed document with the given configuration,
+    # returning the lints that were found.
     #
     # @param engine [Engine]
     # @param config [Config]
+    # @return [Array<Lint>]
     def run(engine, config)
+      @lints = []
       @config = config
       @engine = engine
       @comment_processor = ControlCommentProcessor.new(self)

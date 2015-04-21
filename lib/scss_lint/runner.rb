@@ -16,10 +16,6 @@ module SCSSLint
       files.each do |file|
         find_lints(file)
       end
-
-      @linters.each do |linter|
-        @lints += linter.lints
-      end
     end
 
   private
@@ -49,7 +45,7 @@ module SCSSLint
     def run_linter(linter, engine, file)
       return unless @config.linter_enabled?(linter)
       return if @config.excluded_file_for_linter?(file, linter)
-      linter.run(engine, @config.linter_options(linter))
+      @lints += linter.run(engine, @config.linter_options(linter))
     end
   end
 end

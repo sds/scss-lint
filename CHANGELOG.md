@@ -8,6 +8,8 @@
 * Add `allowed_shorthands` option for `Shorthand` linter
 * Add `allowed` option to `Comment` linter specifying regex of allowed
   multi-line comments, such as copyright notices
+* Fix bug where control comments could filter out lints from other files
+  depending on scan order
 
 ## 0.37.0
 
