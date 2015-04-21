@@ -1486,8 +1486,8 @@ linters:
       - font
 ```
 
-Note that values like `inherit` and `transparent` will not be reported, as they
-are special kinds of values that convey additional meaning.
+Note that values like `currentColor`, `inherit`, and `transparent` will not be
+reported, as they are special kinds of values that convey additional meaning.
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
