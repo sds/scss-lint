@@ -159,6 +159,14 @@ generated CSS, whereas `/* ... */` comments do.
 Furthermore, comments should be concise, and using `/* ... */`
 encourages multi-line comments which tend to not be concise.
 
+If you want to allow multi-line comments containing certain text, such as
+"Copyright", set the `allowed` option to a regular expression. Multi-line
+comments that match the regular expression will be allowed.
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`allowed`            | Regular expression for matching allowed comments, such as '^[/\* ]*Copyright'
+
 ## Compass Linters
 
 `scss-lint` includes a set of linters for codebases which use the
