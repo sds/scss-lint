@@ -10,6 +10,7 @@
   multi-line comments, such as copyright notices
 * Fix bug where control comments could filter out lints from other files
   depending on scan order
+* Ignore `inherit` and `transparent` values in `VariableForProperty`
 
 ## 0.37.0
 

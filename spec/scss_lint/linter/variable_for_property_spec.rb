@@ -87,6 +87,26 @@ describe SCSSLint::Linter::VariableForProperty do
 
       it { should report_lint line: 3 }
     end
+
+    context 'when property specifies `inherit`' do
+      let(:scss) { <<-SCSS }
+        p {
+          color: inherit;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when property specifies `transparent`' do
+      let(:scss) { <<-SCSS }
+        p {
+          color: transparent;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
   end
 
   context 'when properties are not specified' do
