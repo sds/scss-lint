@@ -13,15 +13,15 @@ module SCSSLint
     end
 
     def visit_prop(node)
-      spaces = spaces_after_colon(node)
+      whitespace = whitespace_after_colon(node)
 
       case config['style']
       when 'no_space'
-        check_for_no_spaces(node, spaces)
+        check_for_no_spaces(node, whitespace)
       when 'one_space'
-        check_for_one_space(node, spaces)
+        check_for_one_space(node, whitespace)
       when 'at_least_one_space'
-        check_for_at_least_one_space(node, spaces)
+        check_for_at_least_one_space(node, whitespace)
       end
 
       yield # Continue linting children
@@ -29,18 +29,18 @@ module SCSSLint
 
   private
 
-    def check_for_no_spaces(node, spaces)
-      return if spaces == 0
+    def check_for_no_spaces(node, whitespace)
+      return if whitespace == []
       add_lint(node, 'Colon after property should not be followed by any spaces')
     end
 
-    def check_for_one_space(node, spaces)
-      return if spaces == 1
+    def check_for_one_space(node, whitespace)
+      return if whitespace == [' ']
       add_lint(node, 'Colon after property should be followed by one space')
     end
 
-    def check_for_at_least_one_space(node, spaces)
-      return if spaces >= 1
+    def check_for_at_least_one_space(node, whitespace)
+      return if whitespace.uniq == [' ']
       add_lint(node, 'Colon after property should be followed by at least one space')
     end
 
@@ -60,11 +60,11 @@ module SCSSLint
       src_range = prop.name_source_range
       src_range.start_pos.offset +
         (src_range.end_pos.offset - src_range.start_pos.offset) +
-        spaces_after_colon(prop)
+        whitespace_after_colon(prop).take_while { |w| w == ' ' }.size
     end
 
-    def spaces_after_colon(node)
-      spaces = 0
+    def whitespace_after_colon(node)
+      whitespace = []
       offset = 1
 
       # Find the colon after the property name
@@ -73,12 +73,12 @@ module SCSSLint
       end
 
       # Count spaces after the colon
-      while character_at(node.name_source_range.start_pos, offset) == ' '
-        spaces += 1
+      while [' ', "\t", "\n"].include? character_at(node.name_source_range.start_pos, offset)
+        whitespace << character_at(node.name_source_range.start_pos, offset)
         offset += 1
       end
 
-      spaces
+      whitespace
     end
   end
 end
