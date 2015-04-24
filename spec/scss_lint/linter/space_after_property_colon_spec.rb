@@ -81,6 +81,27 @@ describe SCSSLint::Linter::SpaceAfterPropertyColon do
 
       it { should report_lint line: 3 }
     end
+
+    context 'when the colon after a property is followed by a space and a newline' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin:
+        0;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'when the colon after a property is followed by a tab' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin:	0;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
   end
 
   context 'when no spaces are allowed' do
@@ -130,6 +151,27 @@ describe SCSSLint::Linter::SpaceAfterPropertyColon do
       let(:scss) { <<-SCSS }
         p {
           margin:  bold;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'when the colon after a property is followed by a newline' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin:
+        0;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'when the colon after a property is followed by a tab' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin:	0;
         }
       SCSS
 
@@ -188,6 +230,16 @@ describe SCSSLint::Linter::SpaceAfterPropertyColon do
       SCSS
 
       it { should_not report_lint }
+    end
+
+    context 'when the colon after a property is followed by multiple spaces and a tab' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin:  	bold;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
     end
   end
 
