@@ -200,5 +200,21 @@ linters:
   ZeroUnit:
     enabled: true
 
+  Bliss::Module:
+    enabled: false
+    severity: error
+    module_file_pattern: !ruby/regexp '/[\/\\]_?([A-Z][a-zA-Z0-9]+)\.scss/'
+    allow_id_selector_in_module: false
+    allow_attribute_selector_in_module: true
+    allow_element_selector_in_module: true
+
+    allow_module_margin: false
+    allow_module_width: false
+
+    allow_utility_classes_in_module: false
+    ignored_utility_class_prefixes: ['is', 'ie']
+
+    allow_utility_direct_styling: false
+
   Compass::*:
     enabled: false
