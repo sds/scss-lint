@@ -23,6 +23,20 @@ describe SCSSLint::Linter::PropertySortOrder do
     it { should_not report_lint }
   end
 
+  context 'when rule contains nested properties in unsorted order' do
+    let(:scss) { <<-SCSS }
+      p {
+        font: {
+          family: Arial;
+          weight: bold;
+          size: 1.2em;
+        }
+      }
+    SCSS
+
+    it { should report_lint line: 4 }
+  end
+
   context 'when rule contains mixins followed by properties in sorted order' do
     let(:scss) { <<-SCSS }
       p {
@@ -448,6 +462,21 @@ describe SCSSLint::Linter::PropertySortOrder do
       SCSS
 
       it { should report_lint line: 2 }
+    end
+
+    context 'when the minimum number of properties are out of order in a nested property' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 0;
+          font: {
+            size: 16px;
+            weight: bold;
+            family: Arial;
+          }
+        }
+      SCSS
+
+      it { should report_lint line: 4 }
     end
   end
 end

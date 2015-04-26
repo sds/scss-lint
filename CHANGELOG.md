@@ -14,6 +14,7 @@
   `VariableForProperty`
 * Add `min_properties` option to `PropertySortOrder` to allow specifying a
   threshold number of properties that must be present before linting occurs
+* Fix `PropertySortOrder` to lint sort order of nested properties
 
 ## 0.37.0
 

@@ -23,7 +23,7 @@ module SCSSLint
           .map do |child|
             name = child.name.join
             /^(?<vendor>-\w+(-osx)?-)?(?<property>.+)/ =~ name
-            { name: name, vendor: vendor, property: property, node: child }
+            { name: name, vendor: vendor, property: "#{@nested_under}#{property}", node: child }
           end
 
         check_sort_order(sortable_prop_info)
@@ -36,6 +36,15 @@ module SCSSLint
     alias_method :visit_media, :check_order
     alias_method :visit_mixin, :check_order
     alias_method :visit_rule,  :check_order
+    alias_method :visit_prop,  :check_order
+
+    def visit_prop(node, &block)
+      # Handle nested properties by appending the parent property they are
+      # nested under to the name
+      @nested_under = "#{node.name.join}-"
+      check_order(node, &block)
+      @nested_under = nil
+    end
 
     def visit_if(node, &block)
       check_order(node, &block)
