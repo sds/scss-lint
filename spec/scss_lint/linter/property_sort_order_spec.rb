@@ -423,4 +423,31 @@ describe SCSSLint::Linter::PropertySortOrder do
       end
     end
   end
+
+  context 'when a minimum number of properties is required' do
+    let(:linter_config) { { 'min_properties' => 3 } }
+
+    context 'when fewer than the minimum number of properties are out of order' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 0;
+          display: none;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when at least the minimum number of properties are out of order' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 0;
+          position: absolute;
+          display: none;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+  end
 end

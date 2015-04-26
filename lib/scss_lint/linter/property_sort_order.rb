@@ -18,14 +18,14 @@ module SCSSLint
         child.is_a?(Sass::Tree::PropNode) && !ignore_property?(child)
       end
 
-      sortable_prop_info = sortable_props
-        .map do |child|
-          name = child.name.join
-          /^(?<vendor>-\w+(-osx)?-)?(?<property>.+)/ =~ name
-          { name: name, vendor: vendor, property: property, node: child }
-        end
+      if sortable_props.count >= config.fetch('min_properties', 2)
+        sortable_prop_info = sortable_props
+          .map do |child|
+            name = child.name.join
+            /^(?<vendor>-\w+(-osx)?-)?(?<property>.+)/ =~ name
+            { name: name, vendor: vendor, property: property, node: child }
+          end
 
-      if sortable_props.any?
         check_sort_order(sortable_prop_info)
         check_group_separation(sortable_prop_info) if @group
       end

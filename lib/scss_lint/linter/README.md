@@ -867,6 +867,7 @@ vendor-prefixed properties will still be ordered based on the example above
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `ignore_unspecified` | Whether to ignore properties that are not explicitly specified in `order` (default **false**)
+`min_properties`     | Minimum number of sortable properties (i.e. properties which are defined by the given `order`) present in the rule set before linting takes place (default **2**)
 `order`              | Array of properties, or the name of a [preset order](data/property-sort-orders) (default is `nil`, resulting in alphabetical ordering)
 `separate_groups`    | Whether gaps between groups of properties should be enforced.
 

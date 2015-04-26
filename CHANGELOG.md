@@ -12,6 +12,8 @@
   depending on scan order
 * Ignore `currentColor`, `inherit`, and `transparent` values in
   `VariableForProperty`
+* Add `min_properties` option to `PropertySortOrder` to allow specifying a
+  threshold number of properties that must be present before linting occurs
 
 ## 0.37.0
 
