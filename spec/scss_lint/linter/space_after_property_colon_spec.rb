@@ -85,7 +85,7 @@ describe SCSSLint::Linter::SpaceAfterPropertyColon do
     context 'when the colon after a property is followed by a space and a newline' do
       let(:scss) { <<-SCSS }
         p {
-          margin:
+          margin:\s
         0;
         }
       SCSS
@@ -96,7 +96,7 @@ describe SCSSLint::Linter::SpaceAfterPropertyColon do
     context 'when the colon after a property is followed by a tab' do
       let(:scss) { <<-SCSS }
         p {
-          margin:	0;
+          margin:\t0;
         }
       SCSS
 
@@ -171,7 +171,7 @@ describe SCSSLint::Linter::SpaceAfterPropertyColon do
     context 'when the colon after a property is followed by a tab' do
       let(:scss) { <<-SCSS }
         p {
-          margin:	0;
+          margin:\t0;
         }
       SCSS
 
@@ -235,7 +235,7 @@ describe SCSSLint::Linter::SpaceAfterPropertyColon do
     context 'when the colon after a property is followed by multiple spaces and a tab' do
       let(:scss) { <<-SCSS }
         p {
-          margin:  	bold;
+          margin:  \tbold;
         }
       SCSS
 
