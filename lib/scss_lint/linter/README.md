@@ -1186,7 +1186,7 @@ The `style` option allows you to specify a different preferred style.
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`style`              | `one_space`, `no_space`, `at_least_one_space`, or `aligned` (default **one_space**)
+`style`              | `one_space`, `no_space`, `at_least_one_space`, `one_space_or_newline`, or `aligned` (default **one_space**)
 
 ## SpaceAfterPropertyName
 
