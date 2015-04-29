@@ -291,7 +291,7 @@ url(https://something.crazy.long/with/paths?and=queries)
     context 'when the colon after a property is followed by a space and then a newline' do
       let(:scss) { <<-SCSS }
         p {
-          background-image: 
+          background-image:\s
 url(https://something.crazy.long/with/paths?and=queries)
         }
       SCSS
