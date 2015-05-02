@@ -142,4 +142,14 @@ describe SCSSLint::Linter::ColorVariable do
 
     it { should_not report_lint }
   end
+
+  context 'when a string with a color name is used in a function call' do
+    let(:scss) { <<-SCSS }
+      p {
+        color: my-func('blue');
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
 end

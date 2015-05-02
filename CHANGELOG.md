@@ -16,6 +16,7 @@
   threshold number of properties that must be present before linting occurs
 * Fix `PropertySortOrder` to lint sort order of nested properties
 * Add `one_space_or_newline` `style` option to `SpaceAfterPropertyColon`
+* Fix `ColorVariable` to ignore literal strings containing color keywords
 
 ## 0.37.0
 

@@ -15,6 +15,8 @@ module SCSSLint
     end
 
     def visit_script_string(node)
+      return if literal_string?(node)
+
       remove_quoted_strings(node.value)
         .scan(/(^|\s)(#[a-f0-9]+|[a-z]+)(?=\s|$)/i)
         .select { |_, word| color?(word) }
@@ -27,6 +29,15 @@ module SCSSLint
       add_lint node, "Color literals like `#{color}` should only be used in " \
                      'variable declarations; they should be referred to via ' \
                      'variable everywhere else.'
+    end
+
+    def literal_string?(script_string)
+      return unless script_string.respond_to?(:source_range) &&
+        source_range = script_string.source_range
+
+      # If original source starts with a quote character, it's a string, not a
+      # color
+      %w[' "].include?(source_from_range(source_range)[0])
     end
 
     def in_variable_declaration?(node)
