@@ -3,7 +3,7 @@ require 'scss_lint/constants'
 require 'scss_lint/version'
 
 Gem::Specification.new do |s|
-  s.name             = 'scss-lint'
+  s.name             = 'scss_lint'
   s.version          = SCSSLint::VERSION
   s.license          = 'MIT'
   s.summary          = 'SCSS lint tool'

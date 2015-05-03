@@ -35,7 +35,7 @@ it into your [SCM hooks](https://github.com/brigade/overcommit).
 ## Installation
 
 ```bash
-gem install scss-lint
+gem install scss_lint
 ```
 
 ## Usage

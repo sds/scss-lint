@@ -17,6 +17,10 @@
 * Fix `PropertySortOrder` to lint sort order of nested properties
 * Add `one_space_or_newline` `style` option to `SpaceAfterPropertyColon`
 * Fix `ColorVariable` to ignore literal strings containing color keywords
+* Rename `scss-lint` gem to `scss_lint` to follow RubyGems [best practices for
+  naming gems](http://guides.rubygems.org/name-your-gem/). This only affects
+  the name you use in `Gemfile`s or when you `gem install`; everything else
+  remains the same.
 
 ## 0.37.0
 
