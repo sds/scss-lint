@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.38.0
 
 * Change configuration loading behavior so that defining lists in a custom
   configuration will completely override the old list instead of adding to it
