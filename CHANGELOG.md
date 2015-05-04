@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix `Indentation` to not report `@import` directives spread across multiple
+  lines
+
 ## 0.38.0
 
 * Change configuration loading behavior so that defining lists in a custom
