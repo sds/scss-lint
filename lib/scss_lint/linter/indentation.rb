@@ -89,6 +89,12 @@ module SCSSLint
       end
     end
 
+    def visit_import(node)
+      prev = previous_node(node)
+      return if prev.is_a?(Sass::Tree::ImportNode) && source_from_range(prev.source_range) =~ /,$/
+      check_indentation(node)
+    end
+
     # Define node types that increase indentation level
     alias_method :visit_directive, :check_and_visit_children
     alias_method :visit_each,      :check_and_visit_children
@@ -107,7 +113,6 @@ module SCSSLint
     alias_method :visit_content,   :check_indentation
     alias_method :visit_cssimport, :check_indentation
     alias_method :visit_extend,    :check_indentation
-    alias_method :visit_import,    :check_indentation
     alias_method :visit_return,    :check_indentation
     alias_method :visit_variable,  :check_indentation
     alias_method :visit_warn,      :check_indentation
