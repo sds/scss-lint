@@ -165,4 +165,15 @@ module Sass::Tree
       concat_expr_lists super, expr
     end
   end
+
+  class ImportNode
+    # Compares the names and values of two imports.
+    #
+    # @param other [Object] The object to compare with
+    # @return [Boolean] Whether or not this node and the other object
+    #   are the same
+    def ==(other)
+      self.class == other.class && imported_filename == other.imported_filename && super
+    end
+  end
 end
