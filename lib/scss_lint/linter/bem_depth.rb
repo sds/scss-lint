@@ -22,10 +22,11 @@ module SCSSLint
       selector = node.name
       parts = selector.split('__')
       num_elements = (parts[1..-1] || []).length
-      if num_elements > @max_elements
-        add_lint(node, "BEM #{plural_type} should have no more than #{pluralize(@max_elements, 'element')}, but `#{selector}` has #{num_elements}")
-      end
-    end
+      return if num_elements <= @max_elements
 
+      found_elements = pluralize(@max_elements, 'element')
+      add_lint(node, "BEM #{plural_type} should have no more than #{found_elements}, " \
+                     "but `#{selector}` has #{num_elements}")
+    end
   end
 end

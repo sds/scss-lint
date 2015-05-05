@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe SCSSLint::Linter::BemDepth do
   context 'with the default maximum number of elements' do
-
     context 'when a selector lacks elements' do
       let(:scss) { <<-SCSS }
         .block {
@@ -69,7 +68,6 @@ describe SCSSLint::Linter::BemDepth do
       it { should report_lint line: 1 }
       it { should report_lint line: 4 }
     end
-
   end
 
   context 'with a custom maximum number of elements' do
@@ -115,6 +113,5 @@ describe SCSSLint::Linter::BemDepth do
       it { should report_lint line: 7 }
       it { should report_lint line: 10 }
     end
-
   end
 end
