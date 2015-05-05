@@ -3,6 +3,7 @@
 Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 
 * [BangFormat](#bangformat)
+* [BemDepth](#bemdepth)
 * [BorderZero](#borderzero)
 * [ColorKeyword](#colorkeyword)
 * [ColorVariable](#colorvariable)
@@ -73,6 +74,29 @@ Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `space_before_bang`  | Whether a space should be present *before* the `!`, as in `color: #000 !important;` (default **true**)
 `space_after_bang`   | Whether a space should be present *after* the `!`, as in `color: #000 ! important;` (default **false**)
+
+## BemDepth
+
+Reports when a BEM selector contains more elements than a configurable
+maximum number.
+
+**Bad**
+```scss
+.block__element__subelement  {
+  ...
+}
+```
+
+**Good**
+```scss
+.block__element {
+  ...
+}
+```
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`max_elements`       | Maximum number of elements allowed in a BEM selector (default **1**)
 
 ## BorderZero
 
