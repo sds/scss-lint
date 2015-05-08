@@ -77,7 +77,7 @@ describe SCSSLint::Reporter::JSONReporter do
       context 'when lints are warnings' do
         it 'marks each issue with a severity of "warning"' do
           json.values.inject(0) do |sum, issues|
-            sum + issues.select { |i| i['severity'] == 'warning' }.size
+            sum + issues.count { |i| i['severity'] == 'warning' }
           end.should == 3
         end
       end
@@ -87,7 +87,7 @@ describe SCSSLint::Reporter::JSONReporter do
 
         it 'marks each issue with a severity of "error"' do
           json.values.inject(0) do |sum, issues|
-            sum + issues.select { |i| i['severity'] == 'error' }.size
+            sum + issues.count { |i| i['severity'] == 'error' }
           end.should == 3
         end
       end
