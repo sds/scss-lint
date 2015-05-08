@@ -6,6 +6,7 @@
   lines
 * Add `BemDepth` which checks the number of BEM elements is under a specified
   maximum
+* Add the ability to load config from the current user's home directory.
 
 ## 0.38.0
 
