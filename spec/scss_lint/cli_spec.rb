@@ -21,7 +21,9 @@ describe SCSSLint::CLI do
     @output = ''
     STDOUT.stub(:write) { |*args| @output.<<(*args) }
 
-    SCSSLint::Config.stub(:load).and_return(config)
+    SCSSLint::Config.stub(:load)
+                    .with(SCSSLint::Config::DEFAULT_FILE, merge_with_default: false)
+                    .and_return(config)
     SCSSLint::LinterRegistry.stub(:linters)
                             .and_return([SCSSLint::Linter::FakeTestLinter1,
                                          SCSSLint::Linter::FakeTestLinter2])
@@ -170,6 +172,45 @@ describe SCSSLint::CLI do
 
       it 'exits with an appropriate status code' do
         subject.should_receive(:halt).with(:files_filtered)
+        safe_run
+      end
+    end
+
+    context 'when a config file is specified' do
+      let(:flags) { ['--config', 'custom_config.yml'] }
+
+      before do
+        File.stub(:exist?).with('.scss-lint.yml').and_return(true)
+        File.stub(:exist?).with(SCSSLint::Config::USER_FILE).and_return(true)
+      end
+
+      it 'loads config from that file' do
+        SCSSLint::Config.should_receive(:load).with('custom_config.yml').and_return(config)
+        safe_run
+      end
+    end
+
+    context 'when a config file exists in the current directory' do
+      before do
+        File.stub(:exist?).with('.scss-lint.yml').and_return(true)
+        File.stub(:exist?).with(SCSSLint::Config::USER_FILE).and_return(true)
+      end
+
+      it 'loads config from the local file' do
+        SCSSLint::Config.should_receive(:load).with('.scss-lint.yml').and_return(config)
+        safe_run
+      end
+    end
+
+    context 'when a config file exists in the user home directory' do
+      before do
+        File.stub(:exist?).with('.scss-lint.yml').and_return(false)
+        File.stub(:exist?).with(SCSSLint::Config::USER_FILE).and_return(true)
+      end
+
+      it 'loads config from their home directory' do
+        config_path = File.expand_path('.scss-lint.yml', Dir.home)
+        SCSSLint::Config.should_receive(:load).with(config_path).and_return(config)
         safe_run
       end
     end

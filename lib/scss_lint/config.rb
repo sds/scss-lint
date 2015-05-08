@@ -4,6 +4,7 @@ module SCSSLint
   # Loads and manages application configuration.
   class Config
     FILE_NAME = '.scss-lint.yml'
+    USER_FILE = File.join(Dir.home, FILE_NAME)
     DEFAULT_FILE = File.join(SCSS_LINT_HOME, 'config', 'default.yml')
 
     attr_reader :options, :warnings

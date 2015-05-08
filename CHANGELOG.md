@@ -4,6 +4,7 @@
 
 * Fix `Indentation` to not report `@import` directives spread across multiple
   lines
+* Add the ability to load config from the current user's home directory.
 
 ## 0.38.0
 
