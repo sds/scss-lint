@@ -2,6 +2,8 @@ require 'spec_helper'
 require 'scss_lint/cli'
 
 describe SCSSLint::CLI do
+  include_context 'isolated environment'
+
   let(:config_options) do
     {
       'linters' => {
@@ -181,7 +183,7 @@ describe SCSSLint::CLI do
 
       before do
         File.stub(:exist?).with('.scss-lint.yml').and_return(true)
-        File.stub(:exist?).with(SCSSLint::Config::USER_FILE).and_return(true)
+        File.stub(:exist?).with(SCSSLint::Config.user_file).and_return(true)
       end
 
       it 'loads config from the specified file' do
@@ -193,7 +195,7 @@ describe SCSSLint::CLI do
     context 'when a config file exists in the current directory and home directory' do
       before do
         File.stub(:exist?).with('.scss-lint.yml').and_return(true)
-        File.stub(:exist?).with(SCSSLint::Config::USER_FILE).and_return(true)
+        File.stub(:exist?).with(SCSSLint::Config.user_file).and_return(true)
       end
 
       it 'loads config from the current directory' do
@@ -205,7 +207,7 @@ describe SCSSLint::CLI do
     context 'when a config file exists only in the user home directory' do
       before do
         File.stub(:exist?).with('.scss-lint.yml').and_return(false)
-        File.stub(:exist?).with(SCSSLint::Config::USER_FILE).and_return(true)
+        File.stub(:exist?).with(SCSSLint::Config.user_file).and_return(true)
       end
 
       it 'loads config from the home directory' do

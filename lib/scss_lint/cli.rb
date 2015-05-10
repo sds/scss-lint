@@ -101,8 +101,8 @@ module SCSSLint
           Config.load(options[:config_file])
         elsif File.exist?(Config::FILE_NAME)
           Config.load(Config::FILE_NAME)
-        elsif File.exist?(Config::USER_FILE)
-          Config.load(Config::USER_FILE)
+        elsif File.exist?(Config.user_file)
+          Config.load(Config.user_file)
         else
           Config.default
         end

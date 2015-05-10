@@ -4,7 +4,6 @@ module SCSSLint
   # Loads and manages application configuration.
   class Config
     FILE_NAME = '.scss-lint.yml'
-    USER_FILE = File.join(Dir.home, FILE_NAME)
     DEFAULT_FILE = File.join(SCSS_LINT_HOME, 'config', 'default.yml')
 
     attr_reader :options, :warnings
@@ -24,6 +23,14 @@ module SCSSLint
         end
 
         Config.new(config_options)
+      end
+
+      # Returns the location of the user-wide scss-lint configuration.
+      #
+      # This needs to be a method instead of a constant so that we can change
+      # the user's home directory in tests.
+      def user_file
+        File.join(Dir.home, FILE_NAME)
       end
 
       def linter_name(linter)
