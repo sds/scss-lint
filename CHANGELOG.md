@@ -8,6 +8,7 @@
   maximum
 * Load configuration file from user's home directory if one exists and no other
   configuration file is specified or in the current working directory
+* Improve issue reporting instructions displayed when scss-lint crashes
 
 ## 0.38.0
 

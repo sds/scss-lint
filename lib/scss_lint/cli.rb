@@ -26,7 +26,7 @@ module SCSSLint
       options = SCSSLint::Options.new.parse(args)
       act_on_options(options)
     rescue => ex
-      handle_runtime_exception(ex)
+      handle_runtime_exception(ex, options)
     end
 
   private
@@ -63,7 +63,7 @@ module SCSSLint
       end
     end
 
-    def handle_runtime_exception(exception) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/LineLength, Metrics/MethodLength
+    def handle_runtime_exception(exception, options) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/LineLength, Metrics/MethodLength
       case exception
       when SCSSLint::Exceptions::InvalidCLIOption
         puts exception.message
@@ -88,26 +88,39 @@ module SCSSLint
         puts exception.message
         halt :usage
       else
+        config_file = relevant_configuration_file(options) if options
+
         puts exception.message
         puts exception.backtrace
         puts 'Report this bug at '.color(:yellow) + BUG_REPORT_URL.color(:cyan)
+        puts
+        puts 'To help fix this issue, please include:'.color(:green)
+        puts '- The above stack trace'
+        puts "- SCSS-Lint version (#{SCSSLint::VERSION.color(:cyan)})"
+        puts "- Ruby version (#{RUBY_VERSION.color(:cyan)})"
+        puts "- Contents of #{File.expand_path(config_file).color(:cyan)}" if config_file
         halt :software
       end
     end
 
     def setup_configuration(options)
-      config =
-        if options[:config_file]
-          Config.load(options[:config_file])
-        elsif File.exist?(Config::FILE_NAME)
-          Config.load(Config::FILE_NAME)
-        elsif File.exist?(Config.user_file)
-          Config.load(Config.user_file)
-        else
-          Config.default
-        end
-
+      config_file = relevant_configuration_file(options)
+      config = config_file ? Config.load(config_file) : Config.default
       merge_options_with_config(options, config)
+    end
+
+    # Return the path of the configuration file that should be loaded.
+    #
+    # @param options [Hash]
+    # @return [String]
+    def relevant_configuration_file(options)
+      if options[:config_file]
+        options[:config_file]
+      elsif File.exist?(Config::FILE_NAME)
+        Config::FILE_NAME
+      elsif File.exist?(Config.user_file)
+        Config.user_file
+      end
     end
 
     # @param options [Hash]
