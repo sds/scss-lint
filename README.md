@@ -72,13 +72,19 @@ Command Line Flag         | Description
 
 ## Configuration
 
-`scss-lint` will automatically load the file `.scss-lint.yml` if one exists in
-the current working directory merging it with the [default
-configuration](config/default.yml). Otherwise, it uses the default
-configuration as-is.
+`scss-lint` loads configuration in the following order of precedence:
 
-You can also specify that a specific configuration file be used via the
-`--config` flag. It will still be merged with the default configuration.
+1. Configuration file specified via the `--config` flag
+2. Configuration from `.scss-lint.yml` in the current working directory,
+   if it exists
+3. Configuration from `.scss-lint.yml` in the user's home directory,
+   if it exists
+4. Otherwise, just the [default configuration](config/default.yml) is loaded
+
+**Note**: The first configuration file found is the one that is loaded, e.g.
+the `.scss-lint.yml` file in the current working directory is loaded _instead_
+of the one in the user's home directory&mdash;they are not merged with each
+other.
 
 Here's an example configuration file:
 
