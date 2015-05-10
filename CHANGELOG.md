@@ -4,6 +4,8 @@
 
 * Fix `Indentation` to not report `@import` directives spread across multiple
   lines
+* Add `BemDepth` which checks the number of BEM elements is under a specified
+  maximum
 
 ## 0.38.0
 
