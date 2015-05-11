@@ -97,6 +97,7 @@ module SCSSLint
         puts 'To help fix this issue, please include:'.color(:green)
         puts '- The above stack trace'
         puts "- SCSS-Lint version (#{SCSSLint::VERSION.color(:cyan)})"
+        puts "- Sass version (#{Gem.loaded_specs['sass'].version.to_s.color(:cyan)})"
         puts "- Ruby version (#{RUBY_VERSION.color(:cyan)})"
         puts "- Contents of #{File.expand_path(config_file).color(:cyan)}" if config_file
         halt :software
