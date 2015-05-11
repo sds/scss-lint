@@ -40,15 +40,26 @@ module SCSSLint
                     (next_start_line = following_node.line)
 
       # Special case: ignore comments immediately after a closing brace
-      line = engine.lines[next_start_line - 1].strip
-      return if following_node.is_a?(Sass::Tree::CommentNode) &&
-                line =~ %r{\s*\}?\s*/(/|\*)}
+      return if comment_after_closing_brace?(following_node, next_start_line)
+
+      # Special case: ignore `@else` nodes which are children of the parent `@if`
+      return if else_node?(following_node)
 
       # Otherwise check if line before the next node's starting line is blank
-      line = engine.lines[next_start_line - 2].strip
-      return if line.empty?
+      return if next_line_blank?(next_start_line)
 
       add_lint(next_start_line - 1, MESSAGE_FORMAT % [type, 'followed'])
+    end
+
+    def comment_after_closing_brace?(node, next_start_line)
+      line = engine.lines[next_start_line - 1].strip
+
+      node.is_a?(Sass::Tree::CommentNode) &&
+        line =~ %r{\s*\}?\s*/(/|\*)}
+    end
+
+    def next_line_blank?(next_start_line)
+      engine.lines[next_start_line - 2].strip.empty?
     end
 
     # In cases where the previous node is not a block declaration, we won't
@@ -80,6 +91,10 @@ module SCSSLint
       return unless siblings = node_siblings(node)
       index = siblings.index(node)
       siblings[index - 1] if index > 0 && siblings.count > 1
+    end
+
+    def else_node?(node)
+      source_from_range(node.source_range).strip.start_with?('@else')
     end
   end
 end

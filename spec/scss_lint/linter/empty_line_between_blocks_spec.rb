@@ -88,6 +88,20 @@ describe SCSSLint::Linter::EmptyLineBetweenBlocks do
     end
   end
 
+  context 'when a rule set is in an @if statement with an @else following it' do
+    let(:scss) { <<-SCSS }
+      @if $condition {
+        p {
+        }
+      } @else {
+        p {
+        }
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
+
   context 'when mixins are defined' do
     context 'and there is no blank line between them' do
       let(:scss) { <<-SCSS }
