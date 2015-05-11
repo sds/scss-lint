@@ -56,9 +56,10 @@ module SCSSLint
       end
     end
 
-    # Deal with `else` statements
-    def visit_if(node, &block)
-      check_and_visit_children(node, &block)
+    # Deal with `else` statements, which require special care since they are
+    # considered children of `if` statements.
+    def visit_if(node)
+      check_indentation(node)
       visit(node.else) if node.else
     end
 

@@ -12,6 +12,8 @@
 * Remove `XML` formatter (see the
   [`Checkstyle` formatter](https://github.com/Sweetchuck/scss_lint_reporter_checkstyle)
   for an XML-based alternative)
+* Fix `Indentation` linter from crashing on `@else` statements with
+  `allow_non_nested_indentation` set to `true`
 
 ## 0.38.0
 

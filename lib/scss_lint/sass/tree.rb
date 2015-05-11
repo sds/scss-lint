@@ -104,7 +104,7 @@ module Sass::Tree
 
   class IfNode
     def children
-      concat_expr_lists super, expr
+      concat_expr_lists super, expr, self.else
     end
   end
 
