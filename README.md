@@ -268,26 +268,6 @@ Outputs JSON with filenames and an array of issue objects.
 }
 ```
 
-### XML
-
-Outputs XML with `<lint>`, `<file>`, and `<issue>` tags.
-
-```bash
-scss-lint --format=XML [scss-files...]
-```
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<lint>
-  <file name="test.css">
-    <issue line="2" severity="warning" reason="Prefer single quoted strings" />
-    <issue line="2" severity="warning" reason="Line should be indented 0 spaces, but was indented 1 spaces" />
-    <issue line="5" severity="warning" reason="Prefer single quoted strings" />
-    <issue line="6" severity="warning" reason="URLs should be enclosed in quotes" />
-  </file>
-</lint>
-```
-
 ### Plugins
 
 There are also formatters that integrate with third-party tools which are available as plugins.

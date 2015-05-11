@@ -27,6 +27,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'rainbow', '~> 2.0'
   s.add_dependency 'sass', '~> 3.4.1'
 
-  s.add_development_dependency 'nokogiri', '~> 1.6.0'
   s.add_development_dependency 'rspec', '~> 3.0'
 end

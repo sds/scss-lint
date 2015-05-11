@@ -9,6 +9,9 @@
 * Load configuration file from user's home directory if one exists and no other
   configuration file is specified or in the current working directory
 * Improve issue reporting instructions displayed when scss-lint crashes
+* Remove `XML` formatter (see the
+  [`Checkstyle` formatter](https://github.com/Sweetchuck/scss_lint_reporter_checkstyle)
+  for an XML-based alternative)
 
 ## 0.38.0
 
