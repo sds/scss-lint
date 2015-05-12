@@ -79,7 +79,8 @@ Command Line Flag         | Description
    if it exists
 3. Configuration from `.scss-lint.yml` in the user's home directory,
    if it exists
-4. Otherwise, just the [default configuration](config/default.yml) is loaded
+
+All configurations extend the [default configuration](config/default.yml).
 
 **Note**: The first configuration file found is the one that is loaded, e.g.
 the `.scss-lint.yml` file in the current working directory is loaded _instead_
