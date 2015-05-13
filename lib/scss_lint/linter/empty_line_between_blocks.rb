@@ -92,9 +92,5 @@ module SCSSLint
       index = siblings.index(node)
       siblings[index - 1] if index > 0 && siblings.count > 1
     end
-
-    def else_node?(node)
-      source_from_range(node.source_range).strip.start_with?('@else')
-    end
   end
 end

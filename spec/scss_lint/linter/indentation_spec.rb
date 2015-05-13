@@ -268,6 +268,20 @@ describe SCSSLint::Linter::Indentation do
       }
     end
 
+    context 'and an if statement is accompanied by a correctly indented else statement' do
+      let(:scss) { <<-SCSS }
+        @mixin my-func() {
+          @if $condition {
+            padding: 0;
+          } @else {
+            margin: 0;
+          }
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
     context 'and non-nested code is indented' do
       let(:scss) { <<-SCSS }
         .component {}

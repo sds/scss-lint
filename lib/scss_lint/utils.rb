@@ -35,6 +35,15 @@ module SCSSLint
       Sass::Script::Value::Color::COLOR_NAMES[string]
     end
 
+    # Returns whether a node is an IfNode corresponding to an @else/@else if
+    # statement.
+    #
+    # @param node [Sass::Tree::Node]
+    # @return [true,false]
+    def else_node?(node)
+      source_from_range(node.source_range).strip.start_with?('@else')
+    end
+
     # Given a selector array which is a list of strings with Sass::Script::Nodes
     # interspersed within them, return an array of strings representing those
     # selectors with the Sass::Script::Nodes removed (i.e., ignoring

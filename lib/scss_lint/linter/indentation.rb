@@ -60,7 +60,12 @@ module SCSSLint
     # considered children of `if` statements.
     def visit_if(node)
       check_indentation(node)
-      visit(node.else) if node.else
+
+      if config['allow_non_nested_indentation']
+        yield # Continue linting else statement
+      else
+        visit(node.else) if node.else
+      end
     end
 
     # Need to define this explicitly since @at-root directives can contain
@@ -163,7 +168,7 @@ module SCSSLint
           return true
         end
       elsif !one_shift_greater_than_parent?(node, actual_indent)
-        parent_indent = node_indent(node.node_parent).length
+        parent_indent = node_indent(node_indent_parent(node)).length
         expected_indent = parent_indent + @indent_width
 
         add_lint(node.line,
@@ -187,7 +192,7 @@ module SCSSLint
     # @param node [Sass::Tree::Node]
     # @return [true,false]
     def one_shift_greater_than_parent?(node, actual_indent)
-      parent_indent = node_indent(node.node_parent).length
+      parent_indent = node_indent(node_indent_parent(node)).length
       expected_indent = parent_indent + @indent_width
       expected_indent == actual_indent
     end
@@ -198,6 +203,17 @@ module SCSSLint
     # @return [Integer]
     def node_indent(node)
       engine.lines[node.line - 1][/^(\s*)/, 1]
+    end
+
+    def node_indent_parent(node)
+      if else_node?(node)
+        while node.node_parent.is_a?(Sass::Tree::IfNode) &&
+              node.node_parent.else == node
+          node = node.node_parent
+        end
+      end
+
+      node.node_parent
     end
   end
 end
