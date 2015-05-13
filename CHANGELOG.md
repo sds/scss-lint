@@ -14,6 +14,8 @@
   for an XML-based alternative)
 * Fix `Indentation` linter from crashing on `@else` statements with
   `allow_non_nested_indentation` set to `true`
+* Update default configuration to work with projects using the
+  [`syck`](https://github.com/indeyets/syck) YAML parser
 
 ## 0.38.0
 
