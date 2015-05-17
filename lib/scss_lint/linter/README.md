@@ -52,7 +52,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [UrlQuotes](#urlquotes)
 * [VariableForProperty](#variableforproperty)
 * [VendorPrefix](#vendorprefix)
-* [ZeroUnit](#urlquotes)
+* [ZeroUnit](#zerounit)
 
 ## BangFormat
 
