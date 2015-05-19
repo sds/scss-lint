@@ -18,4 +18,7 @@ module SCSSLint::Exceptions
 
   # Raised when a required library (specified via command line) does not exist.
   class RequiredLibraryMissingError < StandardError; end
+
+  # Raised when a linter gem plugin is required but not installed.
+  class PluginGemLoadError < StandardError; end
 end
