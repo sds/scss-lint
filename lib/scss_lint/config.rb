@@ -178,6 +178,16 @@ module SCSSLint
       validate_linters
     end
 
+    def load_plugins
+      load_plugins_and_merge_config.tap { ensure_plugins_have_default_options }
+    end
+
+    def load_plugins_and_merge_config
+      Plugins.new(@options).load.each do |plugin|
+        @options = self.class.send(:smart_merge, plugin.config_options, @options)
+      end
+    end
+
     def enabled_linters
       LinterRegistry.extract_linters_from(@options['linters'].keys).select do |linter|
         linter_options(linter)['enabled']
@@ -254,6 +264,18 @@ module SCSSLint
           @warnings << "Linter #{name} does not exist; ignoring"
         end
       end
+    end
+
+    def ensure_plugins_have_default_options
+      LinterRegistry.linters.each do |linter|
+        if linter_options(linter).nil?
+          @options['linters'].merge!(default_plugin_options(linter))
+        end
+      end
+    end
+
+    def default_plugin_options(linter)
+      { self.class.linter_name(linter) => { 'enabled' => true } }
     end
   end
 end

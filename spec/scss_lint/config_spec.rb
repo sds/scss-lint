@@ -250,4 +250,30 @@ describe SCSSLint::Config do
       end
     end
   end
+
+  describe '#load_plugins' do
+    let(:config) { described_class.new(options) }
+    let(:subject) { config.load_plugins }
+
+    let(:linter_options) do
+      {
+        'enabled' => true,
+      }
+    end
+
+    let(:options) do
+      {
+        'linters' => {
+          'FakeConfigLinter' => linter_options
+        }
+      }
+    end
+
+    context 'no plugins' do
+      it 'will return an empty Array' do
+        expect(subject).to be_instance_of Array
+        expect(subject).to be_empty
+      end
+    end
+  end
 end

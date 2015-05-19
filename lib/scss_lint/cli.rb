@@ -39,13 +39,16 @@ module SCSSLint
         print_help(options)
       elsif options[:version]
         print_version
-      elsif options[:show_linters]
-        print_linters
       elsif options[:show_formatters]
         print_formatters
       else
         config = setup_configuration(options)
-        scan_for_lints(options, config)
+
+        if options[:show_linters]
+          print_linters
+        else
+          scan_for_lints(options, config)
+        end
       end
     end
 
@@ -107,6 +110,7 @@ module SCSSLint
     def setup_configuration(options)
       config_file = relevant_configuration_file(options)
       config = config_file ? Config.load(config_file) : Config.default
+      config.load_plugins
       merge_options_with_config(options, config)
     end
 
