@@ -299,13 +299,13 @@ scss-lint --require=scss_lint_reporter_checkstyle --format=Checkstyle [scss-file
 
 #### Linters
 
-By default `scss-lint` will load linters from `.scss-linter-plugins` in the root of
+By default `scss-lint` will load linters from `.scss-linters` in the root of
 your repository. You can customise the loaded directories by setting `plugin_directories`
 in your `.scss-lint.yml` configuration file. Simply create your linter indentical in structure
 to the https://github.com/brigade/scss-lint/tree/master/lib/scss_lint/linter directory, they will be enabled by default but configuration can be overriden in your `.scss-lint.yml`.
 
 ```ruby
-# .scss-linter-plugins/another_linter.rb
+# .scss-linters/another_linter.rb
 
 module SCSSLint
   class Linter::AnotherLinter < Linter
@@ -316,7 +316,7 @@ end
 
 ```yaml
 # .scss-lint.yml
-plugin_directories: ['.scss-lint-plugins', '.another_directory', '/absolute/path']
+plugin_directories: ['.scss-linters', '.another_directory', '/absolute/path']
 
 linters:
   AnotherLinter:
