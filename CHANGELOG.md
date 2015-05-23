@@ -16,6 +16,7 @@
   `allow_non_nested_indentation` set to `true`
 * Update default configuration to work with projects using the
   [`syck`](https://github.com/indeyets/syck) YAML parser
+* Fix `ColorKeyword` to not report lints for map keys with color keyword names
 
 ## 0.38.0
 

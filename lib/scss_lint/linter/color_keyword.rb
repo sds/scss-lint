@@ -20,6 +20,8 @@ module SCSSLint
   private
 
     def add_color_lint(node, original)
+      return if in_map?(node)
+
       hex_form = Sass::Script::Value::Color.new(color_keyword_to_code(original)).tap do |color|
         color.options = {} # `inspect` requires options to be set
       end.inspect
@@ -27,6 +29,10 @@ module SCSSLint
       add_lint(node,
                "Color `#{original}` should be written in hexadecimal form " \
                "as `#{hex_form}`")
+    end
+
+    def in_map?(node)
+      node_ancestor(node, 2).is_a?(Sass::Script::Tree::MapLiteral)
     end
   end
 end

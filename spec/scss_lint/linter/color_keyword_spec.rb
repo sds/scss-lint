@@ -80,4 +80,23 @@ describe SCSSLint::Linter::ColorKeyword do
 
     it { should_not report_lint }
   end
+
+  context 'when a color keyword is used in a map declaration as keys' do
+    let(:scss) { <<-SCSS }
+      $palette: (
+        white: (
+          first:   #fff,
+          second:  #ccc,
+          third:   #000
+        ),
+        'black': (
+          first:   #000,
+          second:  #ccc,
+          third:   #fff
+        )
+      );
+    SCSS
+
+    it { should_not report_lint }
+  end
 end
