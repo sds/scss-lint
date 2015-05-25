@@ -11,6 +11,7 @@ require 'scss_lint/selector_visitor'
 require 'scss_lint/control_comment_processor'
 require 'scss_lint/version'
 require 'scss_lint/utils'
+require 'scss_lint/plugins'
 
 # Load Sass classes and then monkey patch them
 require 'sass'

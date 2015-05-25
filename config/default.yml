@@ -1,6 +1,7 @@
 # Default application configuration that all configurations inherit from.
 
 scss_files: "**/*.scss"
+plugin_directories: ['.scss-linters']
 
 linters:
   BangFormat:
