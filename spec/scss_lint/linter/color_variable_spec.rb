@@ -152,4 +152,16 @@ describe SCSSLint::Linter::ColorVariable do
 
     it { should_not report_lint }
   end
+
+  context 'when a variable is interpolated in a multiline comment' do
+    let(:scss) { <<-SCSS }
+      $a: 0;
+
+      /*!
+       * test \#{a}
+       */
+    SCSS
+
+    it { should_not report_lint }
+  end
 end

@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix `ColorVariable` from crashing when variable interpolation occurs in
+  multiline comments
+
 ## 0.39.0
 
 ### New Features
