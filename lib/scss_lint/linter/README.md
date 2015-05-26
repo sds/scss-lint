@@ -810,7 +810,7 @@ execute `:sort` in `vim`), and it can
 You can also specify an explicit ordering via the `order` option, which allows
 you to specify an explicit array of properties representing the preferred
 order, or the name of a
-[preset order](data/property-sort-orders).
+[preset order](../../../../master/data/property-sort-orders).
 If a property is not in your explicit list, it will be placed at the bottom of
 the list, disregarding its order relative to other unspecified properties.
 
