@@ -143,6 +143,70 @@ describe SCSSLint::Config do
           .should eq('enabled' => true)
       end
     end
+
+    context 'when configuration loads a plugin configuration' do
+      let!(:plugins_manager) { SCSSLint::Plugins.new(double) }
+
+      before do
+        SCSSLint::Plugins.stub(:new).and_return(plugins_manager)
+
+        plugins_manager.stub(:load).and_return([
+          double(config: SCSSLint::Config.new(
+            'linters' => {
+              'FakeConfigLinter' => plugin_linter_config,
+            }
+          ))
+        ])
+      end
+
+      context 'and the plugin configuration does not set the value' do
+        let(:plugin_linter_config) { {} }
+
+        context 'and the local configuration sets the value' do
+          let(:config_file) { <<-FILE }
+          linters:
+            FakeConfigLinter:
+              list: [4, 5, 6]
+          FILE
+
+          it 'uses the local configuration value' do
+            subject.options['linters']['FakeConfigLinter']['list'].should == [4, 5, 6]
+          end
+        end
+
+        context 'and the local configuration does not set the value' do
+          let(:config_file) { '' }
+
+          it 'uses the default configuration value' do
+            subject.options['linters']['FakeConfigLinter']['list'].should == [1, 2, 3]
+          end
+        end
+      end
+
+      context 'and the plugin configuration sets the value' do
+        let(:plugin_linter_config) { { 'list' => [2, 3, 4] } }
+
+        context 'and the local configuration sets the value' do
+          let(:config_file) { <<-FILE }
+          linters:
+            FakeConfigLinter:
+              list: [4, 5, 6]
+          FILE
+
+          it 'uses the local configuration value' do
+            subject.options['linters']['FakeConfigLinter']['list'].should == [4, 5, 6]
+          end
+        end
+
+        context 'and the local configuration does not set the value' do
+          let(:config_file) { '' }
+
+          it 'uses the plugin configuration value' do
+            subject.options['linters']['FakeConfigLinter']['list'].should == [2, 3, 4]
+          end
+        end
+      end
+    end
   end
 
   describe '#linter_options' do
@@ -247,31 +311,6 @@ describe SCSSLint::Config do
           "#{config_dir}/anything/you/want.scss",
           SCSSLint::Linter::FakeConfigLinter.new
         ).should == true
-      end
-    end
-  end
-
-  describe '#load_plugins' do
-    let(:config) { described_class.new(options) }
-    let(:subject) { config.load_plugins }
-
-    let(:linter_options) do
-      {
-        'enabled' => true,
-      }
-    end
-
-    let(:options) do
-      {
-        'linters' => {
-          'FakeConfigLinter' => linter_options
-        }
-      }
-    end
-
-    context 'when no plugins are specified' do
-      it 'returns an empty array' do
-        subject.should == []
       end
     end
   end

@@ -114,7 +114,6 @@ module SCSSLint
     def setup_configuration(options)
       config_file = relevant_configuration_file(options)
       config = config_file ? Config.load(config_file) : Config.default
-      config.load_plugins
       merge_options_with_config(options, config)
     end
 

@@ -18,11 +18,18 @@ module SCSSLint
       def load(file, options = {})
         config_options = load_options_hash_from_file(file)
 
+        config = new(config_options)
+
+        # Need to call this before merging with the default configuration so
+        # that plugins can override the default configuration while still being
+        # overridden by the repo's configuration.
+        config.load_plugins
+
         if options.fetch(:merge_with_default, true)
-          config_options = smart_merge(default_options_hash, config_options)
+          config = default.extend(config)
         end
 
-        Config.new(config_options)
+        config
       end
 
       # Returns the location of the user-wide scss-lint configuration.
@@ -195,19 +202,13 @@ module SCSSLint
     #
     # @return [SCSSLint::Config]
     def extend(config)
-      self.class.send(:smart_merge, @options, config.options)
+      @options = self.class.send(:smart_merge, @options, config.options)
+      @warnings += config.warnings
       self
     end
 
     def load_plugins
       load_plugins_and_merge_config.tap { ensure_plugins_have_default_options }
-    end
-
-    def load_plugins_and_merge_config
-      Plugins.new(self).load.each do |plugin|
-        # Have the plugin options be overrideable by the local configuration
-        @options = self.class.send(:smart_merge, plugin.config.options, @options)
-      end
     end
 
     def enabled_linters
@@ -285,6 +286,13 @@ module SCSSLint
         rescue NameError
           @warnings << "Linter #{name} does not exist; ignoring"
         end
+      end
+    end
+
+    def load_plugins_and_merge_config
+      SCSSLint::Plugins.new(self).load.each do |plugin|
+        # Have the plugin options be overrideable by the local configuration
+        @options = self.class.send(:smart_merge, plugin.config.options, @options)
       end
     end
 
