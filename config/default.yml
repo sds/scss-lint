@@ -3,6 +3,10 @@
 scss_files: "**/*.scss"
 plugin_directories: ['.scss-linters']
 
+# List of gem names to load custom linters from (make sure they are already
+# installed)
+plugin_gems: []
+
 linters:
   BangFormat:
     enabled: true
