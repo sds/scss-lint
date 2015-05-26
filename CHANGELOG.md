@@ -4,6 +4,8 @@
 
 * Fix `ColorVariable` from crashing when variable interpolation occurs in
   multiline comments
+* Add support for loading custom linters via the `plugin_directories` and
+  `plugin_gems` configuration options (experimental)
 
 ## 0.39.0
 
