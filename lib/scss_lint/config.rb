@@ -178,13 +178,35 @@ module SCSSLint
       validate_linters
     end
 
+    def [](key)
+      @options[key]
+    end
+
+    # Compares this configuration with another.
+    #
+    # @param other [SCSSLint::Config]
+    # @return [true,false]
+    def ==(other)
+      super || @options == other.options
+    end
+    alias_method :eql?, :==
+
+    # Extend this {Config} with another configuration.
+    #
+    # @return [SCSSLint::Config]
+    def extend(config)
+      self.class.send(:smart_merge, @options, config.options)
+      self
+    end
+
     def load_plugins
       load_plugins_and_merge_config.tap { ensure_plugins_have_default_options }
     end
 
     def load_plugins_and_merge_config
-      Plugins.new(@options).load.each do |plugin|
-        @options = self.class.send(:smart_merge, plugin.config_options, @options)
+      Plugins.new(self).load.each do |plugin|
+        # Have the plugin options be overrideable by the local configuration
+        @options = self.class.send(:smart_merge, plugin.config.options, @options)
       end
     end
 

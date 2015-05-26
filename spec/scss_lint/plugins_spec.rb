@@ -2,63 +2,50 @@ require 'spec_helper'
 
 module SCSSLint
   describe Plugins do
-    describe 'from_config_options' do
-      let(:subject) { described_class.new(config_options) }
+    let(:subject) { described_class.new(Config.new(config_options)) }
 
-      describe 'load' do
-        context 'with plugins' do
-          let(:config_options) do
-            { 'plugin_directories' => ['a_dir'],
-              'plugin_gems' => ['a_gem'] }
-          end
+    describe '#load' do
+      context 'when gem plugins are specified' do
+        let(:config_options) { { 'plugin_gems' => ['a_gem'] } }
+        let(:plugin) { double(load: nil) }
 
-          context 'required successfully' do
-            before do
-              Plugins::LinterGem.any_instance.stub(:require).and_return true
-              Plugins::LinterDir.any_instance.stub(:require).and_return true
-            end
-
-            it 'will return an Array' do
-              expect(subject.load).to be_instance_of Array
-            end
-
-            it 'will contain 2 items' do
-              expect(subject.load.count).to eq 2
-            end
-          end
-
-          it 'will raise an exception if the gem is not required' do
-            expect do
-              subject.load
-            end.to raise_exception Exceptions::PluginGemLoadError
-          end
+        before do
+          Plugins::LinterGem.stub(:new).with('a_gem').and_return(plugin)
         end
 
-        context 'without plugins' do
-          let(:config_options) do
-            { 'plugin_directories' => [],
-              'plugin_gems' => [] }
-          end
+        it 'loads the plugin' do
+          plugin.should_receive(:load)
+          subject.load
+        end
+      end
 
-          it 'will return an Array' do
-            expect(subject.load).to be_instance_of Array
-          end
+      context 'when directory plugins are specified' do
+        let(:config_options) { { 'plugin_directories' => ['some_dir'] } }
+        let(:plugin) { double(load: nil) }
 
-          it 'will be empty' do
-            expect(subject.load.empty?).to be true
-          end
+        before do
+          Plugins::LinterDir.stub(:new).with('some_dir').and_return(plugin)
         end
 
-        context 'without config' do
-          let(:config_options) { Hash.new }
+        it 'loads the plugin' do
+          plugin.should_receive(:load)
+          subject.load
+        end
+      end
 
-          it 'will return an Array' do
-            expect(subject.load).to be_instance_of Array
-          end
+      context 'when plugins options are empty lists' do
+        let(:config_options) { { 'plugin_directories' => [], 'plugin_gems' => [] } }
 
-          it 'will be empty' do
-            expect(subject.load.empty?).to be true
-          end
+        it 'returns empty array' do
+          subject.load.should == []
+        end
+      end
+
+      context 'when no plugins options are specified' do
+        let(:config_options) { {} }
+
+        it 'returns empty array' do
+          subject.load.should == []
         end
       end
     end

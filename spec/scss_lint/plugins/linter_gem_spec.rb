@@ -5,45 +5,53 @@ module SCSSLint
     let(:subject) { described_class.new('a_gem') }
 
     describe '#load' do
-      it 'will raise an exception if the gem is not installed' do
-        expect do
-          subject.load
-        end.to raise_exception Exceptions::PluginGemLoadError
+      let(:gem_dir) { '/gem_dir' }
+      let(:config_file) { File.join(gem_dir, '.scss-lint.yml') }
+      let(:config_file_exists) { false }
+
+      before do
+        File.stub(:exist?).with(config_file).and_return(config_file_exists)
       end
 
-      it 'will require the gem' do
-        subject.should_receive(:require).with('a_gem').once
-        subject.load
-      end
-    end
-
-    describe '#config_options' do
-      it 'will raise an exception if the gem is not installed' do
-        expect do
-          subject.config_options
-        end.to raise_exception Exceptions::PluginGemLoadError
+      context 'when the gem does not exist' do
+        it 'raises an exception' do
+          expect { subject.load }.to raise_error Exceptions::PluginGemLoadError
+        end
       end
 
-      context 'gem loaded' do
+      context 'when the gem exists' do
         before do
-          described_class.any_instance.stub(:require).and_return true
-          subject.stub(:gem_dir).and_return '/dir'
+          subject.stub(:require).with('a_gem').and_return(true)
+          Gem::Specification.stub(:find_by_name)
+                            .with('a_gem')
+                            .and_return(double(gem_dir: gem_dir))
         end
 
-        context 'with config file' do
-          it 'will load the config' do
-            File.stub(:exist?).and_return true
-            subject.should_receive(:load_config_from_file)
-                  .with('/dir/.scss-lint.yml').and_return({})
+        it 'requires the gem' do
+          subject.should_receive(:require).with('a_gem').once
+          subject.load
+        end
 
-            subject.config_options
+        context 'when the gem does not include a configuration file' do
+          it 'loads an empty configuration' do
+            subject.load
+            subject.config.should == Config.new({})
           end
         end
 
-        context 'no config file' do
-          it 'will return an empty hash' do
-            expect(subject.config_options).to be_a Hash
-            expect(subject.config_options.empty?).to be true
+        context 'when a config file exists in the gem' do
+          let(:config_file_exists) { true }
+          let(:fake_config) { Config.new('linters' => { 'FakeLinter' => {} }) }
+
+          before do
+            Config.should_receive(:load)
+                  .with(config_file, merge_with_default: false)
+                  .and_return(fake_config)
+          end
+
+          it 'loads the configuration' do
+            subject.load
+            subject.config.should == fake_config
           end
         end
       end

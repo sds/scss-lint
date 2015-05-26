@@ -269,10 +269,9 @@ describe SCSSLint::Config do
       }
     end
 
-    context 'no plugins' do
-      it 'will return an empty Array' do
-        expect(subject).to be_instance_of Array
-        expect(subject).to be_empty
+    context 'when no plugins are specified' do
+      it 'returns an empty array' do
+        subject.should == []
       end
     end
   end

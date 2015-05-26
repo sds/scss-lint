@@ -20,6 +20,7 @@ module SCSSLint
       config:         78, # Configuration error
       no_files:       80, # No files matched by specified glob patterns
       files_filtered: 81, # All matched files were filtered by exclusions
+      plugin:         82, # Plugin loading error
     }
 
     def run(args)
@@ -84,6 +85,9 @@ module SCSSLint
       when SCSSLint::Exceptions::NoFilesError
         puts exception.message
         halt :no_files
+      when SCSSLint::Exceptions::PluginGemLoadError
+        puts exception.message
+        halt :plugin
       when Errno::ENOENT
         puts exception.message
         halt :no_input

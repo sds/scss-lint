@@ -1,12 +1,12 @@
 module SCSSLint
   class Plugins
-    # Load ruby files from linter plugin directories
+    # Load ruby files from linter plugin directories.
     class LinterDir
-      attr_reader :config_options
+      attr_reader :config
 
       def initialize(dir)
         @dir = dir
-        @config_options = {}
+        @config = SCSSLint::Config.new({}) # Will always be empty
       end
 
       def load
@@ -16,10 +16,8 @@ module SCSSLint
 
     private
 
-      attr_reader :dir
-
       def ruby_files
-        Dir.glob(File.expand_path(File.join(dir, '/**/*.rb')))
+        Dir.glob(File.expand_path(File.join(@dir, '**', '*.rb')))
       end
     end
   end
