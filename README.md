@@ -17,6 +17,7 @@ it into your [SCM hooks](https://github.com/brigade/overcommit).
 * [Formatters](#formatters)
 * [Exit Status Codes](#exit-status-codes)
 * [Linters](#linters)
+* [Custom Linters (Experimental)](#custom-linters)
 * [Editor Integration](#editor-integration)
 * [Git Integration](#git-integration)
 * [Rake Integration](#rake-integration)
@@ -297,42 +298,6 @@ scss-lint --require=scss_lint_reporter_checkstyle --format=Checkstyle [scss-file
 </checkstyle>
 ```
 
-#### Linters
-
-By default `scss-lint` will load linters from `.scss-linters` in the root of
-your repository. You can customise the loaded directories by setting `plugin_directories`
-in your `.scss-lint.yml` configuration file. Simply create your linter indentical in structure
-to the https://github.com/brigade/scss-lint/tree/master/lib/scss_lint/linter directory, they will be enabled by default but configuration can be overriden in your `.scss-lint.yml`.
-
-```ruby
-# .scss-linters/another_linter.rb
-
-module SCSSLint
-  class Linter::AnotherLinter < Linter
-    include LinterRegistry
-  end
-end
-```
-
-```yaml
-# .scss-lint.yml
-plugin_directories: ['.scss-linters', '.another_directory', '/absolute/path']
-
-linters:
-  AnotherLinter:
-    enabled: true
-```
-
-You can also load linters packaged as gems, for more information on packaging your
-linters as gems see this [example](https://github.com/cih/scss_lint_plugin_example).
-If the gem is packaged with an `.scss-lint.yml` file this will be merged with your configuration
-and can be overriden in your `.scss-lint.yml`.
-
-```yaml
-  # .scss-lint.yml
-  plugin_gems: ['scss_lint_plugin_example']
-```
-
 ## Exit Status Codes
 
 `scss-lint` tries to use
@@ -365,6 +330,70 @@ editing your [configuration file](#configuration) to match your
 preferred style.
 
 ###[» Linters Documentation](lib/scss_lint/linter/README.md)
+
+## Custom Linters
+
+**NOTE:** This feature is experimental and currently only available on the
+`master` branch.
+
+`scss-lint` allows you to create custom linters specific to your project. By
+default, it will load linters from the `.scss-linters` in the root of your
+repository. You can customize which directories to load from via the
+`plugin_directories` option in your `.scss-lint.yml` configuration file. See
+the [linters directory](lib/scss_lint/linter) for examples of how to write
+linters. All linters loaded from directories in `plugin_directories` are
+enabled by default, and you can set their configuration in your
+`.scss-lint.yml`.
+
+```ruby
+# .scss-linters/another_linter.rb
+
+module SCSSLint
+  class Linter::AnotherLinter < Linter
+    include LinterRegistry
+
+    ...
+  end
+end
+```
+
+```yaml
+# .scss-lint.yml
+plugin_directories: ['.scss-linters', '.another_directory']
+
+linters:
+  AnotherLinter:
+    enabled: true
+    some_option: [1, 2, 3]
+```
+
+You can also load linters packaged as gems by specifying the gems via the
+`plugin_gems` configuration option. See the
+[`scss_lint_plugin_example`](https://github.com/cih/scss_lint_plugin_example)
+for an example of how to structure these plugins.
+
+If the gem is packaged with an `.scss-lint.yml` file in its root directory then
+this will be merged with your configuration. This provides a convenient way for
+organizations to define a single repo with their `scss-lint` configuration and
+custom linters and use them across multiple projects. You can always override
+plugin configuration with your repo's `.scss-lint.yml` file.
+
+```yaml
+# .scss-lint.yml
+plugin_gems: ['scss_lint_plugin_example']
+```
+
+Note that you don't need to publish a gem to Rubygems to take advantage of
+this feature. Using Bundler, you can specify your plugin gem in your project's
+`Gemfile` and reference its git repository instead:
+
+```ruby
+# Gemfile
+gem 'scss_lint_plugin_example', git: 'git://github.com/cih/scss_lint_plugin_example'
+```
+
+As long as you execute `scss-lint` via `bundle exec scss-lint`, it should be
+able to load the gem.
 
 ## Editor Integration
 
