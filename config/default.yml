@@ -50,6 +50,9 @@ linters:
   EmptyRule:
     enabled: true
 
+  ExtendDirective:
+    enabled: false
+
   FinalNewline:
     enabled: true
     present: true

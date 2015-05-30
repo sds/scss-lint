@@ -15,6 +15,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [ElsePlacement](#elseplacement)
 * [EmptyLineBetweenBlocks](#emptylinebetweenblocks)
 * [EmptyRule](#emptyrule)
+* [ExtendDirective](#extenddirective)
 * [FinalNewline](#finalnewline)
 * [HexLength](#hexlength)
 * [HexNotation](#hexnotation)
@@ -373,6 +374,19 @@ Reports when you have an empty rule set.
 .cat {
 }
 ```
+
+## ExtendDirective
+
+Reports when you have an `@extend` directive.
+
+```scss
+p {
+  @extend %placeholder;
+}
+```
+
+If you want to restrict the `@extend` directive to only use placeholders, see
+the [PlaceholderInExtend](#placeholderinextend) linter instead.
 
 ## FinalNewline
 
@@ -756,12 +770,15 @@ Always use placeholder selectors in `@extend`.
 }
 ```
 
-Using a class selector with the `@extend` statement statement usually results
-in more generated CSS than when using a placeholder selector.  Furthermore,
-Sass specifically introduced placeholder selectors in order to be used with
+Using a class selector with the `@extend` directive usually results in more
+generated CSS than when using a placeholder selector. Furthermore, Sass
+specifically introduced placeholder selectors in order to be used with
 `@extend`.
 
 See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-sass-extends-and-placeholders/).
+
+If you want to prevent the use of the `@extend` directive entirely, see the
+[ExtendDirective](#extenddirective) linter.
 
 ## PropertyCount
 
