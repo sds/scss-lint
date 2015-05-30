@@ -6,6 +6,8 @@
   multiline comments
 * Add support for loading custom linters via the `plugin_directories` and
   `plugin_gems` configuration options (experimental)
+* Add `ExtendDirective` linter which checks for any usage of the `@extend`
+  directive.
 
 ## 0.39.0
 
