@@ -30,6 +30,8 @@ padding-right
 padding-bottom
 padding-left
 
+box-sizing
+
 float
 clear
 
@@ -43,6 +45,7 @@ column-width
 
 transform
 transition
+animation
 
 # Border
 
@@ -102,9 +105,10 @@ font-style
 font-variant
 font-weight
 
-letter-spacing
 line-height
 list-style
+list-style-type
+list-style-image
 
 text-align
 text-decoration
@@ -113,9 +117,12 @@ text-overflow
 text-rendering
 text-shadow
 text-transform
-text-wrap
 
 white-space
+word-wrap
+word-break
+
+letter-spacing
 word-spacing
 
 # Other
