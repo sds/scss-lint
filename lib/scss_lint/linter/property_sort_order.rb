@@ -80,6 +80,10 @@ module SCSSLint
         .sort { |a, b| compare_properties(a, b) }
 
       sorted_props.each_with_index do |prop, index|
+        # Once we reach the portion of the list with unspecified properties, we
+        # can stop checking since we don't care about order after that point
+        break unless specified_property?(prop[:property])
+
         next unless prop != sortable_prop_info[index]
 
         add_lint(sortable_prop_info[index][:node], lint_message(sorted_props))
@@ -184,6 +188,10 @@ module SCSSLint
       config['ignore_unspecified'] &&
         @preferred_order &&
         !@preferred_order.include?(prop_node.name.join)
+    end
+
+    def specified_property?(prop_name)
+      !@preferred_order || @preferred_order.include?(prop_name)
     end
 
     def preset_order?

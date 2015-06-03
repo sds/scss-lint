@@ -316,6 +316,38 @@ describe SCSSLint::Linter::PropertySortOrder do
         it { should report_lint }
       end
     end
+
+    context 'and there are properties not specified in the explicit ordering at the end' do
+      let(:linter_config) do
+        super().merge('order' => %w[position top bottom padding width background])
+      end
+
+      let(:scss) { <<-SCSS }
+        p {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          padding: 20px;
+          width: $drawer-narrow-width;
+          background: $drawer-bg-color;
+          overflow-y: auto;
+          box-sizing: border-box;
+          transition: left .25s ease-out;
+        }
+      SCSS
+
+      context 'and the ignore_unspecified option is enabled' do
+        let(:linter_config) { super().merge('ignore_unspecified' => true) }
+
+        it { should_not report_lint }
+      end
+
+      context 'and the ignore_unspecified option is disabled' do
+        let(:linter_config) { super().merge('ignore_unspecified' => false) }
+
+        it { should_not report_lint }
+      end
+    end
   end
 
   context 'when sort order is set to a preset order' do

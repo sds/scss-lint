@@ -8,6 +8,9 @@
   `plugin_gems` configuration options (experimental)
 * Add `ExtendDirective` linter which checks for any usage of the `@extend`
   directive.
+* Fix `PropertySortOrder`'s `ignore_unspecified: false` behavior to not care
+  about the relative order of unspecified properties at the end of a list of
+  properties
 
 ## 0.39.0
 
