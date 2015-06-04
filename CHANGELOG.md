@@ -11,6 +11,8 @@
 * Fix `PropertySortOrder`'s `ignore_unspecified: false` behavior to not care
   about the relative order of unspecified properties at the end of a list of
   properties
+* Change `NameFormat` to no longer check placeholder names, as this is handled
+  by the `SelectorFormat` linter
 
 ## 0.39.0
 

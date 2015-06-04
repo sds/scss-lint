@@ -1,12 +1,7 @@
 module SCSSLint
-  # Checks the format of declared names of functions, mixins, variables, and
-  # placeholders.
+  # Checks the format of declared names of functions, mixins, and variables.
   class Linter::NameFormat < Linter
     include LinterRegistry
-
-    def visit_extend(node)
-      check_placeholder(node)
-    end
 
     def visit_function(node)
       check_name(node, 'function')
@@ -61,12 +56,6 @@ module SCSSLint
       end
 
       name
-    end
-
-    def check_placeholder(node)
-      extract_string_selectors(node.selector).any? do |selector_str|
-        check_name(node, 'placeholder', selector_str.gsub('%', ''))
-      end
     end
 
     CONVENTIONS = {
