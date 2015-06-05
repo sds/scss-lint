@@ -827,7 +827,7 @@ execute `:sort` in `vim`), and it can
 You can also specify an explicit ordering via the `order` option, which allows
 you to specify an explicit array of properties representing the preferred
 order, or the name of a
-[preset order](/data/property-sort-orders).
+[preset order](../../../data/property-sort-orders).
 If a property is not in your explicit list, it will be placed at the bottom of
 the list, disregarding its order relative to other unspecified properties.
 
@@ -909,7 +909,7 @@ Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `ignore_unspecified` | Whether to ignore properties that are not explicitly specified in `order` (default **false**)
 `min_properties`     | Minimum number of sortable properties (i.e. properties which are defined by the given `order`) present in the rule set before linting takes place (default **2**)
-`order`              | Array of properties, or the name of a [preset order](/data/property-sort-orders) (default is `nil`, resulting in alphabetical ordering)
+`order`              | Array of properties, or the name of a [preset order](../../../data/property-sort-orders) (default is `nil`, resulting in alphabetical ordering)
 `separate_groups`    | Whether gaps between groups of properties should be enforced.
 
 ## PropertySpelling
@@ -938,7 +938,7 @@ linters:
 If you're sure the property in question is valid,
 [submit a request](https://github.com/brigade/scss-lint/issues/new)
 to add it to the
-[default whitelist](/data/properties.txt).
+[default whitelist](../../../data/properties.txt).
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
@@ -1549,7 +1549,7 @@ Additionally, you can manually include or exclude identifiers from the identifie
 
 All identifiers used by the `identifier_list`, `additional_identifiers`, or
 `excluded_identifiers` are stripped of vendor prefixes. See [the predefined
-lists](/data/prefixed-identifiers)
+lists](../../../data/prefixed-identifiers)
 for examples.
 
 **Bad: vendor prefixes**
