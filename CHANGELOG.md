@@ -13,6 +13,8 @@
   properties
 * Change `NameFormat` to no longer check placeholder names, as this is handled
   by the `SelectorFormat` linter
+* Add `TrailingWhitespace` linter which reports whitespace characters at the
+  end of a line
 
 ## 0.39.0
 

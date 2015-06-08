@@ -46,6 +46,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [SpaceBetweenParens](#spacebetweenparens)
 * [StringQuotes](#stringquotes)
 * [TrailingSemicolon](#trailingsemicolon)
+* [TrailingWhitespace](#trailingwhitespace)
 * [TrailingZero](#trailingzero)
 * [UnnecessaryMantissa](#unnecessarymantissa)
 * [UnnecessaryParentReference](#unnecessaryparentreference)
@@ -1368,6 +1369,10 @@ p {
 CSS allows you to omit the semicolon if the statement is the last statement in
 the rule set. However, this introduces inconsistency and requires anyone adding
 a property after that property to remember to append a semicolon.
+
+## TrailingWhitespace
+
+Reports lines containing trailing whitespace.
 
 ## TrailingZero
 
