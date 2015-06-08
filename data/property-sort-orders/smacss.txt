@@ -123,6 +123,7 @@ word-spacing
 border-collapse
 border-spacing
 box-shadow
+box-sizing
 caption-side
 content
 cursor
