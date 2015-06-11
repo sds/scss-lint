@@ -111,4 +111,76 @@ describe SCSSLint::Linter::NestingDepth do
       it { should_not report_lint }
     end
   end
+
+  context 'nesting parent selectors' do
+    let(:scss) { <<-SCSS }
+      .one {
+        .two {
+          .three {
+            &:hover,
+            &-suffix {
+              .five {
+                background: #f00;
+              }
+            }
+          }
+
+          .another-three { }
+        }
+      }
+    SCSS
+
+    context 'when parent selectors are ignored' do
+      let(:default_linter_config) { { 'ignore_parent_selectors' => true } }
+
+      context 'and max depth is set to 2' do
+        let(:linter_config) { default_linter_config.merge('max_depth' => 2) }
+
+        it { should report_lint line: 3 }
+        it { should report_lint line: 12 }
+        it { should_not report_lint line: 4 }
+        it { should_not report_lint line: 6 }
+      end
+
+      context 'and max depth is set to 3' do
+        let(:linter_config) { default_linter_config.merge('max_depth' => 3) }
+
+        it { should_not report_lint line: 4 }
+        it { should_not report_lint line: 5 }
+        it { should report_lint line: 6 }
+      end
+
+      context 'and max depth is set to 4' do
+        let(:linter_config) { default_linter_config.merge('max_depth' => 4) }
+
+        it { should_not report_lint }
+      end
+    end
+
+    context 'when not ignoring parent selectors' do
+      let(:default_linter_config) { { 'ignore_parent_selectors' => false } }
+
+      context 'and max depth is set to 2' do
+        let(:linter_config) { default_linter_config.merge('max_depth' => 2) }
+
+        it { should report_lint line: 3 }
+        it { should report_lint line: 12 }
+        it { should_not report_lint line: 4 }
+        it { should_not report_lint line: 6 }
+      end
+
+      context 'and max depth is set to 3' do
+        let(:linter_config) { default_linter_config.merge('max_depth' => 3) }
+
+        it { should report_lint line: 4 }
+        it { should_not report_lint line: 12 }
+      end
+
+      context 'and max depth is set to 4' do
+        let(:linter_config) { default_linter_config.merge('max_depth' => 4) }
+
+        it { should report_lint line: 6 }
+      end
+    end
+  end
 end
