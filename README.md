@@ -24,6 +24,7 @@ it into your [SCM hooks](https://github.com/brigade/overcommit).
 * [Maven Integration](#maven-integration)
 * [Documentation](#documentation)
 * [Contributing](#contributing)
+* [Community](#community)
 * [Changelog](#changelog)
 * [License](#license)
 
@@ -503,6 +504,13 @@ within your project's directory:
 ```bash
 bundle exec bin/scss-lint
 ```
+
+## Community
+
+All major discussion surrounding SCSS-Lint happens on the
+[GitHub issues page](https://github.com/brigade/scss-lint/issues).
+
+You can also follow [@scss_lint on Twitter](https://twitter.com/scss_lint).
 
 ## Changelog
 
