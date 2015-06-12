@@ -22,7 +22,8 @@ module SCSSLint
 
     # @param file [String]
     def find_lints(file)
-      engine = Engine.new(file: file)
+      options = engine_options_for(file)
+      engine = Engine.new(options)
 
       @linters.each do |linter|
         begin
@@ -46,6 +47,14 @@ module SCSSLint
       return unless @config.linter_enabled?(linter)
       return if @config.excluded_file_for_linter?(file, linter)
       @lints += linter.run(engine, @config.linter_options(linter))
+    end
+
+    def engine_options_for(file)
+      if File.exists? file
+        { file: file }
+      else
+        { code: file }
+      end
     end
   end
 end
