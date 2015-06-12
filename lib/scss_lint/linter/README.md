@@ -749,9 +749,10 @@ of applicability](http://smacss.com/book/applicability). Use
 }
 ```
 
-Configuration Option | Description
----------------------|---------------------------------------------------------
-`max_depth`          | Maximum depth before reporting errors (default **3**)
+Configuration Option        | Description
+----------------------------|---------------------------------------------------------
+`max_depth`                 | Maximum depth before reporting errors (default **3**)
+`ignore_parent_selectors`   | Whether to report errors for parent selectors (default **false**)
 
 ## PlaceholderInExtend
 
