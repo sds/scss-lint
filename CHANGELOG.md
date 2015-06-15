@@ -5,6 +5,8 @@
 * Fix `SpaceAfterVariableName` linter not being included in linter set
 * Add `DisableLinterReason` linter which enforces including a comment
   explaining why a linter was disabled via a control comment
+* Improve `SingleLinePerSelector` to report selectors with descendent selectors
+  on separate lines
 
 ## 0.40.1
 

@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::SingleLinePerSelector < Linter
     include LinterRegistry
 
-    MESSAGE = 'Each selector in a comma sequence should be on its own line'
+    MESSAGE = 'Each selector in a comma sequence should be on its own single line'
 
     def visit_comma_sequence(node)
       return unless node.members.count > 1
@@ -12,6 +12,14 @@ module SCSSLint
 
       node.members[1..-1].each_with_index do |sequence, index|
         check_sequence_commas(node, sequence, index)
+      end
+    end
+
+    def visit_sequence(node)
+      node.members[1..-1].each_with_index do |item, index|
+        next unless item == "\n"
+
+        add_lint(node.line + index, MESSAGE)
       end
     end
 
