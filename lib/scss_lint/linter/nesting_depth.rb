@@ -12,9 +12,9 @@ module SCSSLint
     end
 
     def visit_rule(node)
-      if ignore_selectors?(node)
-        yield
-      elsif @depth > @max_depth
+      return yield if ignore_selectors?(node)
+
+      if @depth > @max_depth
         add_lint node, "Nesting should be no greater than #{@max_depth}, " \
                        "but was #{@depth}"
       else
@@ -29,14 +29,16 @@ module SCSSLint
   private
 
     def ignore_selectors?(node)
+      return unless config['ignore_parent_selectors']
+
       simple_selectors(node.parsed_rules).all? do |selector|
-        IGNORED_SELECTORS.include? selector.class
-      end if config['ignore_parent_selectors']
+        IGNORED_SELECTORS.include?(selector.class)
+      end
     end
 
     def simple_selectors(node)
       node.members.flat_map(&:members).reject do |simple_sequence|
-        simple_sequence.is_a? String
+        simple_sequence.is_a?(String)
       end.flat_map(&:members)
     end
   end
