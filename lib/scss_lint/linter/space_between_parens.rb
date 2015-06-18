@@ -18,6 +18,7 @@ module SCSSLint
           check(match[2], index) if match[2]
         end
       end
+      yield
     end
 
   private

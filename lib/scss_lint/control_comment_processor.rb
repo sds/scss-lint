@@ -82,10 +82,21 @@ module SCSSLint
       return unless comment_node = @disable_stack.pop
 
       start_line = comment_node.line
+      if comment_node.class.node_name == :rule
+        end_line = start_line
+      elsif node.class.node_name == :root
+        end_line = @linter.engine.lines.length
+      else
+        end_line = end_line(node)
+      end
 
-      # Find the deepest child that has a line number to which a lint might
-      # apply (if it is a control comment enable node, it will be the line of
-      # the comment itself).
+      @disabled_lines.merge(start_line..end_line)
+    end
+
+    # Find the deepest child that has a line number to which a lint might
+    # apply (if it is a control comment enable node, it will be the line of
+    # the comment itself).
+    def end_line(node)
       child = node
       prev_child = node
       until [nil, prev_child].include?(child = last_child(child))
@@ -94,9 +105,7 @@ module SCSSLint
 
       # Fall back to prev_child if last_child() returned nil (i.e. node had no
       # children with line numbers)
-      end_line = (child || prev_child).line
-
-      @disabled_lines.merge(start_line..end_line)
+      (child || prev_child).line
     end
 
     # Gets the child of the node that resides on the lowest line in the file.
