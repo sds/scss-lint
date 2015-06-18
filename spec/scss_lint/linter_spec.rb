@@ -7,6 +7,11 @@ describe SCSSLint::Linter do
 
     module SCSSLint
       class Linter::Fake < SCSSLint::Linter
+        def visit_root(_node)
+          add_lint(engine.lines.count, 'final new line') unless engine.lines[-1][-1] == "\n"
+          yield
+        end
+
         def visit_prop(node)
           return unless node.value.to_sass.strip == 'fail1'
           add_lint(node, 'everything offends me')
@@ -47,7 +52,7 @@ describe SCSSLint::Linter do
     end
 
     context 'when a disable is present at the top level' do
-      let(:scss) { <<-SCSS }
+      let(:scss) { <<-SCSS.strip }
         // scss-lint:disable Fake
         p {
           border: fail1;
@@ -271,6 +276,10 @@ describe SCSSLint::Linter do
         .good-selector {
           border: fail1;
         }
+
+        p {
+          color: #FFF;
+        }
       SCSS
 
       it { should_not report_lint line: 1 }
@@ -279,6 +288,10 @@ describe SCSSLint::Linter do
 
     context 'when /* control comment appears in the middle of a comma sequence' do
       let(:scss) { <<-SCSS }
+        p {
+          color: #FFF;
+        }
+
         .badClass, /* scss-lint:disable Fake */
         .good-selector {
           border: fail1;
@@ -286,7 +299,7 @@ describe SCSSLint::Linter do
       SCSS
 
       it { should_not report_lint line: 1 }
-      it { should report_lint line: 3 }
+      it { should report_lint line: 7 }
     end
   end
 end
