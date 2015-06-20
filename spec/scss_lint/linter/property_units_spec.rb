@@ -50,6 +50,16 @@ describe SCSSLint::Linter::PropertyUnits do
 
         it { should report_lint line: 2 }
       end
+
+      context 'and some of the units are allowed but others are not allowed' do
+        let(:scss) { <<-SCSS }
+          p {
+            margin: 1rem 1rem 16px 1rem;
+          }
+        SCSS
+
+        it { should report_lint line: 2 }
+      end
     end
   end
 
