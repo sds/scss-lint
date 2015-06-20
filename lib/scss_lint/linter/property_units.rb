@@ -18,8 +18,18 @@ module SCSSLint
         property = "#{@nested_under}-#{property}"
       end
 
+      number_with_units_regex = /
+        (?:^|\s)    # beginning of value or whitespace
+        (?:
+          \d+       # any number of digits, e.g. 123
+          |         # or
+          \d*\.?\d+ # any number of digits with decimal, e.g. 1.23 or .123
+        )
+        ([a-z%]+)   # letters or percent sign, e.g. px or %
+      /ix
+
       if node.value.respond_to?(:value) &&
-         units = node.value.value.to_s[/(?:^|\s)(?:\d+|\d*\.?\d+)([a-z%]+)/i, 1]
+        units = node.value.value.to_s[number_with_units_regex, 1]
         check_units(node, property, units)
       end
 
