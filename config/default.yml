@@ -169,6 +169,9 @@ linters:
   SpaceAfterPropertyName:
     enabled: true
 
+  SpaceAfterVariableName:
+    enabled: true
+
   SpaceBeforeBrace:
     enabled: true
     style: space # or 'new_line'
