@@ -18,7 +18,7 @@
 * Change `NestingDepth` to allow parent selectors to be ignored in depth count
   via the `ignore_parent_selectors` configuration option
 * Fix `PropertyUnits` for properties that have multiple unit-like values (e.g.
-  shorthand properties)
+  shorthand properties) and quoted values
 
 ## 0.39.0
 
