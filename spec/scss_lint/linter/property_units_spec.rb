@@ -60,6 +60,26 @@ describe SCSSLint::Linter::PropertyUnits do
 
         it { should report_lint line: 2 }
       end
+
+      context 'and it contains a quoted string with unit-like characterstics' do
+        let(:scss) { <<-SCSS }
+          p {
+            font: italic 1rem "A 1a";
+          }
+        SCSS
+
+        it { should_not report_lint }
+
+        context 'and it contains other unallowed units' do
+          let(:scss) { <<-SCSS }
+            p {
+              font: italic 1px "A 1a";
+            }
+          SCSS
+
+          it { should report_lint }
+        end
+      end
     end
   end
 
@@ -231,6 +251,16 @@ describe SCSSLint::Linter::PropertyUnits do
     let(:scss) { <<-SCSS }
       p {
         content: "This is 12px";
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when property contains a string in quotes that looks like a value with weird units' do
+    let(:scss) { <<-SCSS }
+      p {
+        content: "This is 12a";
       }
     SCSS
 
