@@ -1,3 +1,13 @@
+if ENV['TRAVIS']
+  # When running in Travis, report coverage stats to Coveralls.
+  require 'coveralls'
+  Coveralls.wear!
+else
+  # Otherwise render coverage information in coverage/index.html and display
+  # coverage percentage in the console.
+  require 'simplecov'
+end
+
 require 'scss_lint'
 
 Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each { |f| require f }
