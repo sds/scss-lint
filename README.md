@@ -40,6 +40,18 @@ it into your [SCM hooks](https://github.com/brigade/overcommit).
 gem install scss_lint
 ```
 
+...or add the following to your `Gemfile` and run `bundle install`:
+
+```ruby
+gem 'scss_lint', require: false
+```
+
+The `require: false` is necessary because `scss-lint` monkey patches Sass in
+order to properly traverse the parse tree created by the Sass parser. This can
+interfere with other applications that invoke the Sass parser after `scss-lint`
+libraries have been loaded at runtime, so you should only require it in the
+context in which you are linting, nowhere else.
+
 ## Usage
 
 Run `scss-lint` from the command-line by passing in a directory (or multiple
