@@ -17,6 +17,8 @@
   end of a line
 * Change `NestingDepth` to allow parent selectors to be ignored in depth count
   via the `ignore_parent_selectors` configuration option
+* Add `SpaceAfterVariableName` linter which checks that there are no spaces
+  between a variable name and a colon
 
 ## 0.39.0
 

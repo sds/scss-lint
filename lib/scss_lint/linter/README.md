@@ -42,6 +42,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [SpaceAfterComma](#spaceaftercomma)
 * [SpaceAfterPropertyColon](#spaceafterpropertycolon)
 * [SpaceAfterPropertyName](#spaceafterpropertyname)
+* [SpaceAfterVariableName](#spaceaftervariablename)
 * [SpaceBeforeBrace](#spacebeforebrace)
 * [SpaceBetweenParens](#spacebetweenparens)
 * [StringQuotes](#stringquotes)
@@ -1243,6 +1244,20 @@ margin : 0;
 **Good**
 ```scss
 margin: 0;
+```
+
+## SpaceAfterVariableName
+
+Variables should be formatted with no space between the name and the colon.
+
+**Bad: space before colon**
+```scss
+$my-var : 0;
+```
+
+**Good**
+```scss
+$my-var: 0;
 ```
 
 ## SpaceBeforeBrace
