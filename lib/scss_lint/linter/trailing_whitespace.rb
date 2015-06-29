@@ -9,6 +9,7 @@ module SCSSLint
 
         add_lint(index + 1, 'Line contains trailing whitespace')
       end
+      yield
     end
   end
 end
