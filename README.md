@@ -18,7 +18,7 @@ it into your [SCM hooks](https://github.com/brigade/overcommit).
 * [Formatters](#formatters)
 * [Exit Status Codes](#exit-status-codes)
 * [Linters](#linters)
-* [Custom Linters (Experimental)](#custom-linters)
+* [Custom Linters](#custom-linters)
 * [Editor Integration](#editor-integration)
 * [Git Integration](#git-integration)
 * [Rake Integration](#rake-integration)
@@ -346,9 +346,6 @@ preferred style.
 ###[» Linters Documentation](lib/scss_lint/linter/README.md)
 
 ## Custom Linters
-
-**NOTE:** This feature is experimental and currently only available on the
-`master` branch.
 
 `scss-lint` allows you to create custom linters specific to your project. By
 default, it will load linters from the `.scss-linters` in the root of your
