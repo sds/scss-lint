@@ -6,6 +6,7 @@ module SCSSLint
 
     def visit_if(node)
       visit_else(node, node.else) if node.else
+      yield # Lint nested @if statements
     end
 
     def visit_else(if_node, else_node)

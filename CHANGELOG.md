@@ -23,6 +23,7 @@
   between a variable name and a colon
 * Fix control comment processing for `FinalNewline`, `SpaceBetweenParens`, and
   `TrailingNewline`
+* Fix `ElsePlacement` to lint nested `@if` statements
 
 ## 0.39.0
 
