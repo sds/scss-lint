@@ -208,7 +208,18 @@ module SCSSLint
     end
 
     def load_plugins
-      load_plugins_and_merge_config.tap { ensure_plugins_have_default_options }
+      previous_linters = LinterRegistry.linters
+      plugins = SCSSLint::Plugins.new(self).load
+      new_linters = LinterRegistry.linters - previous_linters
+
+      plugins.each do |plugin|
+        # Have the plugin options be overrideable by the local configuration
+        @options = self.class.send(:smart_merge, plugin.config.options, @options)
+      end
+
+      # We only want to set defaults for linters introduced via plugins,
+      # otherwise we'll accidentally enable some linters
+      ensure_linters_have_default_options(new_linters)
     end
 
     def enabled_linters
@@ -218,7 +229,7 @@ module SCSSLint
     end
 
     def linter_enabled?(linter)
-      linter_options(linter)['enabled']
+      (linter_options(linter) || {}).fetch('enabled', false)
     end
 
     def enable_linter(linter)
@@ -236,7 +247,7 @@ module SCSSLint
     end
 
     def linter_options(linter)
-      @options['linters'][self.class.linter_name(linter)]
+      @options['linters'].fetch(self.class.linter_name(linter), {})
     end
 
     def excluded_file?(file_path)
@@ -289,15 +300,8 @@ module SCSSLint
       end
     end
 
-    def load_plugins_and_merge_config
-      SCSSLint::Plugins.new(self).load.each do |plugin|
-        # Have the plugin options be overrideable by the local configuration
-        @options = self.class.send(:smart_merge, plugin.config.options, @options)
-      end
-    end
-
-    def ensure_plugins_have_default_options
-      LinterRegistry.linters.each do |linter|
+    def ensure_linters_have_default_options(linters)
+      linters.each do |linter|
         if linter_options(linter).nil?
           @options['linters'].merge!(default_plugin_options(linter))
         end
