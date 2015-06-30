@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.40.1
 
 * Fix regression where linters were enabled by default even if explicitly
   disabled in the default configuration
