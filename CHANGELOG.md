@@ -2,25 +2,33 @@
 
 ## master (unreleased)
 
-* Fix `ColorVariable` from crashing when variable interpolation occurs in
-  multiline comments
+### New Features
+
 * Add support for loading custom linters via the `plugin_directories` and
   `plugin_gems` configuration options (experimental)
 * Add `ExtendDirective` linter which checks for any usage of the `@extend`
   directive.
+* Add `TrailingWhitespace` linter which reports whitespace characters at the
+  end of a line
+* Add `SpaceAfterVariableName` linter which checks that there are no spaces
+  between a variable name and a colon
+
+### Changes
+
+* Change `NameFormat` to no longer check placeholder names, as this is handled
+  by the `SelectorFormat` linter
+* Change `NestingDepth` to allow parent selectors to be ignored in depth count
+  via the `ignore_parent_selectors` configuration option
+
+### Bug Fixes
+
+* Fix `ColorVariable` from crashing when variable interpolation occurs in
+  multiline comments
 * Fix `PropertySortOrder`'s `ignore_unspecified: false` behavior to not care
   about the relative order of unspecified properties at the end of a list of
   properties
-* Change `NameFormat` to no longer check placeholder names, as this is handled
-  by the `SelectorFormat` linter
-* Add `TrailingWhitespace` linter which reports whitespace characters at the
-  end of a line
-* Change `NestingDepth` to allow parent selectors to be ignored in depth count
-  via the `ignore_parent_selectors` configuration option
 * Fix `PropertyUnits` for properties that have multiple unit-like values (e.g.
   shorthand properties) and quoted values
-* Add `SpaceAfterVariableName` linter which checks that there are no spaces
-  between a variable name and a colon
 * Fix control comment processing for `FinalNewline`, `SpaceBetweenParens`, and
   `TrailingNewline`
 * Fix `ElsePlacement` to lint nested `@if` statements
