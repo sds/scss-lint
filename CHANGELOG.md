@@ -21,6 +21,8 @@
   shorthand properties) and quoted values
 * Add `SpaceAfterVariableName` linter which checks that there are no spaces
   between a variable name and a colon
+* Fix control comment processing for `FinalNewline`, `SpaceBetweenParens`, and
+  `TrailingNewline`
 
 ## 0.39.0
 
