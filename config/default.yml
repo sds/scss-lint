@@ -175,6 +175,10 @@ linters:
   SpaceAfterVariableName:
     enabled: true
 
+  SpaceAroundOperator:
+    enabled: true
+    style: one_space # or 'no_space'
+
   SpaceBeforeBrace:
     enabled: true
     style: space # or 'new_line'
