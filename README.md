@@ -3,6 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/scss_lint.svg)](http://badge.fury.io/rb/scss_lint)
 [![Build Status](https://travis-ci.org/brigade/scss-lint.svg)](https://travis-ci.org/brigade/scss-lint)
 [![Code Climate](https://codeclimate.com/github/brigade/scss-lint.png)](https://codeclimate.com/github/brigade/scss-lint)
+[![Coverage Status](https://coveralls.io/repos/brigade/scss-lint/badge.svg)](https://coveralls.io/r/brigade/scss-lint)
 [![Inline docs](http://inch-ci.org/github/brigade/scss-lint.svg?branch=master)](http://inch-ci.org/github/brigade/scss-lint)
 [![Dependency Status](https://gemnasium.com/brigade/scss-lint.svg)](https://gemnasium.com/brigade/scss-lint)
 
@@ -17,7 +18,7 @@ it into your [SCM hooks](https://github.com/brigade/overcommit).
 * [Formatters](#formatters)
 * [Exit Status Codes](#exit-status-codes)
 * [Linters](#linters)
-* [Custom Linters (Experimental)](#custom-linters)
+* [Custom Linters](#custom-linters)
 * [Editor Integration](#editor-integration)
 * [Git Integration](#git-integration)
 * [Rake Integration](#rake-integration)
@@ -345,9 +346,6 @@ preferred style.
 ###[» Linters Documentation](lib/scss_lint/linter/README.md)
 
 ## Custom Linters
-
-**NOTE:** This feature is experimental and currently only available on the
-`master` branch.
 
 `scss-lint` allows you to create custom linters specific to your project. By
 default, it will load linters from the `.scss-linters` in the root of your

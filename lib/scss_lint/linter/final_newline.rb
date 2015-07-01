@@ -15,6 +15,7 @@ module SCSSLint
         add_lint(engine.lines.count,
                  'Files should not end with a trailing newline') if ends_with_newline
       end
+      yield
     end
   end
 end
