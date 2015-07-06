@@ -139,9 +139,12 @@ describe SCSSLint::Linter::SpaceAroundOperator do
 
     context 'when values with non-evaluated operations exist' do
       let(:scss) { <<-SCSS }
+        $my-variable: 10px;
+
         p {
           font: 12px/10px;
           margin: 2em-1em;
+          padding: $my-variable;
         }
       SCSS
 
