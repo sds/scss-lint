@@ -11,6 +11,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [Compass Linters](#compass-linters)
 * [DebugStatement](#debugstatement)
 * [DeclarationOrder](#declarationorder)
+* [DisableLinterReason](#disablelinterreason)
 * [DuplicateProperty](#duplicateproperty)
 * [ElsePlacement](#elseplacement)
 * [EmptyLineBetweenBlocks](#emptylinebetweenblocks)
@@ -253,6 +254,28 @@ the cascade or nested rule sets, which justifies their inclusion *after*
 regular properties.
 
 Mixin `@content` and nested rule sets are also linted for declaration order.
+
+## DisableLinterReason
+
+`scss-lint:disable` control comments should be preceded by a comment explaining
+why these linters are being disabled for this file.
+
+**Bad**
+```scss
+// scss-lint:disable BorderZero
+p {
+  border: none;
+}
+```
+
+**Good**
+```scss
+// We really prefer `border: none` in this file, for reasons.
+// scss-lint:disable BorderZero
+p {
+  border: none;
+}
+```
 
 ## DuplicateProperty
 
