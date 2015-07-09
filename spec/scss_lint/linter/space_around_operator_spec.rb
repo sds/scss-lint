@@ -60,6 +60,20 @@ describe SCSSLint::Linter::SpaceAroundOperator do
       it { should report_lint line: 10 }
     end
 
+    context 'when numeric values with infix operators and newlines exist' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 7px+
+              7px;
+          padding: 9px
+              + 9px;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+      it { should report_lint line: 4 }
+    end
+
     context 'when numeric values with multiple infix operators exist' do
       let(:scss) { <<-SCSS }
         p {
@@ -145,6 +159,7 @@ describe SCSSLint::Linter::SpaceAroundOperator do
           font: 12px/10px;
           margin: 2em-1em;
           padding: $my-variable;
+          font-size: em(16px / $base-font-size);
         }
       SCSS
 

@@ -5,62 +5,44 @@ module SCSSLint
 
     def visit_script_operation(node)
       source = source_from_range(node.source_range)
+      left_range = node.operand1.source_range
+      right_range = node.operand2.source_range
 
-      all_matches(source) do |match|
-        if config['style'] == 'one_space'
-          if match[:lspace] != ' ' || match[:rspace] != ' '
-            add_lint(node, space_message(match))
-          end
-        elsif match[:lspace] != '' || match[:rspace] != ''
-          add_lint(node, no_space_message(match))
+      # We need to #chop at the end because an operation's operand1 _always_
+      # includes one character past the actual operand (which is either a
+      # whitespace character, or the first character of the operation).
+      left_source = source_from_range(left_range).chop
+      right_source = source_from_range(right_range)
+      operator_source = source_between(left_range, right_range)
+
+      match = operator_source.match(%r{
+        (?<left_space>\s*)
+        (?<operator>\S+)
+        (?<right_space>\s*)
+      }x)
+
+      if config['style'] == 'one_space'
+        if match[:left_space] != ' ' || match[:right_space] != ' '
+          add_lint(node, SPACE_MSG % [source, left_source, match[:operator], right_source])
         end
+      elsif match[:left_space] != '' || match[:right_space] != ''
+        add_lint(node, NO_SPACE_MSG % [source, left_source, match[:operator], right_source])
       end
+
+      yield
     end
 
   private
+    SPACE_MSG = "`%s` should be written with a single space on each side of the operator: `%s %s %s`"
+    NO_SPACE_MSG = "`%s` should be written without spaces around the operator: `%s%s%s`"
 
-    OPERATOR_REGEX = /
-      \b
-      (?<operation>
-        (?<loperand>[^\s]+?)
-        (?<lspace>\s*)
-        (?<operator>
-          (?:==|!=|>|>=|<|<=) |  # Comparison operators
-          (?:[+\-*\/%])          # Mathematical operators
-        )
-        (?<rspace>\s*)
-        (?<roperand>[^\s]+)
-      )
-      \b
-    /ix
+    def source_between(range1, range2)
+      # We don't want to add 1 to range1.end_pos.offset because of the same
+      # reason as the #chop comment above.
+      between_start = Sass::Source::Position.new(range1.end_pos.line, range1.end_pos.offset)
+      between_end = Sass::Source::Position.new(range2.start_pos.line, range2.start_pos.offset-1)
 
-    # Finds all matches of OPERATOR_REGEX in a String. This method differs from
-    # String#scan in that it will find intermediate matches that #scan
-    # inherently walks past. For example:
-    #
-    #     all_matches("1 + 2 + 3 + 4 + 5")      #=> ["1 + 2", "2 + 3", "3 + 4", "4 + 5"]
-    #     "1 + 2 + 3 + 4 + 5".scan(/\d \+ \d/)  #=> ["1 + 2", "3 + 4"]
-    def all_matches(string)
-      start = 0
-      finish = string.length
-
-      while start < finish
-        match = string[start..-1].match(OPERATOR_REGEX)
-        return if match.nil?
-
-        yield match
-        start += match.begin(:operator) + 1  # Move forward one character past the operator.
-      end
-    end
-
-    def space_message(match)
-      "`%s` should be written with a single space on each side of the operator: `%s %s %s`" %
-        [match[:operation], match[:loperand], match[:operator], match[:roperand]]
-    end
-
-    def no_space_message(match)
-      "`%s` should be written without spaces around the operator: `%s%s%s`" %
-        [match[:operation], match[:loperand], match[:operator], match[:roperand]]
+      source_from_range Sass::Source::Range.new(between_start, between_end, range1.file, range1.importer)
     end
   end
 end

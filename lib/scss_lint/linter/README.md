@@ -43,6 +43,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [SpaceAfterPropertyColon](#spaceafterpropertycolon)
 * [SpaceAfterPropertyName](#spaceafterpropertyname)
 * [SpaceAfterVariableName](#spaceaftervariablename)
+* [SpaceAroundOperator](#spacearoundoperator)
 * [SpaceBeforeBrace](#spacebeforebrace)
 * [SpaceBetweenParens](#spacebetweenparens)
 * [StringQuotes](#stringquotes)
