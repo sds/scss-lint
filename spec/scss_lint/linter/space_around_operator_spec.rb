@@ -166,6 +166,20 @@ describe SCSSLint::Linter::SpaceAroundOperator do
       it { should_not report_lint }
     end
 
+    context 'when values with parens and padded operations exist' do
+      let(:scss) { <<-SCSS }
+        p {
+          top: ($number) * -2;
+          top: (($number)) * ((2));
+          top: (($number  )  ) * ( ( 2 ) );
+          top: ($number
+                   ) * ( 2 );
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
     context 'when values with proper division operations exist' do
       let(:scss) { <<-SCSS }
         $x: 20px;
