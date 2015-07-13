@@ -27,7 +27,7 @@ module SCSSLint
     COMMAND_REGEX = %r{
       (/|\*)\s* # Comment start marker
       scss-lint:
-      (?<action>disable|enable)\s+
+      (?<action>disable)\s+
       (?<linters>.*?)
       \s*(?:\*/|\n) # Comment end marker or end of line
     }x
