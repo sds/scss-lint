@@ -32,7 +32,7 @@ module SCSSLint
       return unless %w[0 none].include?(border)
       return if @preference[0] == border
 
-      add_lint(node, "`border: #{@preference[0]} is preferred over " \
+      add_lint(node, "`border: #{@preference[0]}` is preferred over " \
                      "`border: #{@preference[1]}`")
     end
   end
