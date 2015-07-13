@@ -4,9 +4,9 @@ module SCSSLint
     include LinterRegistry
 
     def visit_comment(node)
-      return unless node.value.first.match(COMMAND_REGEX)
-
-      # No lint if the first line of the comment is not the command.
+      # No lint if the first line of the comment is not a command (because then
+      # either this comment has no commands, or the first line serves as a the
+      # reason for a command on a later line).
       return unless comment_lines(node).first.match(COMMAND_REGEX)
 
       # Maybe the previous node is the "reason" comment.
