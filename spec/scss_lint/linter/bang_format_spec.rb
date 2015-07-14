@@ -105,7 +105,7 @@ describe SCSSLint::Linter::BangFormat do
     SCSS
 
     it 'does not loop forever' do
-      subject.should_not report_lint
+      should_not report_lint
     end
   end
 
