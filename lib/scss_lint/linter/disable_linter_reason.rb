@@ -22,7 +22,7 @@ module SCSSLint
                'comment explaining why the linters need to be disabled.')
     end
 
-    private
+  private
 
     COMMAND_REGEX = %r{
       (/|\*)\s* # Comment start marker

@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::SingleLinePerProperty < Linter
     include LinterRegistry
 
-    def visit_rule(node) # rubocop:disable CyclomaticComplexity
+    def visit_rule(node)
       single_line = single_line_rule_set?(node)
       return if single_line && config['allow_single_line_rule_sets']
 
