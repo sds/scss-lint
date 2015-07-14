@@ -8,13 +8,22 @@ RSpec::Matchers.define :report_lint do |options|
   end
 
   failure_message do |linter|
-    'expected that a lint would be reported' +
+    expected_count =
+      if count.nil?
+        'a lint'
+      elsif count == 1
+        'exactly 1 lint'
+      else
+        "exactly #{count} lints"
+      end
+
+    "expected that #{expected_count} would be reported" +
       (expected_line ? " on line #{expected_line}" : '') +
       case linter.lints.count
       when 0
         ''
       when 1
-        ", but was on line #{linter.lints.first.location.line}"
+        ", but one lint was reported on line #{linter.lints.first.location.line}"
       else
         lines = lint_lines(linter)
         ", but lints were reported on lines #{lines[0...-1].join(', ')} and #{lines.last}"
