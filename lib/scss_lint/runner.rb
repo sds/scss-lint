@@ -2,7 +2,7 @@ module SCSSLint
   # Finds and aggregates all lints found by running the registered linters
   # against a set of SCSS files.
   class Runner
-    attr_reader :lints
+    attr_reader :lints, :files
 
     # @param config [Config]
     def initialize(config)
@@ -13,7 +13,8 @@ module SCSSLint
 
     # @param files [Array]
     def run(files)
-      files.each do |file|
+      @files = files
+      @files.each do |file|
         find_lints(file)
       end
     end
