@@ -166,7 +166,7 @@ describe SCSSLint::Linter::SpaceAroundOperator do
       it { should_not report_lint }
     end
 
-    context 'when values with parens and padded operations exist' do
+    context 'when values with nested operators and proper space exist' do
       let(:scss) { <<-SCSS }
         p {
           top: ($number) * -2;
@@ -174,6 +174,16 @@ describe SCSSLint::Linter::SpaceAroundOperator do
           top: (($number  )  ) * ( ( 2 ) );
           top: ($number
                    ) * ( 2 );
+          top: 2px + 3px + 4px;
+          top: (2px + 3px) + 4px;
+          top: (  2px + 3px  ) + 4px;
+          top: 2px + (3px + 4px);
+          top: 2px + (  3px + 4px  );
+          top: (2px) + (3px) + (4px);
+          top: (  2px  ) + (  3px  ) + (  4px  );
+        }
+
+        @if $var == 1 or $var == 2 {
         }
       SCSS
 

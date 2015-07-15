@@ -4,7 +4,7 @@ module SCSSLint
     include LinterRegistry
 
     def visit_script_operation(node)
-      source = source_from_range(node.source_range)
+      source = source_from_range(node.source_range).chop
       left_range = node.operand1.source_range
       right_range = node.operand2.source_range
 
@@ -12,9 +12,9 @@ module SCSSLint
       # includes one character past the actual operand (which is either a
       # whitespace character, or the first character of the operation).
       left_source = source_from_range(left_range).chop
-      right_source = source_from_range(right_range)
+      right_source = source_from_range(right_range).chop
       operator_source = source_between(left_range, right_range)
-      left_source, operator_source = shift_parens(left_source, operator_source)
+      left_source, operator_source = adjust_left_boundary(left_source, operator_source)
 
       match = operator_source.match(%r{
         (?<left_space>\s*)
@@ -46,12 +46,24 @@ module SCSSLint
       source_from_range Sass::Source::Range.new(between_start, between_end, range1.file, range1.importer)
     end
 
-    # If the left operand is wrapped in parentheses, the right parens are _not_
-    # included in the left operand's source. We correct this here, shifting any
-    # right parens off the operator source, onto the left operand's source.
-    def shift_parens(left, operator)
-      match = operator.match %r{^(\s*\))*}
-      [left + match[0], operator[match.end(0)..-1]]
+    def adjust_left_boundary(left, operator)
+      # If the left operand is wrapped in parentheses, any right parens end up
+      # in the operator source. Here, we move them into the left operand
+      # source, which is awkward in any messaging, but it works.
+      if match = operator.match(%r{^(\s*\))+})
+        left = left + match[0]
+        operator = operator[match.end(0)..-1]
+      end
+
+      # If the left operand is a nested operation, Sass includes any whitespace
+      # before the (outer) operator in the left operator's source_range's
+      # end_pos, which is not the case with simple, non-operation operands.
+      if match = left.match(%r{\s+$})
+        left = left[0..match.begin(0)]
+        operator = match[0] + operator
+      end
+
+      return left, operator
     end
   end
 end
