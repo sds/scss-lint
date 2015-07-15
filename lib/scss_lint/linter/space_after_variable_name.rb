@@ -1,7 +1,7 @@
 module SCSSLint
   # Checks for spaces following the name of a variable and before the colon
   # separating the variables's name from its value.
-  class SpaceAfterVariableName < Linter
+  class Linter::SpaceAfterVariableName < Linter
     include LinterRegistry
 
     def visit_variable(node)

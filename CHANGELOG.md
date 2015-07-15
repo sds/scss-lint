@@ -1,5 +1,11 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix `SpaceAfterVariableName` linter not being included in linter set
+* Add `DisableLinterReason` linter which enforces including a comment
+  explaining why a linter was disabled via a control comment
+
 ## 0.40.1
 
 * Fix regression where linters were enabled by default even if explicitly

@@ -1,3 +1,5 @@
+gemfile: Gemfile
+
 PreCommit:
   BundleCheck:
     enabled: true

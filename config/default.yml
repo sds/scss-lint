@@ -36,6 +36,9 @@ linters:
   DeclarationOrder:
     enabled: true
 
+  DisableLinterReason:
+    enabled: false
+
   DuplicateProperty:
     enabled: true
 

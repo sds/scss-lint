@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SCSSLint::SpaceAfterVariableName do
+describe SCSSLint::Linter::SpaceAfterVariableName do
   let(:scss) { <<-SCSS }
     $none: #fff;
     $one : #fff;
