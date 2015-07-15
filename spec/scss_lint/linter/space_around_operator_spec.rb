@@ -157,9 +157,14 @@ describe SCSSLint::Linter::SpaceAroundOperator do
 
         p {
           font: 12px/10px;
-          margin: 2em-1em;
-          padding: $my-variable;
-          font-size: em(16px / $base-font-size);
+          // In Sass <= 3.4.15, these `-` are not parsed as operators. In
+          // Sass 3.4.16, this was fixed, so that they are parsed as operators.
+          // These examples are commented out for now, until scss-lint requires
+          // Sass >= 3.4.16.
+          // margin: 2em-1em;
+          // padding: $my-variable;
+          // font-size: em(16px / $base-font-size);
+          font-size: 20px;
         }
       SCSS
 
