@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SCSSLint::Reporter::DefaultReporter do
-  subject { SCSSLint::Reporter::DefaultReporter.new(lints) }
+  subject { SCSSLint::Reporter::DefaultReporter.new(lints, []) }
 
   describe '#report_lints' do
     context 'when there are no lints' do

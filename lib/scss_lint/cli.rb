@@ -56,7 +56,7 @@ module SCSSLint
     def scan_for_lints(options, config)
       runner = Runner.new(config)
       runner.run(FileFinder.new(config).find(options[:files]))
-      report_lints(options, runner.lints)
+      report_lints(options, runner.lints, runner.files)
 
       if runner.lints.any?(&:error?)
         halt :error
@@ -159,10 +159,11 @@ module SCSSLint
 
     # @param options [Hash]
     # @param lints [Array<Lint>]
-    def report_lints(options, lints)
+    # @param files [Array<String>]
+    def report_lints(options, lints, files)
       sorted_lints = lints.sort_by { |l| [l.filename, l.location] }
       options.fetch(:reporters).each do |reporter, output|
-        results = reporter.new(sorted_lints).report_lints
+        results = reporter.new(sorted_lints, files).report_lints
         io = (output == :stdout ? $stdout : File.new(output, 'w+'))
         io.print results if results
       end
