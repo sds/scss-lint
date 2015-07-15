@@ -44,6 +44,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [SpaceAfterPropertyColon](#spaceafterpropertycolon)
 * [SpaceAfterPropertyName](#spaceafterpropertyname)
 * [SpaceAfterVariableName](#spaceaftervariablename)
+* [SpaceAroundOperator](#spacearoundoperator)
 * [SpaceBeforeBrace](#spacebeforebrace)
 * [SpaceBetweenParens](#spacebetweenparens)
 * [StringQuotes](#stringquotes)
@@ -1292,6 +1293,37 @@ $my-var : 0;
 ```scss
 $my-var: 0;
 ```
+
+## SpaceAroundOperator
+
+Operators should be formatted with a single space on both sides of an infix
+operator. These include `+`, `-`, `*`, `/`, `%`, `==`, `!=`, `>`, `>=`, `<`,
+and `<=`.
+
+**Bad: no space around operator**
+```scss
+margin: 5px+5px;
+```
+
+**Bad: more than one space around operator**
+```scss
+margin: 5px   +   5px;
+```
+
+**Good**
+```scss
+margin: 5px + 5px;
+```
+
+Note that this linter only applies to actual, evaluated operators. So values
+like `nth-child(2n+1)`, `10px/12px`, and `my-font` will not be linted, as they
+are valid CSS.
+
+The `style` option allows you to specify a different preferred style.
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`style`              | `one_space`, `no_space` (default **one_space**)
 
 ## SpaceBeforeBrace
 
