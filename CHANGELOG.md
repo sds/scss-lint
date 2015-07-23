@@ -10,6 +10,7 @@
 * Add `SpaceAroundOperator` linter which enforces whitespace padding around
   mathematical operators
 * Add `CleanFiles` reporter which displays all files that were free of lints
+* Add flexbox properties to `recess` preset sort order
 
 ## 0.40.1
 
