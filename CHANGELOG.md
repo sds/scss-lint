@@ -7,6 +7,8 @@
   explaining why a linter was disabled via a control comment
 * Improve `SingleLinePerSelector` to report selectors with descendent selectors
   on separate lines
+* Add `SpaceAroundOperator` linter which enforces whitespace padding around
+  mathematical operators
 
 ## 0.40.1
 
