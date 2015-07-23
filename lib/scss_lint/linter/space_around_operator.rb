@@ -4,15 +4,15 @@ module SCSSLint
     include LinterRegistry
 
     def visit_script_operation(node) # rubocop:disable Metrics/AbcSize
-      source = source_from_range(node.source_range).chop
+      source = normalize_source(source_from_range(node.source_range))
       left_range = node.operand1.source_range
       right_range = node.operand2.source_range
 
       # We need to #chop at the end because an operation's operand1 _always_
       # includes one character past the actual operand (which is either a
       # whitespace character, or the first character of the operation).
-      left_source = source_from_range(left_range).chop
-      right_source = source_from_range(right_range).chop
+      left_source = normalize_source(source_from_range(left_range))
+      right_source = normalize_source(source_from_range(right_range))
       operator_source = source_between(left_range, right_range)
       left_source, operator_source = adjust_left_boundary(left_source, operator_source)
 
@@ -56,6 +56,11 @@ module SCSSLint
                                                 between_end,
                                                 range1.file,
                                                 range1.importer))
+    end
+
+    # Removes trailing parentheses and compacts newlines into a single space
+    def normalize_source(source)
+      source.chop.gsub(/\s*\n\s*/, ' ')
     end
 
     def adjust_left_boundary(left, operator)
