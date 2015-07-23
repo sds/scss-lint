@@ -9,6 +9,7 @@
   on separate lines
 * Add `SpaceAroundOperator` linter which enforces whitespace padding around
   mathematical operators
+* Add `CleanFiles` reporter which displays all files that were free of lints
 
 ## 0.40.1
 
