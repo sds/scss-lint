@@ -239,6 +239,10 @@ silently fail on Windows systems if the gems
 are not installed.
 [Read more about adding Windows support](https://github.com/sickill/rainbow#windows-support).
 
+### CleanFiles
+
+Displays a list of all files that were free of lints.
+
 ### Config
 
 Returns a valid `.scss-lint.yml` configuration where all linters which caused
