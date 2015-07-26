@@ -3,6 +3,7 @@
 
 module Sass::Script
   module Value
+    # rubocop:disable Style/Documentation
     class Base
       def linter_children
         children
@@ -23,6 +24,7 @@ module Sass::Tree
       children
     end
   end
+  # rubocop:enable Style/Documentation
 end
 
 module Sass::Tree

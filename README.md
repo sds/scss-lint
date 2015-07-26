@@ -80,6 +80,7 @@ Command Line Flag         | Description
 `-r`/`--require`          | Require file/library (mind `$LOAD_PATH`, uses `Kernel.require`)
 `-i`/`--include-linter`   | Specify which linters you specifically want to run
 `-x`/`--exclude-linter`   | Specify which linters you _don't_ want to run
+`-a`/`--auto-correct`     | Auto correct files and print them to STDOUT (currently only a few Linters support this)
 `-h`/`--help`             | Show command line flag documentation
 `--show-formatters`       | Show all available formatters
 `--show-linters`          | Show all available linters

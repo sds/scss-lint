@@ -14,7 +14,7 @@ module SCSSLint
     # @param files [Array]
     def run(files)
       @files = files
-      @files.each do |file|
+      @files.map do |file|
         find_lints(file)
       end
     end
@@ -35,6 +35,8 @@ module SCSSLint
                 error.backtrace
         end
       end
+
+      engine
     rescue Sass::SyntaxError => ex
       @lints << Lint.new(nil, ex.sass_filename, Location.new(ex.sass_line),
                          "Syntax Error: #{ex}", :error)
