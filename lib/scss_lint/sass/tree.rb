@@ -1,7 +1,30 @@
 # Contains extensions of Sass::Tree::Nodes to add support for traversing the
-# Sass::Script::Node parse trees contained within the nodes. This probably
-# breaks the Sass compiler, but since we're only doing lints this is fine for
-# now.
+# Sass::Script::Node parse trees contained within the nodes.
+
+module Sass::Script
+  module Value
+    class Base
+      def linter_children
+        children
+      end
+    end
+  end
+  module Tree
+    class Node
+      def linter_children
+        children
+      end
+    end
+  end
+end
+module Sass::Tree
+  class Node
+    def linter_children
+      children
+    end
+  end
+end
+
 module Sass::Tree
   # Ignore documentation lints as these aren't original implementations.
   # rubocop:disable Documentation
@@ -52,19 +75,19 @@ module Sass::Tree
   end
 
   class CommentNode
-    def children
+    def linter_children
       concat_expr_lists super, extract_script_nodes(value)
     end
   end
 
   class DebugNode
-    def children
+    def linter_children
       concat_expr_lists super, expr
     end
   end
 
   class DirectiveNode
-    def children
+    def linter_children
       begin
         additional_children = extract_script_nodes(value)
       rescue NotImplementedError # rubocop:disable HandleExceptions
@@ -75,7 +98,7 @@ module Sass::Tree
   end
 
   class EachNode
-    def children
+    def linter_children
       loop_vars = vars.map { |var| create_variable(var) }
 
       concat_expr_lists super, loop_vars, list
@@ -83,19 +106,19 @@ module Sass::Tree
   end
 
   class ExtendNode
-    def children
+    def linter_children
       concat_expr_lists super, extract_script_nodes(selector)
     end
   end
 
   class ForNode
-    def children
+    def linter_children
       concat_expr_lists super, create_variable(var), from, to
     end
   end
 
   class FunctionNode
-    def children
+    def linter_children
       add_line_numbers_to_args(args)
 
       concat_expr_lists super, args, splat
@@ -103,13 +126,13 @@ module Sass::Tree
   end
 
   class IfNode
-    def children
+    def linter_children
       concat_expr_lists super, expr, self.else
     end
   end
 
   class MixinDefNode
-    def children
+    def linter_children
       add_line_numbers_to_args(args)
 
       concat_expr_lists super, args, splat
@@ -117,7 +140,7 @@ module Sass::Tree
   end
 
   class MixinNode
-    def children
+    def linter_children
       add_line_numbers_to_args(args)
 
       # Keyword mapping is String -> Expr, so convert the string to a variable
@@ -131,37 +154,37 @@ module Sass::Tree
   end
 
   class PropNode
-    def children
+    def linter_children
       concat_expr_lists super, extract_script_nodes(name), add_line_number(value)
     end
   end
 
   class ReturnNode
-    def children
+    def linter_children
       concat_expr_lists super, expr
     end
   end
 
   class RuleNode
-    def children
+    def linter_children
       concat_expr_lists super, extract_script_nodes(rule)
     end
   end
 
   class VariableNode
-    def children
+    def linter_children
       concat_expr_lists super, expr
     end
   end
 
   class WarnNode
-    def children
+    def linter_children
       concat_expr_lists super, expr
     end
   end
 
   class WhileNode
-    def children
+    def linter_children
       concat_expr_lists super, expr
     end
   end
