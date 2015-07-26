@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SCSSLint::Linter::MergeableSelector do
+describe SCSSLint::Linter::MergeEqualSelector do
   context 'when single root' do
     let(:scss) { <<-SCSS }
       p {
@@ -23,6 +23,24 @@ describe SCSSLint::Linter::MergeableSelector do
     SCSS
 
     it { should_not report_lint }
+  end
+
+  context 'when there are duplicate rules nested in a rule set' do
+    let(:scss) { <<-SCSS }
+      .foo {
+        .bar {
+          font-weight: bold;
+        }
+        .baz {
+          font-weight: bold;
+        }
+        .bar {
+          color: #ff0;
+        }
+      }
+    SCSS
+
+    it { should report_lint }
   end
 
   context 'when different roots with matching inner rules' do
@@ -65,37 +83,6 @@ describe SCSSLint::Linter::MergeableSelector do
     SCSS
 
     it { should_not report_lint }
-  end
-
-  context 'when nested and unnested selectors match' do
-    let(:scss) { <<-SCSS }
-      a.current {
-        background: #000;
-        margin: 5px;
-        .foo {
-          color: red;
-        }
-      }
-      a {
-        &.current {
-          background: #000;
-          margin: 5px;
-          .foo {
-            color: red;
-          }
-        }
-      }
-    SCSS
-
-    context 'when force_nesting is enabled' do
-      let(:linter_config) { { 'force_nesting' => true } }
-      it { should report_lint }
-    end
-
-    context 'when force_nesting is disabled' do
-      let(:linter_config) { { 'force_nesting' => false } }
-      it { should_not report_lint }
-    end
   end
 
   context 'when same class roots' do
@@ -223,61 +210,4 @@ describe SCSSLint::Linter::MergeableSelector do
     it { should_not report_lint }
   end
 
-  context 'when there are duplicate rules nested in a rule set' do
-    let(:scss) { <<-SCSS }
-      .foo {
-        .bar {
-          font-weight: bold;
-        }
-        .baz {
-          font-weight: bold;
-        }
-        .bar {
-          color: #ff0;
-        }
-      }
-    SCSS
-
-    it { should report_lint }
-  end
-
-  context 'when force_nesting is enabled' do
-    let(:linter_config) { { 'force_nesting' => true } }
-
-    context 'when one of the duplicate rules is in a comma sequence' do
-      let(:scss) { <<-SCSS }
-        .foo,
-        .bar {
-          color: #000;
-        }
-        .foo {
-          color: #f00;
-        }
-      SCSS
-
-      it { should_not report_lint }
-    end
-
-    context 'when rules start with the same prefix but are not the same' do
-      let(:scss) { <<-SCSS }
-        .foo {
-          color: #000;
-        }
-        .foobar {
-          color: #f00;
-        }
-      SCSS
-
-      it { should_not report_lint }
-    end
-
-    context 'when a rule contains interpolation' do
-      let(:scss) { <<-SCSS }
-        .\#{$class-name} {}
-        .foobar {}
-      SCSS
-
-      it { should_not report_lint }
-    end
-  end
 end
