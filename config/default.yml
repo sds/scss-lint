@@ -96,6 +96,9 @@ linters:
     enabled: true
     force_nesting: true
 
+  GroupableSelector:
+    enabled: true
+
   NameFormat:
     enabled: true
     allow_leading_underscore: true
