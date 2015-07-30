@@ -47,15 +47,7 @@ module SCSSLint
   private
 
     def extract_command(node)
-      comment =
-        case node
-        when Sass::Tree::CommentNode
-          node.value.first
-        when Sass::Tree::RuleNode
-          node.rule.select { |chunk| chunk.is_a?(String) }.join
-        end
-
-      return unless comment
+      return unless comment = retrieve_comment_text(node)
 
       comment.split(/(?<=\n)/).each_with_index do |comment_line, line_no|
         if match = %r{
@@ -73,7 +65,16 @@ module SCSSLint
         end
       end
 
-      return false
+      false
+    end
+
+    def retrieve_comment_text(node)
+      case node
+      when Sass::Tree::CommentNode
+        node.value.first
+      when Sass::Tree::RuleNode
+        node.rule.select { |chunk| chunk.is_a?(String) }.join
+      end
     end
 
     def process_command(command, node)
