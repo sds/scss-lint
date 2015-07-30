@@ -238,9 +238,30 @@ describe SCSSLint::Linter do
           // scss-lint:disable Fake
           border: fail2;
         }
+
+        p {
+          background: red; // [1]
+          //scss-lint:disable Fake
+          border: fail2;
+        }
       SCSS
 
       it { should_not report_lint }
+    end
+
+    context 'when the command comment is below an attached comment and a lint' do
+      let(:scss) { <<-SCSS }
+        // 1. Some comment about my background
+        .foo {
+          background: fail1; // [1]
+          // scss-lint:disable Fake
+          border: fail1
+          // scss-lint:enable Fake
+        }
+      SCSS
+
+      it { should report_lint line: 3 }
+      it { should_not report_lint line: 5 }
     end
 
     context 'when the command comment is at the end of a statement' do
