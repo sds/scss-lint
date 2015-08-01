@@ -30,6 +30,7 @@ module SCSSLint
 
     def ignore_selectors?(node)
       return unless config['ignore_parent_selectors']
+      return unless node.parsed_rules
 
       simple_selectors(node.parsed_rules).all? do |selector|
         IGNORED_SELECTORS.include?(selector.class)

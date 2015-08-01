@@ -155,6 +155,22 @@ describe SCSSLint::Linter::NestingDepth do
 
         it { should_not report_lint }
       end
+
+      context 'and sequence contains a keyframe' do
+        let(:linter_config) { super().merge('max_depth' => 1) }
+        let(:scss) { <<-SCSS }
+        @keyframe my_keyframe {
+            0% {
+                background: none;
+            }
+            50% {
+                background: red;
+            }
+        }
+        SCSS
+
+        it { should_not report_lint }
+      end
     end
 
     context 'when not ignoring parent selectors' do

@@ -13,6 +13,7 @@
 * Add flexbox properties to `recess` preset sort order
 * Fix handling of consecutive control comments to properly disable linters
 * Fix handling of control comments preceded by normal comments
+* Fix `NestingDepth` linter not handling rules with no selectors
 
 ## 0.40.1
 
