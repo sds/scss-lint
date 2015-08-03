@@ -11,6 +11,8 @@
   mathematical operators
 * Add `CleanFiles` reporter which displays all files that were free of lints
 * Add flexbox properties to `recess` preset sort order
+* Fix handling of consecutive control comments to properly disable linters
+* Fix handling of control comments preceded by normal comments
 
 ## 0.40.1
 
