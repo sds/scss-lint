@@ -82,6 +82,8 @@ Configuration Option | Description
 
 ## BemDepth
 
+**Disabled by default**
+
 Reports when a BEM selector contains more elements than a configurable
 maximum number.
 
@@ -258,6 +260,8 @@ Mixin `@content` and nested rule sets are also linted for declaration order.
 
 ## DisableLinterReason
 
+**Disabled by default**
+
 `scss-lint:disable` control comments should be preceded by a comment explaining
 why these linters are being disabled for this file.
 
@@ -402,6 +406,8 @@ Reports when you have an empty rule set.
 ```
 
 ## ExtendDirective
+
+**Disabled by default**
 
 Reports when you have an `@extend` directive.
 
@@ -808,6 +814,8 @@ If you want to prevent the use of the `@extend` directive entirely, see the
 [ExtendDirective](#extenddirective) linter.
 
 ## PropertyCount
+
+**Disabled by default**
 
 Limit the number of properties in a rule set.
 
@@ -1457,6 +1465,8 @@ Reports lines containing trailing whitespace.
 
 ## TrailingZero
 
+**Disabled by default**
+
 Don't write trailing zeros for numeric values with a decimal point.
 
 **Bad: unnecessary trailing zero**
@@ -1569,6 +1579,8 @@ See the [URL type](http://dev.w3.org/csswg/css-values/#url-value) documentation
 for more information.
 
 ## VariableForProperty
+
+**Disabled by default**
 
 Properties, like `color` and `font`, are easier to read and maintain when
 defined using variables rather than literals.
