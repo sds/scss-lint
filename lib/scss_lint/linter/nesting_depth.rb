@@ -38,6 +38,8 @@ module SCSSLint
     end
 
     def simple_selectors(node)
+      return [] if node.nil?
+
       node.members.flat_map(&:members).reject do |simple_sequence|
         simple_sequence.is_a?(String)
       end.flat_map(&:members)
