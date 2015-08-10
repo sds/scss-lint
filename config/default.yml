@@ -92,9 +92,11 @@ linters:
     enabled: true
     style: exclude_zero # or 'include_zero'
 
-  MergeableSelector:
+  MergeEqualSelector:
     enabled: true
-    force_nesting: true
+
+  NestableSelector:
+    enabled: true
 
   NameFormat:
     enabled: true
