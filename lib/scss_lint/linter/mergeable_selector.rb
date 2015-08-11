@@ -11,8 +11,10 @@ module SCSSLint
         seen_nodes << child_node
         next unless mergeable_node
 
+        rule_text = node_rule(child_node).gsub(/(\r?\n)+/, ' ')
+
         add_lint child_node.line,
-                 "Merge rule `#{node_rule(child_node)}` with rule " \
+                 "Merge rule `#{rule_text}` with rule " \
                  "on line #{mergeable_node.line}"
       end
 
