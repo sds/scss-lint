@@ -1,5 +1,5 @@
 module SCSSLint
-  # Checks for explicitly transitioning properties instead of transition all.
+  # Checks for explicitly transitioned properties instead of transition all.
   class Linter::TransitionAll < Linter
     include LinterRegistry
 
@@ -23,7 +23,7 @@ module SCSSLint
       pos = node.value_source_range.start_pos.after(value[0, offset])
 
       add_lint(Location.new(pos.line, pos.offset, 3),
-               "#{property} should contain explicity properties " \
+               "#{property} should contain explicit properties " \
                 'instead of using the keyword all')
     end
   end
