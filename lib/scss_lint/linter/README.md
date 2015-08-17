@@ -51,6 +51,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [TrailingSemicolon](#trailingsemicolon)
 * [TrailingWhitespace](#trailingwhitespace)
 * [TrailingZero](#trailingzero)
+* [TransitionAll](#transitionall)
 * [UnnecessaryMantissa](#unnecessarymantissa)
 * [UnnecessaryParentReference](#unnecessaryparentreference)
 * [UrlFormat](#urlformat)
@@ -1481,6 +1482,22 @@ margin: .5em;
 
 The extra zeros are unnecessary and just add additional bytes to the resulting
 generated CSS.
+
+## TransitionAll
+
+**Disabled by default**
+
+Don't use the `all` keyword to specify transition properties.
+
+**Bad: use of transition all**
+```scss
+transition: all .5s ease-in;
+```
+
+**Good: explicitly specify properties to transition**
+```scss
+transition: color .5s ease-in, margin-bottom .5s ease-in;
+```
 
 ## UnnecessaryMantissa
 
