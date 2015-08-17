@@ -201,6 +201,9 @@ linters:
   TrailingZero:
     enabled: false
 
+  TransitionAll:
+    enabled: false
+
   UnnecessaryMantissa:
     enabled: true
 
