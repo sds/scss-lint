@@ -14,6 +14,9 @@
 * Fix handling of consecutive control comments to properly disable linters
 * Fix handling of control comments preceded by normal comments
 * Fix `NestingDepth` linter not handling rules with no selectors
+* Add flexbox properties to `smacss` ordering
+* Fix `MergeableSelector` messages to condense newlines
+* Add `TransitionAll` linter which reports the use of `transition: all`
 
 ## 0.40.1
 
