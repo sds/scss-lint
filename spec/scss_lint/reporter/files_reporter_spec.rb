@@ -13,7 +13,8 @@ describe SCSSLint::Reporter::FilesReporter do
     end
 
     context 'when there are lints' do
-      let(:filenames)    { ['some-filename.scss', 'some-filename.scss', 'other-filename.scss'] }
+      let(:filenames) { ['some-filename.scss', 'some-filename.scss', 'other-filename.scss'] }
+
       let(:lints) do
         filenames.map do |filename|
           SCSSLint::Lint.new(nil, filename, SCSSLint::Location.new, '')

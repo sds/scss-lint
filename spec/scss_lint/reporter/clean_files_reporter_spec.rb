@@ -57,7 +57,7 @@ describe SCSSLint::Reporter::CleanFilesReporter do
     end
 
     context 'when there are lints in every file' do
-      let(:files) { %w[a.scss b.scss c.scss d.scss]  }
+      let(:files) { %w[a.scss b.scss c.scss d.scss] }
 
       let(:lints) do
         files.map do |file|

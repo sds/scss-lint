@@ -52,6 +52,10 @@ IfUnlessModifier:
 LineLength:
   Max: 100
 
+# Reports false positives for `CONSTANT % ['value', 'value']` (RuboCop 0.33.0)
+Lint/FormatParameterMismatch:
+  Enabled: false
+
 MethodLength:
   Max: 20
 
@@ -86,6 +90,10 @@ SignalException:
 # choosing intention-revealing names.
 SingleLineBlockParams:
   Enabled: false
+
+Style/ExtraSpacing:
+  Exclude:
+    - '*.gemspec'
 
 Style/MultilineOperationIndentation:
   Enabled: false
