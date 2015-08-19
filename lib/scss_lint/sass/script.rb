@@ -74,5 +74,24 @@ module Sass::Script
         [value]
       end
     end
+
+    # This monkey patch can be removed once scss-lint depends on a minimum
+    # version of the sass gem that includes a fix for
+    # https://github.com/sass/sass/issues/1799
+    class ListLiteral
+      def source_range
+        return @source_range if @elements.empty?
+        @source_range.end_pos = @elements.last.source_range.end_pos
+        @source_range
+      end
+    end
+
+    class MapLiteral
+      def source_range
+        return @source_range if @pairs.empty?
+        @source_range.end_pos = @pairs.last.last.source_range.end_pos
+        @source_range
+      end
+    end
   end
 end
