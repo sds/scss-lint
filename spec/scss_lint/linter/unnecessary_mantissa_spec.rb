@@ -64,4 +64,24 @@ describe SCSSLint::Linter::UnnecessaryMantissa do
 
     it { should_not report_lint }
   end
+
+  context 'when a decimal value appears in a single-quoted string' do
+    let(:scss) { <<-SCSS }
+      p {
+        content: '1.0';
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when a decimal value appears in a double-quoted string' do
+    let(:scss) { <<-SCSS }
+      p {
+        content: "1.0";
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
 end

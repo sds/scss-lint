@@ -17,6 +17,7 @@
 * Add flexbox properties to `smacss` ordering
 * Fix `MergeableSelector` messages to condense newlines
 * Add `TransitionAll` linter which reports the use of `transition: all`
+* Fix `UnnecessaryMantissa` to not report decimal values in quoted strings
 
 ## 0.40.1
 
