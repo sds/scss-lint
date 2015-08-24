@@ -2,21 +2,29 @@
 
 ## master (unreleased)
 
-* Fix `SpaceAfterVariableName` linter not being included in linter set
+### New Features
+
 * Add `DisableLinterReason` linter which enforces including a comment
   explaining why a linter was disabled via a control comment
-* Improve `SingleLinePerSelector` to report selectors with descendent selectors
-  on separate lines
 * Add `SpaceAroundOperator` linter which enforces whitespace padding around
   mathematical operators
 * Add `CleanFiles` reporter which displays all files that were free of lints
 * Add flexbox properties to `recess` preset sort order
+* Add flexbox properties to `smacss` ordering
+* Add `TransitionAll` linter which reports the use of `transition: all`
+
+### Changes
+
+* Improve `SingleLinePerSelector` to report selectors with descendent selectors
+  on separate lines
+
+### Bug Fixes
+
+* Fix `SpaceAfterVariableName` linter not being included in linter set
 * Fix handling of consecutive control comments to properly disable linters
 * Fix handling of control comments preceded by normal comments
 * Fix `NestingDepth` linter not handling rules with no selectors
-* Add flexbox properties to `smacss` ordering
 * Fix `MergeableSelector` messages to condense newlines
-* Add `TransitionAll` linter which reports the use of `transition: all`
 * Fix `UnnecessaryMantissa` to not report decimal values in quoted strings
 
 ## 0.40.1
