@@ -4,6 +4,11 @@ PreCommit:
   BundleCheck:
     enabled: true
 
+  ExecutePermissions:
+    enabled: true
+    exclude:
+      - 'bin/scss-lint'
+
   HardTabs:
     enabled: true
 
