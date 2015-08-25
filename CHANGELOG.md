@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix `SpaceAroundOperator` linter to not report false positives operators in
+  interpolation
+
 ## 0.41.0
 
 ### New Features
