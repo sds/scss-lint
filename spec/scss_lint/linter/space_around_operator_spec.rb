@@ -151,6 +151,30 @@ describe SCSSLint::Linter::SpaceAroundOperator do
       it { should report_lint line: 2 }
     end
 
+    context 'when a selector contains an interpolated infix operator, well spaced' do
+      let(:scss) { <<-SCSS }
+        @for $i from 1 through 25 {
+          .progress-bar[aria-valuenow="\#{$i / 25 * 100}"] {
+            opacity: 0;
+          }
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when a selector contains an interpolated infix operator, badly spaced' do
+      let(:scss) { <<-SCSS }
+        @for $i from 1 through 25 {
+          .progress-bar[aria-valuenow="\#{$i/25*100}"] {
+            opacity: 0;
+          }
+        }
+      SCSS
+
+      it { should report_lint line: 2, count: 2 }
+    end
+
     context 'when values with non-evaluated operations exist' do
       let(:scss) { <<-SCSS }
         $my-variable: 10px;
@@ -207,6 +231,7 @@ describe SCSSLint::Linter::SpaceAroundOperator do
       it { should report_lint line: 6 }
     end
   end
+
   context 'when one space is preferred' do
     let(:style) { 'no_space' }
 
