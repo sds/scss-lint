@@ -127,7 +127,7 @@ describe SCSSLint::Linter::ColorVariable do
       }
     SCSS
 
-    it { should_not report_lint }
+    it { should report_lint line: 2 }
   end
 
   context 'when a color literal is used in a map declaration' do
@@ -160,6 +160,46 @@ describe SCSSLint::Linter::ColorVariable do
       /*!
        * test \#{a}
        */
+    SCSS
+
+    it { should_not report_lint }
+  end
+
+  context 'when a color function containing literals is used in a property' do
+    let(:scss) { <<-SCSS }
+      p {
+        color: rgb(0, 100, 200);
+      }
+      a {
+        color: rgb(0%, 50%, 80%);
+      }
+      i {
+        color: rgba(0, 0, 0, .5);
+      }
+      span {
+        color: hsl(0, 100%, 50%);
+      }
+      .class {
+        color: hsla(0, 100%, 50%, .5);
+      }
+    SCSS
+
+    it { should report_lint line: 2 }
+    it { should report_lint line: 5 }
+    it { should report_lint line: 8 }
+    it { should report_lint line: 11 }
+    it { should report_lint line: 14 }
+  end
+
+  context 'when transforming a variable value in a function call' do
+    let(:scss) { <<-SCSS }
+      p {
+        color: rgba($red, .5);
+      }
+
+      a {
+        color: lighten($red, 5%);
+      }
     SCSS
 
     it { should_not report_lint }

@@ -4,6 +4,7 @@
 
 * Fix `SpaceAroundOperator` linter to not report false positives operators in
   interpolation
+* Improve `ColorVariable` to flag uses of rgb/rgba/hsl/hsla
 
 ## 0.41.0
 

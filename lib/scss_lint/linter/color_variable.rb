@@ -3,6 +3,8 @@ module SCSSLint
   class Linter::ColorVariable < Linter
     include LinterRegistry
 
+    COLOR_FUNCTIONS = %w[rgb rgba hsl hsla]
+
     def visit_script_color(node)
       return if in_variable_declaration?(node) ||
                 in_map_declaration?(node) ||
@@ -28,6 +30,14 @@ module SCSSLint
       # rendered in code and thus allow variable interpolation. Unfortunately,
       # the Sass parser returns bad source ranges for interpolation in these
       # comments, so it's easiest to just ignore them.
+    end
+
+    def visit_script_funcall(node)
+      if color_function?(node) && all_arguments_are_literals?(node)
+        record_lint node, node.to_sass
+      else
+        yield
+      end
     end
 
   private
@@ -62,6 +72,16 @@ module SCSSLint
 
     def in_map_declaration?(node)
       node_ancestor(node, 2).is_a?(Sass::Script::Tree::MapLiteral)
+    end
+
+    def all_arguments_are_literals?(node)
+      node.args.all? do |arg|
+        arg.is_a?(Sass::Script::Tree::Literal)
+      end
+    end
+
+    def color_function?(node)
+      COLOR_FUNCTIONS.include?(node.name)
     end
   end
 end
