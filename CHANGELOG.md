@@ -5,6 +5,7 @@
 * Fix `SpaceAroundOperator` linter to not report false positives operators in
   interpolation
 * Improve `ColorVariable` to flag uses of rgb/rgba/hsl/hsla
+* Enhance Rake task to support command line flags
 
 ## 0.41.0
 
