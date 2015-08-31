@@ -8,7 +8,7 @@
 [![Dependency Status](https://gemnasium.com/brigade/scss-lint.svg)](https://gemnasium.com/brigade/scss-lint)
 
 `scss-lint` is a tool to help keep your [SCSS](http://sass-lang.com) files
-clean and readable. You can run it manually from the command-line, or integrate
+clean and readable. You can run it manually from the command line, or integrate
 it into your [SCM hooks](https://github.com/brigade/overcommit).
 
 * [Requirements](#requirements)
@@ -55,7 +55,7 @@ context in which you are linting, nowhere else.
 
 ## Usage
 
-Run `scss-lint` from the command-line by passing in a directory (or multiple
+Run `scss-lint` from the command line by passing in a directory (or multiple
 directories) to recursively scan:
 
 ```bash
@@ -463,9 +463,14 @@ require 'scss_lint/rake_task'
 
 SCSSLint::RakeTask.new do |t|
   t.config = 'custom/config.yml'
+  t.args = ['--formatter', 'JSON', '--out', 'results.txt']
   t.files = ['app/assets', 'custom/*.scss']
 end
 ```
+
+You can specify any command line arguments in the `args` attribute that are
+allowed by the `scss-lint` Ruby binary script. Each argument must be passed as
+an Array element, rather than one String with spaces.
 
 You can also use this custom configuration with a set of files specified via
 the command line:
