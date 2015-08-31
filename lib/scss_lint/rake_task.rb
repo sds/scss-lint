@@ -31,6 +31,10 @@ module SCSSLint
     # @return [String]
     attr_accessor :config
 
+    # Command-line args to use.
+    # @return [Array<String>]
+    attr_accessor :args
+
     # List of files to lint (can contain shell globs).
     #
     # Note that this will be ignored if you explicitly pass a list of files as
@@ -67,7 +71,7 @@ module SCSSLint
     def run_cli(task_args)
       cli_args = ['--config', config] if config
 
-      result = SCSSLint::CLI.new.run(Array(cli_args) + files_to_lint(task_args))
+      result = SCSSLint::CLI.new.run(Array(cli_args) + Array(args) + files_to_lint(task_args))
 
       message =
         case result
@@ -98,6 +102,7 @@ module SCSSLint
     def default_description
       description = 'Run `scss-lint'
       description += " --config #{config}" if config
+      description += " #{args}" if args
       description += " #{files.join(' ')}" if files.any?
       description += ' [files...]`'
       description
