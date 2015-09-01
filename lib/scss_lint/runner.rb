@@ -8,7 +8,8 @@ module SCSSLint
     def initialize(config)
       @config  = config
       @lints   = []
-      @linters = LinterRegistry.linters.map(&:new)
+      @linters = LinterRegistry.linters.select { |linter| @config.linter_enabled?(linter) }
+      @linters.map!(&:new)
     end
 
     # @param files [Array]
@@ -44,7 +45,6 @@ module SCSSLint
 
     # For stubbing in tests.
     def run_linter(linter, engine, file)
-      return unless @config.linter_enabled?(linter)
       return if @config.excluded_file_for_linter?(file, linter)
       @lints += linter.run(engine, @config.linter_options(linter))
     end
