@@ -14,7 +14,7 @@ module SCSSLint
       property_name = node.name.join
       return unless @properties.include?(property_name)
       return if ignored_value?(node.value)
-      return if node.children.first.is_a?(Sass::Script::Tree::Variable)
+      return if node.linter_children.first.is_a?(Sass::Script::Tree::Variable)
 
       add_lint(node, "Property #{property_name} should use " \
                      'a variable rather than a literal value')

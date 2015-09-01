@@ -54,9 +54,12 @@ module SCSSLint
     end
 
     def scan_for_lints(options, config)
+      files = FileFinder.new(config).find(options[:files])
+
       runner = Runner.new(config)
-      runner.run(FileFinder.new(config).find(options[:files]))
+      engines = runner.run(files)
       report_lints(options, runner.lints, runner.files)
+      auto_correct engines if options[:auto_correct]
 
       if runner.lints.any?(&:error?)
         halt :error
@@ -166,6 +169,15 @@ module SCSSLint
         results = reporter.new(sorted_lints, files).report_lints
         io = (output == :stdout ? $stdout : File.new(output, 'w+'))
         io.print results if results
+      end
+    end
+
+    def auto_correct(engines)
+      runner.lints.each do |lint|
+        lint.auto_correct.call if lint.auto_correct
+      end
+      engines.each do |engine|
+        puts engine.tree.to_scss
       end
     end
 

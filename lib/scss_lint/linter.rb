@@ -38,12 +38,12 @@ module SCSSLint
     #
     # @param node_or_line_or_location [Sass::Script::Tree::Node, Fixnum, SCSSLint::Location]
     # @param message [String]
-    def add_lint(node_or_line_or_location, message)
+    def add_lint(node_or_line_or_location, message, &block)
       @lints << Lint.new(self,
                          engine.filename,
                          extract_location(node_or_line_or_location),
                          message,
-                         @config.fetch('severity', :warning).to_sym)
+                         @config.fetch('severity', :warning).to_sym, &block)
     end
 
     # Extract {SCSSLint::Location} from a {Sass::Source::Range}.
@@ -137,7 +137,7 @@ module SCSSLint
     # @param parent [Sass::Tree::Node, Sass::Script::Tree::Node,
     #   Sass::Script::Value::Base]
     def visit_children(parent)
-      parent.children.each do |child|
+      parent.linter_children.each do |child|
         child.node_parent = parent
         visit(child)
       end

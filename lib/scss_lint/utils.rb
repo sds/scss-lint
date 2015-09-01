@@ -75,19 +75,19 @@ module SCSSLint
 
     def previous_node(node)
       return unless node && parent = node.node_parent
-      index = parent.children.index(node)
+      index = parent.linter_children.index(node)
 
       if index == 0
         parent
       else
-        parent.children[index - 1]
+        parent.linter_children[index - 1]
       end
     end
 
     def node_siblings(node)
       return unless node && node.node_parent
       node.node_parent
-          .children
+          .linter_children
           .select { |child| child.is_a?(Sass::Tree::Node) }
     end
 
