@@ -18,7 +18,8 @@ Gem::Specification.new do |s|
 
   s.files            = Dir['config/**/*.yml'] +
                        Dir['data/**/*'] +
-                       Dir['lib/**/*.rb']
+                       Dir['lib/**/*.rb'] +
+                       ['MIT-LICENSE']
 
   s.test_files       = Dir['spec/**/*']
 
