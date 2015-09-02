@@ -68,7 +68,7 @@ module SCSSLint
       actual_line   = source_position.line - 1
       actual_offset = source_position.offset + offset - 1
 
-      engine.lines[actual_line][actual_offset]
+      engine.lines.size > actual_line && engine.lines[actual_line][actual_offset]
     end
 
     # Extracts the original source code given a range.
