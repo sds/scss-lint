@@ -52,7 +52,7 @@ module SCSSLint
     def trim_underscore_prefix(name)
       if config['allow_leading_underscore']
         # Remove if there is a single leading underscore
-        name = name.gsub(/^_(?!_)/, '')
+        name = name.sub(/^_(?!_)/, '')
       end
 
       name

@@ -43,13 +43,13 @@ module SCSSLint
       fixed_basename = orig_basename
 
       if config['leading_underscore']
-        fixed_basename = '_' + fixed_basename unless fixed_basename.match(/^_/)
+        fixed_basename = '_' + fixed_basename unless fixed_basename.start_with?('_')
       else
         fixed_basename = fixed_basename.sub(/^_/, '')
       end
 
       if config['filename_extension']
-        fixed_basename += '.scss' unless fixed_basename.match(/\.scss$/)
+        fixed_basename += '.scss' unless fixed_basename.end_with?('.scss')
       else
         fixed_basename = fixed_basename.sub(/\.scss$/, '')
       end

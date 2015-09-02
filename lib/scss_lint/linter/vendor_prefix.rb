@@ -13,7 +13,7 @@ module SCSSLint
     def check_node(node)
       name = node.name.is_a?(Array) ? node.name.join : node.name
       # Ignore '@' from @keyframes node name
-      check_identifier(node, name.gsub(/^@/, ''))
+      check_identifier(node, name.sub(/^@/, ''))
 
       # Check for values
       return unless node.respond_to?(:value) && node.value.respond_to?(:source_range)

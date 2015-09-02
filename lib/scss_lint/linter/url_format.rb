@@ -18,7 +18,7 @@ module SCSSLint
 
     def visit_prop(node)
       if url_literal?(node.value)
-        url = node.value.to_sass.gsub(/^url\((.*)\)$/, '\\1')
+        url = node.value.to_sass.sub(/^url\((.*)\)$/, '\\1')
         check_url(url, node)
       end
 
@@ -32,7 +32,7 @@ module SCSSLint
       return unless prop_value.value.is_a?(Sass::Script::Value::String)
       return unless prop_value.value.type == :identifier
 
-      prop_value.to_sass.match(/^url\(/)
+      prop_value.to_sass.start_with?('url(')
     end
 
     def url_string?(arg)
@@ -43,7 +43,7 @@ module SCSSLint
     end
 
     def check_url(url, node)
-      return if url.match(/^data:/)
+      return if url.start_with?('data:')
       uri = URI(url)
 
       if uri.scheme || uri.host

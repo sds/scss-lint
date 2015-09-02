@@ -31,7 +31,7 @@ describe SCSSLint::Reporter::FilesReporter do
 
       it 'prints the filename for each lint' do
         filenames.each do |filename|
-          subject.report_lints.scan(/#{filename}/).count.should == 1
+          subject.report_lints.scan(filename).count.should == 1
         end
       end
     end

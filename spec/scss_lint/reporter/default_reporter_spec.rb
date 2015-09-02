@@ -35,19 +35,19 @@ describe SCSSLint::Reporter::DefaultReporter do
 
       it 'prints the filename for each lint' do
         filenames.each do |filename|
-          subject.report_lints.scan(/#{filename}/).count.should == 1
+          subject.report_lints.scan(filename).count.should == 1
         end
       end
 
       it 'prints the line number for each lint' do
         lines.each do |line|
-          subject.report_lints.scan(/#{line}/).count.should == 1
+          subject.report_lints.scan(line.to_s).count.should == 1
         end
       end
 
       it 'prints the description for each lint' do
         descriptions.each do |description|
-          subject.report_lints.scan(/#{description}/).count.should == 1
+          subject.report_lints.scan(description).count.should == 1
         end
       end
 
