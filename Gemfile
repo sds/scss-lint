@@ -10,3 +10,4 @@ gem 'rubocop', '0.33.0'
 gem 'travis', '~> 1.7'
 
 gem 'coveralls'
+gem 'ruby-prof'
