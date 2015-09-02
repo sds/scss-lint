@@ -156,7 +156,7 @@ module SCSSLint
         else
           path = File.join(File.dirname(base_config_path), relative_include_path)
           # Remove double backslashes appearing in Windows paths.
-          path.gsub(%r{^//}, File::SEPARATOR)
+          path.sub(%r{^//}, File::SEPARATOR)
         end
       end
 

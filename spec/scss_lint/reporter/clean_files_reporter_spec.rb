@@ -45,13 +45,13 @@ describe SCSSLint::Reporter::CleanFilesReporter do
 
       it 'prints the file for each lint' do
         clean_files.each do |file|
-          subject.report_lints.scan(/#{file}/).count.should == 1
+          subject.report_lints.scan(file).count.should == 1
         end
       end
 
       it 'does not print clean files' do
         dirty_files.each do |file|
-          subject.report_lints.scan(/#{file}/).count.should == 0
+          subject.report_lints.scan(file).count.should == 0
         end
       end
     end

@@ -25,10 +25,10 @@ module SCSSLint
     def selector_node_name(node)
       # Converts the class name of a node into snake_case form, e.g.
       # `Sass::Selector::SimpleSequence` -> `simple_sequence`
-      node.class.name.gsub(/.*::(.*?)$/, '\\1')
-                      .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
-                      .gsub(/([a-z\d])([A-Z])/, '\1_\2')
-                      .downcase
+      name = node.class.name.gsub(/.*::(.*?)$/, '\\1')
+      name.gsub!(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
+      name.gsub!(/([a-z\d])([A-Z])/, '\1_\2')
+      name.downcase!
     end
   end
 end
