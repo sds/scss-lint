@@ -127,9 +127,9 @@ module SCSSLint
         visit_selector(node.parsed_rules)
       end
 
-      @comment_processor.before_node_visit(node)
+      @comment_processor.before_node_visit(node) if @engine.any_control_commands
       super
-      @comment_processor.after_node_visit(node)
+      @comment_processor.after_node_visit(node) if @engine.any_control_commands
     end
 
     # Redefine so we can set the `node_parent` of each node
