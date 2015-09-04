@@ -8,6 +8,8 @@
 * Enhance Rake task to support command line flags
 * Improve performance of `ElsePlacement` linter to better handle large lists of
   `@if`/`@else if`/`@else` statements
+* Fix `TrailingSemicolon` to report missing semicolons when trailing comment
+  ended with a semicolon
 
 ## 0.41.0
 

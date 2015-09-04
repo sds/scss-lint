@@ -8,7 +8,7 @@ module SCSSLint
     end
 
     def visit_variable(node)
-      check_semicolon(node)
+      check_semicolon(node.expr)
     end
 
     def visit_prop(node)

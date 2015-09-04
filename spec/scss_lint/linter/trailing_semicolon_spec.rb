@@ -301,4 +301,10 @@ describe SCSSLint::Linter::TrailingSemicolon do
 
     it { should_not report_lint }
   end
+
+  context 'when variable declaration is followed by a comment and semicolon' do
+    let(:scss) { '$foo: bar // comment;' }
+
+    it { should report_lint }
+  end
 end
