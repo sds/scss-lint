@@ -6,6 +6,8 @@
   interpolation
 * Improve `ColorVariable` to flag uses of rgb/rgba/hsl/hsla
 * Enhance Rake task to support command line flags
+* Improve performance of `ElsePlacement` linter to better handle large lists of
+  `@if`/`@else if`/`@else` statements
 
 ## 0.41.0
 
