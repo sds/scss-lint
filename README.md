@@ -536,6 +536,13 @@ You can also follow [@scss_lint on Twitter](https://twitter.com/scss_lint).
 If you're interested in seeing the changes and bug fixes between each version
 of `scss-lint`, read the [SCSS-Lint Changelog](CHANGELOG.md).
 
+## Code of conduct
+
+This project adheres to the [Open Code of Conduct][code-of-conduct]. By
+participating, you are expected to honor this code.
+
+[code-of-conduct]: https://github.com/brigade/code-of-conduct
+
 ## License
 
 This project is released under the [MIT license](MIT-LICENSE).
