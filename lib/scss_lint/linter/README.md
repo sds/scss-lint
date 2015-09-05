@@ -1253,7 +1253,7 @@ The `style` option allows you to specify a different preferred style.
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`style`              | `one_space`, or `at_least_one_space` (default **one_space**)
+`style`              | `one_space`, or 'no_space' or `at_least_one_space` (default **one_space**)
 
 
 ## SpaceAfterPropertyColon

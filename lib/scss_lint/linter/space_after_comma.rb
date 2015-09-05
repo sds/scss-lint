@@ -63,6 +63,8 @@ module SCSSLint
       case config['style']
       when 'one_space'
         spaces == 1
+      when 'no_space'
+        spaces == 0
       when 'at_least_one_space'
         spaces >= 1
       end
