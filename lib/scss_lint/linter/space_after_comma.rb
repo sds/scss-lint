@@ -59,7 +59,14 @@ module SCSSLint
       end
     end
 
-    EXPECTED_SPACES_AFTER_COMMA = 1
+    def valid_spaces_after_comma?(spaces)
+      case config['style']
+      when 'one_space'
+        spaces == 1
+      when 'at_least_one_space'
+        spaces >= 1
+      end
+    end
 
     # Check the comma after each argument in a list for a space following it,
     # reporting a lint using the given [arg_type].
@@ -79,7 +86,7 @@ module SCSSLint
           offset += 1
         end
         next if char == "\n" || # Ignore trailing spaces
-                spaces == EXPECTED_SPACES_AFTER_COMMA
+                valid_spaces_after_comma?(spaces)
 
         add_lint arg, "Commas in #{arg_type} should be followed by a single space"
       end

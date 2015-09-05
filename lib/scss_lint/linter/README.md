@@ -1249,6 +1249,13 @@ color: rgba(0,0,0,.1);
 color: rgba(0, 0, 0, .1);
 ```
 
+The `style` option allows you to specify a different preferred style.
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`style`              | `one_space`, or `at_least_one_space` (default **one_space**)
+
+
 ## SpaceAfterPropertyColon
 
 Properties should be formatted with a single space separating the colon from
