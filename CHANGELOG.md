@@ -10,6 +10,7 @@
   `@if`/`@else if`/`@else` statements
 * Fix `TrailingSemicolon` to report missing semicolons when trailing comment
   ended with a semicolon
+* Add `no_space` and `at_least_on_space` style options to `SpaceAfterComma`
 
 ## 0.41.0
 
