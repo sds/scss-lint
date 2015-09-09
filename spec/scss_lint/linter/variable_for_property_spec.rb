@@ -88,6 +88,16 @@ describe SCSSLint::Linter::VariableForProperty do
       it { should report_lint line: 3 }
     end
 
+    context 'when configured property value is used with !important' do
+      let(:scss) { <<-SCSS }
+        p {
+          color: $black !important;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
     context 'when property specifies `currentColor`' do
       let(:scss) { <<-SCSS }
         p {
