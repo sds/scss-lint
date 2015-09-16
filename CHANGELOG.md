@@ -11,6 +11,8 @@
 * Fix `TrailingSemicolon` to report missing semicolons when trailing comment
   ended with a semicolon
 * Add `no_space` and `at_least_on_space` style options to `SpaceAfterComma`
+* Fix `VariableForProperty` to not erroneously report property values with
+  `!important`
 
 ## 0.41.0
 
