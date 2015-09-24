@@ -28,14 +28,7 @@ module SCSSLint
               "No SCSS files matched by the patterns: #{patterns.join(' ')}"
       end
 
-      filtered_files = matched_files.reject { |file| @config.excluded_file?(file) }
-      if filtered_files.empty?
-        raise SCSSLint::Exceptions::AllFilesFilteredError,
-              "All files matched by the patterns [#{patterns.join(', ')}] " \
-              "were excluded by the patterns: [#{@config.exclude_patterns.join(', ')}]"
-      end
-
-      filtered_files
+      matched_files.reject { |file| @config.excluded_file?(file) }
     end
 
   private

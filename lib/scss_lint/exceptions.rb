@@ -1,8 +1,4 @@
 module SCSSLint::Exceptions
-  # Raised when all files matched by the specified glob patterns were filtered
-  # by exclude patterns.
-  class AllFilesFilteredError < StandardError; end
-
   # Raised when an invalid flag is given via the command line.
   class InvalidCLIOption < StandardError; end
 

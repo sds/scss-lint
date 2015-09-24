@@ -13,6 +13,9 @@
 * Add `no_space` and `at_least_on_space` style options to `SpaceAfterComma`
 * Fix `VariableForProperty` to not erroneously report property values with
   `!important`
+* Return successful status code instead of 81 when all files matched by
+  specified glob patterns are excluded by `--exclude` flags and `exclude`
+  configuration settings, as it was confusing.
 
 ## 0.41.0
 

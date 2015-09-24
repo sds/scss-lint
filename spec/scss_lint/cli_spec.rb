@@ -166,18 +166,6 @@ describe SCSSLint::CLI do
       end
     end
 
-    context 'when all specified SCSS files are filtered by exclusions' do
-      before do
-        SCSSLint::FileFinder.any_instance.stub(:find)
-          .and_raise(SCSSLint::Exceptions::AllFilesFilteredError)
-      end
-
-      it 'exits with an appropriate status code' do
-        subject.should_receive(:halt).with(:files_filtered)
-        safe_run
-      end
-    end
-
     context 'when a config file is specified' do
       let(:flags) { ['--config', 'custom_config.yml'] }
 

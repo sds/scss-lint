@@ -76,9 +76,7 @@ describe SCSSLint::FileFinder do
               config.exclude_file('some-dir/test.scss')
             end
 
-            it 'raises an error' do
-              expect { subject }.to raise_error SCSSLint::Exceptions::AllFilesFilteredError
-            end
+            it { should == [] }
           end
         end
 
@@ -103,9 +101,7 @@ describe SCSSLint::FileFinder do
               config.exclude_file('**/*.scss')
             end
 
-            it 'raises an error' do
-              expect { subject }.to raise_error SCSSLint::Exceptions::AllFilesFilteredError
-            end
+            it { should == [] }
           end
         end
 
