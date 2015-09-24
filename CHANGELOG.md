@@ -1,21 +1,29 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.42.0
 
-* Fix `SpaceAroundOperator` linter to not report false positives operators in
-  interpolation
-* Improve `ColorVariable` to flag uses of rgb/rgba/hsl/hsla
+### New Features
+
 * Enhance Rake task to support command line flags
+* Add `no_space` and `at_least_on_space` style options to `SpaceAfterComma`
+
+### Changes
+
+* Improve `ColorVariable` to flag uses of rgb/rgba/hsl/hsla
+* Return successful status code instead of 81 when all files matched by
+  specified glob patterns are excluded by `--exclude` flags and `exclude`
+  configuration settings, as it was confusing.
+
+### Bug Fixes
+
+* Fix `SpaceAroundOperator` linter to not report false positives for operators
+  in interpolation
 * Improve performance of `ElsePlacement` linter to better handle large lists of
   `@if`/`@else if`/`@else` statements
 * Fix `TrailingSemicolon` to report missing semicolons when trailing comment
   ended with a semicolon
-* Add `no_space` and `at_least_on_space` style options to `SpaceAfterComma`
 * Fix `VariableForProperty` to not erroneously report property values with
   `!important`
-* Return successful status code instead of 81 when all files matched by
-  specified glob patterns are excluded by `--exclude` flags and `exclude`
-  configuration settings, as it was confusing.
 
 ## 0.41.0
 
