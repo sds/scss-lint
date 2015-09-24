@@ -5,7 +5,7 @@
 ### New Features
 
 * Enhance Rake task to support command line flags
-* Add `no_space` and `at_least_on_space` style options to `SpaceAfterComma`
+* Add `no_space` and `at_least_one_space` style options to `SpaceAfterComma`
 
 ### Changes
 
