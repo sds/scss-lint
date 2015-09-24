@@ -52,12 +52,26 @@ module SCSSLint
 
     # Checks that the node is ended by a semicolon (with no whitespace)
     def ends_with_semicolon?(node)
-      source_from_range(node.source_range) =~ /;(\s*})?$/
+      semicolon_after_parenthesis?(node) ||
+        # Otherwise just check for a semicolon
+        source_from_range(node.source_range) =~ /;(\s*})?$/
+    end
+
+    # Special case: Sass doesn't include the semicolon after an expression
+    # in the source range it reports, so we need a helper to check after the
+    # reported range.
+    def semicolon_after_parenthesis?(node)
+      last_char = character_at(node.source_range.end_pos)
+      char_after = character_at(node.source_range.end_pos, 1)
+      (last_char == ')' && char_after == ';') ||
+        ([last_char, char_after].include?("\n") &&
+         engine.lines[node.source_range.end_pos.line] =~ /\);(\s*})?$/)
     end
 
     def ends_with_multiple_semicolons?(node)
       # Look one character past the end to see if there's another semicolon
-      character_at(node.source_range.end_pos, 1) == ';'
+      character_at(node.source_range.end_pos) == ';' &&
+        character_at(node.source_range.end_pos, 1) == ';'
     end
 
     def has_space_before_semicolon?(node)

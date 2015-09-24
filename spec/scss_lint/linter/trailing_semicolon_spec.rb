@@ -307,4 +307,48 @@ describe SCSSLint::Linter::TrailingSemicolon do
 
     it { should report_lint }
   end
+
+  context 'when a variable declaration contains parentheses' do
+    context 'and ends with a semicolon' do
+      let(:scss) { '$foo: ($expr);' }
+
+      it { should_not report_lint }
+    end
+
+    context 'and is missing a semicolon' do
+      let(:scss) { '$foo: ($expr)' }
+
+      it { should report_lint }
+    end
+  end
+
+  context 'when a variable declaration contains a multiline map' do
+    context 'with a trailing comma' do
+      context 'and ends with a semicolon' do
+        let(:scss) { "$foo: (\n  one: 1,\ntwo: 2,\n);" }
+
+        it { should_not report_lint }
+      end
+
+      context 'and is missing a semicolon' do
+        let(:scss) { "$foo: (\n  one: 1,\ntwo: 2,\n)" }
+
+        it { should report_lint }
+      end
+    end
+
+    context 'without a trailing comma' do
+      context 'and ends with a semicolon' do
+        let(:scss) { "$foo: (\n  one: 1,\ntwo: 2\n);" }
+
+        it { should_not report_lint }
+      end
+
+      context 'and is missing a semicolon' do
+        let(:scss) { "$foo: (\n  one: 1,\ntwo: 2\n)" }
+
+        it { should report_lint }
+      end
+    end
+  end
 end
