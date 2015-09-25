@@ -3,6 +3,8 @@
 ## master (unreleased)
 
 * Fix `TrailingSemicolon` for variables with `!default` and `!global`.
+* Check `!default` and `!global` variable declarations and `!optional` `@extend`
+  directives in `BangFormat`
 
 ## 0.42.0
 

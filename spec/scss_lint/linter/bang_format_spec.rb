@@ -77,6 +77,64 @@ describe SCSSLint::Linter::BangFormat do
     it { should_not report_lint }
   end
 
+  context 'with a !default variable declaration' do
+    context 'and !default is used correctly' do
+      let(:scss) { <<-SCSS }
+        $foo: bar !default;
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and there is no space before' do
+      let(:scss) { <<-SCSS }
+        $foo: bar!default;
+      SCSS
+
+      it { should report_lint line: 1 }
+    end
+  end
+
+  context 'with a !global variable declaration' do
+    context 'and !global is used correctly' do
+      let(:scss) { <<-SCSS }
+        $foo: bar !global;
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and there is no space before' do
+      let(:scss) { <<-SCSS }
+        $foo: bar!global;
+      SCSS
+
+      it { should report_lint line: 1 }
+    end
+  end
+
+  context 'with an !optional @extend directive' do
+    context 'and !optional is used correctly' do
+      let(:scss) { <<-SCSS }
+        .foo {
+          @extend .bar !optional;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'and there is no space before' do
+      let(:scss) { <<-SCSS }
+        .foo {
+          @extend .bar!optional;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+  end
+
   context 'when ! appears within a string' do
     let(:scss) { <<-SCSS }
       p:before { content: "!important"; }
