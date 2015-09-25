@@ -21,6 +21,7 @@ module SCSSLint
       yield
     end
 
+    # Making a public version of #source_from_range, a private method.
     def source_fm_range(range)
       source_from_range(range)
     end
@@ -34,11 +35,19 @@ module SCSSLint
         (?<right_space>\s*)
       /x)
 
+      # We forgive spacing with newlines. In the case of a newline occurring on
+      # one side or another, we don't care about indentation, and the
+      # TrailingWhitespace linter will worry about trailing whitespace, so we
+      # just don't worry about space with a newline.
+      left_newline = match[:left_space].include?("\n")
+      right_newline = match[:right_space].include?("\n")
       if config['style'] == 'one_space'
-        if match[:left_space] != ' ' || match[:right_space] != ' '
+        if (match[:left_space] != ' ' && !left_newline) ||
+          (match[:right_space] != ' ' && !right_newline)
           add_lint(node, operation_sources.space_msg(match[:operator]))
         end
-      elsif match[:left_space] != '' || match[:right_space] != ''
+      elsif (match[:left_space] != '' && !left_newline) ||
+        (match[:right_space] != '' && !right_newline)
         add_lint(node, operation_sources.no_space_msg(match[:operator]))
       end
     end
