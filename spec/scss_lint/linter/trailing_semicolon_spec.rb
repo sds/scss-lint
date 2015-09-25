@@ -23,6 +23,48 @@ describe SCSSLint::Linter::TrailingSemicolon do
     it { should_not report_lint }
   end
 
+  context 'when an !important property' do
+    context 'ends with a semicolon' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 0 !important;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'ends with two semicolons' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 0 !important;;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'has a space before the semicolon' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 0 !important ;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'is missing a semicolon' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 0 !important
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+  end
+
   context 'when a property ends with a space followed by a semicolon' do
     let(:scss) { <<-SCSS }
       p {
@@ -302,6 +344,84 @@ describe SCSSLint::Linter::TrailingSemicolon do
     it { should_not report_lint }
   end
 
+  context 'when a !default variable declaration' do
+    context 'ends with a semicolon' do
+      let(:scss) { '$foo: bar !default;' }
+
+      it { should_not report_lint }
+    end
+
+    context 'ends with two semicolons' do
+      let(:scss) { '$foo: bar !default;;' }
+
+      it { should report_lint }
+    end
+
+    context 'has a space before the semicolon' do
+      let(:scss) { '$foo: bar !default ;' }
+
+      it { should report_lint }
+    end
+
+    context 'is missing a semicolon' do
+      let(:scss) { '$foo: bar !default' }
+
+      it { should report_lint }
+    end
+  end
+
+  context 'when a !global variable declaration' do
+    context 'ends with a semicolon' do
+      let(:scss) { '$foo: bar !global;' }
+
+      it { should_not report_lint }
+    end
+
+    context 'ends with two semicolons' do
+      let(:scss) { '$foo: bar !global;;' }
+
+      it { should report_lint }
+    end
+
+    context 'has a space before the semicolon' do
+      let(:scss) { '$foo: bar !global ;' }
+
+      it { should report_lint }
+    end
+
+    context 'is missing a semicolon' do
+      let(:scss) { '$foo: bar !global' }
+
+      it { should report_lint }
+    end
+  end
+
+  context 'when the value of the variable is !important' do
+    context 'ends with a semicolon' do
+      let(:scss) { '$foo: bar !important;' }
+
+      it { should_not report_lint }
+    end
+
+    context 'ends with two semicolons' do
+      let(:scss) { '$foo: bar !important;;' }
+
+      it { should report_lint }
+    end
+
+    context 'has a space before the semicolon' do
+      let(:scss) { '$foo: bar !important ;' }
+
+      it { should report_lint }
+    end
+
+    context 'is missing a semicolon' do
+      let(:scss) { '$foo: bar !important' }
+
+      it { should report_lint }
+    end
+  end
+
   context 'when variable declaration is followed by a comment and semicolon' do
     let(:scss) { '$foo: bar // comment;' }
 
@@ -348,6 +468,90 @@ describe SCSSLint::Linter::TrailingSemicolon do
         let(:scss) { "$foo: (\n  one: 1,\ntwo: 2\n)" }
 
         it { should report_lint }
+      end
+    end
+  end
+
+  context 'with an @extend directive' do
+    context 'that ends with a semicolon' do
+      let(:scss) { <<-SCSS }
+        .foo {
+          @extend .bar;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'with two semicolons' do
+      let(:scss) { <<-SCSS }
+        .foo {
+          @extend .bar;;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'with a space before the semicolon' do
+      let(:scss) { <<-SCSS }
+        .foo {
+          @extend .bar ;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'that does not have a semicolon' do
+      let(:scss) { <<-SCSS }
+        .foo {
+          @extend .bar
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'with the !optional flag' do
+      context 'that ends with a semicolon' do
+        let(:scss) { <<-SCSS }
+          .foo {
+            @extend .bar !optional;
+          }
+        SCSS
+
+        it { should_not report_lint }
+      end
+
+      context 'with two semicolons' do
+        let(:scss) { <<-SCSS }
+          .foo {
+            @extend .bar !optional;;
+          }
+        SCSS
+
+        it { should report_lint line: 2 }
+      end
+
+      context 'with a space before the semicolon' do
+        let(:scss) { <<-SCSS }
+          .foo {
+            @extend .bar !optional ;
+          }
+        SCSS
+
+        it { should report_lint line: 2 }
+      end
+
+      context 'that does not have a semicolon' do
+        let(:scss) { <<-SCSS }
+          .foo {
+            @extend .bar !optional
+          }
+        SCSS
+
+        it { should report_lint line: 2 }
       end
     end
   end

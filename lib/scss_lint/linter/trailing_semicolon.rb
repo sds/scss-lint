@@ -8,6 +8,13 @@ module SCSSLint
     end
 
     def visit_variable(node)
+      # If the variable is using `!default` or `!global` (e.g. `$foo: bar
+      # !default;`) then `node.expr` will give us the source range just for the
+      # value (e.g. `bar`). In these cases, we want to use the source range of
+      # `node`, which will give us most of the entire line (e.g. `foo: bar
+      # !default`.
+      return check_semicolon(node) if node.global || node.guarded
+
       check_semicolon(node.expr)
     end
 
