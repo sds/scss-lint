@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.42.1
 
 * Fix `TrailingSemicolon` for variables with `!default` and `!global`.
 * Check `!default` and `!global` variable declarations and `!optional` `@extend`
