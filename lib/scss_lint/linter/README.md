@@ -62,7 +62,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 
 ## BangFormat
 
-Reports when you use improper spacing around `!` (the "bang") in `!important` and `!default` declarations.
+Reports when you use improper spacing around `!` (the "bang") in `!default`, `!global`, `!important`, and `!optional` flags.
 
 You can prefer a single space or no space both before and after the `!`.
 

@@ -5,9 +5,28 @@ module SCSSLint
 
     STOPPING_CHARACTERS = ['!', "'", '"', nil]
 
+    def visit_extend(node)
+      check_bang(node)
+    end
+
     def visit_prop(node)
-      return unless source_from_range(node.source_range).include?('!')
-      return unless check_spacing(node)
+      check_bang(node)
+    end
+
+    def visit_variable(node)
+      check_bang(node)
+    end
+
+  private
+
+    def check_bang(node)
+      range = if node.respond_to?(:value_source_range)
+                node.value_source_range
+              else
+                node.source_range
+              end
+      return unless source_from_range(range).include?('!')
+      return unless check_spacing(range)
 
       before_qualifier = config['space_before_bang'] ? '' : 'not '
       after_qualifier = config['space_after_bang'] ? '' : 'not '
@@ -15,8 +34,6 @@ module SCSSLint
       add_lint(node, "! should #{before_qualifier}be preceeded by a space, " \
                      "and should #{after_qualifier}be followed by a space")
     end
-
-  private
 
     # Start from the back and move towards the front so that any !important or
     # !default !'s will be found *before* quotation marks. Then we can
@@ -40,8 +57,7 @@ module SCSSLint
       (after_actual =~ after_expected).nil?
     end
 
-    def check_spacing(node)
-      range = node.value_source_range
+    def check_spacing(range)
       offset = find_bang_offset(range)
 
       return if character_at(range.end_pos, offset) != '!'
