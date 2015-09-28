@@ -2,7 +2,8 @@
 
 ## master (unreleased)
 
-* Fix SpaceAroundOperator to allow newlines
+* Fix `SpaceAroundOperator` to allow newlines
+* Fix `HexValidation` to ignore mid-word hex strings
 
 ## 0.42.1
 
