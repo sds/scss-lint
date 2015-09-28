@@ -6,7 +6,7 @@ module SCSSLint
     def visit_script_string(node)
       return unless node.type == :identifier
 
-      node.value.scan(/(#\h+)/) do |match|
+      node.value.scan(/(?:\W|^)(#\h+)(?:\W|$)/) do |match|
         check_hex(match.first, node)
       end
     end

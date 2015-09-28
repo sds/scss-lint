@@ -37,4 +37,15 @@ describe SCSSLint::Linter::HexValidation do
     it { should report_lint line: 2 }
     it { should report_lint line: 3 }
   end
+
+  context 'when rule contains hex codes in a longer string' do
+    let(:scss) { <<-SCSS }
+      p {
+        content: 'foo#bad';
+        content: 'foo #ba';
+      }
+    SCSS
+
+    it { should report_lint line: 3 }
+  end
 end
