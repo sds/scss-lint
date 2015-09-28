@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix SpaceAroundOperator to allow newlines
+
 ## 0.42.1
 
 * Fix `TrailingSemicolon` for variables with `!default` and `!global`.
