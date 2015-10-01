@@ -4,6 +4,7 @@
 
 * Fix `SpaceAroundOperator` to allow newlines
 * Fix `HexValidation` to ignore mid-word hex strings
+* Fix `ColorVariable` to ignore color functions in variable declaration
 
 ## 0.42.1
 

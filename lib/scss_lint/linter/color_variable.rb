@@ -33,7 +33,7 @@ module SCSSLint
     end
 
     def visit_script_funcall(node)
-      if color_function?(node) && all_arguments_are_literals?(node)
+      if literal_color_function?(node)
         record_lint node, node.to_sass
       else
         yield
@@ -63,6 +63,10 @@ module SCSSLint
         parent.node_parent.is_a?(Sass::Tree::VariableNode)
     end
 
+    def function_in_variable_declaration?(node)
+      node.node_parent.is_a?(Sass::Tree::VariableNode)
+    end
+
     def in_rgba_function_call?(node)
       grandparent = node_ancestor(node, 2)
 
@@ -82,6 +86,12 @@ module SCSSLint
 
     def color_function?(node)
       COLOR_FUNCTIONS.include?(node.name)
+    end
+
+    def literal_color_function?(node)
+      color_function?(node) &&
+        all_arguments_are_literals?(node) &&
+        !function_in_variable_declaration?(node)
     end
   end
 end
