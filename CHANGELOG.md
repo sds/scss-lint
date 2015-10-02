@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.42.2
 
 * Fix `SpaceAroundOperator` to allow newlines
 * Fix `HexValidation` to ignore mid-word hex strings
