@@ -421,8 +421,8 @@ text-overline-style
 text-overline-width
 text-rendering
 text-security
-text-size-adjust
 text-shadow
+text-size-adjust
 text-stroke
 text-stroke-color
 text-stroke-width
