@@ -6,7 +6,16 @@ module SCSSLint
     def visit_root(_node)
       @indent_width = config['width'].to_i
       @indent_character = config['character'] || 'space'
+      if @indent_character == 'tab'
+        @other_character = ' '
+        @other_character_name = 'space'
+      else
+        @other_character = "\t"
+        @other_character_name = 'tab'
+      end
+      @allow_non_nested_indentation = config['allow_non_nested_indentation']
       @indent = 0
+      @indentations = {}
       yield
     end
 
@@ -28,31 +37,23 @@ module SCSSLint
       # sibling or its parent, as indentation isn't possible
       return if nodes_on_same_line?(previous_node(node), node)
 
-      if @indent_character == 'tab'
-        other_character = ' '
-        other_character_name = 'space'
-      else
-        other_character = "\t"
-        other_character_name = 'tab'
-      end
-
-      check_indent_width(node, other_character, @indent_character, other_character_name)
+      check_indent_width(node)
     end
 
-    def check_indent_width(node, other_character, character_name, other_character_name)
+    def check_indent_width(node)
       actual_indent = node_indent(node)
 
-      if actual_indent.include?(other_character)
+      if actual_indent.include?(@other_character)
         add_lint(node.line,
-                 "Line should be indented with #{character_name}s, " \
-                 "not #{other_character_name}s")
+                 "Line should be indented with #{@indent_character}s, " \
+                 "not #{@other_character_name}s")
         return true
       end
 
-      if config['allow_non_nested_indentation']
-        check_arbitrary_indent(node, actual_indent.length, character_name)
+      if @allow_non_nested_indentation
+        check_arbitrary_indent(node, actual_indent.length)
       else
-        check_regular_indent(node, actual_indent.length, character_name)
+        check_regular_indent(node, actual_indent.length)
       end
     end
 
@@ -61,7 +62,7 @@ module SCSSLint
     def visit_if(node)
       check_indentation(node)
 
-      if config['allow_non_nested_indentation']
+      if @allow_non_nested_indentation
         yield # Continue linting else statement
       else
         visit(node.else) if node.else
@@ -139,51 +140,42 @@ module SCSSLint
       same_position?(node.source_range.end_pos, first_child_source.start_pos)
     end
 
-    def check_regular_indent(node, actual_indent, character_name)
+    def check_regular_indent(node, actual_indent)
       return if actual_indent == @indent
 
-      add_lint(node.line,
-               "Line should be indented #{@indent} #{character_name}s, " \
-               "but was indented #{actual_indent} #{character_name}s")
+      add_lint(node.line, lint_message(@indent, actual_indent))
       true
     end
 
-    def check_arbitrary_indent(node, actual_indent, character_name) # rubocop:disable CyclomaticComplexity, MethodLength, LineLength
-      # Allow rulesets to be indented any amount when the indent is zero, as
-      # long as it's a multiple of the indent width
-      if ruleset_under_root_node?(node)
-        unless actual_indent % @indent_width == 0
-          add_lint(node.line,
-                   "Line must be indented a multiple of #{@indent_width} " \
-                   "#{character_name}s, but was indented #{actual_indent} #{character_name}s")
-          return true
-        end
-      end
+    def check_arbitrary_indent(node, actual_indent)
+      return if check_root_ruleset_indent(node, actual_indent)
 
       if @indent == 0
         unless node.is_a?(Sass::Tree::RuleNode) || actual_indent == 0
-          add_lint(node.line,
-                   "Line should be indented 0 #{character_name}s, " \
-                   "but was indented #{actual_indent} #{character_name}s")
+          add_lint(node.line, lint_message(0, actual_indent))
           return true
         end
       elsif !one_shift_greater_than_parent?(node, actual_indent)
         parent_indent = node_indent(node_indent_parent(node)).length
         expected_indent = parent_indent + @indent_width
 
-        add_lint(node.line,
-                 "Line should be indented #{expected_indent} #{character_name}s, " \
-                 "but was indented #{actual_indent} #{character_name}s")
+        add_lint(node.line, lint_message(expected_indent, actual_indent))
         return true
       end
     end
 
-    # Returns whether node is a ruleset not nested within any other ruleset.
-    #
-    # @param node [Sass::Tree::Node]
-    # @return [true,false]
-    def ruleset_under_root_node?(node)
-      @indent == 0 && node.is_a?(Sass::Tree::RuleNode)
+    # Allow rulesets to be indented any amount when the indent is zero, as long
+    # as it's a multiple of the indent width
+    def check_root_ruleset_indent(node, actual_indent)
+      # Whether node is a ruleset not nested within any other ruleset.
+      if @indent == 0 && node.is_a?(Sass::Tree::RuleNode)
+        unless actual_indent % @indent_width == 0
+          add_lint(node.line, lint_message("a multiple of #{@indent_width}", actual_indent))
+          return true
+        end
+      end
+
+      false
     end
 
     # Returns whether node is indented exactly one indent width greater than its
@@ -202,7 +194,7 @@ module SCSSLint
     # @param node [Sass::Tree::Node]
     # @return [Integer]
     def node_indent(node)
-      engine.lines[node.line - 1][/^(\s*)/, 1]
+      @indentations[node] ||= engine.lines[node.line - 1][/^(\s*)/]
     end
 
     def node_indent_parent(node)
@@ -214,6 +206,11 @@ module SCSSLint
       end
 
       node.node_parent
+    end
+
+    def lint_message(expected, actual)
+      "Line should be indented #{expected} #{@indent_character}s, but was " \
+      "indented #{actual} #{@indent_character}s"
     end
   end
 end
