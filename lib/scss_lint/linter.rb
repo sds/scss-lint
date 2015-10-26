@@ -4,6 +4,24 @@ module SCSSLint
     include SelectorVisitor
     include Utils
 
+    @@simple_name = 'UNIMPLEMENTED'
+
+    class << self
+      attr_accessor :simple_name
+
+      # When defining a Linter class, define its simple name as well. This
+      # assumes that the module hierarchy of every linter starts with
+      # `SCSSLint::Linter::`, and removes this part of the class name.
+      #
+      # `SCSSLint::Linter::Foo.simple_name`          #=> "Foo"
+      # `SCSSLint::Linter::Compass::Bar.simple_name` #=> "Compass::Bar"
+      def inherited(linter)
+        name_parts = linter.name.split('::')
+        name = name_parts.length < 3 ? '' : name_parts[2..-1].join('::')
+        linter.simple_name = name
+      end
+    end
+
     attr_reader :config, :engine, :lints
 
     # Create a linter.
@@ -29,7 +47,7 @@ module SCSSLint
     # Return the human-friendly name of this linter as specified in the
     # configuration file and in lint descriptions.
     def name
-      self.class.name.split('::')[2..-1].join('::')
+      self.class.simple_name
     end
 
   protected

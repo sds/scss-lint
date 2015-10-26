@@ -22,13 +22,21 @@ module SCSSLint
       end
     end
 
+    # The class name of a node, in snake_case form, e.g.
+    # `Sass::Selector::SimpleSequence` -> `simple_sequence`.
+    #
+    # The name is memoized as a class variable on the node itself.
     def selector_node_name(node)
-      # Converts the class name of a node into snake_case form, e.g.
-      # `Sass::Selector::SimpleSequence` -> `simple_sequence`
-      name = node.class.name.gsub(/.*::(.*?)$/, '\\1')
+      if node.class.class_variable_defined?(:@@snake_case_name)
+        return node.class.class_variable_get(:@@snake_case_name)
+      end
+
+      rindex = node.class.name.rindex('::')
+      name = node.class.name[(rindex+2)..-1]
       name.gsub!(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
       name.gsub!(/([a-z\d])([A-Z])/, '\1_\2')
       name.downcase!
+      node.class.class_variable_set(:@@snake_case_name, name)
     end
   end
 end

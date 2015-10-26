@@ -204,7 +204,7 @@ module SCSSLint
       puts 'Installed linters:'
 
       linter_names = LinterRegistry.linters.map do |linter|
-        linter.name.split('::').last
+        linter.simple_name
       end
 
       linter_names.sort.each do |linter_name|
