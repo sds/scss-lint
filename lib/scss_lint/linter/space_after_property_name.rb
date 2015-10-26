@@ -15,13 +15,7 @@ module SCSSLint
     # Deals with a weird Sass bug where the name_source_range of a PropNode does
     # not start at the beginning of the property name.
     def property_name_colon_offset(node)
-      offset = 0
-
-      while character_at(node.name_source_range.start_pos, offset) != ':'
-        offset += 1
-      end
-
-      offset
+      offset_to(node.name_source_range.start_pos, ':')
     end
   end
 end

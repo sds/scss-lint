@@ -73,16 +73,15 @@ module SCSSLint
 
     def whitespace_after_colon(node)
       whitespace = []
-      offset = 1
+      offset = 0
+      start_pos = node.name_source_range.start_pos
 
       # Find the colon after the property name
-      while character_at(node.name_source_range.start_pos, offset - 1) != ':'
-        offset += 1
-      end
+      offset = offset_to(start_pos, ':', offset) + 1
 
       # Count spaces after the colon
-      while [' ', "\t", "\n"].include? character_at(node.name_source_range.start_pos, offset)
-        whitespace << character_at(node.name_source_range.start_pos, offset)
+      while [' ', "\t", "\n"].include? character_at(start_pos, offset)
+        whitespace << character_at(start_pos, offset)
         offset += 1
       end
 

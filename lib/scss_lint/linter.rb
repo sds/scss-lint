@@ -77,16 +77,6 @@ module SCSSLint
       Location.new(range.start_pos.line, range.start_pos.offset, length)
     end
 
-    # @param source_position [Sass::Source::Position]
-    # @param offset [Integer]
-    # @return [String] the character at the given [Sass::Source::Position]
-    def character_at(source_position, offset = 0)
-      actual_line   = source_position.line - 1
-      actual_offset = source_position.offset + offset - 1
-
-      engine.lines.size > actual_line && engine.lines[actual_line][actual_offset]
-    end
-
     # Extracts the original source code given a range.
     #
     # @param source_range [Sass::Source::Range]
@@ -172,6 +162,34 @@ module SCSSLint
       else
         Location.new(node_or_line_or_location)
       end
+    end
+
+    # @param source_position [Sass::Source::Position]
+    # @param offset [Integer]
+    # @return [String] the character at the given [Sass::Source::Position]
+    def character_at(source_position, offset = 0)
+      actual_line   = source_position.line - 1
+      actual_offset = source_position.offset + offset - 1
+
+      engine.lines.size > actual_line && engine.lines[actual_line][actual_offset]
+    end
+
+    # Starting at source_position (plus offset), search for pattern and return
+    # the offset from the source_position.
+    #
+    # @param source_position [Sass::Source::Position]
+    # @param pattern [String, RegExp] the pattern to search for
+    # @param offset [Integer]
+    # @return [Integer] the offset at which [pattern] was found.
+    def offset_to(source_position, pattern, offset = 0)
+      actual_line   = source_position.line - 1
+      actual_offset = source_position.offset + offset - 1
+
+      return nil if actual_line >= engine.lines.size
+
+      actual_index = engine.lines[actual_line].index(pattern, actual_offset)
+
+      actual_index && actual_index + 1 - source_position.offset
     end
   end
 end
