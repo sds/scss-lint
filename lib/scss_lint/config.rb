@@ -41,8 +41,7 @@ module SCSSLint
       end
 
       def linter_name(linter)
-        linter = linter.is_a?(Class) ? linter : linter.class
-        linter.name.split('::')[2..-1].join('::')
+        (linter.is_a?(Class) ? linter : linter.class).simple_name
       end
 
     private
