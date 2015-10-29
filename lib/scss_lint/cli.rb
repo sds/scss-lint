@@ -203,9 +203,7 @@ module SCSSLint
     def print_linters
       puts 'Installed linters:'
 
-      linter_names = LinterRegistry.linters.map do |linter|
-        linter.simple_name
-      end
+      linter_names = LinterRegistry.linters.map(&:simple_name)
 
       linter_names.sort.each do |linter_name|
         puts " - #{linter_name}"

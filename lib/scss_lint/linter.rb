@@ -4,8 +4,6 @@ module SCSSLint
     include SelectorVisitor
     include Utils
 
-    @@simple_name = 'UNIMPLEMENTED'
-
     class << self
       attr_accessor :simple_name
 

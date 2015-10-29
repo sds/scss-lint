@@ -32,7 +32,7 @@ module SCSSLint
       end
 
       rindex = node.class.name.rindex('::')
-      name = node.class.name[(rindex+2)..-1]
+      name = node.class.name[(rindex + 2)..-1]
       name.gsub!(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
       name.gsub!(/([a-z\d])([A-Z])/, '\1_\2')
       name.downcase!
