@@ -1,6 +1,6 @@
 module SCSSLint
   # Defines common functionality available to all linters.
-  class Linter < Sass::Tree::Visitors::Base
+  class Linter < Sass::Tree::Visitors::Base # rubocop:disable ClassLength
     include SelectorVisitor
     include Utils
 
