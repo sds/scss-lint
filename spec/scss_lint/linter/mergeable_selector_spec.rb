@@ -280,4 +280,48 @@ describe SCSSLint::Linter::MergeableSelector do
       it { should_not report_lint }
     end
   end
+
+  context 'when a whitelist list is defined' do
+    let(:linter_config) { { 'whitelist' => ['polyfill-rule'] } }
+
+    context 'when a rule is found in the whitelist' do
+      let(:scss) { <<-SCSS }
+        polyfill-rule { content: '.foo'; color: red; }
+        polyfill-rule { content: '.foo'; color: red; }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when a rule is not found in the whitelist' do
+      let(:scss) { <<-SCSS }
+        .foo polyfill-rule { content: '.foo'; color: red; }
+        .foo polyfill-rule { content: '.foo'; color: red; }
+      SCSS
+
+      it { should report_lint }
+    end
+  end
+
+  context 'when a single whitelist selector is defined' do
+    let(:linter_config) { { 'whitelist' => 'polyfill-rule' } }
+
+    context 'when a rule is found in the whitelist' do
+      let(:scss) { <<-SCSS }
+        polyfill-rule { content: '.foo'; color: red; }
+        polyfill-rule { content: '.foo'; color: red; }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when a rule is not found in the whitelist' do
+      let(:scss) { <<-SCSS }
+        .foo polyfill-rule { content: '.foo'; color: red; }
+        .foo polyfill-rule { content: '.foo'; color: red; }
+      SCSS
+
+      it { should report_lint }
+    end
+  end
 end

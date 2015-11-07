@@ -7,6 +7,8 @@ module SCSSLint
       node.children.each_with_object([]) do |child_node, seen_nodes|
         next unless child_node.is_a?(Sass::Tree::RuleNode)
 
+        next if whitelist_contains(child_node)
+
         mergeable_node = find_mergeable_node(child_node, seen_nodes)
         seen_nodes << child_node
         next unless mergeable_node
@@ -57,6 +59,15 @@ module SCSSLint
     def subrule?(rule1, rule2)
       "#{rule1}".start_with?("#{rule2} ") ||
         "#{rule1}".start_with?("#{rule2}.")
+    end
+
+    def whitelist_contains(node)
+      if @whitelist.nil?
+        @whitelist = config['whitelist'] || []
+        @whitelist = [@whitelist] if @whitelist.is_a? String
+      end
+
+      @whitelist.include?(node_rule(node))
     end
   end
 end
