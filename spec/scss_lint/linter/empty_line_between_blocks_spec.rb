@@ -102,6 +102,68 @@ describe SCSSLint::Linter::EmptyLineBetweenBlocks do
     it { should_not report_lint }
   end
 
+  context 'when at-roots are defined' do
+    context 'and there is no blank line between them' do
+      let(:scss) { <<-SCSS }
+        div {
+          @at-root {
+            p {
+            }
+          }
+          @at-root {
+            p {
+            }
+          }
+        }
+      SCSS
+
+      it { should report_lint line: 5 }
+    end
+
+    context 'and there is a blank line between them' do
+      let(:scss) { <<-SCSS }
+        div {
+          @at-root {
+            p {
+            }
+          }
+
+          @at-root {
+            p {
+            }
+          }
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+  end
+
+  context 'when media blocks are defined' do
+    context 'and there is no blank line between them' do
+      let(:scss) { <<-SCSS }
+        @media screen {
+        }
+        @media print {
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'and there is a blank line between them' do
+      let(:scss) { <<-SCSS }
+        @media screen {
+        }
+
+        @media print {
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+  end
+
   context 'when mixins are defined' do
     context 'and there is no blank line between them' do
       let(:scss) { <<-SCSS }
