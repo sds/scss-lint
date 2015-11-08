@@ -3,8 +3,18 @@ module SCSSLint
   class Linter::EmptyLineBetweenBlocks < Linter
     include LinterRegistry
 
+    def visit_atroot(node)
+      check(node, '@at-root')
+      yield
+    end
+
     def visit_function(node)
       check(node, '@function')
+      yield
+    end
+
+    def visit_media(node)
+      check(node, '@media')
       yield
     end
 
