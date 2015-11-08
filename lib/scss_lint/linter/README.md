@@ -685,6 +685,9 @@ h1 {
 Configuration Option | Description
 ---------------------|------------------------------------------------------------------
 `force_nesting`      | Ensure rule sets which can be nested are nested (default **true**)
+`whitelist`          | A list of selectors that can MergeableSelector, list those used in [CSS Shims][]
+
+[CSS Shims]: https://github.com/angular/angular.dart/wiki/CSS-Shim
 
 ## NameFormat
 
