@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* `EmptyLineBetweenBlocks` lints on `@media` and `@at-root` now
+* Improve performance of `Indentation` linter
+
 ## 0.42.2
 
 * Fix `SpaceAroundOperator` to allow newlines
