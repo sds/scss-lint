@@ -4,6 +4,7 @@
 
 * `EmptyLineBetweenBlocks` lints on `@media` and `@at-root` now
 * Improve performance of `Indentation` linter
+* Add `whitelist` parameter to `MergeableSelector`
 
 ## 0.42.2
 
