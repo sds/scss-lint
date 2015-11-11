@@ -6,6 +6,7 @@
 * Improve performance of `Indentation` linter
 * Add `whitelist` parameter to `MergeableSelector`
 * Fix `TrailingSemicolon` false positive for multiline variable declarations
+* Add `PseudoElement` linter
 
 ## 0.42.2
 
