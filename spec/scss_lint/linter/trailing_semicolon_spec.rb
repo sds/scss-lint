@@ -470,6 +470,34 @@ describe SCSSLint::Linter::TrailingSemicolon do
         it { should report_lint }
       end
     end
+
+    context 'and a nested list' do
+      context 'and ends with a semicolon' do
+        let(:scss) { <<-SCSS }
+          $foo: (
+            "a": (
+              "b",
+              "c"
+            )
+          );
+        SCSS
+
+        it { should_not report_lint }
+      end
+
+      context 'and is missing a semicolon' do
+        let(:scss) { <<-SCSS }
+          $foo: (
+            "a": (
+              "b",
+              "c"
+            )
+          )
+        SCSS
+
+        it { should report_lint }
+      end
+    end
   end
 
   context 'with an @extend directive' do

@@ -15,6 +15,16 @@ module SCSSLint
       # !default`.
       return check_semicolon(node) if node.global || node.guarded
 
+      # If the variable is a multi-line ListLiteral or MapLiteral, then
+      # `node.expr` will give us everything except the last right paren, and
+      # the semicolon if it exists. In these cases, use the source range of
+      # `node` as above.
+      if (node.expr.is_a?(Sass::Script::Tree::ListLiteral) ||
+          node.expr.is_a?(Sass::Script::Tree::MapLiteral)) &&
+         !node_on_single_line?(node)
+        return check_semicolon(node)
+      end
+
       check_semicolon(node.expr)
     end
 
