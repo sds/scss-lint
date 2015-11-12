@@ -5,6 +5,8 @@
 * `EmptyLineBetweenBlocks` lints on `@media` and `@at-root` now
 * Improve performance of `Indentation` linter
 * Add `whitelist` parameter to `MergeableSelector`
+* Fix `TrailingSemicolon` false positive for multiline variable declarations
+* Add `PseudoElement` linter
 
 ## 0.42.2
 

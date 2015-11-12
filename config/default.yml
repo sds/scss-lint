@@ -138,6 +138,9 @@ linters:
       '%']                                     # Other
     properties: {}
 
+  PseudoElement:
+    enabled: true
+
   QualifyingElement:
     enabled: true
     allow_element_with_attribute: false

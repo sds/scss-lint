@@ -1017,6 +1017,34 @@ Configuration Option | Description
 `global`             | List of allowed units (by default any unit is allowed)
 `properties`         | Hash of property names and their list of allowed units. (empty by default)
 
+## PseudoElement
+
+Pseudo-elements, like `::before`, and `::first-letter`, should be declared with
+two colons. Pseudo-classes, like `:hover` and `:first-child`, should be
+declared with one colon.
+
+**Bad: wrong colons**
+```scss
+p:before {
+  content: '>'
+}
+
+p::hover {
+  color: red;
+}
+```
+
+**Good: correct colons**
+```scss
+p::before {
+  content: '>'
+}
+
+p:hover {
+  color: red;
+}
+```
+
 ## QualifyingElement
 
 Avoid qualifying elements in selectors (also known as "tag-qualifying").
