@@ -9,8 +9,8 @@ module SCSSLint
                            .to_set
 
     def visit_root(_node)
-      @extra_properties = config['extra_properties'] ? config['extra_properties'].to_set : []
-      @disabled_properties = config['disabled_properties'] ? config['disabled_properties'].to_set : []
+      @extra_properties = Array(config['extra_properties']).to_set
+      @disabled_properties = Array(config['disabled_properties']).to_set
 
       yield # Continue linting children
     end
@@ -43,9 +43,14 @@ module SCSSLint
       # Ignore vendor-prefixed properties
       return if name.start_with?('-')
       return if (KNOWN_PROPERTIES.include?(name) ||
-        @extra_properties.include?(name) ) && !@disabled_properties.include?(name)
+        @extra_properties.include?(name) ) && 
+        !@disabled_properties.include?(name)
 
-      add_lint(node, "Unknown property #{name}")
+      if @disabled_properties.include?(name)
+        add_lint(node, "Disabled property #{name}")
+      else
+        add_lint(node, "Unknown property #{name}") 
+      end
     end
   end
 end

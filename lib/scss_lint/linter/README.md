@@ -953,7 +953,7 @@ Configuration Option | Description
 
 ## PropertySpelling
 
-Reports when you use an unknown CSS property (ignoring vendor-prefixed
+Reports when you use an unknown or disabled CSS property (ignoring vendor-prefixed
 properties).
 
 ```scss
@@ -972,6 +972,9 @@ linters:
     extra_properties:
       - some-experimental-property
       - another-experimental-property
+    disabled_properties:
+      - some-existing-property
+      - another-existing-property
 ```
 
 If you're sure the property in question is valid,
@@ -982,6 +985,7 @@ to add it to the
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `extra_properties`   | List of extra properties to allow
+`disabled_properties`   | List of existing properties to deny
 
 ## PropertyUnits
 
