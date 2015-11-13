@@ -58,7 +58,6 @@ describe SCSSLint::Linter::PropertySpelling do
   context 'when disabled properties are specified' do
     let(:linter_config) { { 'disabled_properties' => ['made-up-property'] } }
 
-
     context 'with a non-existent property' do
       let(:scss) { <<-SCSS }
         p {
