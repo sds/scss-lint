@@ -123,6 +123,7 @@ linters:
   PropertySpelling:
     enabled: true
     extra_properties: []
+    disabled_properties: []
 
   PropertyUnits:
     enabled: true
