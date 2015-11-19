@@ -3,6 +3,8 @@ module SCSSLint
   class Linter::StringQuotes < Linter
     include LinterRegistry
 
+    CHARSET_DIRECTIVE_LENGTH = '@charset'.length
+
     def visit_comment(_node)
       # Sass allows you to write Sass Script in non-silent comments (/* ... */).
       # Unfortunately, it doesn't report correct source ranges for these script
@@ -34,7 +36,7 @@ module SCSSLint
 
     def visit_charset(node)
       # `@charset` source range includes entire declaration, so exclude that prefix
-      source = source_from_range(node.source_range)[('@charset'.length)..-1]
+      source = source_from_range(node.source_range)[(CHARSET_DIRECTIVE_LENGTH)..-1]
 
       check_quotes(node, source)
     end
