@@ -6,7 +6,8 @@
 * Improve performance of `Indentation` linter
 * Add `whitelist` parameter to `MergeableSelector`
 * Fix `TrailingSemicolon` false positive for multiline variable declarations
-* Add `PseudoElement` linter
+* Add `PseudoElement` linter which checks for the use of double colons with
+  pseudo elements and single colons with pseudo classes
 * Add `disabled_properties` option to `PropertySpelling` allowing properties
   to be prohibited from use
 
