@@ -982,9 +982,9 @@ If you're sure the property in question is valid,
 to add it to the
 [default whitelist](../../../data/properties.txt).
 
-Configuration Option | Description
----------------------|---------------------------------------------------------
-`extra_properties`   | List of extra properties to allow
+Configuration Option    | Description
+------------------------|---------------------------------------------------------
+`extra_properties`      | List of extra properties to allow
 `disabled_properties`   | List of existing properties to deny
 
 ## PropertyUnits
