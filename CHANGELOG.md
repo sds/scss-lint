@@ -7,6 +7,8 @@
 * Add `whitelist` parameter to `MergeableSelector`
 * Fix `TrailingSemicolon` false positive for multiline variable declarations
 * Add `PseudoElement` linter
+* Add `disabled_properties` option to `PropertySpelling` allowing properties
+  to be prohibited from use
 
 ## 0.42.2
 
