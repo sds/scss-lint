@@ -34,23 +34,28 @@ module SCSSLint
   private
 
     def check_property(node, prefix = nil) # rubocop:disable CyclomaticComplexity
-      # Ignore properties with interpolation
-      return if node.name.count > 1 || !node.name.first.is_a?(String)
+      return if contains_interpolation?(node)
 
       name = prefix ? "#{prefix}-" : ''
       name += node.name.join
 
       # Ignore vendor-prefixed properties
       return if name.start_with?('-')
-      return if (KNOWN_PROPERTIES.include?(name) ||
-        @extra_properties.include?(name) ) &&
-        !@disabled_properties.include?(name)
+      return if known_property?(name) && !@disabled_properties.include?(name)
 
       if @disabled_properties.include?(name)
-        add_lint(node, "Disabled property #{name}")
+        add_lint(node, "Property #{name} is prohibited")
       else
         add_lint(node, "Unknown property #{name}")
       end
+    end
+
+    def known_property?(name)
+      KNOWN_PROPERTIES.include?(name) || @extra_properties.include?(name)
+    end
+
+    def contains_interpolation?(node)
+      node.name.count > 1 || !node.name.first.is_a?(String)
     end
   end
 end
