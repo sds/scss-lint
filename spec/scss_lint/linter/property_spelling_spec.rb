@@ -56,7 +56,11 @@ describe SCSSLint::Linter::PropertySpelling do
   end
 
   context 'when disabled properties are specified' do
-    let(:linter_config) { { 'disabled_properties' => ['made-up-property'] } }
+    let(:linter_config) do
+      {
+        'disabled_properties' => ['margin'],
+      }
+    end
 
     context 'with a non-existent property' do
       let(:scss) { <<-SCSS }
@@ -71,7 +75,7 @@ describe SCSSLint::Linter::PropertySpelling do
     context 'with a property listed as an disabled property' do
       let(:scss) { <<-SCSS }
         p {
-          made-up-property: value;
+          margin: 0;
         }
       SCSS
 
