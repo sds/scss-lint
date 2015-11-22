@@ -23,7 +23,7 @@ describe SCSSLint::Runner do
   class SCSSLint::Linter::FakeLinter2 < SCSSLint::Linter; end
 
   describe '#run' do
-    let(:files) { ['dummy1.scss', 'dummy2.scss'] }
+    let(:files) { [{ path: 'dummy1.scss' }, { path: 'dummy2.scss' }] }
     subject     { runner.run(files) }
 
     before do
@@ -112,7 +112,7 @@ describe SCSSLint::Runner do
       end
 
       it 'has the name of the file the linter was checking' do
-        expect { subject }.to raise_error { |e| e.message.should include files.first }
+        expect { subject }.to raise_error { |e| e.message.should include files.first[:path] }
       end
 
       it 'has the same backtrace as the original error' do

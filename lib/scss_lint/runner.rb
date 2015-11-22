@@ -12,7 +12,7 @@ module SCSSLint
       @linters.map!(&:new)
     end
 
-    # @param files [Array]
+    # @param files [Array<Hash>] list of file object/path hashes
     def run(files)
       @files = files
       @files.each do |file|
@@ -22,16 +22,18 @@ module SCSSLint
 
   private
 
-    # @param file [String]
+    # @param file [Hash]
+    # @option file [String] File object
+    # @option path [String] path to File (determines which Linter config to apply)
     def find_lints(file)
-      engine = Engine.new(file: file)
+      engine = Engine.new(file)
 
       @linters.each do |linter|
         begin
-          run_linter(linter, engine, file)
+          run_linter(linter, engine, file[:path])
         rescue => error
           raise SCSSLint::Exceptions::LinterError,
-                "#{linter.class} raised unexpected error linting file #{file}: " \
+                "#{linter.class} raised unexpected error linting file #{file[:path]}: " \
                 "'#{error.message}'",
                 error.backtrace
         end
@@ -40,12 +42,12 @@ module SCSSLint
       @lints << Lint.new(nil, ex.sass_filename, Location.new(ex.sass_line),
                          "Syntax Error: #{ex}", :error)
     rescue FileEncodingError => ex
-      @lints << Lint.new(nil, file, Location.new, ex.to_s, :error)
+      @lints << Lint.new(nil, file[:path], Location.new, ex.to_s, :error)
     end
 
     # For stubbing in tests.
-    def run_linter(linter, engine, file)
-      return if @config.excluded_file_for_linter?(file, linter)
+    def run_linter(linter, engine, file_path)
+      return if @config.excluded_file_for_linter?(file_path, linter)
       @lints += linter.run(engine, @config.linter_options(linter))
     end
   end

@@ -10,6 +10,8 @@
   pseudo elements and single colons with pseudo classes
 * Add `disabled_properties` option to `PropertySpelling` allowing properties
   to be prohibited from use
+* Add support for linting files via STDIN by specifying `--stdin-file-path`
+  so the appropriate configuration can be applied based on the path
 
 ## 0.42.2
 

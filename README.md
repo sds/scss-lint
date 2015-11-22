@@ -68,6 +68,13 @@ You can also specify a list of files explicitly:
 scss-lint app/assets/stylesheets/**/*.css.scss
 ```
 
+...or you can lint a file passed via standard input (**note** the
+`--stdin-file-path` flag is required when passing via standard input):
+
+```bash
+cat some-file | scss-lint --stdin-file-path=path/to/treat/stdin/as/having.scss
+```
+
 `scss-lint` will output any problems with your SCSS, including the offending
 filename and line number (if available).
 
@@ -80,6 +87,7 @@ Command Line Flag         | Description
 `-r`/`--require`          | Require file/library (mind `$LOAD_PATH`, uses `Kernel.require`)
 `-i`/`--include-linter`   | Specify which linters you specifically want to run
 `-x`/`--exclude-linter`   | Specify which linters you _don't_ want to run
+`--stdin-file-path`       | When linting a file passed via standard input, treat it as having the specified path to apply the appropriate configuration
 `-h`/`--help`             | Show command line flag documentation
 `--show-formatters`       | Show all available formatters
 `--show-linters`          | Show all available linters

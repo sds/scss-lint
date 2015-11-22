@@ -17,8 +17,8 @@ module SCSSLint
     # @option options [String] :file The file to load
     # @option options [String] :code The code to parse
     def initialize(options = {})
-      if options[:file]
-        build_from_file(options[:file])
+      if options[:path]
+        build_from_file(options)
       elsif options[:code]
         build_from_string(options[:code])
       end
@@ -41,11 +41,14 @@ module SCSSLint
 
   private
 
-    # @param path [String]
-    def build_from_file(path)
-      @filename = path
-      @engine = Sass::Engine.for_file(path, ENGINE_OPTIONS)
-      @contents = File.open(path, 'r').read
+    # @param options [Hash]
+    # @option file [IO] if provided, us this as the file object
+    # @option path [String] path of file, loading from this if `file` object not
+    #   given
+    def build_from_file(options)
+      @filename = options[:path]
+      @contents = options[:file] ? file.read : File.read(@filename)
+      @engine = Sass::Engine.new(@contents, ENGINE_OPTIONS.merge(filename: @filename))
     end
 
     # @param scss [String]

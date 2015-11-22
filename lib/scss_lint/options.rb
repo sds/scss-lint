@@ -77,6 +77,11 @@ module SCSSLint
         @options[:excluded_files] = files
       end
 
+      parser.on('--stdin-file-path file-path', String,
+                'Specify the path to assume for the file passed via STDIN') do |stdin_file_path|
+        @options[:stdin_file_path] = stdin_file_path
+      end
+
       parser.on('-o', '--out path', 'Write output to a file instead of STDOUT', String) do |path|
         define_output_path(path)
       end
