@@ -20,19 +20,21 @@ module SCSSLint
     #
     # @param node [Sass::Tree::Node]
     def before_node_visit(node)
-      return unless command = extract_command(node)
+      return unless (commands = Array(extract_commands(node))).any?
 
-      linters = command[:linters]
-      return unless linters.include?('all') || linters.include?(@linter.name)
+      commands.each do |command|
+        linters = command[:linters]
+        next unless linters.include?('all') || linters.include?(@linter.name)
 
-      process_command(command, node)
+        process_command(command, node)
 
-      # Is the control comment the only thing on this line?
-      return if node.is_a?(Sass::Tree::RuleNode) ||
-                %r{^\s*(//|/\*)}.match(@linter.engine.lines[command[:line] - 1])
+        # Is the control comment the only thing on this line?
+        next if node.is_a?(Sass::Tree::RuleNode) ||
+                  %r{^\s*(//|/\*)}.match(@linter.engine.lines[command[:line] - 1])
 
-      # Otherwise, pop since we only want comment to apply to the single line
-      pop_control_comment_stack(node)
+        # Otherwise, pop since we only want comment to apply to the single line
+        pop_control_comment_stack(node)
+      end
     end
 
     # Executed after a node has been visited.
@@ -46,35 +48,38 @@ module SCSSLint
 
   private
 
-    def extract_command(node)
+    def extract_commands(node)
       return unless comment = retrieve_comment_text(node)
 
-      comment.split(/(?<=\n)/).each_with_index do |comment_line, line_no|
-        if match = %r{
-          (/|\*|^ \*)\s* # Comment start marker
-          scss-lint:
+      commands = []
+      comment.split("\n").each_with_index do |comment_line, line_no|
+        next unless match = %r{
+          //\s*scss-lint:
           (?<action>disable|enable)\s+
           (?<linters>.*?)
-          \s*(?:\*/|\n) # Comment end marker or end of line
+          \s*($|\*\/) # End of line
         }x.match(comment_line)
-          return {
-            action: match[:action],
-            linters: match[:linters].split(/\s*,\s*|\s+/),
-            line: node.line + line_no
-          }
-        end
+
+        commands << {
+          action: match[:action],
+          linters: match[:linters].split(/\s*,\s*|\s+/),
+          line: node.line + line_no
+        }
       end
 
-      false
+      commands
     end
 
     def retrieve_comment_text(node)
-      case node
-      when Sass::Tree::CommentNode
-        node.value.first
-      when Sass::Tree::RuleNode
-        node.rule.select { |chunk| chunk.is_a?(String) }.join
-      end
+      text_with_markers =
+        case node
+        when Sass::Tree::CommentNode
+          node.value.first
+        when Sass::Tree::RuleNode
+          node.rule.select { |chunk| chunk.is_a?(String) }.join
+        end
+
+      text_with_markers.gsub(%r{\A/\*}, '//').gsub(/\n \*/, "\n//") if text_with_markers
     end
 
     def process_command(command, node)

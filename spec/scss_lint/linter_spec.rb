@@ -249,6 +249,23 @@ describe SCSSLint::Linter do
       it { should_not report_lint }
     end
 
+    context 'when there are multiple consecutive command comments' do
+      let(:scss) { <<-SCSS }
+        // scss-lint:disable Fake
+        // scss-lint:disable Fake2
+        p {
+          border: fail1;
+        }
+      SCSS
+
+      it { should_not report_lint }
+
+      it 'disabled both linters' do
+        class SCSSLint::Linter::Fake2 < SCSSLint::Linter::Fake; end
+        SCSSLint::Linter::Fake2.new.should_not report_lint
+      end
+    end
+
     context 'when the command comment is below an attached comment and a lint' do
       let(:scss) { <<-SCSS }
         // 1. Some comment about my background
