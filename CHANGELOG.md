@@ -13,6 +13,8 @@
 * Add support for linting files via STDIN by specifying `--stdin-file-path`
   so the appropriate configuration can be applied based on the path
 * Fix control comments to work when applied on consecutive lines
+* Fix linters to not inspect interpolation in `/*...*/` comments due to the
+  large number of bugs with the source ranges returned by the Sass parser
 
 ## 0.42.2
 

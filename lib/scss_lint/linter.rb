@@ -151,6 +151,16 @@ module SCSSLint
 
   private
 
+    def visit_comment(_node)
+      # Don't lint children of comments by default, as the Sass parser contains
+      # many bugs related to the source ranges reported within code in /*...*/
+      # comments.
+      #
+      # Instead of defining this empty method on every linter, we assume every
+      # linter ignores comments by default. Individual linters can override at
+      # their discretion.
+    end
+
     def extract_location(node_or_line_or_location)
       if node_or_line_or_location.is_a?(Location)
         node_or_line_or_location

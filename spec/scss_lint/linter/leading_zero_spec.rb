@@ -177,6 +177,18 @@ describe SCSSLint::Linter::LeadingZero do
     it { should report_lint count: 1, line: 1 }
   end
 
+  context 'when a leading zero exists in interpolation in a comment' do
+    let(:scss) { <<-SCSS }
+      .outer {
+        .inner {
+          /* \#{0.5} */
+        }
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
+
   context 'when leading zeros are preferred' do
     let(:linter_config) { { 'style' => 'include_zero' } }
 

@@ -25,13 +25,6 @@ module SCSSLint
         .each   { |_, color| record_lint(node, color) }
     end
 
-    def visit_comment(_node)
-      # Don't lint children. Sass multiline comments (/*...*/) are actually
-      # rendered in code and thus allow variable interpolation. Unfortunately,
-      # the Sass parser returns bad source ranges for interpolation in these
-      # comments, so it's easiest to just ignore them.
-    end
-
     def visit_script_funcall(node)
       if literal_color_function?(node)
         record_lint node, node.to_sass
