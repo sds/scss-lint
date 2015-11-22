@@ -1,7 +1,7 @@
 # SCSS-Lint
 
 [![Gem Version](https://badge.fury.io/rb/scss_lint.svg)](http://badge.fury.io/rb/scss_lint)
-[![Build Status](https://travis-ci.org/brigade/scss-lint.svg)](https://travis-ci.org/brigade/scss-lint)
+[![Build Status](https://travis-ci.org/brigade/scss-lint.svg?branch=master)](https://travis-ci.org/brigade/scss-lint)
 [![Code Climate](https://codeclimate.com/github/brigade/scss-lint.svg)](https://codeclimate.com/github/brigade/scss-lint)
 [![Coverage Status](https://coveralls.io/repos/brigade/scss-lint/badge.svg)](https://coveralls.io/r/brigade/scss-lint)
 [![Inline docs](http://inch-ci.org/github/brigade/scss-lint.svg?branch=master)](http://inch-ci.org/github/brigade/scss-lint)
