@@ -21,6 +21,9 @@ linters:
     enabled: true
     convention: zero # or `none`
 
+  ChainedClasses:
+    enabled: false
+
   ColorKeyword:
     enabled: true
 

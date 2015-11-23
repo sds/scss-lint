@@ -5,6 +5,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [BangFormat](#bangformat)
 * [BemDepth](#bemdepth)
 * [BorderZero](#borderzero)
+* [ChainedClasses](#chainedclasses)
 * [ColorKeyword](#colorkeyword)
 * [ColorVariable](#colorvariable)
 * [Comment](#comment)
@@ -116,6 +117,41 @@ You can specify preferring `border: none` over `border: 0` by setting the
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `convention`         | Whether to prefer `0` (**zero**) or `none` (**none**) (default **zero**)
+
+## ChainedClasses
+
+Reports when you define a rule set using a selector with chained classes
+(a.k.a. adjoining classes).
+
+**Bad**
+```scss
+.foo {
+  padding: 5px;
+}
+
+.bar {
+  margin: 5px;
+}
+
+.foo.bar {
+  display: block;
+}
+```
+
+**Good: write chained classes as new class**
+```scss
+.foo {
+  padding: 5px;
+}
+
+.bar {
+  margin: 5px;
+}
+
+.new-class {
+  display: block;
+}
+```
 
 ## ColorKeyword
 

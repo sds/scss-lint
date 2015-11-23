@@ -24,6 +24,8 @@
   document node (previously only rule set declarations were allowed)
 * Add `style` option to `Comment` linter allowing loud comments to be
   preferred over silent comments
+* Add `ChainedClasses` linter which checks for the use of chained classes
+  (a.k.a. adjoining classes)
 
 ## 0.42.2
 
