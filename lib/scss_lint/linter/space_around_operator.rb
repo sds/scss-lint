@@ -28,7 +28,7 @@ module SCSSLint
 
   private
 
-    def check(node, operation_sources) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/LineLength
+    def check(node, operation_sources) # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Metrics/MethodLength
       match = operation_sources.operator_source.match(/
         (?<left_space>\s*)
         (?<operator>\S+)
@@ -41,15 +41,31 @@ module SCSSLint
       # just don't worry about space with a newline.
       left_newline = match[:left_space].include?("\n")
       right_newline = match[:right_space].include?("\n")
-      if config['style'] == 'one_space'
-        if (match[:left_space] != ' ' && !left_newline) ||
-          (match[:right_space] != ' ' && !right_newline)
+
+      case config['style']
+      when 'one_space'
+        if one_space_exists?(match, left_newline, right_newline)
           add_lint(node, operation_sources.space_msg(match[:operator]))
         end
-      elsif (match[:left_space] != '' && !left_newline) ||
-        (match[:right_space] != '' && !right_newline)
-        add_lint(node, operation_sources.no_space_msg(match[:operator]))
+      when 'at_least_one_space'
+        unless spaces_exist?(match, left_newline, right_newline)
+          add_lint(node, operation_sources.space_msg(match[:operator]))
+        end
+      else
+        if spaces_exist?(match, left_newline, right_newline)
+          add_lint(node, operation_sources.no_space_msg(match[:operator]))
+        end
       end
+    end
+
+    def one_space_exists?(match, left_newline, right_newline)
+      (match[:left_space] != ' ' && !left_newline) ||
+        (match[:right_space] != ' ' && !right_newline)
+    end
+
+    def spaces_exist?(match, left_newline, right_newline)
+      (match[:left_space] != '' && !left_newline) ||
+        (match[:right_space] != '' && !right_newline)
     end
 
     # A helper class for storing and adjusting the sources of the different

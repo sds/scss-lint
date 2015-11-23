@@ -30,6 +30,7 @@
   references
 * Fix `SingleLinePerSelector` to report correct line number for sequences
   spread over multiple lines
+* Add `at_least_one_space` option to `SpaceAroundOperator` linter
 
 ## 0.42.2
 

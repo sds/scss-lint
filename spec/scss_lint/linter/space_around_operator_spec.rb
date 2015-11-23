@@ -242,6 +242,57 @@ describe SCSSLint::Linter::SpaceAroundOperator do
     end
   end
 
+  context 'when at least one space is preferred' do
+    let(:style) { 'at_least_one_space' }
+
+    context 'when values with single-spaced infix operators exist' do
+      let(:scss) { <<-SCSS }
+        $x: 2px + 2px;
+
+        p {
+          margin: 5px + 5px;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when numeric values with infix operators exist' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 5px+5px;
+          margin: 5px  +  5px;
+          margin: 4px*2;
+          margin: 20px%3;
+          font-family: sans-+serif;
+        }
+
+        $x: 10px+10px;
+        $x: 20px-10px;
+      SCSS
+
+      it { should report_lint line: 2 }
+      it { should_not report_lint line: 3 }
+      it { should report_lint line: 4 }
+      it { should report_lint line: 5 }
+      it { should report_lint line: 6 }
+      it { should_not report_lint line: 7 }
+      it { should report_lint line: 9 }
+      it { should report_lint line: 10 }
+    end
+
+    context 'when expression spread over two lines' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 7px +
+              7px;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+  end
+
   context 'when no space is preferred' do
     let(:style) { 'no_space' }
 
