@@ -10,8 +10,10 @@ module SCSSLint
 
       check_comma_on_own_line(node)
 
-      node.members[1..-1].each_with_index do |sequence, index|
-        check_sequence_commas(node, sequence, index)
+      line_offset = 0
+      node.members[1..-1].each do |sequence|
+        line_offset += 1 if sequence_start_of_line?(sequence)
+        check_sequence_commas(node, sequence, line_offset)
       end
     end
 
@@ -25,13 +27,17 @@ module SCSSLint
 
   private
 
+    def sequence_start_of_line?(sequence)
+      sequence.members[0] == "\n"
+    end
+
     def check_comma_on_own_line(node)
       return unless node.members[0].members[1] == "\n"
       add_lint(node, MESSAGE)
     end
 
     def check_sequence_commas(node, sequence, index)
-      if sequence.members[0] != "\n"
+      if !sequence_start_of_line?(sequence)
         # Next sequence doesn't reside on its own line
         add_lint(node.line + index, MESSAGE)
       elsif sequence.members[1] == "\n"

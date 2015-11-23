@@ -15,6 +15,8 @@
 * Fix control comments to work when applied on consecutive lines
 * Fix linters to not inspect interpolation in `/*...*/` comments due to the
   large number of bugs with the source ranges returned by the Sass parser
+* Fix line number reporting for `SingleLinePerSelector` with comma sequences
+  containing multiple sequences on a single line
 
 ## 0.42.2
 

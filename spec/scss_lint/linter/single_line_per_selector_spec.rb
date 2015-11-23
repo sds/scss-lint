@@ -150,4 +150,18 @@ describe SCSSLint::Linter::SingleLinePerSelector do
 
     it { should report_lint }
   end
+
+  context 'when a lot of selectors are on a single line over multiple lines' do
+    let(:scss) { <<-SCSS }
+      html, body,
+      h1, h2, h3, h4 {
+        border: 0;
+      }
+    SCSS
+
+    it { should report_lint line: 1 }
+    it { should report_lint line: 2 }
+    it { should_not report_lint line: 3 }
+    it { should_not report_lint line: 4 }
+  end
 end
