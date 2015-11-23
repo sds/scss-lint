@@ -29,10 +29,28 @@ module SCSSLint
   private
 
     def find_mergeable_node(node, seen_nodes)
+      return if multiple_parent_references?(node)
+
       seen_nodes.find do |seen_node|
         equal?(node, seen_node) ||
           (config['force_nesting'] && nested?(node, seen_node))
       end
+    end
+
+    def multiple_parent_references?(rule_node)
+      return unless rules = rule_node.parsed_rules
+
+      # Iterate over each sequence counting all parent references
+      total_parent_references = rules.members.inject(0) do |sum, seq|
+        sum + seq.members.inject(0) do |ssum, simple_seq|
+          next ssum unless simple_seq.respond_to?(:members)
+          ssum + simple_seq.members.count do |member|
+            member.is_a?(Sass::Selector::Parent)
+          end
+        end
+      end
+
+      total_parent_references > 1
     end
 
     def equal?(node1, node2)

@@ -241,6 +241,21 @@ describe SCSSLint::Linter::MergeableSelector do
     it { should report_lint }
   end
 
+  context 'when there are two parent selectors in a single selector' do
+    let(:scss) { <<-SCSS }
+      .b-some {
+        &__image {
+          width: 100%;
+        }
+        &__image + &__buttons {
+          margin-top: 14px;
+        }
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
+
   context 'when force_nesting is enabled' do
     let(:linter_config) { { 'force_nesting' => true } }
 

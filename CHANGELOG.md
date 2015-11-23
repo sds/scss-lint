@@ -26,6 +26,8 @@
   preferred over silent comments
 * Add `ChainedClasses` linter which checks for the use of chained classes
   (a.k.a. adjoining classes)
+* Fix `MergeableSelector` to not report selectors with multiple parent
+  references
 
 ## 0.42.2
 
