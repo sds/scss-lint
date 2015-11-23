@@ -76,4 +76,20 @@ describe SCSSLint::Linter::Comment do
 
     it { should report_lint }
   end
+
+  context 'when multi-line comments are preferred' do
+    let(:linter_config) { { 'style' => 'loud' } }
+
+    context 'and silent comments are present' do
+      let(:scss) { '// A silent comment' }
+
+      it { should report_lint }
+    end
+
+    context 'and loud comments are present' do
+      let(:scss) { '/* A loud comment */' }
+
+      it { should_not report_lint }
+    end
+  end
 end

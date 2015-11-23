@@ -22,6 +22,8 @@
 * Change `Indentation` linter with `allow_non_nested_indentation` to allow
   any node type to be arbitrarily indented as long as it a child of the root
   document node (previously only rule set declarations were allowed)
+* Add `style` option to `Comment` linter allowing loud comments to be
+  preferred over silent comments
 
 ## 0.42.2
 

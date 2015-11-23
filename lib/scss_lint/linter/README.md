@@ -197,7 +197,8 @@ allow multi-line comments that match the regular expression.
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`allowed`            | Regular expression for matching allowed comments, such as '^[/\* ]*Copyright'
+`allowed`            | Regular expression for matching allowed comments, such as '^[/\* ] Copyright'
+`style`              | Style of comment to enforce (`silent` or `loud`) (default **silent**)
 
 ## Compass Linters
 

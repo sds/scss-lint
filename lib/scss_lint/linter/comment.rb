@@ -4,10 +4,24 @@ module SCSSLint
     include LinterRegistry
 
     def visit_comment(node)
-      add_lint(node, 'Use `//` comments everywhere') unless node.invisible? || allowed?(node)
+      add_lint(node, 'Use `//` comments everywhere') unless valid_comment?(node)
     end
 
   private
+
+    def valid_comment?(node)
+      allowed_type =
+        if config.fetch('style', 'silent') == 'silent'
+          node.invisible?
+        else
+          !node.invisible?
+        end
+      return true if allowed_type
+
+      # Otherwise check if comment contains content that excludes it (i.e. a
+      # copyright notice for loud comments)
+      allowed?(node)
+    end
 
     # @param node [CommentNode]
     # @return [Boolean]
