@@ -12,7 +12,7 @@ module SCSSLint
   private
 
     def spaces_before_colon?(node)
-      source_from_range(node.source_range) =~ /\s+:/
+      source_from_range(node.source_range) =~ /\A[^:]+\s+:/
     end
   end
 end

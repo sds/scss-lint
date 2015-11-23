@@ -17,6 +17,8 @@
   large number of bugs with the source ranges returned by the Sass parser
 * Fix line number reporting for `SingleLinePerSelector` with comma sequences
   containing multiple sequences on a single line
+* Fix `SpaceAfterVariableName` to not report lints for colons with spaces
+  inside map literals
 
 ## 0.42.2
 
