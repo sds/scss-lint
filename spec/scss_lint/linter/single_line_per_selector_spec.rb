@@ -148,7 +148,20 @@ describe SCSSLint::Linter::SingleLinePerSelector do
       }
     SCSS
 
-    it { should report_lint }
+    it { should report_lint line: 1 }
+  end
+
+  context 'when a selector sequence spans multiple lines in the middle of a comma sequence' do
+    let(:scss) { <<-SCSS }
+      .one,
+      .two,
+      .a
+      .b,
+      .other {
+      }
+    SCSS
+
+    it { should report_lint line: 3 }
   end
 
   context 'when a lot of selectors are on a single line over multiple lines' do

@@ -28,6 +28,8 @@
   (a.k.a. adjoining classes)
 * Fix `MergeableSelector` to not report selectors with multiple parent
   references
+* Fix `SingleLinePerSelector` to report correct line number for sequences
+  spread over multiple lines
 
 ## 0.42.2
 
