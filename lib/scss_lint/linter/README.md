@@ -120,6 +120,8 @@ Configuration Option | Description
 
 ## ChainedClasses
 
+**Disabled by default**
+
 Reports when you define a rule set using a selector with chained classes
 (a.k.a. adjoining classes).
 
