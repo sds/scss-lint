@@ -287,6 +287,7 @@ describe SCSSLint::Linter::Indentation do
         .component {}
           .component__image {}
           .component__text {}
+            $some-variable: 0;
             .component-subblock {}
             .component-subblock__text {}
           .component-category {}
@@ -322,15 +323,6 @@ describe SCSSLint::Linter::Indentation do
       it { should_not report_lint line: 2 }
       it { should_not report_lint line: 3 }
       it { should report_lint line: 4 }
-    end
-
-    context 'and a non-nested non-ruleset is incorrectly indented' do
-      let(:scss) { <<-SCSS }
-        p {}
-          $var: one;
-      SCSS
-
-      it { should report_lint line: 2 }
     end
 
     context 'and a nested non-ruleset is correctly indented' do

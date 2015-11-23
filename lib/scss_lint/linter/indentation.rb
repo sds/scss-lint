@@ -150,18 +150,15 @@ module SCSSLint
     def check_arbitrary_indent(node, actual_indent)
       return if check_root_ruleset_indent(node, actual_indent)
 
-      if @indent == 0
-        unless node.is_a?(Sass::Tree::RuleNode) || actual_indent == 0
-          add_lint(node.line, lint_message(0, actual_indent))
-          return true
-        end
-      elsif !one_shift_greater_than_parent?(node, actual_indent)
-        parent_indent = node_indent(node_indent_parent(node)).length
-        expected_indent = parent_indent + @indent_width
+      # Allow any root-level node (i.e. one that would normally have an indent
+      # of zero) to have an arbitrary amount of indent
+      return if @indent == 0
 
-        add_lint(node.line, lint_message(expected_indent, actual_indent))
-        return true
-      end
+      return if one_shift_greater_than_parent?(node, actual_indent)
+      parent_indent = node_indent(node_indent_parent(node)).length
+      expected_indent = parent_indent + @indent_width
+      add_lint(node.line, lint_message(expected_indent, actual_indent))
+      true
     end
 
     # Allow rulesets to be indented any amount when the indent is zero, as long
