@@ -1,17 +1,33 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.43.0
 
-* `EmptyLineBetweenBlocks` lints on `@media` and `@at-root` now
-* Improve performance of `Indentation` linter
+### New Features
+
 * Add `whitelist` parameter to `MergeableSelector`
-* Fix `TrailingSemicolon` false positive for multiline variable declarations
 * Add `PseudoElement` linter which checks for the use of double colons with
   pseudo elements and single colons with pseudo classes
 * Add `disabled_properties` option to `PropertySpelling` allowing properties
   to be prohibited from use
 * Add support for linting files via STDIN by specifying `--stdin-file-path`
   so the appropriate configuration can be applied based on the path
+* Add `style` option to `Comment` linter allowing loud comments to be
+  preferred over silent comments
+* Add `ChainedClasses` linter which checks for the use of chained classes
+  (a.k.a. adjoining classes)
+* Add `at_least_one_space` option to `SpaceAroundOperator` linter
+
+### Changes
+
+* `EmptyLineBetweenBlocks` lints on `@media` and `@at-root` now
+* Improve performance of `Indentation` linter
+* Change `Indentation` linter with `allow_non_nested_indentation` to allow
+  any node type to be arbitrarily indented as long as it a child of the root
+  document node (previously only rule set declarations were allowed)
+
+### Bug Fixes
+
+* Fix `TrailingSemicolon` false positive for multiline variable declarations
 * Fix control comments to work when applied on consecutive lines
 * Fix linters to not inspect interpolation in `/*...*/` comments due to the
   large number of bugs with the source ranges returned by the Sass parser
@@ -19,18 +35,10 @@
   containing multiple sequences on a single line
 * Fix `SpaceAfterVariableName` to not report lints for colons with spaces
   inside map literals
-* Change `Indentation` linter with `allow_non_nested_indentation` to allow
-  any node type to be arbitrarily indented as long as it a child of the root
-  document node (previously only rule set declarations were allowed)
-* Add `style` option to `Comment` linter allowing loud comments to be
-  preferred over silent comments
-* Add `ChainedClasses` linter which checks for the use of chained classes
-  (a.k.a. adjoining classes)
 * Fix `MergeableSelector` to not report selectors with multiple parent
   references
 * Fix `SingleLinePerSelector` to report correct line number for sequences
   spread over multiple lines
-* Add `at_least_one_space` option to `SpaceAroundOperator` linter
 
 ## 0.42.2
 
