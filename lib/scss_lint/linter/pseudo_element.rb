@@ -7,22 +7,52 @@ module SCSSLint
     # https://developer.mozilla.org/en-US/docs/Web/CSS/Mozilla_Extensions
     # http://tjvantoll.com/2013/04/15/list-of-pseudo-elements-to-style-form-controls/
     PSEUDO_ELEMENTS = %w[
-      after backdrop before first-letter first-line placeholder selection
-
-      -moz-progress-bar -moz-anonymous-block -moz-anonymous-positioned-block
-      -moz-canvas -moz-cell-content -moz-focus-inner -moz-focus-outer
-      -moz-inline-table -moz-page -moz-page-sequence -moz-pagebreak
-      -moz-pagecontent -moz-placeholder -moz-progress-bar -moz-range-thumb
-      -moz-range-track -moz-selection -moz-scrolled-canvas -moz-scrolled-content
-      -moz-scrolled-page-sequence -moz-svg-foreign-content -moz-table
-      -moz-table-cell -moz-table-column -moz-table-column-group -moz-table-outer
-      -moz-table-row -moz-table-row-group -moz-viewport -moz-viewport-scroll
+      -moz-anonymous-block
+      -moz-anonymous-positioned-block
+      -moz-canvas
+      -moz-cell-content
+      -moz-focus-inner
+      -moz-focus-outer
+      -moz-inline-table
+      -moz-page
+      -moz-page-sequence
+      -moz-pagebreak
+      -moz-pagecontent
+      -moz-placeholder
+      -moz-progress-bar
+      -moz-progress-bar
+      -moz-range-thumb
+      -moz-range-track
+      -moz-scrolled-canvas
+      -moz-scrolled-content
+      -moz-scrolled-page-sequence
+      -moz-selection
+      -moz-svg-foreign-content
+      -moz-table
+      -moz-table-cell
+      -moz-table-column
+      -moz-table-column-group
+      -moz-table-outer
+      -moz-table-row
+      -moz-table-row-group
+      -moz-viewport
+      -moz-viewport-scroll
       -moz-xul-anonymous-block
-
-      -ms-expand -ms-browse -ms-check -ms-clear -ms-expand -ms-fill
-      -ms-fill-lower -ms-fill-upper -ms-reveal -ms-thumb -ms-ticks-after
-      -ms-ticks-before -ms-tooltip -ms-track -ms-value
-
+      -ms-browse
+      -ms-check
+      -ms-clear
+      -ms-expand
+      -ms-expand
+      -ms-fill
+      -ms-fill-lower
+      -ms-fill-upper
+      -ms-reveal
+      -ms-thumb
+      -ms-ticks-after
+      -ms-ticks-before
+      -ms-tooltip
+      -ms-track
+      -ms-value
       -webkit-calendar-picker-indicator
       -webkit-color-swatch
       -webkit-color-swatch-wrapper
@@ -62,6 +92,13 @@ module SCSSLint
       -webkit-validation-bubble-heading
       -webkit-validation-bubble-message
       -webkit-validation-bubble-text-block
+      after
+      backdrop
+      before
+      first-letter
+      first-line
+      placeholder
+      selection
     ]
 
     def visit_pseudo(pseudo)
