@@ -22,7 +22,10 @@ module SCSSLint
       -ms-fill-lower -ms-fill-upper -ms-reveal -ms-thumb -ms-ticks-after
       -ms-ticks-before -ms-tooltip -ms-track -ms-value
 
-      -webkit-progress-bar -webkit-progress-value
+      -webkit-input-placeholder -webkit-progress-bar -webkit-progress-value
+      -webkit-resizer -webkit-scrollbar -webkit-scrollbar-button
+      -webkit-scrollbar-corner -webkit-scrollbar-thumb -webkit-scrollbar-track
+      -webkit-scrollbar-track-piece
     ]
 
     def visit_pseudo(pseudo)
