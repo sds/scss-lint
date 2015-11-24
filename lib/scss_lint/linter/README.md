@@ -1066,6 +1066,11 @@ Pseudo-elements, like `::before`, and `::first-letter`, should be declared with
 two colons. Pseudo-classes, like `:hover` and `:first-child`, should be
 declared with one colon.
 
+If you're sure the pseudo-element in question is valid,
+[submit a request](https://github.com/brigade/scss-lint/issues/new)
+to add it to the
+[default whitelist](../../../data/pseudo-elements.txt).
+
 **Bad: wrong colons**
 ```scss
 p:before {
