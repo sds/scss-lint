@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.43.1
 
 * Add `placeholder`, `-moz-*`, `-ms-*`, and `-webkit-*` to `PseudoElement`
   linter
