@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix passing a file via STDIN
+
 ## 0.43.1
 
 * Add `placeholder`, `-moz-*`, `-ms-*`, and `-webkit-*` to `PseudoElement`

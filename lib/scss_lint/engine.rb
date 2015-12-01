@@ -47,7 +47,7 @@ module SCSSLint
     #   given
     def build_from_file(options)
       @filename = options[:path]
-      @contents = options[:file] ? file.read : File.read(@filename)
+      @contents = options[:file] ? options[:file].read : File.read(@filename)
       @engine = Sass::Engine.new(@contents, ENGINE_OPTIONS.merge(filename: @filename))
     end
 
