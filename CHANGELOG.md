@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.43.2
 
 * Fix passing a file via STDIN
 * Fix `ChainedClasses` to work with comma sequences split over multiple lines
