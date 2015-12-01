@@ -32,7 +32,7 @@ it into your [SCM hooks](https://github.com/brigade/overcommit).
 ## Requirements
 
 * Ruby 1.9.3+
-* Sass 3.4.1+ (`scss-lint` 0.27.0 was the last version to support Sass 3.3)
+* Sass 3.4.15+ (`scss-lint` 0.27.0 was the last version to support Sass 3.3)
 * Files you wish to lint must be written in SCSS (not Sass) syntax
 
 ## Installation
