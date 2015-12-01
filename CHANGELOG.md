@@ -4,6 +4,8 @@
 
 * Add `placeholder`, `-moz-*`, `-ms-*`, and `-webkit-*` to `PseudoElement`
   linter
+* Fix `SpaceAfterComma` to not infinite loop on map literals as arguments
+  spanning multiple lines
 
 ## 0.43.0
 

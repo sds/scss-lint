@@ -334,6 +334,18 @@ describe SCSSLint::Linter::SpaceAfterComma do
         it { should_not report_lint }
       end
     end
+
+    context 'when map literal spans multiple lines' do
+      let(:scss) { <<-SCSS }
+      @include mixin('arg1', (
+          key1: 'arg2-key1-value',
+          key2: 'arg2-key2-value'
+        ),$arg3: 'arg3-value', $arg4: 'arg4-value'
+      );
+      SCSS
+
+      it { should report_lint line: 4 }
+    end
   end
 
   context 'when more than one space is preferred' do

@@ -78,19 +78,18 @@ module SCSSLint
         # Sometimes the line we're looking at doesn't even contain a comma!
         next unless engine.lines[arg.line - 1].include?(',')
 
-        offset = find_comma_offset(arg)
+        comma_position = find_comma_position(arg)
 
         # Check for space or newline after comma (we allow arguments to be split
         # up over multiple lines).
         spaces = 0
-        while (char = character_at(arg.source_range.end_pos, offset + 1)) == ' '
+        while (char = character_at(comma_position, spaces + 1)) == ' '
           spaces += 1
-          offset += 1
         end
         next if char == "\n" || # Ignore trailing spaces
                 valid_spaces_after_comma?(spaces)
 
-        add_lint arg, "Commas in #{arg_type} should be followed by a single space"
+        add_lint comma_position, "Commas in #{arg_type} should be followed by a single space"
       end
     end
 
@@ -100,20 +99,26 @@ module SCSSLint
     # source range. Thus we need to start at the indicated range, and check
     # left and right of that range, gradually moving further outward until
     # we find the comma.
-    def find_comma_offset(arg)
+    def find_comma_position(arg) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
       offset = 0
+      pos = arg.source_range.end_pos
 
-      if character_at(arg.source_range.end_pos, offset) != ','
+      if character_at(pos, offset) != ','
         loop do
           offset += 1
-          break if character_at(arg.source_range.end_pos, offset) == ','
+          break if (right_char = character_at(pos, offset)) == ','
           offset = -offset
-          break if character_at(arg.source_range.end_pos, offset) == ','
+          break if (left_char = character_at(pos, offset)) == ','
           offset = -offset
+
+          next unless right_char.nil? && left_char.nil?
+          offset = 0
+          pos = Sass::Source::Position.new(pos.line + 1, 1)
+          break if character_at(pos, offset) == ','
         end
       end
 
-      offset
+      Sass::Source::Position.new(pos.line, pos.offset + offset)
     end
   end
 end

@@ -181,6 +181,8 @@ module SCSSLint
       actual_line   = source_position.line - 1
       actual_offset = source_position.offset + offset - 1
 
+      return nil if actual_offset < 0
+
       engine.lines.size > actual_line && engine.lines[actual_line][actual_offset]
     end
 
