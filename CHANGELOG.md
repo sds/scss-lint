@@ -3,6 +3,7 @@
 ## master (unreleased)
 
 * Fix passing a file via STDIN
+* Fix `ChainedClasses` to work with comma sequences split over multiple lines
 
 ## 0.43.1
 

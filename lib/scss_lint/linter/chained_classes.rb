@@ -4,9 +4,11 @@ module SCSSLint
     include LinterRegistry
 
     def visit_sequence(sequence)
-      sequence.members.each do |simple_sequence|
-        next unless chained_class?(simple_sequence)
-        add_lint(simple_sequence.line,
+      line_offset = 0
+      sequence.members.each do |member|
+        line_offset += 1 if member =~ /\n/
+        next unless chained_class?(member)
+        add_lint(member.line + line_offset,
                  'Prefer using a distinct class over chained classes ' \
                  '(e.g. .new-class over .foo.bar')
       end
@@ -15,6 +17,7 @@ module SCSSLint
   private
 
     def chained_class?(simple_sequence)
+      return unless simple_sequence.is_a?(Sass::Selector::SimpleSequence)
       simple_sequence.members.count { |member| member.is_a?(Sass::Selector::Class) } >= 2
     end
   end

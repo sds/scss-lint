@@ -42,4 +42,13 @@ describe SCSSLint::Linter::ChainedClasses do
 
     it { should report_lint line: 1 }
   end
+
+  context 'with a chained class in a multiline comma sequence' do
+    let(:scss) { <<-SCSS }
+      .one,
+      .two.three {}
+    SCSS
+
+    it { should report_lint line: 2 }
+  end
 end
