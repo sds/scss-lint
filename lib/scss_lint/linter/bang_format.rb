@@ -31,7 +31,7 @@ module SCSSLint
       before_qualifier = config['space_before_bang'] ? '' : 'not '
       after_qualifier = config['space_after_bang'] ? '' : 'not '
 
-      add_lint(node, "! should #{before_qualifier}be preceeded by a space, " \
+      add_lint(node, "! should #{before_qualifier}be preceded by a space, " \
                      "and should #{after_qualifier}be followed by a space")
     end
 
