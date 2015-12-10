@@ -88,6 +88,7 @@ Command Line Flag         | Description
 `-i`/`--include-linter`   | Specify which linters you specifically want to run
 `-x`/`--exclude-linter`   | Specify which linters you _don't_ want to run
 `--stdin-file-path`       | When linting a file passed via standard input, treat it as having the specified path to apply the appropriate configuration
+`--[no-]color`            | Whether to output in color
 `-h`/`--help`             | Show command line flag documentation
 `--show-formatters`       | Show all available formatters
 `--show-linters`          | Show all available linters
@@ -238,14 +239,6 @@ test.scss:2 [W] Indentation: Line should be indented 0 spaces, but was indented 
 test.scss:5 [W] StringQuotes: Prefer single quoted strings
 test.scss:6 [W] UrlQuotes: URLs should be enclosed in quotes
 ```
-
-The default formatter tries to colorize the output using
-[Rainbow](https://github.com/sickill/rainbow#windows-support), which will
-silently fail on Windows systems if the gems
-[windows-pr](https://rubygems.org/gems/windows-pr) and
-[win32console](https://rubygems.org/gems/win32console)
-are not installed.
-[Read more about adding Windows support](https://github.com/sickill/rainbow#windows-support).
 
 ### CleanFiles
 

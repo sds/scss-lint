@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SCSSLint::Reporter::CleanFilesReporter do
-  subject { described_class.new(lints, files) }
+  subject { described_class.new(lints, files, nil) }
 
   describe '#report_lints' do
     context 'when there are no lints and no files' do

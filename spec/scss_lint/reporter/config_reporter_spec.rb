@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SCSSLint::Reporter::ConfigReporter do
   subject { YAML.load(result) }
-  let(:result) { described_class.new(lints, []).report_lints }
+  let(:result) { described_class.new(lints, [], nil).report_lints }
 
   describe '#report_lints' do
     context 'when there are no lints' do

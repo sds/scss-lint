@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Add `--color` and `--no-color` options
+
 ## 0.43.2
 
 * Fix passing a file via STDIN

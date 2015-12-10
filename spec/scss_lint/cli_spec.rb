@@ -19,10 +19,6 @@ describe SCSSLint::CLI do
   class SCSSLint::Linter::FakeTestLinter2 < SCSSLint::Linter; end
 
   before do
-    # Silence console output
-    @output = ''
-    STDOUT.stub(:write) { |*args| @output.<<(*args) }
-
     SCSSLint::Config.stub(:load)
                     .with(SCSSLint::Config::DEFAULT_FILE, merge_with_default: false)
                     .and_return(config)
@@ -32,9 +28,12 @@ describe SCSSLint::CLI do
   end
 
   describe '#run' do
-    let(:files) { ['file1.scss', 'file2.scss'] }
-    let(:flags) { [] }
-    subject     { SCSSLint::CLI.new }
+    let(:files)  { ['file1.scss', 'file2.scss'] }
+    let(:flags)  { [] }
+    let(:io)     { StringIO.new }
+    let(:output) { io.string }
+    let(:logger) { SCSSLint::Logger.new(io) }
+    subject      { SCSSLint::CLI.new(logger) }
 
     before do
       SCSSLint::FileFinder.any_instance.stub(:find).and_return(files)
@@ -45,6 +44,59 @@ describe SCSSLint::CLI do
       subject.run(flags + files)
     rescue SystemExit
       # Keep running tests
+    end
+
+    context 'when passed the --color flag' do
+      let(:flags) { ['--color'] }
+
+      it 'sets the logger to output in color' do
+        safe_run
+        logger.color_enabled.should == true
+      end
+
+      context 'and the output stream is not a TTY' do
+        before do
+          io.stub(:tty?).and_return(false)
+        end
+
+        it 'sets the logger to output in color' do
+          safe_run
+          logger.color_enabled.should == true
+        end
+      end
+    end
+
+    context 'when passed the --no-color flag' do
+      let(:flags) { ['--no-color'] }
+
+      it 'sets the logger to not output in color' do
+        safe_run
+        logger.color_enabled.should == false
+      end
+    end
+
+    context 'when --[no-]color flag is not specified' do
+      before do
+        io.stub(:tty?).and_return(tty)
+      end
+
+      context 'and the output stream is a TTY' do
+        let(:tty) { true }
+
+        it 'sets the logger to output in color' do
+          safe_run
+          logger.color_enabled.should == true
+        end
+      end
+
+      context 'and the output stream is not a TTY' do
+        let(:tty) { false }
+
+        it 'sets the logger to not output in color' do
+          safe_run
+          logger.color_enabled.should == false
+        end
+      end
     end
 
     context 'when there are no lints' do
@@ -58,7 +110,7 @@ describe SCSSLint::CLI do
 
       it 'outputs nothing' do
         safe_run
-        @output.should be_empty
+        output.should be_empty
       end
     end
 
@@ -81,7 +133,7 @@ describe SCSSLint::CLI do
 
       it 'outputs the warnings' do
         safe_run
-        @output.should include 'Some description'
+        output.should include 'Some description'
       end
     end
 
@@ -104,7 +156,7 @@ describe SCSSLint::CLI do
 
       it 'outputs the errors' do
         safe_run
-        @output.should include 'Some description'
+        output.should include 'Some description'
       end
     end
 
@@ -125,17 +177,17 @@ describe SCSSLint::CLI do
 
       it 'outputs the error message' do
         safe_run
-        @output.should include message
+        output.should include message
       end
 
       it 'outputs the backtrace' do
         safe_run
-        @output.should include backtrace.join("\n")
+        output.should include backtrace.join("\n")
       end
 
       it 'outputs a link to the issue tracker' do
         safe_run
-        @output.should include SCSSLint::BUG_REPORT_URL
+        output.should include SCSSLint::BUG_REPORT_URL
       end
     end
 

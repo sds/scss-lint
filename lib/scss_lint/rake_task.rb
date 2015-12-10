@@ -42,6 +42,11 @@ module SCSSLint
     # @return [Array<String>]
     attr_accessor :files
 
+    # Whether output from SCSS-lint should not be displayed to the standard out
+    # stream.
+    # @return [true,false]
+    attr_accessor :quiet
+
     # Create the task so it is accessible via +Rake::Task['scss_lint']+.
     def initialize(name = :scss_lint)
       @name = name
@@ -68,10 +73,12 @@ module SCSSLint
       end
     end
 
-    def run_cli(task_args)
+    def run_cli(task_args) # rubocop:disable AbcSize
       cli_args = ['--config', config] if config
 
-      result = SCSSLint::CLI.new.run(Array(cli_args) + Array(args) + files_to_lint(task_args))
+      logger = quiet ? SCSSLint::Logger.silent : SCSSLint::Logger.new(STDOUT)
+      run_args = Array(cli_args) + Array(args) + files_to_lint(task_args)
+      result = SCSSLint::CLI.new(logger).run(run_args)
 
       message =
         case result
@@ -83,7 +90,7 @@ module SCSSLint
           'scss-lint failed with an error'
         end
 
-      puts message
+      logger.log message
       exit result unless result == 0
     end
 

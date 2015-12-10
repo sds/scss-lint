@@ -12,15 +12,15 @@ module SCSSLint
   private
 
     def location(lint)
-      "#{lint.filename.color(:cyan)}:#{lint.location.line.to_s.color(:magenta)}"
+      "#{log.cyan(lint.filename)}:#{log.magenta(lint.location.line.to_s)}"
     end
 
     def type(lint)
-      lint.error? ? '[E]'.color(:red) : '[W]'.color(:yellow)
+      lint.error? ? log.red('[E]') : log.yellow('[W]')
     end
 
     def message(lint)
-      linter_name = "#{lint.linter.name}: ".color(:green) if lint.linter
+      linter_name = log.green("#{lint.linter.name}: ") if lint.linter
       "#{linter_name}#{lint.description}"
     end
   end

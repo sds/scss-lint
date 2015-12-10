@@ -1,7 +1,7 @@
 module SCSSLint
   # Responsible for displaying lints to the user in some format.
   class Reporter
-    attr_reader :lints, :files
+    attr_reader :lints, :files, :log
 
     def self.descendants
       ObjectSpace.each_object(Class).select { |klass| klass < self }
@@ -9,9 +9,11 @@ module SCSSLint
 
     # @param lints [List<Lint>] a list of Lints sorted by file and line number
     # @param files [List<String>] a list of the files that were linted
-    def initialize(lints, files)
+    # @param logger [SCSSLint::Logger]
+    def initialize(lints, files, logger)
       @lints = lints
       @files = files
+      @log = logger
     end
 
     def report_lints

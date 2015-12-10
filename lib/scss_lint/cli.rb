@@ -1,5 +1,3 @@
-require 'rainbow'
-require 'rainbow/ext/string'
 require 'scss_lint/options'
 
 module SCSSLint
@@ -22,6 +20,13 @@ module SCSSLint
       plugin:         82, # Plugin loading error
     }
 
+    # Create a CLI that outputs to the specified logger.
+    #
+    # @param logger [SCSSLint::Logger]
+    def initialize(logger)
+      @log = logger
+    end
+
     def run(args)
       options = SCSSLint::Options.new.parse(args)
       act_on_options(options)
@@ -31,7 +36,10 @@ module SCSSLint
 
   private
 
+    attr_reader :log
+
     def act_on_options(options)
+      log.color_enabled = options.fetch(:color, log.tty?)
       load_required_paths(options)
       load_reporters(options)
 
@@ -77,40 +85,47 @@ module SCSSLint
     def handle_runtime_exception(exception, options) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/LineLength, Metrics/MethodLength
       case exception
       when SCSSLint::Exceptions::InvalidCLIOption
-        puts exception.message
-        puts 'Run `scss-lint --help` for usage documentation'
+        log.error exception.message
+        log.info 'Run `scss-lint --help` for usage documentation'
         halt :usage
       when SCSSLint::Exceptions::InvalidConfiguration
-        puts exception.message
+        log.error exception.message
         halt :config
       when SCSSLint::Exceptions::RequiredLibraryMissingError
-        puts exception.message
+        log.error exception.message
         halt :unavailable
       when SCSSLint::Exceptions::NoFilesError
-        puts exception.message
+        log.error exception.message
         halt :no_files
       when SCSSLint::Exceptions::PluginGemLoadError
-        puts exception.message
+        log.error exception.message
         halt :plugin
       when Errno::ENOENT
-        puts exception.message
+        log.error exception.message
         halt :no_input
       when NoSuchLinter
-        puts exception.message
+        log.error exception.message
         halt :usage
       else
         config_file = relevant_configuration_file(options) if options
 
-        puts exception.message
-        puts exception.backtrace
-        puts 'Report this bug at '.color(:yellow) + BUG_REPORT_URL.color(:cyan)
-        puts
-        puts 'To help fix this issue, please include:'.color(:green)
-        puts '- The above stack trace'
-        puts "- SCSS-Lint version: #{SCSSLint::VERSION.color(:cyan)}"
-        puts "- Sass version: #{Gem.loaded_specs['sass'].version.to_s.color(:cyan)}"
-        puts "- Ruby version: #{RUBY_VERSION.color(:cyan)}"
-        puts "- Contents of #{File.expand_path(config_file).color(:cyan)}" if config_file
+        log.bold_error exception.message
+        log.error exception.backtrace.join("\n")
+        log.warning 'Report this bug at ', false
+        log.info BUG_REPORT_URL
+        log.newline
+        log.success 'To help fix this issue, please include:'
+        log.log '- The above stack trace'
+        log.log '- SCSS-Lint version: ', false
+        log.info SCSSLint::VERSION
+        log.log '- Sass version: ', false
+        log.info Gem.loaded_specs['sass'].version.to_s
+        log.log '- Ruby version: ', false
+        log.info RUBY_VERSION
+        if config_file
+          log.log '- Contents of ', false
+          log.info File.expand_path(config_file)
+        end
         halt :software
       end
     end
@@ -167,9 +182,14 @@ module SCSSLint
     def report_lints(options, lints, files)
       sorted_lints = lints.sort_by { |l| [l.filename, l.location] }
       options.fetch(:reporters).each do |reporter, output|
-        results = reporter.new(sorted_lints, files).report_lints
-        io = (output == :stdout ? $stdout : File.new(output, 'w+'))
-        io.print results if results
+        results = reporter.new(sorted_lints, files, log).report_lints
+        next unless results
+
+        if output == :stdout
+          log.log results
+        else
+          File.new(output, 'w+').print results
+        end
       end
     end
 
@@ -195,26 +215,26 @@ module SCSSLint
     end
 
     def print_formatters
-      puts 'Installed formatters:'
+      log.log 'Installed formatters:'
 
       reporter_names = SCSSLint::Reporter.descendants.map do |reporter|
         reporter.name.split('::').last.split('Reporter').first
       end
 
       reporter_names.sort.each do |reporter_name|
-        puts " - #{reporter_name}"
+        log.log " - #{reporter_name}"
       end
 
       halt
     end
 
     def print_linters
-      puts 'Installed linters:'
+      log.log 'Installed linters:'
 
       linter_names = LinterRegistry.linters.map(&:simple_name)
 
       linter_names.sort.each do |linter_name|
-        puts " - #{linter_name}"
+        log.log " - #{linter_name}"
       end
 
       halt
@@ -222,13 +242,13 @@ module SCSSLint
 
     # @param options [Hash]
     def print_help(options)
-      puts options[:help]
+      log.log options[:help]
       halt :ok
     end
 
     # @param options [Hash]
     def print_version
-      puts "scss-lint #{SCSSLint::VERSION}"
+      log.log "scss-lint #{SCSSLint::VERSION}"
       halt :ok
     end
 

@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe SCSSLint::Reporter::DefaultReporter do
-  subject { SCSSLint::Reporter::DefaultReporter.new(lints, []) }
+  let(:logger) { SCSSLint::Logger.new($stdout) }
+  subject { SCSSLint::Reporter::DefaultReporter.new(lints, [], logger) }
 
   describe '#report_lints' do
     context 'when there are no lints' do

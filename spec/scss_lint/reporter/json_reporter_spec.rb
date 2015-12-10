@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SCSSLint::Reporter::JSONReporter do
-  subject { SCSSLint::Reporter::JSONReporter.new(lints, []) }
+  subject { SCSSLint::Reporter::JSONReporter.new(lints, [], nil) }
 
   describe '#report_lints' do
     let(:json) { JSON.parse(subject.report_lints) }
