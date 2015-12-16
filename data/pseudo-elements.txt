@@ -86,7 +86,9 @@
 after
 backdrop
 before
+content
 first-letter
 first-line
 placeholder
 selection
+shadow
