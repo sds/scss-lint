@@ -95,4 +95,14 @@ describe SCSSLint::Linter::UnnecessaryParentReference do
 
     it { should_not report_lint }
   end
+
+  context 'when an ampersand is used in concatentation following an ampersand' do
+    let(:scss) { <<-SCSS }
+      .icon {
+        & &-small {}
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
 end

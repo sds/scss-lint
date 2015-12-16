@@ -5,6 +5,8 @@
 * Add `--color` and `--no-color` options
 * Add `::content` and `::shadow` to list of elements recognized by
   `PseudoElement`
+* Fix `UnnecessaryParentReference` to not report selectors with multiple parent
+  references
 
 ## 0.43.2
 

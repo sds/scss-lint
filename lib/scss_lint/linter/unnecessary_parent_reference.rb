@@ -22,7 +22,7 @@ module SCSSLint
       # element {
       #   & + & { ... }
       # }
-      return if sequence.members[1..-1].any? { |ss| sequence_starts_with_parent?(ss) }
+      return if sequence.members[1..-1].any? { |ss| sequence_contains_parent_reference?(ss) }
 
       # Special case: allow an isolated parent to appear if it is part of a
       # comma sequence of more than one sequence, as this could be used to DRY
@@ -44,6 +44,11 @@ module SCSSLint
       first = simple_sequence.members.first
       first.is_a?(Sass::Selector::Parent) &&
         first.suffix.nil? # Ignore concatenated selectors, like `&-something`
+    end
+
+    def sequence_contains_parent_reference?(simple_sequence)
+      return unless simple_sequence.is_a?(Sass::Selector::SimpleSequence)
+      simple_sequence.members.any? { |s| s.is_a?(Sass::Selector::Parent) }
     end
   end
 end
