@@ -3,6 +3,8 @@
 ## master (unreleased)
 
 * Add `--color` and `--no-color` options
+* Add `::content` and `::shadow` to list of elements recognized by
+  `PseudoElement`
 
 ## 0.43.2
 
