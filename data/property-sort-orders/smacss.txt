@@ -97,6 +97,7 @@ outline-width
 # Background
 
 background
+background-attachment
 background-color
 background-image
 background-repeat
