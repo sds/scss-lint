@@ -7,6 +7,7 @@
   `PseudoElement`
 * Fix `UnnecessaryParentReference` to not report selectors with multiple parent
   references
+* Add support for CSS Logical Properties to `PropertySpelling`
 
 ## 0.43.2
 
