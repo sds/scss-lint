@@ -8,6 +8,7 @@
 * Fix `UnnecessaryParentReference` to not report selectors with multiple parent
   references
 * Add `background-attachment` property to SMACSS property sort order list
+* Add support for CSS Logical Properties to `PropertySpelling`
 
 ## 0.43.2
 
