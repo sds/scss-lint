@@ -118,6 +118,16 @@ describe SCSSLint::Linter::VariableForProperty do
       it { should_not report_lint }
     end
 
+    context 'when property specifies `initial`' do
+      let(:scss) { <<-SCSS }
+        p {
+          color: initial;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
     context 'when property specifies `transparent`' do
       let(:scss) { <<-SCSS }
         p {
