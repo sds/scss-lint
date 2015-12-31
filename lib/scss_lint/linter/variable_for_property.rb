@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::VariableForProperty < Linter
     include LinterRegistry
 
-    IGNORED_VALUES = %w[currentColor inherit transparent]
+    IGNORED_VALUES = %w[currentColor inherit initial transparent]
 
     def visit_root(_node)
       @properties = Set.new(config['properties'])
