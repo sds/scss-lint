@@ -17,6 +17,7 @@ animation-timing-function
 app-region
 appearance
 aspect-ratio
+backdrop-filter
 backface-visibility
 background
 background-attachment
