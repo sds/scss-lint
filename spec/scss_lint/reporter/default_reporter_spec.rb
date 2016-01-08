@@ -15,12 +15,13 @@ describe SCSSLint::Reporter::DefaultReporter do
 
     context 'when there are lints' do
       let(:filenames)    { ['some-filename.scss', 'other-filename.scss'] }
-      let(:lines)        { [502, 724] }
+      let(:locations)    { [[502, 3], [724, 6]] }
       let(:descriptions) { ['Description of lint 1', 'Description of lint 2'] }
       let(:severities)   { [:warning] * 2 }
       let(:lints) do
         filenames.each_with_index.map do |filename, index|
-          location = SCSSLint::Location.new(lines[index])
+          line, column = locations[index]
+          location = SCSSLint::Location.new(line, column, 10)
           SCSSLint::Lint.new(nil, filename, location, descriptions[index],
                              severities[index])
         end
@@ -41,8 +42,14 @@ describe SCSSLint::Reporter::DefaultReporter do
       end
 
       it 'prints the line number for each lint' do
-        lines.each do |line|
-          subject.report_lints.scan(line.to_s).count.should == 1
+        locations.each do |location|
+          subject.report_lints.scan(location[0].to_s).count.should == 1
+        end
+      end
+
+      it 'prints the column number for each lint' do
+        locations.each do |location|
+          subject.report_lints.scan(location[1].to_s).count.should == 1
         end
       end
 

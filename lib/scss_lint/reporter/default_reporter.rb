@@ -12,7 +12,11 @@ module SCSSLint
   private
 
     def location(lint)
-      "#{log.cyan(lint.filename)}:#{log.magenta(lint.location.line.to_s)}"
+      [
+        log.cyan(lint.filename),
+        log.magenta(lint.location.line.to_s),
+        log.magenta(lint.location.column.to_s),
+      ].join(':')
     end
 
     def type(lint)
