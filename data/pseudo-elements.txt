@@ -54,6 +54,7 @@
 -webkit-datetime-edit-text
 -webkit-datetime-edit-year-field
 -webkit-file-upload-button
+-webkit-full-page-media
 -webkit-inner-spin-button
 -webkit-input-placeholder
 -webkit-keygen-select
