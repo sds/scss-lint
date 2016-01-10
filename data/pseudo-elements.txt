@@ -73,6 +73,7 @@
 -webkit-scrollbar-track
 -webkit-scrollbar-track-piece
 -webkit-search-cancel-button
+-webkit-search-decoration
 -webkit-search-results-button
 -webkit-slider-runnable-track
 -webkit-slider-thumb
