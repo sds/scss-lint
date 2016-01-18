@@ -55,7 +55,15 @@ column-count
 column-width
 
 transform
+transform-box
+transform-origin
+transform-style
+
 transition
+transition-delay
+transition-duration
+transition-property
+transition-timing-function
 
 # Border
 
