@@ -10,8 +10,8 @@
 * Add `background-attachment` property to SMACSS property sort order list
 * Add support for CSS Logical Properties to `PropertySpelling`
 * Add `initial` to list of special values in `VariableForProperty`
-* Add `::-webkit-search-decoration`/`::-webkit-search-results-decoration`
-  pseudo elements to `PseudoElement`
+* Add `::-webkit-full-page-media`, `::-webkit-search-decoration`, and
+  `::-webkit-search-results-decoration` pseudo elements to `PseudoElement`
 * Add `backdrop-filter` to list of known properties
 
 ## 0.43.2
