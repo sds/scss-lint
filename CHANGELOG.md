@@ -7,7 +7,9 @@
   `PseudoElement`
 * Fix `UnnecessaryParentReference` to not report selectors with multiple parent
   references
-* Add `background-attachment` property to SMACSS property sort order list
+* Add `background-attachment`, `transform-{box,origin,style}`, and
+  `transform-{delay,duration,property,timing-function}` properties to SMACSS
+  property sort order list
 * Add support for CSS Logical Properties to `PropertySpelling`
 * Add `initial` to list of special values in `VariableForProperty`
 * Add `::-webkit-full-page-media`, `::-webkit-search-decoration`, and
