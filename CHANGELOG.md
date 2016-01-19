@@ -12,6 +12,7 @@
 * Add `initial` to list of special values in `VariableForProperty`
 * Add `::-webkit-search-decoration`/`::-webkit-search-results-decoration`
   pseudo elements to `PseudoElement`
+* Add `backdrop-filter` to list of known properties
 
 ## 0.43.2
 
