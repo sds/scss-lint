@@ -7,6 +7,7 @@
   `PseudoElement`
 * Fix `UnnecessaryParentReference` to not report selectors with multiple parent
   references
+* Add `background-attachment` property to SMACSS property sort order list
 
 ## 0.43.2
 
