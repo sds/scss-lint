@@ -9,6 +9,7 @@
   references
 * Add `background-attachment` property to SMACSS property sort order list
 * Add support for CSS Logical Properties to `PropertySpelling`
+* Add `initial` to list of special values in `VariableForProperty`
 
 ## 0.43.2
 
