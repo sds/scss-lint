@@ -20,6 +20,7 @@ module SCSSLint
 
     def visit_script_funcall(node)
       check_name(node, 'function') unless FUNCTION_WHITELIST.include?(node.name)
+      yield # Continue linting any arguments of this function call
     end
 
     def visit_script_variable(node)

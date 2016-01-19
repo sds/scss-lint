@@ -16,6 +16,8 @@
   `::-webkit-search-results-decoration` pseudo elements to `PseudoElement`
 * Add `backdrop-filter` to list of known properties
 * Fix `PropertySortOrder` to properly handle duplicated properties
+* Fix `NameFormat` to report incorrectly-named variables passed as function
+  arguments
 
 ## 0.43.2
 

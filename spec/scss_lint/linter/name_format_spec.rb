@@ -48,6 +48,16 @@ describe SCSSLint::Linter::NameFormat do
       it { should report_lint line: 1 }
     end
 
+    context 'when a function contains variables with capital letters' do
+      let(:scss) { <<-SCSS }
+        p {
+          content: good-function($badVariable);
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
     context 'when a mixin is declared with a capital letter' do
       let(:scss) { <<-SCSS }
         @mixin badMixin() {
