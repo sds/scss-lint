@@ -15,6 +15,7 @@
 * Add `::-webkit-full-page-media`, `::-webkit-search-decoration`, and
   `::-webkit-search-results-decoration` pseudo elements to `PseudoElement`
 * Add `backdrop-filter` to list of known properties
+* Fix `PropertySortOrder` to properly handle duplicated properties
 
 ## 0.43.2
 

@@ -364,6 +364,20 @@ describe SCSSLint::Linter::PropertySortOrder do
       SCSS
 
       it { should_not report_lint }
+
+      context 'and there are duplicate properties' do
+        let(:scss) { <<-SCSS }
+          p {
+            position: absolute;
+            top: 0;
+            transition: -webkit-transform .33s;
+            transition: transform .33s;
+            background-color: #eee;
+          }
+        SCSS
+
+        it { should_not report_lint }
+      end
     end
 
     context 'and the properties do not match the order' do
@@ -377,6 +391,20 @@ describe SCSSLint::Linter::PropertySortOrder do
       SCSS
 
       it { should report_lint }
+
+      context 'and there are duplicate properties' do
+        let(:scss) { <<-SCSS }
+          p {
+            position: absolute;
+            transition: -webkit-transform .33s;
+            transition: transform .33s;
+            top: 0;
+            background-color: #eee;
+          }
+        SCSS
+
+        it { should report_lint line: 3 }
+      end
     end
   end
 

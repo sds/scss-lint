@@ -76,8 +76,8 @@ module SCSSLint
     end
 
     def check_sort_order(sortable_prop_info)
-      sorted_props = sortable_prop_info
-        .sort { |a, b| compare_properties(a, b) }
+      sortable_prop_info = sortable_prop_info.uniq { |item| item[:name] }
+      sorted_props = sortable_prop_info.sort { |a, b| compare_properties(a, b) }
 
       sorted_props.each_with_index do |prop, index|
         # Once we reach the portion of the list with unspecified properties, we
