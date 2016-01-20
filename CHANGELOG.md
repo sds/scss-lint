@@ -18,6 +18,8 @@
 * Fix `PropertySortOrder` to properly handle duplicated properties
 * Fix `NameFormat` to report incorrectly-named variables passed as function
   arguments
+* Add global `severity` option to allowing you to specify the default severity
+  for all linters
 
 ## 0.43.2
 

@@ -136,13 +136,16 @@ defaults are defined in `config/default.yml`.
 
 ### Severities
 
-The `severity` option allows you to specify whether the lint should be treated
-as a `warning` or an `error`. Warnings cause `scss-lint` to exit with a
+The `severity` linter option allows you to specify whether the lint should be
+treated as a `warning` or an `error`. Warnings cause `scss-lint` to exit with a
 different error code than errors (unless both warnings _and_ errors are
 present, in which case the `error` exit code is returned). This is useful when
 integrating `scss-lint` with build systems or other executables, as you can
 rely on its exit status code to indicate whether a lint actually requires
 attention.
+
+You can also define the default severity for all linters by setting the global
+`severity` option.
 
 ### Excluding Files
 

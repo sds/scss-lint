@@ -138,9 +138,9 @@ describe SCSSLint::Config do
 
       it 'returns the same options for all linters under that namespace' do
         subject.linter_options(SCSSLint::Linter::SomeNamespace::FakeLinter1)
-               .should eq('enabled' => true)
+               .should include 'enabled' => true
         subject.linter_options(SCSSLint::Linter::SomeNamespace::FakeLinter2)
-               .should eq('enabled' => true)
+               .should include 'enabled' => true
       end
     end
 
@@ -229,7 +229,27 @@ describe SCSSLint::Config do
 
     it 'returns the options for the specified linter' do
       config.linter_options(SCSSLint::Linter::FakeConfigLinter.new)
-            .should == linter_options
+            .should include linter_options
+    end
+
+    context 'when global severity is specified' do
+      let(:options) { super().merge('severity' => 'some-severity') }
+
+      context 'and linter severity is not specified' do
+        it 'returns the global severity' do
+          config.linter_options(SCSSLint::Linter::FakeConfigLinter.new)
+                .should include 'severity' => 'some-severity'
+        end
+      end
+
+      context 'and linter severity is specified' do
+        let(:linter_options) { super().merge('severity' => 'custom-severity') }
+
+        it 'returns the global severity' do
+          config.linter_options(SCSSLint::Linter::FakeConfigLinter.new)
+                .should include 'severity' => 'custom-severity'
+        end
+      end
     end
   end
 

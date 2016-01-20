@@ -7,6 +7,9 @@ plugin_directories: ['.scss-linters']
 # installed)
 plugin_gems: []
 
+# Default severity of all linters.
+severity: warning
+
 linters:
   BangFormat:
     enabled: true

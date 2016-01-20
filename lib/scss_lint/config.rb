@@ -73,6 +73,7 @@ module SCSSLint
         options = merge_wildcard_linter_options(options)
         options = ensure_exclude_paths_are_absolute(options, file)
         options = ensure_linter_exclude_paths_are_absolute(options, file)
+        ensure_severities_are_valid(options)
         options
       end
 
@@ -149,6 +150,27 @@ module SCSSLint
         end
 
         options
+      end
+
+      def ensure_severities_are_valid(options)
+        unless severity_is_valid?(options)
+          raise SCSSLint::Exceptions::InvalidConfiguration,
+                'Global `severity` configuration option must be one of [' \
+                "#{SEVERITIES.join(' | ')}]"
+        end
+
+        options['linters'].each do |linter_name, linter_options|
+          next if severity_is_valid?(linter_options)
+
+          raise SCSSLint::Exceptions::InvalidConfiguration,
+                "#{linter_name} `severity` configuration option must be one " \
+                "of [#{SEVERITIES.join(' | ')}]"
+        end
+      end
+
+      SEVERITIES = %w[error warning].freeze
+      def severity_is_valid?(options)
+        SEVERITIES.include?(options.fetch('severity', 'warning'))
       end
 
       def path_relative_to_config(relative_include_path, base_config_path)
@@ -247,7 +269,9 @@ module SCSSLint
     end
 
     def linter_options(linter)
-      @options['linters'].fetch(self.class.linter_name(linter), {})
+      { 'severity' => @options['severity'] }.merge(
+        @options['linters'].fetch(self.class.linter_name(linter), {})
+      )
     end
 
     def excluded_file?(file_path)
