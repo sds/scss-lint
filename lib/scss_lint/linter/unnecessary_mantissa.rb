@@ -34,7 +34,7 @@ module SCSSLint
       )\b
     /ix
 
-    MESSAGE_FORMAT = '`%s` should be written without the mantissa as `%s%s`'
+    MESSAGE_FORMAT = '`%s` should be written without the mantissa as `%s%s`'.freeze
 
     def unnecessary_mantissa?(mantissa)
       mantissa !~ /[^0]/

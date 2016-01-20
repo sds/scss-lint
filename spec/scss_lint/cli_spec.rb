@@ -223,7 +223,7 @@ describe SCSSLint::CLI do
     context 'when specified SCSS file globs match no files' do
       before do
         SCSSLint::FileFinder.any_instance.stub(:find)
-          .and_raise(SCSSLint::Exceptions::NoFilesError)
+                            .and_raise(SCSSLint::Exceptions::NoFilesError)
       end
 
       it 'exits with an appropriate status code' do

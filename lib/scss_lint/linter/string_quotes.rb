@@ -12,8 +12,9 @@ module SCSSLint
       #
       # Thus we manually skip the substrings in the string interpolation and
       # visit the expressions in the interpolation itself.
-      node.children.reject { |child| child.is_a?(Sass::Script::Tree::Literal) }
-                   .each { |child| visit(child) }
+      node.children
+          .reject { |child| child.is_a?(Sass::Script::Tree::Literal) }
+          .each { |child| visit(child) }
     end
 
     def visit_script_string(node)
@@ -27,7 +28,7 @@ module SCSSLint
 
     def visit_charset(node)
       # `@charset` source range includes entire declaration, so exclude that prefix
-      source = source_from_range(node.source_range)[(CHARSET_DIRECTIVE_LENGTH)..-1]
+      source = source_from_range(node.source_range)[CHARSET_DIRECTIVE_LENGTH..-1]
 
       check_quotes(node, source)
     end
@@ -63,11 +64,9 @@ module SCSSLint
     def check_double_quotes(node, string)
       if config['style'] == 'single_quotes'
         add_lint(node, 'Prefer single quoted strings') if string !~ /'/
-      else
-        if string =~ /(?<! \\) \\"/x && string !~ /'/
-          add_lint(node, 'Use single-quoted strings when writing double ' \
-                         'quotes to avoid having to escape the double quotes')
-        end
+      elsif string =~ /(?<! \\) \\"/x && string !~ /'/
+        add_lint(node, 'Use single-quoted strings when writing double ' \
+                       'quotes to avoid having to escape the double quotes')
       end
     end
 
@@ -79,8 +78,8 @@ module SCSSLint
         elsif string =~ /(?<! \\) \\"/x
           add_lint(node, "Don't escape double quotes in single-quoted strings")
         end
-      else
-        add_lint(node, 'Prefer double-quoted strings') if string !~ /"/
+      elsif string !~ /"/
+        add_lint(node, 'Prefer double-quoted strings')
       end
     end
   end

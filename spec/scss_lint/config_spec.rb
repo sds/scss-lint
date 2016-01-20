@@ -132,15 +132,15 @@ describe SCSSLint::Config do
 
       before do
         SCSSLint::LinterRegistry.stub(:linters)
-          .and_return([SCSSLint::Linter::SomeNamespace::FakeLinter1,
-                       SCSSLint::Linter::SomeNamespace::FakeLinter2])
+                                .and_return([SCSSLint::Linter::SomeNamespace::FakeLinter1,
+                                             SCSSLint::Linter::SomeNamespace::FakeLinter2])
       end
 
       it 'returns the same options for all linters under that namespace' do
         subject.linter_options(SCSSLint::Linter::SomeNamespace::FakeLinter1)
-          .should eq('enabled' => true)
+               .should eq('enabled' => true)
         subject.linter_options(SCSSLint::Linter::SomeNamespace::FakeLinter2)
-          .should eq('enabled' => true)
+               .should eq('enabled' => true)
       end
     end
 
@@ -229,7 +229,7 @@ describe SCSSLint::Config do
 
     it 'returns the options for the specified linter' do
       config.linter_options(SCSSLint::Linter::FakeConfigLinter.new)
-        .should == linter_options
+            .should == linter_options
     end
   end
 

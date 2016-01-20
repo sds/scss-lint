@@ -67,7 +67,7 @@ module SCSSLint
           /x
         end,
       },
-    }
+    }.freeze
 
     # Checks the given name and returns the violated convention if it failed.
     def violated_convention(name_string, type)

@@ -28,7 +28,7 @@ module SCSSLint
       \b
     /ix
 
-    MESSAGE_FORMAT = '`%s` should be written without units as `0`'
+    MESSAGE_FORMAT = '`%s` should be written without units as `0`'.freeze
 
     LENGTH_UNITS = %w[em ex ch rem vw vh vmin vmax cm mm in pt pc px].to_set
 

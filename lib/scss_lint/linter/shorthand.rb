@@ -27,7 +27,7 @@ module SCSSLint
       border-width
       margin
       padding
-    ]
+    ].freeze
 
     # @param prop [String]
     # @param list [Sass::Script::Tree::ListLiteral]

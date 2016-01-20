@@ -64,8 +64,8 @@ module SCSSLint
 
       if @allow_non_nested_indentation
         yield # Continue linting else statement
-      else
-        visit(node.else) if node.else
+      elsif node.else
+        visit(node.else)
       end
     end
 
@@ -103,26 +103,26 @@ module SCSSLint
     end
 
     # Define node types that increase indentation level
-    alias_method :visit_directive, :check_and_visit_children
-    alias_method :visit_each,      :check_and_visit_children
-    alias_method :visit_for,       :check_and_visit_children
-    alias_method :visit_function,  :check_and_visit_children
-    alias_method :visit_media,     :check_and_visit_children
-    alias_method :visit_mixin,     :check_and_visit_children
-    alias_method :visit_mixindef,  :check_and_visit_children
-    alias_method :visit_prop,      :check_and_visit_children
-    alias_method :visit_rule,      :check_and_visit_children
-    alias_method :visit_supports,  :check_and_visit_children
-    alias_method :visit_while,     :check_and_visit_children
+    alias visit_directive check_and_visit_children
+    alias visit_each check_and_visit_children
+    alias visit_for check_and_visit_children
+    alias visit_function check_and_visit_children
+    alias visit_media check_and_visit_children
+    alias visit_mixin check_and_visit_children
+    alias visit_mixindef check_and_visit_children
+    alias visit_prop check_and_visit_children
+    alias visit_rule check_and_visit_children
+    alias visit_supports check_and_visit_children
+    alias visit_while check_and_visit_children
 
     # Define node types to check indentation of (notice comments are left out)
-    alias_method :visit_charset,   :check_indentation
-    alias_method :visit_content,   :check_indentation
-    alias_method :visit_cssimport, :check_indentation
-    alias_method :visit_extend,    :check_indentation
-    alias_method :visit_return,    :check_indentation
-    alias_method :visit_variable,  :check_indentation
-    alias_method :visit_warn,      :check_indentation
+    alias visit_charset check_indentation
+    alias visit_content check_indentation
+    alias visit_cssimport check_indentation
+    alias visit_extend check_indentation
+    alias visit_return check_indentation
+    alias visit_variable check_indentation
+    alias visit_warn check_indentation
 
   private
 

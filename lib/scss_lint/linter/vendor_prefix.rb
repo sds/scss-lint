@@ -20,9 +20,9 @@ module SCSSLint
       check_identifier(node, source_from_range(node.value.source_range))
     end
 
-    alias_method :visit_prop, :check_node
-    alias_method :visit_pseudo, :check_node
-    alias_method :visit_directive, :check_node
+    alias visit_prop check_node
+    alias visit_pseudo check_node
+    alias visit_directive check_node
 
   private
 

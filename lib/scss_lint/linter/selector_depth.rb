@@ -49,14 +49,15 @@ module SCSSLint
       depth = simple_sequences.size -
         separators.count { |item| item == '~' || item == '+' }
 
-      if parent_selectors > 0
-        # If parent selectors are present, add the current depth for each
-        # additional parent selector.
-        depth += parent_selectors * (current_depth - 1)
-      else
-        # Otherwise this just descends from the containing selector
-        depth += current_depth
-      end
+      depth +=
+        if parent_selectors > 0
+          # If parent selectors are present, add the current depth for each
+          # additional parent selector.
+          parent_selectors * (current_depth - 1)
+        else
+          # Otherwise this just descends from the containing selector
+          current_depth
+        end
 
       depth
     end

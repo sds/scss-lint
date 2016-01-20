@@ -96,13 +96,14 @@ module SCSSLint
 
       comment_node = command[:node]
       start_line = command[:line]
-      if comment_node.class.node_name == :rule
-        end_line = start_line
-      elsif node.class.node_name == :root
-        end_line = @linter.engine.lines.length
-      else
-        end_line = end_line(node)
-      end
+      end_line =
+        if comment_node.class.node_name == :rule
+          start_line
+        elsif node.class.node_name == :root
+          @linter.engine.lines.length
+        else
+          end_line(node)
+        end
 
       @disabled_lines.merge(start_line..end_line)
     end

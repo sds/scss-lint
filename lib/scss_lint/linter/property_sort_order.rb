@@ -19,8 +19,8 @@ module SCSSLint
       end
 
       if sortable_props.count >= config.fetch('min_properties', 2)
-        sortable_prop_info = sortable_props
-          .map do |child|
+        sortable_prop_info =
+          sortable_props.map do |child|
             name = child.name.join
             /^(?<vendor>-\w+(-osx)?-)?(?<property>.+)/ =~ name
             { name: name, vendor: vendor, property: "#{@nested_under}#{property}", node: child }
@@ -33,10 +33,10 @@ module SCSSLint
       yield # Continue linting children
     end
 
-    alias_method :visit_media, :check_order
-    alias_method :visit_mixin, :check_order
-    alias_method :visit_rule,  :check_order
-    alias_method :visit_prop,  :check_order
+    alias visit_media check_order
+    alias visit_mixin check_order
+    alias visit_rule check_order
+    alias visit_prop check_order
 
     def visit_prop(node, &block)
       # Handle nested properties by appending the parent property they are
@@ -128,12 +128,10 @@ module SCSSLint
     def compare_properties(a, b)
       if a[:property] == b[:property]
         compare_by_vendor(a, b)
+      elsif @preferred_order
+        compare_by_order(a, b, @preferred_order)
       else
-        if @preferred_order
-          compare_by_order(a, b, @preferred_order)
-        else
-          a[:property] <=> b[:property]
-        end
+        a[:property] <=> b[:property]
       end
     end
 

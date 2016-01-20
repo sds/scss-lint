@@ -109,10 +109,10 @@ module SCSSLint
     private
 
       SPACE_MSG = '`%s` should be written with a single space on each side of ' \
-                  'the operator: `%s %s %s`'
+                  'the operator: `%s %s %s`'.freeze
 
       NO_SPACE_MSG = '`%s` should be written without spaces around the ' \
-                     'operator: `%s%s%s`'
+                     'operator: `%s%s%s`'.freeze
 
       def calculate_operator_source
         # We don't want to add 1 to range1.end_pos.offset for the same reason as

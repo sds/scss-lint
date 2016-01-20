@@ -95,10 +95,16 @@ Style/ExtraSpacing:
   Exclude:
     - '*.gemspec'
 
+Style/IndentArray:
+  Enabled: false
+
 Style/MultilineOperationIndentation:
   Enabled: false
 
-TrailingComma:
+Style/TrailingCommaInArguments:
+  Enabled: false
+
+Style/TrailingCommaInLiteral:
   Enabled: false
 
 UselessAccessModifier:

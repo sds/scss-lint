@@ -15,7 +15,7 @@ module SCSSLint
 
     def visit_script_number(node)
       return unless number =
-        source_from_range(node.source_range)[FRACTIONAL_DIGIT_REGEX, 1]
+                      source_from_range(node.source_range)[FRACTIONAL_DIGIT_REGEX, 1]
 
       check_for_trailing_zeros(node, number)
     end

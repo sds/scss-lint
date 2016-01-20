@@ -10,13 +10,13 @@ module SCSSLint
       yield
     end
 
-    alias_method :visit_atroot,           :check_node
-    alias_method :visit_cssimport,        :check_node
-    alias_method :visit_function,         :check_node
-    alias_method :visit_media,            :check_node
-    alias_method :visit_mixindef,         :check_node
-    alias_method :visit_mixin,            :check_node
-    alias_method :visit_script_funcall,   :check_node
+    alias visit_atroot check_node
+    alias visit_cssimport check_node
+    alias visit_function check_node
+    alias visit_media check_node
+    alias visit_mixindef check_node
+    alias visit_mixin check_node
+    alias visit_script_funcall check_node
 
     def feel_for_parens_and_check_node(node)
       source = feel_for_enclosing_parens(node)
@@ -24,10 +24,10 @@ module SCSSLint
       yield
     end
 
-    alias_method :visit_script_listliteral,  :feel_for_parens_and_check_node
-    alias_method :visit_script_mapliteral,  :feel_for_parens_and_check_node
-    alias_method :visit_script_operation,   :feel_for_parens_and_check_node
-    alias_method :visit_script_string,      :feel_for_parens_and_check_node
+    alias visit_script_listliteral feel_for_parens_and_check_node
+    alias visit_script_mapliteral feel_for_parens_and_check_node
+    alias visit_script_operation feel_for_parens_and_check_node
+    alias visit_script_string feel_for_parens_and_check_node
 
   private
 

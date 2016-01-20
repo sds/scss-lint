@@ -86,20 +86,21 @@ module SCSSLint
       last_line    = source_range.end_pos.line - 1
       start_pos    = source_range.start_pos.offset - 1
 
-      if current_line == last_line
-        source = engine.lines[current_line][start_pos..(source_range.end_pos.offset - 1)]
-      else
-        source = engine.lines[current_line][start_pos..-1]
-      end
+      source =
+        if current_line == last_line
+          engine.lines[current_line][start_pos..(source_range.end_pos.offset - 1)]
+        else
+          engine.lines[current_line][start_pos..-1]
+        end
 
       current_line += 1
       while current_line < last_line
-        source += "#{engine.lines[current_line]}"
+        source += engine.lines[current_line].to_s
         current_line += 1
       end
 
       if source_range.start_pos.line != source_range.end_pos.line
-        source += "#{(engine.lines[current_line] || '')[0...source_range.end_pos.offset]}"
+        source += ((engine.lines[current_line] || '')[0...source_range.end_pos.offset]).to_s
       end
 
       source

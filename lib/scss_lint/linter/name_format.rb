@@ -73,7 +73,7 @@ module SCSSLint
                      'instead of underscores',
         validator: ->(name) { name !~ /[_A-Z]/ },
       },
-    }
+    }.freeze
 
     def violated_convention(name_string, type)
       convention_name = convention_name(type)

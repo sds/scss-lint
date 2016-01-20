@@ -6,7 +6,7 @@ module SCSSLint
     TRANSITION_PROPERTIES = %w[
       transition
       transition-property
-    ]
+    ].freeze
 
     def visit_prop(node)
       property = node.name.first.to_s

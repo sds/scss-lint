@@ -11,10 +11,10 @@ module SCSSLint
       if config['present']
         add_lint(engine.lines.count,
                  'Files should end with a trailing newline') unless ends_with_newline
-      else
-        add_lint(engine.lines.count,
-                 'Files should not end with a trailing newline') if ends_with_newline
+      elsif ends_with_newline
+        add_lint(engine.lines.count, 'Files should not end with a trailing newline')
       end
+
       yield
     end
   end

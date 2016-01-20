@@ -37,7 +37,7 @@ module SCSSLint
 
   private
 
-    MESSAGE_FORMAT = '%s declaration should be %s by an empty line'
+    MESSAGE_FORMAT = '%s declaration should be %s by an empty line'.freeze
 
     def check(node, type)
       return if config['ignore_single_line_blocks'] && node_on_single_line?(node)

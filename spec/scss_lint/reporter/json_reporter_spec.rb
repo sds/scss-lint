@@ -56,22 +56,22 @@ describe SCSSLint::Reporter::JSONReporter do
 
       it 'marks each issue with a line number' do
         json.values.flat_map { |issues| issues.map { |issue| issue['line'] } }
-          .should =~ locations.map(&:line)
+            .should =~ locations.map(&:line)
       end
 
       it 'marks each issue with a column number' do
         json.values.flat_map { |issues| issues.map { |issue| issue['column'] } }
-          .should =~ locations.map(&:column)
+            .should =~ locations.map(&:column)
       end
 
       it 'marks each issue with a length' do
         json.values.flat_map { |issues| issues.map { |issue| issue['length'] } }
-          .should =~ locations.map(&:length)
+            .should =~ locations.map(&:length)
       end
 
       it 'marks each issue with a reason containing the lint description' do
         json.values.flat_map { |issues| issues.map { |issue| issue['reason'] } }
-          .should =~ descriptions
+            .should =~ descriptions
       end
 
       context 'when lints are warnings' do

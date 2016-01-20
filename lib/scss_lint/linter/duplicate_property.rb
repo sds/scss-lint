@@ -18,8 +18,8 @@ module SCSSLint
       yield # Continue linting children
     end
 
-    alias_method :visit_rule,     :check_properties
-    alias_method :visit_mixindef, :check_properties
+    alias visit_rule check_properties
+    alias visit_mixindef check_properties
 
   private
 

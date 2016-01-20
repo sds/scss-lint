@@ -15,7 +15,7 @@ module SCSSLint
 
     def visit_script_number(node)
       return unless number =
-        source_from_range(node.source_range)[NUMBER_WITH_LEADING_ZERO_REGEX, 1]
+                      source_from_range(node.source_range)[NUMBER_WITH_LEADING_ZERO_REGEX, 1]
 
       check_for_leading_zeros(node, number)
     end
@@ -35,7 +35,7 @@ module SCSSLint
         validator: ->(original) { original =~ /^0\.\d+$/ },
         converter: ->(original) { "0#{original}" }
       },
-    }
+    }.freeze
 
     def check_for_leading_zeros(node, original_number)
       style = config.fetch('style', 'exclude_zero')

@@ -8,8 +8,10 @@ module SCSSLint
       when Sass::Script::Tree::Literal
         check(node, node.value.value.to_s)
       when Sass::Script::Tree::ListLiteral
-        node.value.children.select { |child| child.is_a?(Sass::Script::Tree::Literal) }
-                           .each { |child| check(node, child.value.to_s) }
+        node.value
+            .children
+            .select { |child| child.is_a?(Sass::Script::Tree::Literal) }
+            .each { |child| check(node, child.value.to_s) }
       end
 
       yield

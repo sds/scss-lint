@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::BangFormat < Linter
     include LinterRegistry
 
-    STOPPING_CHARACTERS = ['!', "'", '"', nil]
+    STOPPING_CHARACTERS = ['!', "'", '"', nil].freeze
 
     def visit_extend(node)
       check_bang(node)

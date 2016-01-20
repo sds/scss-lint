@@ -23,8 +23,8 @@ module SCSSLint
       yield # Continue linting children
     end
 
-    alias_method :visit_root, :check_node
-    alias_method :visit_rule, :check_node
+    alias visit_root check_node
+    alias visit_rule check_node
 
   private
 
@@ -75,8 +75,7 @@ module SCSSLint
     end
 
     def subrule?(rule1, rule2)
-      "#{rule1}".start_with?("#{rule2} ") ||
-        "#{rule1}".start_with?("#{rule2}.")
+      rule1.to_s.start_with?("#{rule2} ", "#{rule2}.")
     end
 
     def whitelist_contains(node)

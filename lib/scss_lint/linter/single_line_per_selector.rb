@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::SingleLinePerSelector < Linter
     include LinterRegistry
 
-    MESSAGE = 'Each selector in a comma sequence should be on its own single line'
+    MESSAGE = 'Each selector in a comma sequence should be on its own single line'.freeze
 
     def visit_comma_sequence(node)
       return unless node.members.count > 1

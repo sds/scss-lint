@@ -8,9 +8,9 @@ module SCSSLint
       yield # Continue linting children
     end
 
-    alias_method :visit_rule, :check_order
-    alias_method :visit_mixin, :check_order
-    alias_method :visit_media, :check_order
+    alias visit_rule check_order
+    alias visit_mixin check_order
+    alias visit_media check_order
 
   private
 
@@ -18,9 +18,9 @@ module SCSSLint
       'Rule sets should be ordered as follows: '\
       '`@extends`, `@includes` without `@content`, ' \
       'properties, `@includes` with `@content`, ' \
-      'nested rule sets'
+      'nested rule sets'.freeze
 
-    MIXIN_WITH_CONTENT = 'mixin_with_content'
+    MIXIN_WITH_CONTENT = 'mixin_with_content'.freeze
 
     DECLARATION_ORDER = [
       Sass::Tree::ExtendNode,
@@ -28,7 +28,7 @@ module SCSSLint
       Sass::Tree::PropNode,
       MIXIN_WITH_CONTENT,
       Sass::Tree::RuleNode,
-    ]
+    ].freeze
 
     def important_node?(node)
       DECLARATION_ORDER.include?(node.class)
@@ -36,8 +36,8 @@ module SCSSLint
 
     def check_node(node)
       children = node.children.each_with_index
-                              .select { |n, _| important_node?(n) }
-                              .map { |n, i| [n, node_declaration_type(n), i] }
+                     .select { |n, _| important_node?(n) }
+                     .map { |n, i| [n, node_declaration_type(n), i] }
 
       sorted_children = children.sort do |(_, a_type, i), (_, b_type, j)|
         [DECLARATION_ORDER.index(a_type), i] <=> [DECLARATION_ORDER.index(b_type), j]

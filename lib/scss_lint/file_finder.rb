@@ -6,7 +6,7 @@ module SCSSLint
   class FileFinder
     # List of extensions of files to include when only a directory is specified
     # as a path.
-    VALID_EXTENSIONS = %w[.css .scss]
+    VALID_EXTENSIONS = %w[.css .scss].freeze
 
     # Create a {FileFinder}.
     #

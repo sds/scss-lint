@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::ColorVariable < Linter
     include LinterRegistry
 
-    COLOR_FUNCTIONS = %w[rgb rgba hsl hsla]
+    COLOR_FUNCTIONS = %w[rgb rgba hsl hsla].freeze
 
     def visit_script_color(node)
       return if in_variable_declaration?(node) ||

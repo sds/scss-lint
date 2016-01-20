@@ -13,7 +13,7 @@ describe SCSSLint::Plugins::LinterDir do
   describe '#load' do
     it 'requires each file in the plugin directory' do
       subject.should_receive(:require)
-        .with(File.join(plugin_directory, 'linter_plugin.rb')).once
+             .with(File.join(plugin_directory, 'linter_plugin.rb')).once
 
       subject.load
     end

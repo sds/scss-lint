@@ -14,14 +14,14 @@ module SCSSLint
       yield
     end
 
-    alias_method :visit_function, :check_node
-    alias_method :visit_each, :check_node
-    alias_method :visit_for, :check_node
-    alias_method :visit_function, :check_node
-    alias_method :visit_mixindef, :check_node
-    alias_method :visit_mixin, :check_node
-    alias_method :visit_rule, :check_node
-    alias_method :visit_while, :check_node
+    alias visit_function check_node
+    alias visit_each check_node
+    alias visit_for check_node
+    alias visit_function check_node
+    alias visit_mixindef check_node
+    alias visit_mixin check_node
+    alias visit_rule check_node
+    alias visit_while check_node
 
   private
 

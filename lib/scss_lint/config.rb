@@ -3,7 +3,7 @@ require 'yaml'
 module SCSSLint
   # Loads and manages application configuration.
   class Config
-    FILE_NAME = '.scss-lint.yml'
+    FILE_NAME = '.scss-lint.yml'.freeze
     DEFAULT_FILE = File.join(SCSS_LINT_HOME, 'config', 'default.yml')
 
     attr_reader :options, :warnings
@@ -195,7 +195,6 @@ module SCSSLint
     def ==(other)
       super || @options == other.options
     end
-    alias_method :eql?, :==
 
     # Extend this {Config} with another configuration.
     #

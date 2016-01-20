@@ -3,7 +3,7 @@ require 'optparse'
 module SCSSLint
   # Handles option parsing for the command line application.
   class Options
-    DEFAULT_REPORTER = ['Default', :stdout]
+    DEFAULT_REPORTER = ['Default', :stdout].freeze
 
     # Parses command line options into an options hash.
     #

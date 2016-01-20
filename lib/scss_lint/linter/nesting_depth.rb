@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::NestingDepth < Linter
     include LinterRegistry
 
-    IGNORED_SELECTORS = [Sass::Selector::Parent, Sass::Selector::Pseudo]
+    IGNORED_SELECTORS = [Sass::Selector::Parent, Sass::Selector::Pseudo].freeze
 
     def visit_root(_node)
       @max_depth = config['max_depth']

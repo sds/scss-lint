@@ -6,7 +6,7 @@ module SCSSLint
     CONVENTION_TO_PREFERENCE = {
       'zero' => %w[0 none],
       'none' => %w[none 0],
-    }
+    }.freeze
 
     BORDER_PROPERTIES = %w[
       border
@@ -14,7 +14,7 @@ module SCSSLint
       border-right
       border-bottom
       border-left
-    ]
+    ].freeze
 
     def visit_root(_node)
       @preference = CONVENTION_TO_PREFERENCE[config['convention']]

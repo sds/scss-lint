@@ -24,7 +24,7 @@ module SCSSLint
       end
     end
 
-    alias_method :eql?, :==
+    alias eql? ==
 
     def <=>(other)
       [:line, :column, :length].each do |attr|
