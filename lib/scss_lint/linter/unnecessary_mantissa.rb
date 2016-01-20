@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SCSSLint
   # Checks for the unnecessary inclusion of a zero-value mantissa in numbers.
   # (e.g. `4.0` could be written as just `4`)

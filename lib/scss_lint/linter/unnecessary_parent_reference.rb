@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SCSSLint
   # Checks for unnecessary uses of the parent reference (&) in nested selectors.
   class Linter::UnnecessaryParentReference < Linter

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SCSSLint
   # Checks for unnecessary units on zero values.
   class Linter::ZeroUnit < Linter

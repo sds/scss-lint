@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SCSSLint
   # Reports the lack of empty lines between block defintions.
   class Linter::EmptyLineBetweenBlocks < Linter

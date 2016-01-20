@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Global application constants.
 module SCSSLint
   SCSS_LINT_HOME = File.realpath(File.join(File.dirname(__FILE__), '..', '..')).freeze

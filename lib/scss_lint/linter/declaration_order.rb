@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SCSSLint
   # Checks the order of nested items within a rule set.
   class Linter::DeclarationOrder < Linter

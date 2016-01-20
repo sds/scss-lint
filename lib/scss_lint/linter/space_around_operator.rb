@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SCSSLint
   # Checks for space around operators on values.
   class Linter::SpaceAroundOperator < Linter
