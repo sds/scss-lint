@@ -245,7 +245,7 @@ describe SCSSLint::Config do
       context 'and linter severity is specified' do
         let(:linter_options) { super().merge('severity' => 'custom-severity') }
 
-        it 'returns the global severity' do
+        it 'returns the custom linter severity' do
           config.linter_options(SCSSLint::Linter::FakeConfigLinter.new)
                 .should include 'severity' => 'custom-severity'
         end
