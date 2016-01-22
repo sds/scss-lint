@@ -1,3 +1,6 @@
+AllCops:
+  TargetRubyVersion: 1.9 # Oldest version of Ruby we support
+
 AccessModifierIndentation:
   EnforcedStyle: outdent
 
