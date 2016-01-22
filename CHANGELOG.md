@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.44.0
 
 * Add `--color` and `--no-color` options
 * Add `::content` and `::shadow` to list of elements recognized by
