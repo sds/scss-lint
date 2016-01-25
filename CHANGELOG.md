@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Add `outline-{color,style,width}` properties to `recess` sort order list
+
 ## 0.44.0
 
 * Add `--color` and `--no-color` options
