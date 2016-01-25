@@ -121,6 +121,9 @@ content
 quotes
 outline
 outline-offset
+outline-width
+outline-style
+outline-color
 opacity
 filter
 visibility
