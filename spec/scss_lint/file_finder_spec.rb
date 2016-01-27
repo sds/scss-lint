@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'fileutils'
 
 describe SCSSLint::FileFinder do
   let(:config) { SCSSLint::Config.default }
@@ -21,9 +22,9 @@ describe SCSSLint::FileFinder do
 
       context 'and there are SCSS files under the current directory' do
         before do
-          `touch blah.scss`
-          `mkdir -p more`
-          `touch more/more.scss`
+          FileUtils.touch('blah.scss')
+          FileUtils.mkdir_p('more')
+          FileUtils.touch(File.join('more', 'more.scss'))
         end
 
         it { should == ['blah.scss', 'more/more.scss'] }
@@ -45,7 +46,7 @@ describe SCSSLint::FileFinder do
 
       context 'and those files exist' do
         before do
-          `touch test.txt`
+          FileUtils.touch('test.txt')
         end
 
         it { should == ['test.txt'] }
@@ -66,7 +67,7 @@ describe SCSSLint::FileFinder do
 
         context 'and they contain SCSS files' do
           before do
-            `touch some-dir/test.scss`
+            FileUtils.touch(File.join('some-dir', 'test.scss'))
           end
 
           it { should == ['some-dir/test.scss'] }
@@ -82,19 +83,20 @@ describe SCSSLint::FileFinder do
 
         context 'and they contain CSS files' do
           before do
-            `touch some-dir/test.css`
+            FileUtils.touch(File.join('some-dir', 'test.css'))
           end
 
-          it { should == ['some-dir/test.css'] }
+          it { should == [File.join('some-dir', 'test.css')] }
         end
 
         context 'and they contain more directories with files with recognized extensions' do
           before do
             `mkdir -p some-dir/more-dir`
-            `touch some-dir/more-dir/test.scss`
+            FileUtils.mkdir_p(File.join('some-dir', 'more-dir'))
+            FileUtils.touch(File.join('some-dir', 'more-dir', 'test.scss'))
           end
 
-          it { should == ['some-dir/more-dir/test.scss'] }
+          it { should == [File.join('some-dir', 'more-dir', 'test.scss')] }
 
           context 'and those SCSS files are excluded by the config' do
             before do
@@ -107,7 +109,7 @@ describe SCSSLint::FileFinder do
 
         context 'and they contain no SCSS files' do
           before do
-            `touch some-dir/test.txt`
+            FileUtils.touch(File.join('some-dir', 'test.txt'))
           end
 
           it 'raises an error' do
