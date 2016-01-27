@@ -47,7 +47,7 @@ module SCSSLint
         end
       end
 
-      files.uniq
+      files.uniq.sort
     end
 
     # @param file [String]

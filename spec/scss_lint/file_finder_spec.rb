@@ -27,7 +27,7 @@ describe SCSSLint::FileFinder do
           FileUtils.touch(File.join('more', 'more.scss'))
         end
 
-        it { should == ['blah.scss', 'more/more.scss'] }
+        it { should == ['blah.scss', File.join('more', 'more.scss')] }
       end
 
       context 'and a default set of files is specified in the config' do
@@ -70,7 +70,7 @@ describe SCSSLint::FileFinder do
             FileUtils.touch(File.join('some-dir', 'test.scss'))
           end
 
-          it { should == ['some-dir/test.scss'] }
+          it { should == [File.join('some-dir', 'test.scss')] }
 
           context 'and those SCSS files are excluded by the config' do
             before do
