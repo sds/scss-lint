@@ -442,7 +442,6 @@ describe SCSSLint::Linter::TrailingSemicolon do
     end
   end
 
-
   context 'when a variable declaration contains a list' do
     context 'with parentheses' do
       context 'and ends with a semicolon' do
@@ -605,8 +604,8 @@ describe SCSSLint::Linter::TrailingSemicolon do
         it { should report_lint }
       end
     end
-    context 'over multiple lines' do
 
+    context 'over multiple lines' do
       context 'with a trailing comma' do
         context 'and ends with a semicolon' do
           let(:scss) { "$foo: (\n  one: 1,\ntwo: 2,\n);" }
