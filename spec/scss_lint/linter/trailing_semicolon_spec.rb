@@ -442,60 +442,224 @@ describe SCSSLint::Linter::TrailingSemicolon do
     end
   end
 
-  context 'when a variable declaration contains a multiline map' do
-    context 'with a trailing comma' do
+  context 'when a variable declaration contains a list' do
+    context 'with parentheses' do
       context 'and ends with a semicolon' do
-        let(:scss) { "$foo: (\n  one: 1,\ntwo: 2,\n);" }
+        let(:scss) { '$foo: (1 2);' }
 
         it { should_not report_lint }
       end
 
       context 'and is missing a semicolon' do
-        let(:scss) { "$foo: (\n  one: 1,\ntwo: 2,\n)" }
+        let(:scss) { '$foo: (1 2)' }
+
+        it { should report_lint }
+      end
+
+      context 'and a nested list' do
+        context 'with parentheses' do
+          context 'on a single line' do
+            context 'and ends with a semicolon' do
+              let(:scss) { '$foo: (1 (2 3));' }
+
+              it { should_not report_lint }
+            end
+
+            context 'and is missing a semicolon' do
+              let(:scss) { '$foo: (1 (2 3))' }
+
+              it { should report_lint }
+            end
+          end
+
+          context 'over multiple lines' do
+            context 'and ends with a semicolon' do
+              let(:scss) { <<-SCSS }
+                  $foo: (1
+                      (2 3)
+                    );
+                SCSS
+              it { should_not report_lint }
+            end
+
+            context 'and is missing a semicolon' do
+              let(:scss) { <<-SCSS }
+                  $foo: (1
+                      (2 3)
+                    )
+                SCSS
+
+              it { should report_lint }
+            end
+          end
+        end
+
+        context 'without parentheses' do
+          context 'and ends with a semicolon' do
+            let(:scss) { <<-SCSS }
+              $foo: (10
+                  20 21 22
+                30);
+            SCSS
+
+            it { should_not report_lint }
+          end
+
+          context 'and is missing a semicolon' do
+            let(:scss) { <<-SCSS }
+              $foo: (10
+                  20 21 22
+                30)
+            SCSS
+
+            it { should report_lint }
+          end
+        end
+      end
+    end
+
+    context 'without parentheses' do
+      context 'and ends with a semicolon' do
+        let(:scss) { '$foo: 1 2;' }
+
+        it { should_not report_lint }
+      end
+
+      context 'and is missing a semicolon' do
+        let(:scss) { '$foo: 1 2' }
+
+        it { should report_lint }
+      end
+
+      context 'and a nested list' do
+        context 'with parentheses' do
+          context 'on a single line' do
+            context 'and ends with a semicolon' do
+              let(:scss) { '$foo: 1 (2 3);' }
+
+              it { should_not report_lint }
+            end
+
+            context 'and is missing a semicolon' do
+              let(:scss) { '$foo: 1 (2 3)' }
+
+              it { should report_lint }
+            end
+          end
+
+          context 'over multiple lines' do
+            context 'and ends with a semicolon' do
+              let(:scss) { <<-SCSS }
+                  $foo: 1
+                      (2 3);
+                SCSS
+              it { should_not report_lint }
+            end
+
+            context 'and is missing a semicolon' do
+              let(:scss) { <<-SCSS }
+                  $foo: 1
+                      (2 3)
+                SCSS
+
+              it { should report_lint }
+            end
+          end
+        end
+
+        context 'without parentheses' do
+          context 'and ends with a semicolon' do
+            let(:scss) { <<-SCSS }
+              $foo: 1,
+                  2 3;
+            SCSS
+
+            it { should_not report_lint }
+          end
+
+          context 'and is missing a semicolon' do
+            let(:scss) { <<-SCSS }
+              $foo: 1,
+                  2 3
+            SCSS
+
+            it { should report_lint }
+          end
+        end
+      end
+    end
+  end
+
+  context 'when a variable declaration contains a map' do
+    context 'on a single line' do
+      context 'and ends with a semicolon' do
+        let(:scss) { '$foo: ("a": ("b": "c"));' }
+
+        it { should_not report_lint }
+      end
+
+      context 'and is missing a semicolon' do
+        let(:scss) { '$foo: ("a": ("b": "c"))' }
 
         it { should report_lint }
       end
     end
 
-    context 'without a trailing comma' do
-      context 'and ends with a semicolon' do
-        let(:scss) { "$foo: (\n  one: 1,\ntwo: 2\n);" }
+    context 'over multiple lines' do
+      context 'with a trailing comma' do
+        context 'and ends with a semicolon' do
+          let(:scss) { "$foo: (\n  one: 1,\ntwo: 2,\n);" }
 
-        it { should_not report_lint }
+          it { should_not report_lint }
+        end
+
+        context 'and is missing a semicolon' do
+          let(:scss) { "$foo: (\n  one: 1,\ntwo: 2,\n)" }
+
+          it { should report_lint }
+        end
       end
 
-      context 'and is missing a semicolon' do
-        let(:scss) { "$foo: (\n  one: 1,\ntwo: 2\n)" }
+      context 'without a trailing comma' do
+        context 'and ends with a semicolon' do
+          let(:scss) { "$foo: (\n  one: 1,\ntwo: 2\n);" }
 
-        it { should report_lint }
+          it { should_not report_lint }
+        end
+
+        context 'and is missing a semicolon' do
+          let(:scss) { "$foo: (\n  one: 1,\ntwo: 2\n)" }
+
+          it { should report_lint }
+        end
       end
-    end
 
-    context 'and a nested list' do
-      context 'and ends with a semicolon' do
-        let(:scss) { <<-SCSS }
-          $foo: (
-            "a": (
-              "b",
-              "c"
+      context 'and a nested list' do
+        context 'and ends with a semicolon' do
+          let(:scss) { <<-SCSS }
+            $foo: (
+              "a": (
+                "b",
+                "c"
+              )
+            );
+          SCSS
+
+          it { should_not report_lint }
+        end
+
+        context 'and is missing a semicolon' do
+          let(:scss) { <<-SCSS }
+            $foo: (
+              "a": (
+                "b",
+                "c"
+              )
             )
-          );
-        SCSS
+          SCSS
 
-        it { should_not report_lint }
-      end
-
-      context 'and is missing a semicolon' do
-        let(:scss) { <<-SCSS }
-          $foo: (
-            "a": (
-              "b",
-              "c"
-            )
-          )
-        SCSS
-
-        it { should report_lint }
+          it { should report_lint }
+        end
       end
     end
   end

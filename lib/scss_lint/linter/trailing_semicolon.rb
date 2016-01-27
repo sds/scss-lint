@@ -19,9 +19,8 @@ module SCSSLint
       # `node.expr` will give us everything except the last right paren, and
       # the semicolon if it exists. In these cases, use the source range of
       # `node` as above.
-      if (node.expr.is_a?(Sass::Script::Tree::ListLiteral) ||
-          node.expr.is_a?(Sass::Script::Tree::MapLiteral)) &&
-         !node_on_single_line?(node)
+      if node.expr.is_a?(Sass::Script::Tree::ListLiteral) ||
+          node.expr.is_a?(Sass::Script::Tree::MapLiteral)
         return check_semicolon(node)
       end
 
