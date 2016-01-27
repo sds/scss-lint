@@ -3,6 +3,8 @@
 ## master (unreleased)
 
 * Add `outline-{color,style,width}` properties to `recess` sort order list
+* Fix `TrailingSemicolon` to not report false positives for single line
+  list/map literals
 
 ## 0.44.0
 
