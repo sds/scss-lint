@@ -74,12 +74,16 @@ module SCSSLint
       runner.run(files)
       report_lints(options, runner.lints, files)
 
+      halt exit_status(runner)
+    end
+
+    def exit_status(runner)
       if runner.lints.any?(&:error?)
-        halt :error
+        :error
       elsif runner.lints.any?
-        halt :warning
+        :warning
       else
-        halt :ok
+        :ok
       end
     end
 
