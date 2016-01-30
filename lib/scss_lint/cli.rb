@@ -62,7 +62,7 @@ module SCSSLint
     end
 
     def scan_for_lints(options, config)
-      runner = Runner.new(config)
+      runner = Runner.new(config, @log)
       files =
         if options[:stdin_file_path]
           [{ file: STDIN, path: options[:stdin_file_path] }]

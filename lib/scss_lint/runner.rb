@@ -5,9 +5,10 @@ module SCSSLint
     attr_reader :lints, :files
 
     # @param config [Config]
-    def initialize(config)
+    def initialize(config, logger)
       @config  = config
       @lints   = []
+      @logger = logger
       @linters = LinterRegistry.linters.select { |linter| @config.linter_enabled?(linter) }
       @linters.map!(&:new)
     end

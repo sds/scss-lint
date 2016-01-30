@@ -10,8 +10,11 @@ describe SCSSLint::Runner do
     }
   end
 
+  let(:io)     { StringIO.new }
+  let(:output) { io.string }
+  let(:logger) { SCSSLint::Logger.new(io) }
   let(:config) { SCSSLint::Config.new(config_options) }
-  let(:runner) { described_class.new(config) }
+  let(:runner) { described_class.new(config, logger) }
 
   before do
     SCSSLint::LinterRegistry.stub(:linters)
