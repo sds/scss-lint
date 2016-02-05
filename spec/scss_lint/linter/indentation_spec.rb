@@ -19,6 +19,11 @@ describe SCSSLint::Linter::Indentation do
     SCSS
 
     it { should_not report_lint }
+
+    context 'with windows-style newlines with carriage returns' do
+      let(:scss) { 'p {  margin: 0;}' }
+      it { should_not report_lint }
+    end
   end
 
   context 'when lines in a rule set are not properly indented' do
@@ -33,6 +38,13 @@ describe SCSSLint::Linter::Indentation do
     it { should report_lint line: 2 }
     it { should_not report_lint line: 3 }
     it { should report_lint line: 4 }
+
+    context 'with windows-style newlines with carriage returns' do
+      let(:scss) { 'p {   margin: 0;}' }
+      it { should_not report_lint line: 1 }
+      it { should report_lint line: 2 }
+      it { should_not report_lint line: 3 }
+    end
   end
 
   context 'when selector of a nested rule set is not properly indented' do

@@ -5,6 +5,7 @@
 * Add `outline-{color,style,width}` properties to `recess` sort order list
 * Fix `TrailingSemicolon` to not report false positives for single line
   list/map literals
+* Improve compatibility with files that use CRLF and CR for newlines.
 
 ## 0.44.0
 
