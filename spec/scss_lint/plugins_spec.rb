@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module SCSSLint
   describe Plugins do
-    let(:subject) { described_class.new(Config.new(config_options)) }
+    let(:subject) { described_class.new(Config.new(config_options, Config.user_file)) }
 
     describe '#load' do
       context 'when gem plugins are specified' do
@@ -22,9 +22,10 @@ module SCSSLint
       context 'when directory plugins are specified' do
         let(:config_options) { { 'plugin_directories' => ['some_dir'] } }
         let(:plugin) { double(load: nil) }
+        let(:plugin_dir) { File.join(File.dirname(Config.user_file), 'some_dir') }
 
         before do
-          Plugins::LinterDir.stub(:new).with('some_dir').and_return(plugin)
+          Plugins::LinterDir.stub(:new).with(plugin_dir).and_return(plugin)
         end
 
         it 'loads the plugin' do

@@ -26,7 +26,7 @@ module SCSSLint
 
     def plugin_directories
       Array(@config['plugin_directories']).map do |directory|
-        LinterDir.new(directory)
+        LinterDir.new(File.join(File.dirname(@config.file), directory))
       end
     end
   end
