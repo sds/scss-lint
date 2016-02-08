@@ -8,7 +8,7 @@ module SCSSLint
     FILE_NAME = '.scss-lint.yml'.freeze
     DEFAULT_FILE = File.join(SCSS_LINT_HOME, 'config', 'default.yml')
 
-    attr_reader :options, :warnings
+    attr_reader :options, :warnings, :file
 
     class << self
       def default
@@ -20,7 +20,7 @@ module SCSSLint
       def load(file, options = {})
         config_options = load_options_hash_from_file(file)
 
-        config = new(config_options)
+        config = new(config_options, file)
 
         # Need to call this before merging with the default configuration so
         # that plugins can override the default configuration while still being
@@ -201,9 +201,10 @@ module SCSSLint
       end
     end
 
-    def initialize(options)
+    def initialize(options, file = Config.user_file)
       @options = options
       @warnings = []
+      @file = file
 
       validate_linters
     end
