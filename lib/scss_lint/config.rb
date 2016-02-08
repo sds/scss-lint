@@ -8,7 +8,7 @@ module SCSSLint
     FILE_NAME = '.scss-lint.yml'.freeze
     DEFAULT_FILE = File.join(SCSS_LINT_HOME, 'config', 'default.yml')
 
-    attr_reader :options, :warnings
+    attr_reader :options, :warnings, :file
 
     class << self
       def default
@@ -207,11 +207,6 @@ module SCSSLint
       @file = file
 
       validate_linters
-    end
-
-    # returns the path of the config file
-    def file
-      @file
     end
 
     def [](key)
