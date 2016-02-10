@@ -6,6 +6,7 @@
 * Fix `TrailingSemicolon` to not report false positives for single line
   list/map literals
 * Improve compatibility with files that use CRLF and CR for newlines.
+* Load `plugin_directories` relative to the config file itself
 
 ## 0.44.0
 
