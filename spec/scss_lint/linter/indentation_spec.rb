@@ -20,8 +20,8 @@ describe SCSSLint::Linter::Indentation do
 
     it { should_not report_lint }
 
-    context 'with windows-style newlines with carriage returns' do
-      let(:scss) { "p {\r\n  margin: 0;\r\n}" }
+    context 'with carriage returns for newlines' do
+      let(:scss) { "p {\r  margin: 0;\r}" }
       it { should_not report_lint }
     end
   end
@@ -39,8 +39,8 @@ describe SCSSLint::Linter::Indentation do
     it { should_not report_lint line: 3 }
     it { should report_lint line: 4 }
 
-    context 'with windows-style newlines with carriage returns' do
-      let(:scss) { "p {\r\nmargin: 0;\r\n  padding: 1em;}" }
+    context 'with carriage returns for newlines' do
+      let(:scss) { "p {\rmargin: 0;\r  padding: 1em;}" }
       it { should_not report_lint line: 1 }
       it { should report_lint line: 2 }
       it { should_not report_lint line: 3 }
