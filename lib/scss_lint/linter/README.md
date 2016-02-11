@@ -1225,6 +1225,14 @@ Configuration Option     | Description
 `{type}_convention`   | Convention for `{type}` selectors only, where `{type}` is one of `attribute`, `class`, `id`, or `placeholder`. See the `convention` option for possible values.
 `{type}_convention_explanation` | Custom explanation for `{type}` selector convention, where `{type}` is one of `attribute`, `class`, `id`, or `placeholder`.
 
+### Limitations
+
+`SelectorFormat` will not resolve the parent selector reference (`&`),
+and will ignore selectors containing any parent references.
+This is because these references cannot be resolved without compiling
+the Sass into actual CSS. If you would like to see such functionality,
+we'd love to merge a pull request!
+
 ## Shorthand
 
 Prefer the shortest shorthand form possible for properties that support it.
