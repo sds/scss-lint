@@ -1642,7 +1642,7 @@ unnecessary.
 
 ## UrlFormat
 
-URLs should not contain protocols or domain names.
+URLs should be valid and not contain protocols or domain names.
 
 Including protocols or domains in URLs makes them brittle to change, and also
 unnecessarily increases the size of your CSS documents, reducing performance.
