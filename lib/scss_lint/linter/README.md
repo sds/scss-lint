@@ -44,6 +44,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [SpaceAfterComma](#spaceaftercomma)
 * [SpaceAfterPropertyColon](#spaceafterpropertycolon)
 * [SpaceAfterPropertyName](#spaceafterpropertyname)
+* [SpaceAfterVariableColon](#spaceaftervariablecolon)
 * [SpaceAfterVariableName](#spaceaftervariablename)
 * [SpaceAroundOperator](#spacearoundoperator)
 * [SpaceBeforeBrace](#spacebeforebrace)
@@ -1382,6 +1383,32 @@ margin : 0;
 ```scss
 margin: 0;
 ```
+
+## SpaceAfterVariableColon
+
+Variables should be formatted with a single space separating the colon from
+the variable's value.
+
+**Bad: no space after colon**
+```scss
+$my-color:#fff;
+```
+
+**Bad: more than one space after colon**
+```scss
+$my-color:  #fff;
+```
+
+**Good**
+```scss
+$my-color: #fff;
+```
+
+The `style` option allows you to specify a different preferred style.
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`style`              | `one_space`, `no_space`, `at_least_one_space` or `one_space_or_newline` (default **one_space**)
 
 ## SpaceAfterVariableName
 

@@ -9,6 +9,8 @@
 * Load `plugin_directories` relative to the config file itself
 * Fix bug in `SingleLinePerProperty` that prevented the linter from checking
   nested selectors
+* Add `SpaceAfterVariableColon` which checks for the spacing after a variable
+  colon
 
 ## 0.44.0
 
