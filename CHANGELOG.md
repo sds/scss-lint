@@ -7,6 +7,8 @@
   list/map literals
 * Improve compatibility with files that use CRLF and CR for newlines.
 * Load `plugin_directories` relative to the config file itself
+* Fix bug in `SingleLinePerProperty` that prevented the linter from checking
+  nested selectors
 
 ## 0.44.0
 
