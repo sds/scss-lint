@@ -70,4 +70,24 @@ describe SCSSLint::Linter::SingleLinePerProperty do
       it { should report_lint }
     end
   end
+
+  context 'when a nested single line rule set contains a single property' do
+    let(:scss) { <<-SCSS }
+      .my-selector {
+        p { color: #fff; }
+      }
+    SCSS
+
+    context 'and single line rule sets are allowed' do
+      let(:linter_config) { { 'allow_single_line_rule_sets' => true } }
+
+      it { should_not report_lint }
+    end
+
+    context 'and single line rule sets are not allowed' do
+      let(:linter_config) { { 'allow_single_line_rule_sets' => false } }
+
+      it { should report_lint }
+    end
+  end
 end

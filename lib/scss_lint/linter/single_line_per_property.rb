@@ -4,6 +4,8 @@ module SCSSLint
     include LinterRegistry
 
     def visit_rule(node)
+      yield # Continue linting children
+
       single_line = single_line_rule_set?(node)
       return if single_line && config['allow_single_line_rule_sets']
 
