@@ -23,17 +23,17 @@ module SCSSLint
 
     def visit_prop(node)
       return unless BORDER_PROPERTIES.include?(node.name.first.to_s)
-      check_border(node, node.value.to_sass.strip)
+      check_border(node, node.name.first.to_s, node.value.to_sass.strip)
     end
 
   private
 
-    def check_border(node, border)
-      return unless %w[0 none].include?(border)
-      return if @preference[0] == border
+    def check_border(node, border_property, border_value)
+      return unless %w[0 none].include?(border_value)
+      return if @preference[0] == border_value
 
-      add_lint(node, "`border: #{@preference[0]}` is preferred over " \
-                     "`border: #{@preference[1]}`")
+      add_lint(node, "`#{border_property}: #{@preference[0]}` is preferred over " \
+                     "`#{border_property}: #{@preference[1]}`")
     end
   end
 end

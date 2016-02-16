@@ -12,6 +12,8 @@
 * Add `SpaceAfterVariableColon` which checks for the spacing after a variable
   colon
 * Relax rake dependency version to allow >= 0.9
+* Improve `BorderZero` by adding the offending border property to the lint
+  description
 
 ## 0.44.0
 
