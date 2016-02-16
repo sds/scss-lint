@@ -11,6 +11,7 @@
   nested selectors
 * Add `SpaceAfterVariableColon` which checks for the spacing after a variable
   colon
+* Relax rake dependency version to allow >= 0.9
 
 ## 0.44.0
 
