@@ -360,6 +360,7 @@ DuplicateProperty:
   ignore_consecutive:
     - background
     - transition
+```
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------

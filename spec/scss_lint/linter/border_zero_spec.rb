@@ -11,6 +11,8 @@ describe SCSSLint::Linter::BorderZero do
   end
 
   context 'when a property' do
+    let(:lint_description) { subject.lints.first.description }
+
     context 'contains a normal border' do
       let(:scss) { <<-SCSS }
         p {
@@ -39,6 +41,10 @@ describe SCSSLint::Linter::BorderZero do
       SCSS
 
       it { should report_lint line: 2 }
+
+      it 'should report lint with the border property in the description' do
+        lint_description.should == '`border: 0` is preferred over `border: none`'
+      end
     end
 
     context 'has a border-top of none' do
@@ -49,6 +55,10 @@ describe SCSSLint::Linter::BorderZero do
       SCSS
 
       it { should report_lint line: 2 }
+
+      it 'should report lint with the border-top property in the description' do
+        lint_description.should == '`border-top: 0` is preferred over `border-top: none`'
+      end
     end
 
     context 'has a border-right of none' do
@@ -59,6 +69,10 @@ describe SCSSLint::Linter::BorderZero do
       SCSS
 
       it { should report_lint line: 2 }
+
+      it 'should report lint with the border-right property in the description' do
+        lint_description.should == '`border-right: 0` is preferred over `border-right: none`'
+      end
     end
 
     context 'has a border-bottom of none' do
@@ -69,6 +83,10 @@ describe SCSSLint::Linter::BorderZero do
       SCSS
 
       it { should report_lint line: 2 }
+
+      it 'should report lint with the border-bottom property in the description' do
+        lint_description.should == '`border-bottom: 0` is preferred over `border-bottom: none`'
+      end
     end
 
     context 'has a border-left of none' do
@@ -79,6 +97,10 @@ describe SCSSLint::Linter::BorderZero do
       SCSS
 
       it { should report_lint line: 2 }
+
+      it 'should report lint with the border-left property in the description' do
+        lint_description.should == '`border-left: 0` is preferred over `border-left: none`'
+      end
     end
   end
 
