@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.45.0
 
 * Add `outline-{color,style,width}` properties to `recess` sort order list
 * Fix `TrailingSemicolon` to not report false positives for single line
