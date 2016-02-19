@@ -348,13 +348,23 @@ function, so the intention is to fall back to the color `#fff`.
 }
 ```
 
-In this situation, using duplicate properties is acceptable, but the linter
-won't be able to deduce your intention, and will still report an error.
+In this situation, using duplicate properties is acceptable, but you will have
+to configure DuplicateProperty with the `ignore_consecutive` option, so that it
+won't consider such cases to be lint. `ignore_consecutive` can be set to `true`,
+`false` (default), or a list of property names to be allowed. For example, to
+ignore consecutive `background` and `transition` properties, as above, you can
+configure DuplicateProperty with:
 
-If you've made the decision to _not_ support older browsers, then this lint is
-more helpful since you don't want to clutter your CSS with fallbacks.
-Otherwise, you may want to consider disabling this check in your
-`.scss-lint.yml` configuration.
+```yaml
+DuplicateProperty:
+  ignore_consecutive:
+    - background
+    - transition
+```
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`ignore_consecutive` | Whether to ignore consecutive duplicate properties (default **false**), or a whitelist.
 
 ## ElsePlacement
 

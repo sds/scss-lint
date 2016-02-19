@@ -186,4 +186,59 @@ describe SCSSLint::Linter::DuplicateProperty do
 
     it { should report_lint line: 4 }
   end
+
+  context 'when consecutive duplicate properties are allowed' do
+    let(:linter_config) { { 'ignore_consecutive' => true } }
+
+    context 'when rule set contains consecutive duplicates' do
+      let(:scss) { <<-SCSS }
+        p {
+          background-color: #fff;
+          background-color: rgba(255, 255, 255, 0.7);
+          background-color: a-third-thing;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when rule set contains non-consecutive duplicates' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 0;
+          padding: 0;
+          margin: 1em;
+        }
+      SCSS
+
+      it { should report_lint line: 4 }
+    end
+  end
+
+  context 'when specific consecutive duplicate properties are allowed' do
+    let(:linter_config) { { 'ignore_consecutive' => ['background-color', 'transition'] } }
+
+    context 'when rule set contains consecutive duplicates in whitelist' do
+      let(:scss) { <<-SCSS }
+        p {
+          background-color: #fff;
+          background-color: rgba(255, 255, 255, 0.7);
+          background-color: a-third-thing;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when rule set contains consecutive duplicates not in whitelist' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 0;
+          margin: 5px;
+        }
+      SCSS
+
+      it { should report_lint line: 3 }
+    end
+  end
 end

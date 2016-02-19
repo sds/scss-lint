@@ -3,13 +3,22 @@ module SCSSLint
   class Linter::DuplicateProperty < Linter
     include LinterRegistry
 
+    def visit_root(_node)
+      @ignore_consecutive = config['ignore_consecutive']
+      yield
+    end
+
     def check_properties(node)
       static_properties(node).each_with_object({}) do |prop, prop_names|
         prop_key = property_key(prop)
 
         if existing_prop = prop_names[prop_key]
-          add_lint(prop, "Property `#{existing_prop.name.join}` already "\
-                         "defined on line #{existing_prop.line}")
+          if existing_prop.line < prop.line - 1 || !ignore_consecutive_of?(prop)
+            add_lint(prop, "Property `#{existing_prop.name.join}` already "\
+                           "defined on line #{existing_prop.line}")
+          else
+            prop_names[prop_key] = prop
+          end
         else
           prop_names[prop_key] = prop
         end
@@ -52,6 +61,22 @@ module SCSSLint
         prop.value.value
       else
         prop.value.to_s
+      end
+    end
+
+    def ignore_consecutive_of?(prop)
+      case @ignore_consecutive
+      when true
+        return true
+      when false
+        return false
+      when nil
+        return false
+      when Array
+        return @ignore_consecutive.include?(prop.name.join)
+      else
+        raise SCSSLint::Exceptions::LinterError,
+              "#{@ignore_consecutive.inspect} is not a valid value for ignore_consecutive."
       end
     end
   end

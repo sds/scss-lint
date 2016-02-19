@@ -1,5 +1,11 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Add `ignore_consecutive` option to the `DuplicateProperty` linter, allowing
+  duplicate consecutive properties. It accepts `true`, `false`, or a list of
+  property names to be ignored.
+
 ## 0.45.0
 
 * Add `outline-{color,style,width}` properties to `recess` sort order list
