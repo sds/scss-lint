@@ -10,6 +10,7 @@ module SCSSLint
       let(:config_file_exists) { false }
 
       before do
+        File.stub(:exist?).and_call_original
         File.stub(:exist?).with(config_file).and_return(config_file_exists)
       end
 
