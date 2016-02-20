@@ -1,10 +1,12 @@
 {
   "lib/scss_lint/*.rb": {
     "alternate": "spec/scss_lint/{}_spec.rb",
-    "type": "source"
+    "type": "source",
+    "dispatch": "rspec spec/scss_lint/{}_spec.rb"
   },
   "spec/scss_lint/*_spec.rb": {
     "alternate": "lib/scss_lint/{}.rb",
-    "type": "test"
+    "type": "test",
+    "dispatch": "rspec {file}"
   }
 }

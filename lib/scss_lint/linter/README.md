@@ -31,6 +31,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [NameFormat](#nameformat)
 * [NestingDepth](#nestingdepth)
 * [PlaceholderInExtend](#placeholderinextend)
+* [PrivateNamingConvention](#privatenamingconvention)
 * [PropertyCount](#propertycount)
 * [PropertySortOrder](#propertysortorder)
 * [PropertySpelling](#propertyspelling)
@@ -769,7 +770,9 @@ refer to it using the hyphenated form instead.
 Depending on whether you use underscores to denote private functions within your
 code, you can set the `allow_leading_underscore` option (enabled by default)
 which will ignore leading underscores in names if they exist, allowing
-declarations like `@function _private-function() { ... }`.
+declarations like `@function _private-function() { ... }`. If you want to
+further enforce a private naming convention, use
+[PrivateNamingConvention](#privatenamingconvention).
 
 Configuration Option            | Description
 --------------------------------|----------------------------------------------
@@ -866,6 +869,52 @@ See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-
 
 If you want to prevent the use of the `@extend` directive entirely, see the
 [ExtendDirective](#extenddirective) linter.
+
+## PrivateNamingConvention
+
+**Disabled by default**
+
+Enforces that functions, mixins, and variables that follow the private naming
+convention (default to underscore-prefixed, e.g. `$_foo`) are defined and used
+within the same file.
+
+**Bad**
+```scss
+$_foo: #f00;
+
+p {
+  color: #00f;
+}
+```
+
+**Bad**
+```scss
+p {
+  color: $_foo;
+}
+```
+
+**Bad**
+```scss
+p {
+  color: $_foo;
+}
+
+$_foo: #f00;
+```
+
+**Good**
+```scss
+$_foo: #f00;
+
+p {
+  color: $_foo;
+}
+```
+
+Configuration Option | Description
+---------------------|----------------------------------------------
+`prefix`             | Prefix used to denote "private" (default `_`)
 
 ## PropertyCount
 

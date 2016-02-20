@@ -5,6 +5,9 @@
 * Add `ignore_consecutive` option to the `DuplicateProperty` linter, allowing
   duplicate consecutive properties. It accepts `true`, `false`, or a list of
   property names to be ignored.
+* Add `PrivateNamingConvention` linter which enforces that functions, mixins,
+  and variables that follow the private naming convention (default to
+  underscore-prefixed) are defined and used within the same file
 
 ## 0.45.0
 
