@@ -8,6 +8,7 @@
 * Add `PrivateNamingConvention` linter which enforces that functions, mixins,
   and variables that follow the private naming convention (default to
   underscore-prefixed) are defined and used within the same file
+* Add TAP (Test Anything Protocol) formatter
 
 ## 0.45.0
 
