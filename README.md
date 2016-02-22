@@ -292,6 +292,44 @@ Outputs JSON with filenames and an array of issue objects.
 }
 ```
 
+### TAP
+
+Outputs [TAP version 13](https://testanything.org) format.
+
+```
+TAP version 13
+1..5
+ok 1 - ok1.scss
+not ok 2 - not-ok1.scss:123:10 SCSSLint::Linter::PrivateNamingConvention
+  ---
+  message: Description of lint 1
+  severity: warning
+  data:
+    file: not-ok1.scss
+    line: 123
+    column: 10
+  ---
+not ok 3 - not-ok2.scss:20:2 SCSSLint::Linter::PrivateNamingConvention
+  ---
+  message: Description of lint 2
+  severity: error
+  data:
+    file: not-ok2.scss
+    line: 20
+    column: 2
+  ---
+not ok 4 - not-ok2.scss:21:3 SCSSLint::Linter::PrivateNamingConvention
+  ---
+  message: Description of lint 3
+  severity: warning
+  data:
+    file: not-ok2.scss
+    line: 21
+    column: 3
+  ---
+ok 5 - ok2.scss
+```
+
 ### Plugins
 
 There are also formatters that integrate with third-party tools which are available as plugins.

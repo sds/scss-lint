@@ -2,11 +2,11 @@
   "lib/scss_lint/*.rb": {
     "alternate": "spec/scss_lint/{}_spec.rb",
     "type": "source",
-    "dispatch": "rspec spec/scss_lint/{}_spec.rb"
+    "dispatch": "bundle exec rspec spec/scss_lint/{}_spec.rb"
   },
   "spec/scss_lint/*_spec.rb": {
     "alternate": "lib/scss_lint/{}.rb",
     "type": "test",
-    "dispatch": "rspec {file}"
+    "dispatch": "bundle exec rspec {file}"
   }
 }
