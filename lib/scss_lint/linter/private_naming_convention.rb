@@ -38,17 +38,17 @@ module SCSSLint
     end
 
     def visit_script_funcall(node)
-      check_privacy(node, Sass::Tree::FunctionNode)
+      check_privacy(node)
       yield # Continue linting any arguments of this function call
     end
 
     def visit_mixin(node)
-      check_privacy(node, Sass::Tree::MixinDefNode)
+      check_privacy(node)
       yield # Continue into content block of this mixin's block
     end
 
     def visit_script_variable(node)
-      check_privacy(node, Sass::Tree::VariableNode)
+      check_privacy(node)
     end
 
   private
@@ -57,22 +57,24 @@ module SCSSLint
       return unless private?(node)
 
       @private_definitions ||= {}
-      @private_definitions[node.class.name] ||= {}
+      @private_definitions[node.class] ||= {}
 
-      @private_definitions[node.class.name][node_text] = {
+      @private_definitions[node.class][node_text] = {
         node: node,
         times_used: 0,
       }
     end
 
-    def check_privacy(node, defining_node_class, node_text = node.name)
+    def check_privacy(node, node_text = node.name)
       return unless private?(node)
+
+      defined_by_class = defined_by(node)
 
       # Look at top-level private definitions
       if @private_definitions &&
-          @private_definitions[defining_node_class.name] &&
-          @private_definitions[defining_node_class.name][node_text]
-        @private_definitions[defining_node_class.name][node_text][:times_used] += 1
+          @private_definitions[defined_by_class] &&
+          @private_definitions[defined_by_class][node_text]
+        @private_definitions[defined_by_class][node_text][:times_used] += 1
         return
       end
 
@@ -80,7 +82,7 @@ module SCSSLint
       # tree, looking for private definitions of this node that are scoped.
       looking_for = {
         node: node,
-        defined_by: defined_by(node),
+        defined_by: defined_by_class,
         location: location_from_range(node.source_range),
       }
       return if node_defined_earlier_in_branch?(node.node_parent, looking_for)
@@ -132,7 +134,7 @@ module SCSSLint
     def after_visit_all
       return unless @private_definitions
 
-      @private_definitions.each do |node_type, nodes|
+      @private_definitions.each do |_, nodes|
         nodes.each do |node_text, node_info|
           next if node_info[:times_used] > 0
           node_type = humanize_node_class(node_info[:node])
