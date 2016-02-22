@@ -4,16 +4,28 @@ module SCSSLint
   class Linter::PrivateNamingConvention < Linter # rubocop:disable ClassLength
     include LinterRegistry
 
-    DEFINING_CLASSES = [
-      Sass::Tree::FunctionNode,
-      Sass::Tree::MixinDefNode,
-      Sass::Tree::VariableNode,
-    ].freeze
+    DEFINITIONS = {
+      Sass::Tree::FunctionNode => {
+        defines: Sass::Script::Tree::Funcall,
+        human_name: 'function',
+      },
+      Sass::Tree::MixinDefNode => {
+        defines: Sass::Tree::MixinNode,
+        human_name: 'mixin',
+      },
+      Sass::Tree::VariableNode => {
+        defines: Sass::Script::Tree::Variable,
+        human_name: 'variable',
+      },
+    }.freeze
+
+    HUMAN_NODE_NAMES = Hash[DEFINITIONS.map { |k, v| [k, v[:human_name]] }].freeze
+    DEFINED_BYS = Hash[DEFINITIONS.map { |k, v| [v[:defines], k] }].freeze
 
     def visit_root(node)
       # Register all top-level function, mixin, and variable definitions.
       node.children.each_with_object([]) do |child_node|
-        if DEFINING_CLASSES.include?(child_node.class)
+        if DEFINITIONS.key?(child_node.class)
           register_node child_node
         else
           yield
@@ -68,7 +80,7 @@ module SCSSLint
       # tree, looking for private definitions of this node that are scoped.
       looking_for = {
         node: node,
-        defining_class: defining_class_for(node),
+        defined_by: defined_by(node),
         location: location_from_range(node.source_range),
       }
       return if node_defined_earlier_in_branch?(node.node_parent, looking_for)
@@ -85,7 +97,7 @@ module SCSSLint
       # defining node that matches in name and type.
       node_to_look_in.children.each_with_object([]) do |child_node|
         break unless before?(child_node, looking_for[:location])
-        next unless child_node.class == looking_for[:defining_class]
+        next unless child_node.class == looking_for[:defined_by]
         next unless child_node.name == looking_for[:node].name
 
         return true # We found a match, so we are done
@@ -133,25 +145,11 @@ module SCSSLint
     end
 
     def humanize_node_class(node)
-      case node
-      when Sass::Tree::FunctionNode
-        'function'
-      when Sass::Tree::MixinDefNode
-        'mixin'
-      when Sass::Tree::VariableNode
-        'variable'
-      end
+      HUMAN_NODE_NAMES[node.class]
     end
 
-    def defining_class_for(node)
-      case node
-      when Sass::Script::Tree::Funcall
-        Sass::Tree::FunctionNode
-      when Sass::Tree::MixinNode
-        Sass::Tree::MixinDefNode
-      when Sass::Script::Tree::Variable
-        Sass::Tree::VariableNode
-      end
+    def defined_by(node)
+      DEFINED_BYS[node.class]
     end
   end
 end
