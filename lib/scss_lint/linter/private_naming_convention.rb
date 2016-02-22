@@ -7,11 +7,12 @@ module SCSSLint
     def visit_root(node)
       # Register all top-level function, mixin, and variable definitions.
       node.children.each_with_object([]) do |child_node|
-        if child_node.is_a?(Sass::Tree::FunctionNode)
+        case child_node
+        when Sass::Tree::FunctionNode
           register_node child_node, 'function'
-        elsif child_node.is_a?(Sass::Tree::MixinDefNode)
+        when Sass::Tree::MixinDefNode
           register_node child_node, 'mixin'
-        elsif child_node.is_a?(Sass::Tree::VariableNode)
+        when Sass::Tree::VariableNode
           register_node child_node, 'variable'
         else
           yield
