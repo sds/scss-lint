@@ -69,6 +69,70 @@ describe SCSSLint::Linter::PrivateNamingConvention do
 
       it { should_not report_lint }
     end
+
+    context 'is defined within a selector and used' do
+      let(:scss) { <<-SCSS }
+        p {
+          $_foo: red;
+          color: $_foo;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'is defined within a selector and used in a nested selector' do
+      let(:scss) { <<-SCSS }
+        p {
+          $_foo: red;
+
+          a {
+            color: $_foo;
+          }
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'is defined within a selector but too late' do
+      let(:scss) { <<-SCSS }
+        p {
+          color: $_foo;
+          $_foo: red;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'is defined within a selector but after the nested selector it is used in' do
+      let(:scss) { <<-SCSS }
+        p {
+          a {
+            color: $_foo;
+          }
+
+          $_foo: red;
+        }
+      SCSS
+
+      it { should report_lint line: 3 }
+    end
+
+    context 'is defined in a different selector than it is used in' do
+      let(:scss) { <<-SCSS }
+        p {
+          $_foo: red;
+        }
+
+        a {
+          color: $_foo;
+        }
+      SCSS
+
+      it { should report_lint line: 6 }
+    end
   end
 
   context 'when a public variable' do
@@ -136,6 +200,66 @@ describe SCSSLint::Linter::PrivateNamingConvention do
       SCSS
 
       it { should_not report_lint }
+    end
+
+    context 'is defined within a selector and used within that selector' do
+      let(:scss) { <<-SCSS }
+        p {
+          @mixin _foo {
+            color: red;
+          }
+
+          @include _foo;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'is defined within a selector and used within a nested selector' do
+      let(:scss) { <<-SCSS }
+        p {
+          @mixin _foo {
+            color: red;
+          }
+
+          a {
+            @include _foo;
+          }
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'is defined within a selector and used within that selector too early' do
+      let(:scss) { <<-SCSS }
+        p {
+          @include _foo;
+
+          @mixin _foo {
+            color: red;
+          }
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'is defined within a selector and used within a nested selector too early' do
+      let(:scss) { <<-SCSS }
+        p {
+          a {
+            @include _foo;
+          }
+
+          @mixin _foo {
+            color: red;
+          }
+        }
+      SCSS
+
+      it { should report_lint line: 3 }
     end
 
     context 'is defined and used in the same file' do
@@ -220,6 +344,66 @@ describe SCSSLint::Linter::PrivateNamingConvention do
       SCSS
 
       it { should_not report_lint }
+    end
+
+    context 'is defined within a selector and used within the same selector' do
+      let(:scss) { <<-SCSS }
+        p {
+          @function _foo() {
+            @return red;
+          }
+
+          color: _foo();
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'is defined within a selector and used within a nested selector' do
+      let(:scss) { <<-SCSS }
+        p {
+          @function _foo() {
+            @return red;
+          }
+
+          a {
+            color: _foo();
+          }
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'is defined within a selector and used within the same selector too early' do
+      let(:scss) { <<-SCSS }
+        p {
+          color: _foo();
+
+          @function _foo() {
+            @return red;
+          }
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'is defined within a selector and used within a nested too early' do
+      let(:scss) { <<-SCSS }
+        p {
+          a {
+            color: _foo();
+          }
+
+          @function _foo() {
+            @return red;
+          }
+        }
+      SCSS
+
+      it { should report_lint line: 3 }
     end
 
     context 'is defined and used in the same file' do
