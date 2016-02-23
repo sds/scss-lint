@@ -19,6 +19,7 @@ it into your [SCM hooks](https://github.com/brigade/overcommit).
 * [Exit Status Codes](#exit-status-codes)
 * [Linters](#linters)
 * [Custom Linters](#custom-linters)
+* [Preprocessing](#preprocessing)
 * [Editor Integration](#editor-integration)
 * [Git Integration](#git-integration)
 * [Rake Integration](#rake-integration)
@@ -450,6 +451,29 @@ gem 'scss_lint_plugin_example', git: 'git://github.com/cih/scss_lint_plugin_exam
 
 As long as you execute `scss-lint` via `bundle exec scss-lint`, it should be
 able to load the gem.
+
+## Preprocessing
+
+Sometimes SCSS files need to be preprocessed before being linted. This is made
+possible with two options that can be specified in your configuration file.
+
+The `preprocess_command` option specifies the command to run once per SCSS
+file. The command can be specified with arguments. The contents of a SCSS
+file will be written to STDIN, and the processed SCSS contents must be written
+to STDOUT. If the process exits with a code other than 0, scss-lint will
+immediately exit with an error.
+
+For example, `preprocess_command: "cat"` specifies a simple no-op preprocessor
+(on Unix-like systems). `cat` simply writes the contents of STDIN back out to
+STDOUT. To preprocess SCSS files with
+[Jekyll front matter](http://jekyllrb.com/docs/assets/), you can use
+`preprocess_command: "sed '1,2s/---//'"`. This will strip out any Jekyll front
+matter, but preserve line numbers.
+
+If only some SCSS files need to be preprocessed, you may use the
+`preprocess_files` option to specify a list of file globs that need
+preprocessing. Preprocessing only a subset of files should make scss-lint more
+performant.
 
 ## Editor Integration
 

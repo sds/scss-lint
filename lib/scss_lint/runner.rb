@@ -25,8 +25,10 @@ module SCSSLint
     # @param file [Hash]
     # @option file [String] File object
     # @option path [String] path to File (determines which Linter config to apply)
-    def find_lints(file)
-      engine = Engine.new(file)
+    def find_lints(file) # rubocop:disable AbcSize
+      options = file.merge(preprocess_command: @config.options['preprocess_command'],
+                           preprocess_files: @config.options['preprocess_files'])
+      engine = Engine.new(options)
 
       @linters.each do |linter|
         begin

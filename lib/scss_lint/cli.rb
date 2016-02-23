@@ -18,6 +18,7 @@ module SCSSLint
       config:         78, # Configuration error
       no_files:       80, # No files matched by specified glob patterns
       plugin:         82, # Plugin loading error
+      preprocessor:   84, # Preprocessor error
     }.freeze
 
     # Create a CLI that outputs to the specified logger.
@@ -106,6 +107,9 @@ module SCSSLint
       when NoSuchLinter
         log.error exception.message
         halt :usage
+      when SCSSLint::Exceptions::PreprocessorError
+        log.error exception.message
+        halt :preprocessor
       else
         config_file = relevant_configuration_file(options) if options
 
