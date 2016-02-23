@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.47.0
 
 * Fix `PrivateNamingConvention` to handle files that begin with comments
 * Fix TAP reporter format
