@@ -60,6 +60,38 @@ describe SCSSLint::Linter::PrivateNamingConvention do
       it { should_not report_lint }
     end
 
+    context 'is defined and used in a for loop when the file begins with a comment' do
+      let(:scss) { <<-SCSS }
+        // A comment
+        @function _foo() {
+          @return red;
+        }
+
+        @for $i from 0 through 1 {
+          .foo {
+            color: _foo();
+          }
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'is defined and used in the same file when the file begins with a comment' do
+      let(:scss) { <<-SCSS }
+        // A comment
+        @function _foo() {
+          @return red;
+        }
+
+        .foo {
+          color: _foo();
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
     context 'is defined within a selector and not used' do
       let(:scss) { <<-SCSS }
         p {

@@ -105,10 +105,7 @@ module SCSSLint
         return true # We found a match, so we are done
       end
 
-      # We are at the top of the branch and don't want to check the root branch,
-      # since that is handled elsewhere, which means that we did not find a
-      # match.
-      return false unless node_to_look_in.node_parent.node_parent
+      return false unless node_to_look_in.node_parent
 
       # We did not find a match yet, and haven't reached the top of the branch,
       # so recurse.
@@ -122,6 +119,7 @@ module SCSSLint
     end
 
     def before?(node, before_location)
+      return true unless node.source_range
       location = location_from_range(node.source_range)
       return true if location.line < before_location.line
       if location.line == before_location.line &&
