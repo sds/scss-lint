@@ -1,5 +1,12 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix `PrivateNamingConvention` to handle files that begin with comments
+* Fix TAP reporter format
+* Add support for preprocessing source files via the `preprocess_command`
+  option
+
 ## 0.46.0
 
 * Add `ignore_consecutive` option to the `DuplicateProperty` linter, allowing
