@@ -97,7 +97,7 @@ not ok #{test_number} - #{test_line_description}
     file: #{lint.filename}
     line: #{lint.location.line}
     column: #{lint.location.column}
-  ---
+  ...
       EOS
     end
 
