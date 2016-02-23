@@ -17,4 +17,7 @@ module SCSSLint::Exceptions
 
   # Raised when a linter gem plugin is required but not installed.
   class PluginGemLoadError < StandardError; end
+
+  # Raised when the preprocessor tool exits with a non-zero code.
+  class PreprocessorError < StandardError; end
 end
