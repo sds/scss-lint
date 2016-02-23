@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.46.0
 
 * Add `ignore_consecutive` option to the `DuplicateProperty` linter, allowing
   duplicate consecutive properties. It accepts `true`, `false`, or a list of
