@@ -76,6 +76,7 @@ describe SCSSLint::Linter::DuplicateProperty do
       @mixin cursor-grabbing($num) {
         cursor: -moz-grabbing;
         cursor: -webkit-grabbing;
+        cursor: -foo-grabbing unquote('!important');
         cursor: grabbing;
       }
     SCSS

@@ -42,7 +42,7 @@ module SCSSLint
     # for purposes of uniqueness.
     def property_key(prop)
       prop_key = prop.name.join
-      prop_value = property_value(prop)
+      prop_value = value_as_string(prop.value)
 
       # Differentiate between values for different vendor prefixes
       prop_value.to_s.scan(/^(-[^-]+-.+)/) do |vendor_keyword|
@@ -52,15 +52,17 @@ module SCSSLint
       prop_key
     end
 
-    def property_value(prop)
-      case prop.value
+    def value_as_string(value)
+      case value
       when Sass::Script::Funcall
-        prop.value.name
+        value.name
       when Sass::Script::String
       when Sass::Script::Tree::Literal
-        prop.value.value
+        value.value
+      when Sass::Script::Tree::ListLiteral
+        value.elements.map { |e| value_as_string(e) }.join(' ')
       else
-        prop.value.to_s
+        value.to_s
       end
     end
 
