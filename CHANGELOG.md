@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.47.1
 
 * Consider list literals in values checked by `DuplicateProperty` linter
 * Fix TAP reporter to correctly parse list of files
