@@ -83,7 +83,7 @@ module SCSSLint
     # @param lint [SCSSLint::Lint]
     # @param test_number [Number]
     # @return [String]
-    def format_not_ok(lint, test_number)
+    def format_not_ok(lint, test_number) # rubocop:disable Metrics/AbcSize
       location = lint.location
       test_line_description = "#{lint.filename}:#{location.line}:#{location.column}"
 
