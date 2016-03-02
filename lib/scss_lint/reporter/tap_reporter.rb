@@ -93,10 +93,9 @@ not ok #{test_number} - #{test_line_description}
   ---
   message: #{lint.description}
   severity: #{lint.severity}
-  data:
-    file: #{lint.filename}
-    line: #{lint.location.line}
-    column: #{lint.location.column}
+  file: #{lint.filename}
+  line: #{lint.location.line}
+  column: #{lint.location.column}
   ...
       EOS
     end
