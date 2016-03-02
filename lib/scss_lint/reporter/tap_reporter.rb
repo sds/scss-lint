@@ -86,16 +86,25 @@ module SCSSLint
     def format_not_ok(lint, test_number)
       location = lint.location
       test_line_description = "#{lint.filename}:#{location.line}:#{location.column}"
-      test_line_description += " #{lint.linter.name}" if lint.linter
+
+      data = {
+        'message' => lint.description,
+        'severity' => lint.severity.to_s,
+        'file' => lint.filename,
+        'line' => lint.location.line,
+        'column' => lint.location.column,
+      }
+
+      if lint.linter
+        test_line_description += " #{lint.linter.name}" if lint.linter
+        data['name'] = lint.linter.name
+      end
+
+      data_yaml = data.to_yaml.strip.gsub(/^/, '  ')
 
       <<-EOS.strip
 not ok #{test_number} - #{test_line_description}
-  ---
-  message: #{lint.description}
-  severity: #{lint.severity}
-  file: #{lint.filename}
-  line: #{lint.location.line}
-  column: #{lint.location.column}
+#{data_yaml}
   ...
       EOS
     end

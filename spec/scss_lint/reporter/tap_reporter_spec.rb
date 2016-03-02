@@ -70,6 +70,7 @@ not ok 2 - not-ok1.scss:123:10 SCSSLint::Linter::PrivateNamingConvention
   file: not-ok1.scss
   line: 123
   column: 10
+  name: SCSSLint::Linter::PrivateNamingConvention
   ...
 not ok 3 - not-ok2.scss:20:2 SCSSLint::Linter::PrivateNamingConvention
   ---
@@ -78,6 +79,7 @@ not ok 3 - not-ok2.scss:20:2 SCSSLint::Linter::PrivateNamingConvention
   file: not-ok2.scss
   line: 20
   column: 2
+  name: SCSSLint::Linter::PrivateNamingConvention
   ...
 not ok 4 - not-ok2.scss:21:3 SCSSLint::Linter::PrivateNamingConvention
   ---
@@ -86,6 +88,7 @@ not ok 4 - not-ok2.scss:21:3 SCSSLint::Linter::PrivateNamingConvention
   file: not-ok2.scss
   line: 21
   column: 3
+  name: SCSSLint::Linter::PrivateNamingConvention
   ...
 ok 5 - ok2.scss
         EOS
