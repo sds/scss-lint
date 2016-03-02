@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Consider list literals in values checked by `DuplicateProperty` linter
+
 ## 0.47.0
 
 * Fix `PrivateNamingConvention` to handle files that begin with comments
