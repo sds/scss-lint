@@ -3,6 +3,9 @@
 ## master (unreleased)
 
 * Consider list literals in values checked by `DuplicateProperty` linter
+* Fix TAP reporter to correctly parse list of files
+* Remove unnecessary nesting from TAP reporter output
+* Add linter name to TAP YAML output
 
 ## 0.47.0
 
