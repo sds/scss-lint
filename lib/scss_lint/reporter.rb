@@ -8,7 +8,7 @@ module SCSSLint
     end
 
     # @param lints [List<Lint>] a list of Lints sorted by file and line number
-    # @param files [List<String>] a list of the files that were linted
+    # @param files [List<Hash>] a list of the files that were linted
     # @param logger [SCSSLint::Logger]
     def initialize(lints, files, logger)
       @lints = lints

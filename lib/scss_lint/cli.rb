@@ -182,7 +182,7 @@ module SCSSLint
 
     # @param options [Hash]
     # @param lints [Array<Lint>]
-    # @param files [Array<String>]
+    # @param files [Array<Hash>]
     def report_lints(options, lints, files)
       sorted_lints = lints.sort_by { |l| [l.filename, l.location] }
       options.fetch(:reporters).each do |reporter, output|

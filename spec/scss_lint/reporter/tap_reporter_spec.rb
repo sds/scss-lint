@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe SCSSLint::Reporter::TAPReporter do
   let(:logger) { SCSSLint::Logger.new($stdout) }
-  subject { described_class.new(lints, filenames, logger) }
+  let(:files) { filenames.map { |filename| { path: filename } } }
+  subject { described_class.new(lints, files, logger) }
 
   describe '#report_lints' do
     context 'when there are no files' do

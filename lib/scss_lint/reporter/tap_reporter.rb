@@ -14,7 +14,7 @@ module SCSSLint
 
   private
 
-    # @param files [Array<String>]
+    # @param files [Array<Hash>]
     # @param lints [Array<SCSSLint::Lint>]
     # @return [String]
     def format_plan(files, lints)
@@ -24,15 +24,15 @@ module SCSSLint
       "1..#{files.count + extra_lines}#{comment}"
     end
 
-    # @param files [Array<String>]
+    # @param files [Array<Hash>]
     # @param lints [Array<SCSSLint::Lint>]
     # @return [Array<String>] one item per ok file or not ok lint
     def format_files(files, lints)
       unless lints.any?
         # There are no lints, so we can take a shortcut and just output an ok
         # test line for every file.
-        return files.map.with_index do |filename, index|
-          format_ok(filename, index + 1)
+        return files.map.with_index do |file, index|
+          format_ok(file, index + 1)
         end
       end
 
@@ -45,17 +45,17 @@ module SCSSLint
       grouped_lints = group_lints_by_filename(lints)
 
       test_number = 1
-      files.map do |filename|
-        if grouped_lints.key?(filename)
+      files.map do |file|
+        if grouped_lints.key?(file[:path])
           # This file has lints, so we want to generate a "not ok" test line for
           # each failing lint.
-          grouped_lints[filename].map do |lint|
+          grouped_lints[file[:path]].map do |lint|
             formatted = format_not_ok(lint, test_number)
             test_number += 1
             formatted
           end
         else
-          formatted = format_ok(filename, test_number)
+          formatted = format_ok(file, test_number)
           test_number += 1
           [formatted]
         end
@@ -73,11 +73,11 @@ module SCSSLint
       grouped_lints
     end
 
-    # @param filename [String]
+    # @param file [Hash]
     # @param test_number [Number]
     # @return [String]
-    def format_ok(filename, test_number)
-      "ok #{test_number} - #{filename}"
+    def format_ok(file, test_number)
+      "ok #{test_number} - #{file[:path]}"
     end
 
     # @param lint [SCSSLint::Lint]
