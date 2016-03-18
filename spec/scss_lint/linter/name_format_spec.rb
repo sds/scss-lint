@@ -163,6 +163,16 @@ describe SCSSLint::Linter::NameFormat do
       it { should_not report_lint }
     end
 
+    context 'when using whitelisted css function' do
+      let(:scss) { <<-SCSS }
+        .gradient {
+          background: linear-gradient(#000, #fff);
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
     context 'when a mixin contains keyword arguments with underscores' do
       let(:scss) { '@include mixin($some_var: 4);' }
 

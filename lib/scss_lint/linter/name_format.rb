@@ -39,6 +39,7 @@ module SCSSLint
       scaleX scaleY scaleZ
       skewX skewY
       translateX translateY translateZ
+      linear-gradient
     ].to_set
 
     def check_name(node, node_type, node_text = node.name)
