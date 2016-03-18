@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Relax `rake` gem dependency to allow 11.x.x versions
+
 ## 0.47.1
 
 * Consider list literals in values checked by `DuplicateProperty` linter
