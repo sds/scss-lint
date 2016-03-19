@@ -331,6 +331,24 @@ not ok 4 - not-ok2.scss:21:3 SCSSLint::Linter::PrivateNamingConvention
 ok 5 - ok2.scss
 ```
 
+### Stats
+
+Outputs statistics about how many lints of each type were found, and across how many files. This
+reporter can help in cleaning up a large codebase, allowing you to fix and then enable one lint
+type at a time.
+
+```
+15  ColorKeyword                  (across  1 files)
+15  ColorVariable                 (across  1 files)
+11  StringQuotes                  (across 11 files)
+11  EmptyLineBetweenBlocks        (across 11 files)
+ 5  Indentation                   (across  1 files)
+ 5  QualifyingElement             (across  2 files)
+ 4  MergeableSelector             (across  1 files)
+--  ----------------------        -----------------
+66  total                         (across 12 files)
+```
+
 ### Plugins
 
 There are also formatters that integrate with third-party tools which are available as plugins.
