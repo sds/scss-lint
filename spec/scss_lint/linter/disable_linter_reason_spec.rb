@@ -60,4 +60,15 @@ describe SCSSLint::Linter::DisableLinterReason do
 
     it { should_not report_lint }
   end
+
+  context 'when a reason precedes an inline disabling comment' do
+    let(:scss) { <<-SCSS }
+      p {
+      // Disable for now
+        border: none; // scss-lint:disable BorderZero
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
 end
