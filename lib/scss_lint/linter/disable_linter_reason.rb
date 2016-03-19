@@ -7,19 +7,37 @@ module SCSSLint
       # No lint if the first line of the comment is not a command (because then
       # either this comment has no commands, or the first line serves as a the
       # reason for a command on a later line).
-      return unless comment_lines(node).first.match(COMMAND_REGEX)
+      if comment_lines(node).first.match(COMMAND_REGEX)
+        visit_command_comment(node)
+      else
+        @previous_comment = node
+      end
+    end
 
-      # Maybe the previous node is the "reason" comment.
-      prev = previous_node(node)
-
-      if prev && prev.is_a?(Sass::Tree::CommentNode)
-        # No lint if the last line of the previous comment is not a command.
-        return unless comment_lines(prev).last.match(COMMAND_REGEX)
+    def visit_command_comment(node)
+      if @previous_comment.nil?
+        report_lint(node)
+        return
       end
 
-      add_lint(node,
-               'scss-lint:disable control comments should be preceded by a ' \
-               'comment explaining why the linters need to be disabled.')
+      # Not a "disable linter reason" if the last line of the previous comment is a command.
+      if comment_lines(@previous_comment).last.match(COMMAND_REGEX)
+        report_lint(node)
+        return
+      end
+
+      # No lint if the last line of the previous comment is on the previous line.
+      if @previous_comment.source_range.end_pos.line == node.source_range.end_pos.line - 1
+        return
+      end
+
+      # The "reason" comment doesn't have to be on the previous line, as long as it is exactly
+      # the previous node.
+      if previous_node(node) == @previous_comment
+        return
+      end
+
+      report_lint(node)
     end
 
   private
@@ -34,6 +52,12 @@ module SCSSLint
 
     def comment_lines(node)
       node.value.join.split("\n")
+    end
+
+    def report_lint(node)
+      add_lint(node,
+               'scss-lint:disable control comments should be preceded by a ' \
+               'comment explaining why the linters need to be disabled.')
     end
   end
 end
