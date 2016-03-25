@@ -3,6 +3,7 @@
 ## master (unreleased)
 
 * Relax `rake` gem dependency to allow 11.x.x versions
+* Add `linear-gradient` to `NameFormat` whitelist
 
 ## 0.47.1
 
