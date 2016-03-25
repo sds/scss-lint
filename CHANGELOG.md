@@ -4,6 +4,8 @@
 
 * Relax `rake` gem dependency to allow 11.x.x versions
 * Add `linear-gradient` to `NameFormat` whitelist
+* Fix `DisableLinterReason` not reporting inline disable comments on a line
+  following a comment line
 
 ## 0.47.1
 
