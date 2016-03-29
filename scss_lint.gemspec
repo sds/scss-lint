@@ -27,6 +27,4 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rake', '>= 0.9', '< 12'
   s.add_dependency 'sass', '~> 3.4.15'
-
-  s.add_development_dependency 'rspec', '~> 3.4.0'
 end

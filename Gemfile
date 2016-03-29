@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'rspec', '~> 3.4.0'
+
 # Run all pre-commit checks via Overcommit during CI runs
 gem 'overcommit', '0.32.0'
 
