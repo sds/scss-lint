@@ -108,9 +108,9 @@ describe SCSSLint::CLI do
         safe_run.should == 0
       end
 
-      it 'outputs nothing' do
+      it 'outputs a success message' do
         safe_run
-        output.should be_empty
+        output.should eq("\n0 scss lints, 0 errors\n\n")
       end
     end
 

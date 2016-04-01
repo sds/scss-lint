@@ -72,7 +72,7 @@ module SCSSLint
           end
         end
       runner.run(files)
-      report_lints(options, runner.lints, files)
+      report_lints(options, runner.lints, files, runner.lints_run_count)
 
       halt exit_status(runner)
     end
@@ -187,10 +187,10 @@ module SCSSLint
     # @param options [Hash]
     # @param lints [Array<Lint>]
     # @param files [Array<Hash>]
-    def report_lints(options, lints, files)
+    def report_lints(options, lints, files, lints_run_count)
       sorted_lints = lints.sort_by { |l| [l.filename, l.location] }
       options.fetch(:reporters).each do |reporter, output|
-        results = reporter.new(sorted_lints, files, log).report_lints
+        results = reporter.new(sorted_lints, files, log, lints_run_count).report_lints
         next unless results
 
         if output == :stdout
