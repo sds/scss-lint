@@ -4,6 +4,12 @@ sudo: false
 
 cache: bundler
 
+env:
+  global:
+    # Improves JRuby startup time.
+    # See https://github.com/jruby/jruby/wiki/Improving-startup-time
+    - "JRUBY_OPTS=--dev"
+
 rvm:
   - 1.9.3
   - 2.0.0

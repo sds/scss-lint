@@ -95,6 +95,10 @@ Command Line Flag         | Description
 `--show-linters`          | Show all available linters
 `-v`/`--version`          | Show version
 
+When running `scss-lint` with JRuby, using JRuby's
+[`--dev` flag](https://github.com/jruby/jruby/wiki/Improving-startup-time)
+will probably improve performance.
+
 ## Configuration
 
 `scss-lint` loads configuration in the following order of precedence:
