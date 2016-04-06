@@ -6,6 +6,8 @@
 * Add `linear-gradient` to `NameFormat` whitelist
 * Fix `DisableLinterReason` not reporting inline disable comments on a line
   following a comment line
+* Add `Stats` `--format` option to output list of linter types ordered by
+  the number of occurrences
 
 ## 0.47.1
 
