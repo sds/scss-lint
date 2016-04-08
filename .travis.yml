@@ -17,6 +17,7 @@ rvm:
   - 2.2
   - 2.3.0
   - jruby-19mode
+  - jruby-9.0.5.0
 
 before_script:
   - git config --local user.email "travis@travis.ci"
