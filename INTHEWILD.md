@@ -7,6 +7,7 @@ Organizations
 -------------
 - [Airbnb](https://github.com/airbnb)
 - [Brigade](https://github.com/brigade)
+- [GitLab](https://gitlab.com/groups/gitlab-org)
 
 Projects
 --------
