@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.48.0
 
 * Relax `rake` gem dependency to allow 11.x.x versions
 * Add `linear-gradient` to `NameFormat` whitelist
