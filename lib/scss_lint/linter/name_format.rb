@@ -3,13 +3,34 @@ module SCSSLint
   class Linter::NameFormat < Linter
     include LinterRegistry
 
+    CSS_FUNCTION_WHITELIST = %w[
+      rotateX rotateY rotateZ
+      scaleX scaleY scaleZ
+      skewX skewY
+      translateX translateY translateZ
+      linear-gradient repeating-linear-gradient
+      radial-gradient repeating-radial-gradient
+    ].to_set.freeze
+
+    SCSS_FUNCTION_WHITELIST = %w[
+      adjust-hue adjust-color scale-color change-color ie-hex-str
+      str-length str-insert str-index str-slice to-upper-case to-lower-case
+      list-separator
+      map-get map-merge map-remove map-keys map-values map-has-key
+      selector-nest selector-append selector-extend selector-replace
+      selector-unify is-superselector simple-selectors selector-parse
+      feature-exists variable-exists global-variable-exists function-exists
+      mixin-exists type-of
+      unique-id
+    ].to_set.freeze
+
     def visit_function(node)
       check_name(node, 'function')
       yield # Continue into content block of this function definition
     end
 
     def visit_mixin(node)
-      check_name(node, 'mixin') unless FUNCTION_WHITELIST.include?(node.name)
+      check_name(node, 'mixin') unless whitelist?(node.name)
       yield # Continue into content block of this mixin's block
     end
 
@@ -19,7 +40,7 @@ module SCSSLint
     end
 
     def visit_script_funcall(node)
-      check_name(node, 'function') unless FUNCTION_WHITELIST.include?(node.name)
+      check_name(node, 'function') unless whitelist?(node.name)
       yield # Continue linting any arguments of this function call
     end
 
@@ -34,13 +55,10 @@ module SCSSLint
 
   private
 
-    FUNCTION_WHITELIST = %w[
-      rotateX rotateY rotateZ
-      scaleX scaleY scaleZ
-      skewX skewY
-      translateX translateY translateZ
-      linear-gradient
-    ].to_set
+    def whitelist?(name)
+      CSS_FUNCTION_WHITELIST.include?(name) ||
+        SCSS_FUNCTION_WHITELIST.include?(name)
+    end
 
     def check_name(node, node_type, node_text = node.name)
       node_text = trim_underscore_prefix(node_text)
