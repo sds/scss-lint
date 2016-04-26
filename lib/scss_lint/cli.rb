@@ -191,6 +191,7 @@ module SCSSLint
 
         if output == :stdout
           log.log results
+          log.error "Total errors: #{sorted_lints.count}"
         else
           File.new(output, 'w+').print results
         end
