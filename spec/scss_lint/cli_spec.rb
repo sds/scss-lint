@@ -158,6 +158,11 @@ describe SCSSLint::CLI do
         safe_run
         output.should include 'Some description'
       end
+
+      it 'shows total number of errors' do
+        safe_run
+        output.should include 'Total errors: 1'
+      end
     end
 
     context 'when the runner raises an error' do
