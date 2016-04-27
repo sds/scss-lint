@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Increase minimum required `sass` gem version to 3.4.20+
+
 ## 0.48.0
 
 * Relax `rake` gem dependency to allow 11.x.x versions
