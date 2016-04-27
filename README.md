@@ -7,6 +7,10 @@
 [![Inline docs](http://inch-ci.org/github/brigade/scss-lint.svg?branch=master)](http://inch-ci.org/github/brigade/scss-lint)
 [![Dependency Status](https://gemnasium.com/brigade/scss-lint.svg)](https://gemnasium.com/brigade/scss-lint)
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/brigade/scss-lint/master/logo/horizontal.png" width="65%" alt="SCSS-Lint Logo"/>
+</p>
+
 `scss-lint` is a tool to help keep your [SCSS](http://sass-lang.com) files
 clean and readable. You can run it manually from the command line, or integrate
 it into your [SCM hooks](https://github.com/brigade/overcommit).
