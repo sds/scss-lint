@@ -47,6 +47,16 @@ describe SCSSLint::Linter::TrailingZero do
     it { should_not report_lint }
   end
 
+  context 'when a unitless fractional value with multiple trailing zero exists' do
+    let(:scss) { <<-SCSS }
+      p {
+        line-height: .600;
+      }
+    SCSS
+
+    it { should report_lint }
+  end
+
   context 'when a negative unitless fractional value with no trailing zero exists' do
     let(:scss) { <<-SCSS }
       p {

@@ -6,6 +6,8 @@
 * Fix `PropertySortOrder` `separate_groups` option to work for preset sort
   orders
 * Add `background-clip` and `clip` to `smacss` preset sort order
+* Fix `TrailingZero` to report correct lint messages for values with multiple
+  trailing zeros
 
 ## 0.48.0
 

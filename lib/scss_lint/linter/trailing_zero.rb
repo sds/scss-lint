@@ -25,7 +25,7 @@ module SCSSLint
     FRACTIONAL_DIGIT_REGEX = /^-?(\d*\.\d+)/
 
     def check_for_trailing_zeros(node, original_number)
-      return unless match = /^(\d*\.\d*)0+$/.match(original_number)
+      return unless match = /^(\d*\.(?:[0-9]*[1-9]|[1-9])*)0+$/.match(original_number)
 
       fixed_number = match[1]
 
