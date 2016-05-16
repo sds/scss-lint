@@ -5,6 +5,7 @@
 * Increase minimum required `sass` gem version to 3.4.20+
 * Fix `PropertySortOrder` `separate_groups` option to work for preset sort
   orders
+* Add `background-clip` and `clip` to `smacss` preset sort order
 
 ## 0.48.0
 
