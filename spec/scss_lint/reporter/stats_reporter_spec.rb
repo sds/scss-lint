@@ -44,7 +44,7 @@ describe SCSSLint::Reporter::StatsReporter do
       end
 
       it 'prints the total lints and total lines' do
-        subject.report_lints.should match /2  total +\(across 1/
+        subject.report_lints.should match(/2  total +\(across 1/)
       end
     end
 
@@ -74,7 +74,7 @@ describe SCSSLint::Reporter::StatsReporter do
       end
 
       it 'prints the total lints and total lines' do
-        subject.report_lints.should match /3  total +\(across 1/
+        subject.report_lints.should match(/3  total +\(across 1/)
       end
     end
 
@@ -108,7 +108,7 @@ describe SCSSLint::Reporter::StatsReporter do
       end
 
       it 'prints the total lints and total lines' do
-        subject.report_lints.should match /6  total +\(across 3/
+        subject.report_lints.should match(/6  total +\(across 3/)
       end
     end
   end
