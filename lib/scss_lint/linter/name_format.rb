@@ -39,7 +39,19 @@ module SCSSLint
       scaleX scaleY scaleZ
       skewX skewY
       translateX translateY translateZ
-      linear-gradient
+      linear-gradient repeating-linear-gradient
+      radial-gradient repeating-radial-gradient
+      adjust-hue adjust-color scale-color change-color ie-hex-str
+      str-length str-insert str-index str-slice to-upper-case to-lower-case
+      list-separator
+      map-get map-merge map-remove map-keys map-values map-has-key
+      selector-nest selector-append selector-extend selector-replace
+      selector-unify is-superselector simple-selectors selector-parse
+      feature-exists variable-exists global-variable-exists function-exists
+      mixin-exists type-of
+      unique-id
+
+
     ].to_set
 
     def check_name(node, node_type, node_text = node.name)
