@@ -1315,6 +1315,13 @@ Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `allowed_shorthands` | Array of allowed shorthand lengths (default `[1, 2, 3]`)
 
+If you want to disallow shorthands, you can specify them via the `disallowed_shorthands`
+array option. The argument should be a subset of `[1, 2, 3 4]`
+
+Configuration Option    | Description
+------------------------|------------------------------------------------------
+`disallowed_shorthands` | Array of allowed shorthand lengths (default `[]`)
+
 ## SingleLinePerProperty
 
 Properties within rule sets should each reside on their own line.

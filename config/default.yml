@@ -169,6 +169,7 @@ linters:
   Shorthand:
     enabled: true
     allowed_shorthands: [1, 2, 3]
+    disallowed_shorthands: []
 
   SingleLinePerProperty:
     enabled: true
