@@ -1309,11 +1309,11 @@ margin: 1px;
 ```
 
 If you don't want to allow all possible shorthands, you can limit them by
-setting the `allowed_shorthands` array option to a subset of `[1, 2, 3]`.
+setting the `allowed_shorthands` array option to a subset of `[1, 2, 3, 4]`.
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
-`allowed_shorthands` | Array of allowed shorthand lengths (default `[1, 2, 3]`)
+`allowed_shorthands` | Array of allowed shorthand lengths (default `[1, 2, 3, 4]`)
 
 ## SingleLinePerProperty
 

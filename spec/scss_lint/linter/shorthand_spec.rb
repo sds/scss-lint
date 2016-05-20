@@ -194,5 +194,16 @@ describe SCSSLint::Linter::Shorthand do
 
       it { should_not report_lint }
     end
+
+    context 'is fine but length is not allowed' do
+      let(:allowed) { [1, 2, 3] }
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 1px 2px 3px 4px;
+        }
+      SCSS
+
+      it { should report_lint }
+    end
   end
 end
