@@ -9,7 +9,7 @@ module SCSSLint
     end
 
     def visit_mixin(node)
-      check_name(node, 'mixin') unless FUNCTION_WHITELIST.include?(node.name)
+      check_name(node, 'mixin') unless CSS_FUNCTION_WHITELIST.include?(node.name) || SCSS_FUNCTION_WHITELIST.include?(node.name)
       yield # Continue into content block of this mixin's block
     end
 
@@ -19,7 +19,7 @@ module SCSSLint
     end
 
     def visit_script_funcall(node)
-      check_name(node, 'function') unless FUNCTION_WHITELIST.include?(node.name)
+      check_name(node, 'function') unless CSS_FUNCTION_WHITELIST.include?(node.name) || SCSS_FUNCTION_WHITELIST.include?(node.name)
       yield # Continue linting any arguments of this function call
     end
 
@@ -34,13 +34,16 @@ module SCSSLint
 
   private
 
-    FUNCTION_WHITELIST = %w[
+    CSS_FUNCTION_WHITELIST = %w[
       rotateX rotateY rotateZ
       scaleX scaleY scaleZ
       skewX skewY
       translateX translateY translateZ
       linear-gradient repeating-linear-gradient
       radial-gradient repeating-radial-gradient
+    ].to_set
+
+    SCSS_FUNCTION_WHITELIST = %w[
       adjust-hue adjust-color scale-color change-color ie-hex-str
       str-length str-insert str-index str-slice to-upper-case to-lower-case
       list-separator
@@ -50,8 +53,6 @@ module SCSSLint
       feature-exists variable-exists global-variable-exists function-exists
       mixin-exists type-of
       unique-id
-
-
     ].to_set
 
     def check_name(node, node_type, node_text = node.name)
