@@ -9,7 +9,7 @@ module SCSSLint
     end
 
     def visit_mixin(node)
-      check_name(node, 'mixin') unless CSS_FUNCTION_WHITELIST.include?(node.name) || SCSS_FUNCTION_WHITELIST.include?(node.name)
+      check_name(node, 'mixin') unless whitelist?(node.name)
       yield # Continue into content block of this mixin's block
     end
 
@@ -19,7 +19,7 @@ module SCSSLint
     end
 
     def visit_script_funcall(node)
-      check_name(node, 'function') unless CSS_FUNCTION_WHITELIST.include?(node.name) || SCSS_FUNCTION_WHITELIST.include?(node.name)
+      check_name(node, 'function') unless whitelist?(node.name)
       yield # Continue linting any arguments of this function call
     end
 
@@ -33,6 +33,11 @@ module SCSSLint
     end
 
   private
+
+    def whitelist?(name)
+      CSS_FUNCTION_WHITELIST.include?(name) ||
+        SCSS_FUNCTION_WHITELIST.include?(name)
+    end
 
     CSS_FUNCTION_WHITELIST = %w[
       rotateX rotateY rotateZ
