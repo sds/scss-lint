@@ -10,8 +10,10 @@
 </p>
 
 `scss-lint` is a tool to help keep your [SCSS](http://sass-lang.com) files
-clean and readable. You can run it manually from the command line, or integrate
-it into your [SCM hooks](https://github.com/brigade/overcommit).
+clean and readable by running it against a collection of
+[linter rules](lib/scss_lint/linter/README.md). You can run it manually from
+the command line, or integrate it into your
+[SCM hooks](https://github.com/brigade/overcommit).
 
 * [Requirements](#requirements)
 * [Installation](#installation)
