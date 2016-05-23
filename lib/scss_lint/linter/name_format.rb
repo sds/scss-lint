@@ -10,7 +10,7 @@ module SCSSLint
       translateX translateY translateZ
       linear-gradient repeating-linear-gradient
       radial-gradient repeating-radial-gradient
-    ].to_set
+    ].to_set.freeze
 
     SCSS_FUNCTION_WHITELIST = %w[
       adjust-hue adjust-color scale-color change-color ie-hex-str
@@ -22,8 +22,8 @@ module SCSSLint
       feature-exists variable-exists global-variable-exists function-exists
       mixin-exists type-of
       unique-id
-    ].to_set
-    
+    ].to_set.freeze
+
     def visit_function(node)
       check_name(node, 'function')
       yield # Continue into content block of this function definition
