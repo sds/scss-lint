@@ -274,7 +274,8 @@ describe SCSSLint::Linter::Indentation do
 
   context 'when indentation in non-nested code is allowed' do
     let(:linter_config) do
-      { 'allow_non_nested_indentation' => true,
+      {
+        'allow_non_nested_indentation' => true,
         'character' => 'space',
         'width' => 2,
       }

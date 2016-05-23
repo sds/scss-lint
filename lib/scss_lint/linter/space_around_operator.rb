@@ -94,8 +94,7 @@ module SCSSLint
       end
 
       def adjust_for_interpolation
-        @source = normalize_source(
-          @linter.source_fm_range(slide_to_the_left(@node.source_range)))
+        @source = normalize_source(@linter.source_fm_range(slide_to_the_left(@node.source_range)))
         @left_range = slide_to_the_left(@node.operand1.source_range)
         @right_range = slide_to_the_left(@node.operand2.source_range)
       end
