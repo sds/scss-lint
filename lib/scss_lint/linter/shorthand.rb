@@ -69,7 +69,7 @@ module SCSSLint
     # @param values [Array<String>]
     def check_shorthand(prop, node, values)
       add_lint(node, "Shorthands of length `#{values.count}` are not allowed." \
-                     "Value was `#{values.join(' ')}`") if disallowed?(values.count)
+                     "Value was `#{values.join(' ')}`") unless allowed?(values.count)
 
       return unless (2..4).member?(values.count)
 
@@ -137,13 +137,6 @@ module SCSSLint
     def allowed?(size)
       return false unless config['allowed_shorthands']
       config['allowed_shorthands'].map(&:to_i).include?(size)
-    end
-
-    # @param size [Number]
-    # @return [Boolean]
-    def disallowed?(size)
-      return false unless config['disallowed_shorthands']
-      config['disallowed_shorthands'].map(&:to_i).include?(size)
     end
   end
 end

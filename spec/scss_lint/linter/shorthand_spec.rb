@@ -194,26 +194,16 @@ describe SCSSLint::Linter::Shorthand do
 
       it { should_not report_lint }
     end
-  end
 
-  context 'when configured with disallowed_shorthands, add a rule' do
-    let(:linter_config) { { 'disallowed_shorthands' => disallowed } }
-    let(:scss) { <<-SCSS }
-      p {
-        margin: 1px 2px 3px;
-      }
-    SCSS
-
-    context 'shorhands of length 3 are not allowed' do
-      let(:disallowed) { [3] }
+    context 'is fine but length is not allowed' do
+      let(:allowed) { [1, 2, 3] }
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 1px 2px 3px 4px;
+        }
+      SCSS
 
       it { should report_lint }
-    end
-
-    context 'shorthands of length 3 are allowed' do
-      let(:disallowed) { [1, 2, 4] }
-
-      it { should_not report_lint }
     end
   end
 end
