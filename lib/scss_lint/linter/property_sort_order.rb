@@ -105,9 +105,9 @@ module SCSSLint
         # we don't care, but at least one line that isn't another property).
         next if first[:node].line < second[:node].line - 1
 
-        add_lint second[:node], "Property #{second[:name]} should be " \
-                                'separated from the previous group of ' \
-                                "properties ending with #{first[:name]}"
+        add_lint second[:node], "Property `#{second[:name]}` should have an " \
+                                'empty line separating it from the previous ' \
+                                "group of properties ending with `#{first[:name]}`"
       end
     end
 
@@ -163,7 +163,7 @@ module SCSSLint
           file = File.open(File.join(SCSS_LINT_DATA,
                                      'property-sort-orders',
                                      "#{config['order']}.txt"))
-          file.read.split("\n").reject { |line| line =~ /^(#|\s*$)/ }
+          file.read.split("\n").reject { |line| line =~ /^\s*#/ }
         rescue Errno::ENOENT
           raise SCSSLint::Exceptions::LinterError,
                 "Preset property sort order '#{config['order']}' does not exist"

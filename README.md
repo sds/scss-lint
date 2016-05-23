@@ -1,11 +1,13 @@
-# SCSS-Lint
-
 [![Gem Version](https://badge.fury.io/rb/scss_lint.svg)](http://badge.fury.io/rb/scss_lint)
 [![Build Status](https://travis-ci.org/brigade/scss-lint.svg?branch=master)](https://travis-ci.org/brigade/scss-lint)
 [![Code Climate](https://codeclimate.com/github/brigade/scss-lint.svg)](https://codeclimate.com/github/brigade/scss-lint)
 [![Coverage Status](https://coveralls.io/repos/brigade/scss-lint/badge.svg)](https://coveralls.io/r/brigade/scss-lint)
 [![Inline docs](http://inch-ci.org/github/brigade/scss-lint.svg?branch=master)](http://inch-ci.org/github/brigade/scss-lint)
 [![Dependency Status](https://gemnasium.com/brigade/scss-lint.svg)](https://gemnasium.com/brigade/scss-lint)
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/brigade/scss-lint/master/logo/horizontal.png" width="40%" alt="SCSS-Lint Logo"/>
+</p>
 
 `scss-lint` is a tool to help keep your [SCSS](http://sass-lang.com) files
 clean and readable. You can run it manually from the command line, or integrate
@@ -33,7 +35,7 @@ it into your [SCM hooks](https://github.com/brigade/overcommit).
 ## Requirements
 
 * Ruby 1.9.3+
-* Sass 3.4.15+ (`scss-lint` 0.27.0 was the last version to support Sass 3.3)
+* Sass 3.4.20+ (`scss-lint` 0.27.0 was the last version to support Sass 3.3)
 * Files you wish to lint must be written in SCSS (not Sass) syntax
 
 ## Installation

@@ -45,6 +45,7 @@ padding-left
 
 float
 clear
+clip
 
 columns
 column-gap
@@ -106,6 +107,7 @@ outline-width
 
 background
 background-attachment
+background-clip
 background-color
 background-image
 background-repeat

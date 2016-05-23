@@ -36,6 +36,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [PropertySortOrder](#propertysortorder)
 * [PropertySpelling](#propertyspelling)
 * [PropertyUnits](#propertyunits)
+* [PseudoElement](#pseudoelement)
 * [QualifyingElement](#qualifyingelement)
 * [SelectorDepth](#selectordepth)
 * [SelectorFormat](#selectorformat)

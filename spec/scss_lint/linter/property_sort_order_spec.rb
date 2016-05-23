@@ -405,6 +405,33 @@ describe SCSSLint::Linter::PropertySortOrder do
 
         it { should report_lint line: 3 }
       end
+
+      context 'and `separate_groups` is enabled' do
+        let(:linter_config) { super().merge('separate_groups' => true) }
+
+        context 'and the properties are not separated' do
+          let(:scss) { <<-SCSS }
+            p {
+              visibility: hidden;
+              margin: 0;
+            }
+          SCSS
+
+          it { should report_lint }
+        end
+
+        context 'and the properties are separated' do
+          let(:scss) { <<-SCSS }
+            p {
+              visibility: hidden;
+
+              margin: 0;
+            }
+          SCSS
+
+          it { should_not report_lint }
+        end
+      end
     end
   end
 
