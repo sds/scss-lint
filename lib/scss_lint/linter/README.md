@@ -27,6 +27,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [ImportPath](#importpath)
 * [Indentation](#indentation)
 * [LeadingZero](#leadingzero)
+* [LengthVariable](#lengthvariable)
 * [MergeableSelector](#mergeableselector)
 * [NameFormat](#nameformat)
 * [NestingDepth](#nestingdepth)
@@ -670,6 +671,62 @@ You can configure this to prefer including leading zeros.
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `style`              | `exclude_zero` or `include_zero` (default **exclude_zero**)
+
+## LengthVariable
+
+Prefer length literals (numbers with units) to be used only in
+variable declarations. They should be referred to via variables,
+or calculations using variables, everywhere else.
+
+**Bad: literal length**
+```scss
+div {
+  width: 100px;
+}
+```
+
+**Good: refer to length by variable name**
+```scss
+$column-width: 100px;
+
+...
+
+div {
+  width: $column-width;
+}
+```
+
+Most lengths in stylesheets are related to and dependant on other lengths.
+By only using variables you are forced to name these lengths and relate them
+to each other. This linter does not catch uses of percentages as those size
+relationships are already present. It encourages calculations:
+e.g `-$input-height` or `$input-height - $input-line-weight * 2`.
+
+Defining length directly in properties usually leads to future magic-number
+detective work. For example, if you ever want to change the height of all form
+inputs then you'll have to update the heights and widths and margins of many
+things in a number of places, and finding all those places can be difficult if
+you use the same length for other things, or you have values that are related
+to other values (e.g. the height minus the border width). A simple find/
+replace may not always work.
+
+A better approach is to use global variables like `$standard-input-height` and
+refer to this variable everywhere you want to use it. This makes it easy to
+update the color, as you only need change it in one place. It is also more
+intention-revealing, as seeing the name `$input-height` is more descriptive
+than `40px` or `1.5em`.
+
+**Limitations**
+- This doesn't catch `width: $button-width + 2` where the `2` is implicitly
+`2px`. SASS is too clever here.
+- This doesn't flag length literals that are percentages: 1. because that
+  already expresses how lengths are related to each other, and 2. because
+  percentages are also used for non-length values. (e.g. `fade-out(black, 70%)`)
+
+Configuration Option | Description
+---------------------|---------------------------------------------------------
+`allowed_lengths`    | A list of lengths (numbers with units) that aren't caught. e.g. `[100vh, 100vw]`
+`allowed_properties` | A list of properties that can use literal lengths, e.g. `[text-shadow, box-shadow]`
 
 ## MergeableSelector
 
