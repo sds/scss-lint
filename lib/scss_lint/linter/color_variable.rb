@@ -36,9 +36,15 @@ module SCSSLint
   private
 
     def record_lint(node, color)
+      return if permitted_color?(color)
+
       add_lint node, "Color literals like `#{color}` should only be used in " \
                      'variable declarations; they should be referred to via ' \
                      'variable everywhere else.'
+    end
+
+    def permitted_color?(color)
+      return true if config['allowed_colors'] && config['allowed_colors'].include?(color)
     end
 
     def literal_string?(script_string)

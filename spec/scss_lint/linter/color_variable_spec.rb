@@ -212,4 +212,28 @@ describe SCSSLint::Linter::ColorVariable do
 
     it { should_not report_lint }
   end
+
+  context 'when colour is allowed' do
+    let(:linter_config) { { 'allowed_colors' => ['#000', 'white'] } }
+    context 'when using an allowed length' do
+      let(:scss) { <<-SCSS }
+        p {
+          background: white;
+          border: 1px solid lighten(#000, 70%);
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when using a similar disallowed color' do
+      let(:scss) { <<-SCSS }
+        p {
+          color: black;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+  end
 end
