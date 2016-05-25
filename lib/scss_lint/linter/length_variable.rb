@@ -15,10 +15,11 @@ module SCSSLint
         0 # unitless zero
         |
         [-+]? # optional sign
-        \.\d+ # with leading decimal
-        |
-        [-+]? # optional sign
-        \d+(\.\d+)? # whole or maybe with trailing decimal
+        (?:
+          \.\d+ # with leading decimal, e.g. .5
+          |
+          \d+(\.\d+)? # whole or maybe with trailing decimal
+        )
         (?:#{LENGTH_UNITS.join('|')}) # unit!
       )
       (?:$|[\s+\-\/*()]) # math or space separated, or end of string

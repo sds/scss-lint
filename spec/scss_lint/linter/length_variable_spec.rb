@@ -37,7 +37,7 @@ describe SCSSLint::Linter::LengthVariable do
     it { should report_lint line: 2 }
   end
 
-  context 'when a color literal is used in a function call' do
+  context 'when a length literal is used in a function call' do
     let(:scss) { <<-SCSS }
       p {
         width: my-func(10px);
@@ -251,7 +251,7 @@ describe SCSSLint::Linter::LengthVariable do
     it { should report_lint line: 2 }
   end
 
-  context 'when a string is interpolated' do ## analogous to the colour_variable
+  context 'when a string is interpolated' do ## analogous to the ColorVariable linter
     let(:scss) { <<-SCSS }
       p {
         width: calc(\#{'10px'} + $my-length)
