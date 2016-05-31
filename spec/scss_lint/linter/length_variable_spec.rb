@@ -261,7 +261,7 @@ describe SCSSLint::Linter::LengthVariable do
     it { should_not report_lint }
   end
 
-  context 'when disambiguating with brackets' do ## analogous to the colour_variable
+  context 'when disambiguating with brackets' do
     let(:scss) { <<-SCSS }
       p {
         margin: (-10px) (-10px);
@@ -285,7 +285,7 @@ describe SCSSLint::Linter::LengthVariable do
     it { should_not report_lint line: 4 }
   end
 
-  context 'when a length is used in a media query' do # analogous to the colour_variable
+  context 'when a length is used in a media query' do
     let(:scss) { <<-SCSS }
       @media (min-width:100px) {
         p { color: red; }
