@@ -17,10 +17,20 @@ describe SCSSLint::Linter::LengthVariable do
     it { should_not report_lint }
   end
 
-  context 'when a color literal is used in a property' do
+  context 'when a length literal is used in a property' do
     let(:scss) { <<-SCSS }
       p {
         width: 10px;
+      }
+    SCSS
+
+    it { should report_lint line: 2 }
+  end
+
+  context 'when a negative length literal is used in a property' do
+    let(:scss) { <<-SCSS }
+      p {
+        margin: -10px;
       }
     SCSS
 
@@ -313,7 +323,7 @@ describe SCSSLint::Linter::LengthVariable do
     context 'when using an allowed length in a calculation' do
       let(:scss) { <<-SCSS }
         p {
-          margin: -5px;
+          margin: -(5px);
           border-width: $my-variable + 5px;
           width: calc(100px + \#{$my-margin});
         }
