@@ -10,7 +10,7 @@ module SCSSLint
     ].freeze
 
     LENGTH_RE = %r{
-      (?:^|[\s+\-\/*()]) # math or space separated, or beginning of string
+      (?:^|[\s+\-/*()]) # math or space separated, or beginning of string
       ( # capture whole length
         0 # unitless zero
         |
@@ -22,7 +22,7 @@ module SCSSLint
         )
         (?:#{LENGTH_UNITS.join('|')}) # unit!
       )
-      (?:$|[\s+\-\/*()]) # math or space separated, or end of string
+      (?:$|[\s+\-/*()]) # math or space separated, or end of string
     }x
 
     def visit_prop(node)
