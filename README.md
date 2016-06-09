@@ -246,10 +246,10 @@ scss-lint [scss-files...]
 ```
 
 ```
-test.scss:2 [W] StringQuotes: Prefer single quoted strings
-test.scss:2 [W] Indentation: Line should be indented 0 spaces, but was indented 1 space
-test.scss:5 [W] StringQuotes: Prefer single quoted strings
-test.scss:6 [W] UrlQuotes: URLs should be enclosed in quotes
+test.scss:2:1 [W] StringQuotes: Prefer single quoted strings
+test.scss:2:1 [W] Indentation: Line should be indented 0 spaces, but was indented 1 space
+test.scss:5:1 [W] StringQuotes: Prefer single quoted strings
+test.scss:6:8 [W] UrlQuotes: URLs should be enclosed in quotes
 ```
 
 ### CleanFiles
