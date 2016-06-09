@@ -11,6 +11,7 @@
 * Modify `Shorthand` linter to report lint if a shorthand of a length not
   specified in the `allowed_shorthands` option is used
 * Ignore SCSS functions in `NameFormat` linter
+* Update default formatter to output column number in addition to line number
 
 ## 0.48.0
 
