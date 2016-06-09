@@ -8,6 +8,8 @@
 * Add `background-clip` and `clip` to `smacss` preset sort order
 * Fix `TrailingZero` to report correct lint messages for values with multiple
   trailing zeros
+* Modify `Shorthand` linter to report lint if a shorthand of a length not
+  specified in the `allowed_shorthands` option is used
 
 ## 0.48.0
 
