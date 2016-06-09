@@ -10,6 +10,7 @@
   trailing zeros
 * Modify `Shorthand` linter to report lint if a shorthand of a length not
   specified in the `allowed_shorthands` option is used
+* Ignore SCSS functions in `NameFormat` linter
 
 ## 0.48.0
 
