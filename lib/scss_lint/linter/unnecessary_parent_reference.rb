@@ -18,7 +18,13 @@ module SCSSLint
       # element {
       #   &.foo {}
       # }
-      return if sequence.members.first.members.size > 1
+      #
+      # or
+      #
+      # element {
+      #   & .foo {}
+      # }
+      return sequence=~/(^&([ ]{1})?\..+$)|(^\..+([ ]{1})&$)/
 
       # Allow sequences that contain multiple parent references, e.g.
       # element {
