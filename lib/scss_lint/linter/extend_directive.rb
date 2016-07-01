@@ -4,7 +4,7 @@ module SCSSLint
     include LinterRegistry
 
     def visit_extend(node)
-      add_lint(node, 'Do not use the @extend directive (@include a @mixin ' \
+      add_lint(node, 'Do not use the `@extend` directive (`@include` a `@mixin` ' \
                      'instead)')
     end
   end

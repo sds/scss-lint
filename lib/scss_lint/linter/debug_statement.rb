@@ -4,7 +4,7 @@ module SCSSLint
     include LinterRegistry
 
     def visit_debug(node)
-      add_lint(node, 'Remove @debug line')
+      add_lint(node, 'Remove `@debug` line')
     end
   end
 end

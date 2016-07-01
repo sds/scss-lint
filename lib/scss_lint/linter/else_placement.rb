@@ -36,10 +36,10 @@ module SCSSLint
       if same_line_preferred?
         unless curly_on_same_line
           add_lint(else_node,
-                   '@else should be placed on same line as previous curly brace')
+                   '`@else` should be placed on same line as previous curly brace')
         end
       elsif curly_on_same_line
-        add_lint(else_node, '@else should be placed on its own line')
+        add_lint(else_node, '`@else` should be placed on its own line')
       end
     end
 
