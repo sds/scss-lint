@@ -14,6 +14,7 @@
 * Update default formatter to output column number in addition to line number
 * Add `LengthVariable` linter for reporting when variables should be used
   instead of literal lengths
+* Wrap `@`-declaratives in backticks in lint messages
 
 ## 0.48.0
 
