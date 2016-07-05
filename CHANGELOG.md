@@ -1,20 +1,28 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.49.0
+
+### New Features
+
+* Add `background-clip` and `clip` to `smacss` preset sort order
+* Add `LengthVariable` linter for reporting when variables should be used
+  instead of literal lengths
+
+### Changes
 
 * Increase minimum required `sass` gem version to 3.4.20+
-* Fix `PropertySortOrder` `separate_groups` option to work for preset sort
-  orders
-* Add `background-clip` and `clip` to `smacss` preset sort order
-* Fix `TrailingZero` to report correct lint messages for values with multiple
-  trailing zeros
 * Modify `Shorthand` linter to report lint if a shorthand of a length not
   specified in the `allowed_shorthands` option is used
 * Ignore SCSS functions in `NameFormat` linter
 * Update default formatter to output column number in addition to line number
-* Add `LengthVariable` linter for reporting when variables should be used
-  instead of literal lengths
 * Wrap `@`-declaratives in backticks in lint messages
+
+### Bug Fixes
+
+* Fix `PropertySortOrder` `separate_groups` option to work for preset sort
+  orders
+* Fix `TrailingZero` to report correct lint messages for values with multiple
+  trailing zeros
 
 ## 0.48.0
 
