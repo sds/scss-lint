@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix `scss_files` option to accept an array of patterns
+
 ## 0.49.0
 
 ### New Features
