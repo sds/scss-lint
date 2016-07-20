@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
 
   s.test_files       = Dir['spec/**/*']
 
-  s.required_ruby_version = '>= 1.9.3'
+  s.required_ruby_version = '>= 2'
 
   s.add_dependency 'rake', '>= 0.9', '< 12'
   s.add_dependency 'sass', '~> 3.4.20'

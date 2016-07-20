@@ -28,11 +28,10 @@ module SCSSLint
 
       # Need to force encoding to avoid Windows-related bugs.
       # Need to encode with universal newline to avoid other Windows-related bugs.
-      # Need `to_a` for Ruby 1.9.3.
       encoding = 'UTF-8'
       @lines = @contents.force_encoding(encoding)
                         .encode(encoding, universal_newline: true)
-                        .lines.to_a
+                        .lines
       @tree = @engine.to_tree
       find_any_control_commands
     rescue Encoding::UndefinedConversionError, Sass::SyntaxError, ArgumentError => error
