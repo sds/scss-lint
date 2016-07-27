@@ -34,7 +34,7 @@ module SCSSLint
                        '`{` should be preceded by at least one space')
       else
         return unless chars_before_incorrect(string)
-        style_message = (config['style'] == 'new_line') ? 'a new line' : 'one space'
+        style_message = config['style'] == 'new_line' ? 'a new line' : 'one space'
         add_lint(line, 'Opening curly brace `{` should be ' \
                        "preceded by #{style_message}")
       end

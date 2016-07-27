@@ -102,7 +102,7 @@ module SCSSLint
     # An unrelated right paren will sneak into the source of a node if there is no
     # whitespace between the node and the right paren.
     def trim_right_paren(source)
-      (source.count(')') == source.count('(') + 1) ? source[0..-2] : source
+      source.count(')') == source.count('(') + 1 ? source[0..-2] : source
     end
 
     def expected_spaces
