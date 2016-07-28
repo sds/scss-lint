@@ -32,7 +32,7 @@ describe SCSSLint::Reporter::StatsReporter do
       end
 
       it 'prints the name of each linter with lints' do
-        subject.report_lints.scan(linter_1.name).count.should eq 1
+        subject.report_lints.should include linter_1.name
       end
 
       it 'prints the number of lints per linter' do
