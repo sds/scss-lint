@@ -4,6 +4,7 @@
 
 * Fix `scss_files` option to accept an array of patterns
 * Drop support for Ruby 1.9.3
+* Fix `--exclude-linter` flag
 
 ## 0.49.0
 
