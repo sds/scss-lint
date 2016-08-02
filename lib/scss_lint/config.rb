@@ -270,9 +270,9 @@ module SCSSLint
     end
 
     def linter_options(linter)
-      { 'severity' => @options['severity'] }.merge(
-        @options['linters'].fetch(self.class.linter_name(linter), {})
-      )
+      options = @options['linters'].fetch(self.class.linter_name(linter), {})
+      options['severity'] ||= @options['severity']
+      options
     end
 
     def excluded_file?(file_path)
