@@ -554,7 +554,7 @@ require 'scss_lint/rake_task'
 
 SCSSLint::RakeTask.new do |t|
   t.config = 'custom/config.yml'
-  t.args = ['--formatter', 'JSON', '--out', 'results.txt']
+  t.args = ['--format', 'JSON', '--out', 'results.txt']
   t.files = ['app/assets', 'custom/*.scss']
 end
 ```
