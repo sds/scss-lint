@@ -5,6 +5,8 @@
 * Fix `scss_files` option to accept an array of patterns
 * Drop support for Ruby 1.9.3
 * Fix `--exclude-linter` flag
+* Modify `ColorKeyword` linter to allow color keywords to be used as arguments
+  in `map-*`-related function calls
 
 ## 0.49.0
 
