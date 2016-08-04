@@ -99,4 +99,14 @@ describe SCSSLint::Linter::ColorKeyword do
 
     it { should_not report_lint }
   end
+
+  context 'when color keyword is used in a map function call' do
+    let(:scss) { <<-SCSS }
+      p {
+        color: map-get($my-colors, green);
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
 end

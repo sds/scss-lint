@@ -4,6 +4,12 @@ module SCSSLint
   class Linter::ColorKeyword < Linter
     include LinterRegistry
 
+    FUNCTIONS_ALLOWING_COLOR_KEYWORD_ARGS = %w[
+      map-get
+      map-has-key
+      map-remove
+    ].to_set
+
     def visit_script_color(node)
       word = source_from_range(node.source_range)[/([a-z]+)/i, 1]
       add_color_lint(node, word) if color_keyword?(word)
@@ -20,7 +26,7 @@ module SCSSLint
   private
 
     def add_color_lint(node, original)
-      return if in_map?(node)
+      return if in_map?(node) || in_allowed_function_call?(node)
 
       hex_form = Sass::Script::Value::Color.new(color_keyword_to_code(original)).tap do |color|
         color.options = {} # `inspect` requires options to be set
@@ -33,6 +39,12 @@ module SCSSLint
 
     def in_map?(node)
       node_ancestor(node, 2).is_a?(Sass::Script::Tree::MapLiteral)
+    end
+
+    def in_allowed_function_call?(node)
+      if (funcall = node_ancestor(node, 2)).is_a?(Sass::Script::Tree::Funcall)
+        FUNCTIONS_ALLOWING_COLOR_KEYWORD_ARGS.include?(funcall.name)
+      end
     end
   end
 end
