@@ -2,12 +2,14 @@ module SCSSLint
   # Finds and aggregates all lints found by running the registered linters
   # against a set of SCSS files.
   class Runner
-    attr_reader :lints, :files
+    attr_reader :lints, :files, :lints_run_count
 
     # @param config [Config]
-    def initialize(config)
+    def initialize(config, logger)
       @config  = config
       @lints   = []
+      @logger = logger
+      @lints_run_count = 0
       @linters = LinterRegistry.linters.select { |linter| @config.linter_enabled?(linter) }
       @linters.map!(&:new)
     end
@@ -15,9 +17,10 @@ module SCSSLint
     # @param files [Array<Hash>] list of file object/path hashes
     def run(files)
       @files = files
-      @files.each do |file|
+      result = @files.each do |file|
         find_lints(file)
       end
+      result
     end
 
   private
@@ -47,9 +50,15 @@ module SCSSLint
       @lints << Lint.new(nil, file[:path], Location.new, ex.to_s, :error)
     end
 
+    def count_lint
+      @logger.log '.', false
+      @lints_run_count += 1
+    end
+
     # For stubbing in tests.
     def run_linter(linter, engine, file_path)
       return if @config.excluded_file_for_linter?(file_path, linter)
+      count_lint
       @lints += linter.run(engine, @config.linter_options(linter))
     end
   end
