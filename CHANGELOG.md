@@ -7,6 +7,7 @@
 * Fix `--exclude-linter` flag
 * Modify `ColorKeyword` linter to allow color keywords to be used as arguments
   in `map-*`-related function calls
+* Add `SpaceAfterComment` which checks for spacing after comment literal
 
 ## 0.49.0
 

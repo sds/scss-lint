@@ -45,6 +45,7 @@ Below is a list of linters supported by `scss-lint`, ordered alphabetically.
 * [SingleLinePerProperty](#singlelineperproperty)
 * [SingleLinePerSelector](#singlelineperselector)
 * [SpaceAfterComma](#spaceaftercomma)
+* [SpaceAfterComment](#spaceaftercomment)
 * [SpaceAfterPropertyColon](#spaceafterpropertycolon)
 * [SpaceAfterPropertyName](#spaceafterpropertyname)
 * [SpaceAfterVariableColon](#spaceaftervariablecolon)
@@ -1460,6 +1461,30 @@ Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `style`              | `one_space`, or `no_space` or `at_least_one_space` (default **one_space**)
 
+## SpaceAfterComment
+
+Comment literals should be followed by a space.
+
+**Bad: no space after comment literal**
+```scss
+//no space
+/*no space*/
+/*!no space for loud comment*/
+```
+
+**Good: comment literals followed by a space**
+```scss
+// one space
+/* one space*/
+/*! one space for loud comment*/
+```
+
+The `style` option allows you to specify a different preferred style.
+
+Configuration Option   | Description
+-----------------------|---------------------------------------------------------
+`allow_empty_comments` | Allow empty comments for `//` style (default **true**)
+`style`                | `one_space`, or `no_space` or `at_least_one_space` (default **one_space**)
 
 ## SpaceAfterPropertyColon
 
