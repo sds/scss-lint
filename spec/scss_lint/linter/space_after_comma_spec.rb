@@ -346,6 +346,18 @@ describe SCSSLint::Linter::SpaceAfterComma do
 
       it { should report_lint line: 4 }
     end
+
+    context 'column number' do
+      let(:scss) { <<-SCSS }
+      p {
+        property: $a,$b;
+      }
+      SCSS
+
+      it "is the correct column" do
+        subject.lints.first.location.column.should == 15
+      end
+    end
   end
 
   context 'when more than one space is preferred' do
