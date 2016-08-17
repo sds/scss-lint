@@ -89,7 +89,8 @@ module SCSSLint
         next if char == "\n" || # Ignore trailing spaces
                 valid_spaces_after_comma?(spaces)
 
-        add_lint comma_position, "Commas in #{arg_type} should be followed by a single space"
+        style_message = config['style'].tr('_', ' ')
+        add_lint comma_position, "Commas in #{arg_type} should be followed by #{style_message}"
       end
     end
 

@@ -346,6 +346,30 @@ describe SCSSLint::Linter::SpaceAfterComma do
 
       it { should report_lint line: 4 }
     end
+
+    context 'column number' do
+      let(:scss) { <<-SCSS }
+      p {
+        property: $a,$b;
+      }
+      SCSS
+
+      it 'is the correct column' do
+        subject.lints.first.location.column.should == 15
+      end
+    end
+
+    context 'linter message' do
+      let(:scss) { <<-SCSS }
+      p {
+        property: $a,$b;
+      }
+      SCSS
+
+      it 'specifies the style' do
+        subject.lints.first.description.should == 'Commas in lists should be followed by one space'
+      end
+    end
   end
 
   context 'when more than one space is preferred' do
@@ -745,6 +769,19 @@ describe SCSSLint::Linter::SpaceAfterComma do
         it { should_not report_lint }
       end
     end
+
+    context 'linter message' do
+      let(:scss) { <<-SCSS }
+      p {
+        property: $a,$b;
+      }
+      SCSS
+
+      it 'specifies the style' do
+        subject.lints.first.description.should ==
+          'Commas in lists should be followed by at least one space'
+      end
+    end
   end
 
   context 'when no space is preferred' do
@@ -1076,6 +1113,18 @@ describe SCSSLint::Linter::SpaceAfterComma do
         SCSS
 
         it { should_not report_lint }
+      end
+    end
+
+    context 'linter message' do
+      let(:scss) { <<-SCSS }
+      p {
+        property: $a, $b;
+      }
+      SCSS
+
+      it 'specifies the style' do
+        subject.lints.first.description.should == 'Commas in lists should be followed by no space'
       end
     end
   end
