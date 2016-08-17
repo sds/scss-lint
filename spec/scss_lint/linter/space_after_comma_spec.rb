@@ -354,7 +354,7 @@ describe SCSSLint::Linter::SpaceAfterComma do
       }
       SCSS
 
-      it "is the correct column" do
+      it 'is the correct column' do
         subject.lints.first.location.column.should == 15
       end
     end
@@ -366,7 +366,7 @@ describe SCSSLint::Linter::SpaceAfterComma do
       }
       SCSS
 
-      it "specifies the style" do
+      it 'specifies the style' do
         subject.lints.first.description.should == 'Commas in lists should be followed by one space'
       end
     end
@@ -777,8 +777,9 @@ describe SCSSLint::Linter::SpaceAfterComma do
       }
       SCSS
 
-      it "specifies the style" do
-        subject.lints.first.description.should == 'Commas in lists should be followed by at least one space'
+      it 'specifies the style' do
+        subject.lints.first.description.should ==
+          'Commas in lists should be followed by at least one space'
       end
     end
   end
@@ -1122,7 +1123,7 @@ describe SCSSLint::Linter::SpaceAfterComma do
       }
       SCSS
 
-      it "specifies the style" do
+      it 'specifies the style' do
         subject.lints.first.description.should == 'Commas in lists should be followed by no space'
       end
     end
