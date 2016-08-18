@@ -8,6 +8,7 @@
 * Modify `ColorKeyword` linter to allow color keywords to be used as arguments
   in `map-*`-related function calls
 * Add `SpaceAfterComment` which checks for spacing after comment literal
+* Fix `SpaceAfterComma` linter to report correct column number
 
 ## 0.49.0
 
