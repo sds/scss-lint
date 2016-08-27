@@ -31,6 +31,16 @@ describe SCSSLint::Linter::PlaceholderInExtend do
     it { should report_lint line: 2 }
   end
 
+  context 'when extending with a comma sequence starting with a placeholder' do
+    let(:scss) { <<-SCSS }
+      p {
+        @extend %placeholder, .item;
+      }
+    SCSS
+
+    it { should report_lint line: 2 }
+  end
+
   context 'when extending with a placeholder' do
     let(:scss) { <<-SCSS }
       p {

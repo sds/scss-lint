@@ -12,11 +12,13 @@ module SCSSLint
       # every word boundary (so %placeholder becomes ['%', 'placeholder']).
       selector = node.selector.join
 
-      # Ignore if this is a placeholder
-      return if selector.start_with?('%')
-
-      add_lint(node, 'Prefer using placeholder selectors (e.g. ' \
-                     '%some-placeholder) with @extend')
+      if selector.include?(',')
+        add_lint(node, 'Avoid comma sequences in `@extend` directives; ' \
+                       'prefer single placeholder selectors (e.g. `%some-placeholder`)')
+      elsif !selector.start_with?('%')
+        add_lint(node, 'Prefer using placeholder selectors (e.g. ' \
+                       '%some-placeholder) with @extend')
+      end
     end
   end
 end
