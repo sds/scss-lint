@@ -84,4 +84,14 @@ describe SCSSLint::Linter::UnnecessaryMantissa do
 
     it { should_not report_lint }
   end
+
+  context 'when a decimal value appears in a URL' do
+    let(:scss) { <<-SCSS }
+      p {
+        background: url(https://www.example.com/v1.0/image.jpg);
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
 end

@@ -13,6 +13,7 @@
   functions/mixins
 * Fix `Shorthand` to not report shorthanded values with `!important` as having
   a shorthand length not specified in `allowed_shorthands`
+* Fix `UnnecessaryMantissa` to ignore decimal values in URL literals
 
 ## 0.49.0
 
