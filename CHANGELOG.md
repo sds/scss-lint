@@ -18,6 +18,8 @@
   placeholder
 * `Shorthand` linter will now forbid the use of shorthand properties if
   `allowed_shorthands` option is set to an empty list
+* Fix `StringQuotes` linter to ignore `@charset` directives since they must
+  [_always_ use double quotes](https://www.w3.org/TR/css-syntax-3/#charset-rule)
 
 ## 0.49.0
 

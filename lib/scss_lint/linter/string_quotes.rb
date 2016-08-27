@@ -3,8 +3,6 @@ module SCSSLint
   class Linter::StringQuotes < Linter
     include LinterRegistry
 
-    CHARSET_DIRECTIVE_LENGTH = '@charset'.length
-
     def visit_script_stringinterpolation(node)
       # We can't statically determine what the resultant string looks like when
       # string interpolation is used, e.g. "one #{$var} three" could be a very
@@ -24,13 +22,6 @@ module SCSSLint
     def visit_import(node)
       # `@import` source range conveniently includes only the quoted string
       check_quotes(node, source_from_range(node.source_range))
-    end
-
-    def visit_charset(node)
-      # `@charset` source range includes entire declaration, so exclude that prefix
-      source = source_from_range(node.source_range)[CHARSET_DIRECTIVE_LENGTH..-1]
-
-      check_quotes(node, source)
     end
 
   private

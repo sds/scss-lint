@@ -63,12 +63,6 @@ describe SCSSLint::Linter::StringQuotes do
     end
   end
 
-  context 'when @charset uses single quotes' do
-    let(:scss) { "@charset 'UTF-8';" }
-
-    it { should_not report_lint }
-  end
-
   context 'when string is written with double quotes' do
     let(:scss) { <<-SCSS }
       p {
@@ -129,12 +123,6 @@ describe SCSSLint::Linter::StringQuotes do
 
       it { should report_lint }
     end
-  end
-
-  context 'when @charset uses double quotes' do
-    let(:scss) { '@charset "UTF-8";' }
-
-    it { should report_lint }
   end
 
   context 'when property has a literal identifier' do
