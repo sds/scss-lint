@@ -1369,6 +1369,9 @@ margin: 1px;
 If you don't want to allow all possible shorthands, you can limit them by
 setting the `allowed_shorthands` array option to a subset of `[1, 2, 3, 4]`.
 
+If you want to forbid any shorthand properties from being used, set the
+`allowed_shorthands` option to an empty array `[]`.
+
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
 `allowed_shorthands` | Array of allowed shorthand lengths (default `[1, 2, 3, 4]`)

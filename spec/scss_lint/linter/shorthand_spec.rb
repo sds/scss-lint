@@ -215,5 +215,16 @@ describe SCSSLint::Linter::Shorthand do
 
       it { should report_lint }
     end
+
+    context 'when allowed_shorthands is a empty list' do
+      let(:allowed) { [] }
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 0;
+        }
+      SCSS
+
+      it { should report_lint line: 2, message: /forbidden/ }
+    end
   end
 end

@@ -5,10 +5,22 @@ module SCSSLint
   class Linter::Shorthand < Linter
     include LinterRegistry
 
+    def visit_root(*)
+      @shorthands_forbidden = @config['allowed_shorthands'] == []
+      yield # Continue linting children
+    end
+
     # @param node [Sass::Tree::Node]
     def visit_prop(node)
       property_name = node.name.join
       return unless SHORTHANDABLE_PROPERTIES.include?(property_name)
+
+      if @shorthands_forbidden
+        add_lint(node, "The `#{property_name}` shorthand property is " \
+                       'forbidden since the `allowed_shorthands` option ' \
+                       'is set to an empty list.')
+
+      end
 
       case node.value
       when Sass::Script::Tree::Literal

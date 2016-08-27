@@ -16,6 +16,8 @@
 * Fix `UnnecessaryMantissa` to ignore decimal values in URL literals
 * Fix `PlaceholderInExtend` to report comma sequences starting with a
   placeholder
+* `Shorthand` linter will now forbid the use of shorthand properties if
+  `allowed_shorthands` option is set to an empty list
 
 ## 0.49.0
 
