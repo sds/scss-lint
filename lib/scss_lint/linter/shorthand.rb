@@ -68,6 +68,8 @@ module SCSSLint
     # @param node [Sass::Script::Value::String]
     # @param values [Array<String>]
     def check_shorthand(prop, node, values)
+      values = shorthand_values(values)
+
       add_lint(node, "Shorthands of length `#{values.count}` are not allowed. " \
                      "Value was `#{values.join(' ')}`") unless allowed?(values.count)
 
@@ -137,6 +139,10 @@ module SCSSLint
     def allowed?(size)
       return false unless config['allowed_shorthands']
       config['allowed_shorthands'].map(&:to_i).include?(size)
+    end
+
+    def shorthand_values(values)
+      values.take(4).take_while { |value| !value.to_s.start_with?('!') }
     end
   end
 end

@@ -11,6 +11,8 @@
 * Fix `SpaceAfterComma` linter to report correct column number
 * Fix `PrivateNamingConvention` to consider functions/mixins used inside other
   functions/mixins
+* Fix `Shorthand` to not report shorthanded values with `!important` as having
+  a shorthand length not specified in `allowed_shorthands`
 
 ## 0.49.0
 

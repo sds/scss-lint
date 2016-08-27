@@ -193,6 +193,16 @@ describe SCSSLint::Linter::Shorthand do
       SCSS
 
       it { should_not report_lint }
+
+      context 'and ends with !important' do
+        let(:scss) { <<-SCSS }
+          p {
+            margin: 4px 4px 4px !important;
+          }
+        SCSS
+
+        it { should_not report_lint }
+      end
     end
 
     context 'is fine but length is not allowed' do
