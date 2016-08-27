@@ -20,6 +20,8 @@
   `allowed_shorthands` option is set to an empty list
 * Fix `StringQuotes` linter to ignore `@charset` directives since they must
   [_always_ use double quotes](https://www.w3.org/TR/css-syntax-3/#charset-rule)
+* Change Rake task to respect `scss_files` option if no explicit files are
+  specified
 
 ## 0.49.0
 

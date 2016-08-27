@@ -304,7 +304,7 @@ module SCSSLint
 
     # @return Array
     def scss_files
-      if path = @options['scss_files']
+      if path = @options['scss_files'] && Array(path).any?
         Array(path).map { |p| Dir[p] }.flatten.uniq
       else
         []

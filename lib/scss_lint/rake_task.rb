@@ -50,7 +50,7 @@ module SCSSLint
     # Create the task so it is accessible via +Rake::Task['scss_lint']+.
     def initialize(name = :scss_lint)
       @name = name
-      @files = ['.'] # Search for everything under current directory by default
+      @files = []
       @quiet = false
 
       yield self if block_given?
@@ -102,7 +102,13 @@ module SCSSLint
       # command line or in a custom task definition.
       explicit_files = Array(task_args[:files]) + Array(task_args.extras)
 
-      explicit_files.any? ? explicit_files : files
+      if explicit_files.any?
+        explicit_files
+      elsif files.any?
+        files
+      else
+        [] # Will fall back to scss_files option if defined
+      end
     end
 
     # Friendly description that shows the full command that will be executed.

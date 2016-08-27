@@ -14,30 +14,8 @@ describe SCSSLint::FileFinder do
     context 'when no patterns are given' do
       let(:patterns) { [] }
 
-      context 'and there are no SCSS files under the current directory' do
-        it 'raises an error' do
-          expect { subject }.to raise_error SCSSLint::Exceptions::NoFilesError
-        end
-      end
-
-      context 'and there are SCSS files under the current directory' do
-        before do
-          FileUtils.touch('blah.scss')
-          FileUtils.mkdir_p('more')
-          FileUtils.touch(File.join('more', 'more.scss'))
-        end
-
-        it { should == ['blah.scss', File.join('more', 'more.scss')] }
-      end
-
-      context 'and a default set of files is specified in the config' do
-        let(:files) { ['file1.scss', 'file2.scss'] }
-
-        before do
-          config.stub(:scss_files).and_return(files)
-        end
-
-        it { should == files }
+      it 'raises an error' do
+        expect { subject }.to raise_error SCSSLint::Exceptions::NoFilesError
       end
     end
 

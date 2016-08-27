@@ -63,14 +63,7 @@ module SCSSLint
 
     def scan_for_lints(options, config)
       runner = Runner.new(config)
-      files =
-        if options[:stdin_file_path]
-          [{ file: STDIN, path: options[:stdin_file_path] }]
-        else
-          FileFinder.new(config).find(options[:files]).map do |file_path|
-            { path: file_path }
-          end
-        end
+      files = files_to_lint(options, config)
       runner.run(files)
       report_lints(options, runner.lints, files)
 
@@ -80,6 +73,17 @@ module SCSSLint
         halt :warning
       else
         halt :ok
+      end
+    end
+
+    def files_to_lint(options, config)
+      if options[:stdin_file_path]
+        [{ file: STDIN, path: options[:stdin_file_path] }]
+      else
+        patterns = Array(options[:files]).any? ? Array(options[:files]) : config.scss_files
+        FileFinder.new(config).find(patterns).map do |file_path|
+          { path: file_path }
+        end
       end
     end
 

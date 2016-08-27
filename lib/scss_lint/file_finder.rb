@@ -19,8 +19,10 @@ module SCSSLint
     #
     # @param patterns [Array<String>] a list of file paths and glob patterns
     def find(patterns)
-      # If no explicit patterns given, use patterns listed in config
-      patterns = @config.scss_files if patterns.empty?
+      if patterns.empty?
+        raise SCSSLint::Exceptions::NoFilesError,
+              'No files, paths, or patterns were specified'
+      end
 
       matched_files = extract_files_from(patterns)
       if matched_files.empty?
