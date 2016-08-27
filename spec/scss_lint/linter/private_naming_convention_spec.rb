@@ -465,6 +465,22 @@ describe SCSSLint::Linter::PrivateNamingConvention do
 
       it { should_not report_lint }
     end
+
+    context 'is defined and used within another private function' do
+      let(:scss) { <<-SCSS }
+        @function _foo() {
+          @return red;
+        }
+
+        @function _bar() {
+          @return _foo();
+        }
+
+        $use: _bar();
+      SCSS
+
+      it { should_not report_lint }
+    end
   end
 
   context 'when a public function' do

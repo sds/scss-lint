@@ -27,9 +27,9 @@ module SCSSLint
       node.children.each_with_object([]) do |child_node|
         if DEFINITIONS.key?(child_node.class)
           register_node child_node
-        else
-          yield
         end
+
+        yield
       end
 
       # After we have visited everything, we want to see if any private things

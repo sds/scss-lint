@@ -9,6 +9,8 @@
   in `map-*`-related function calls
 * Add `SpaceAfterComment` which checks for spacing after comment literal
 * Fix `SpaceAfterComma` linter to report correct column number
+* Fix `PrivateNamingConvention` to consider functions/mixins used inside other
+  functions/mixins
 
 ## 0.49.0
 
