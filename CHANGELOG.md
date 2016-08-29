@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix regression in `scss_files` option processing where option was ignored
+
 ## 0.50.0
 
 ### New Features
