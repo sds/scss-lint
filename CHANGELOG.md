@@ -1,13 +1,25 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.50.0
+
+### New Features
+
+* Add `SpaceAfterComment` which checks for spacing after comment literal
+
+### Changes
+
+* Drop support for Ruby 1.9.3
+* `Shorthand` linter will now forbid the use of shorthand properties if
+  `allowed_shorthands` option is set to an empty list
+* Change Rake task to respect `scss_files` option if no explicit files are
+  specified
+
+### Bug Fixes
 
 * Fix `scss_files` option to accept an array of patterns
-* Drop support for Ruby 1.9.3
 * Fix `--exclude-linter` flag
-* Modify `ColorKeyword` linter to allow color keywords to be used as arguments
+* Fix `ColorKeyword` linter to allow color keywords to be used as arguments
   in `map-*`-related function calls
-* Add `SpaceAfterComment` which checks for spacing after comment literal
 * Fix `SpaceAfterComma` linter to report correct column number
 * Fix `PrivateNamingConvention` to consider functions/mixins used inside other
   functions/mixins
@@ -16,12 +28,8 @@
 * Fix `UnnecessaryMantissa` to ignore decimal values in URL literals
 * Fix `PlaceholderInExtend` to report comma sequences starting with a
   placeholder
-* `Shorthand` linter will now forbid the use of shorthand properties if
-  `allowed_shorthands` option is set to an empty list
 * Fix `StringQuotes` linter to ignore `@charset` directives since they must
   [_always_ use double quotes](https://www.w3.org/TR/css-syntax-3/#charset-rule)
-* Change Rake task to respect `scss_files` option if no explicit files are
-  specified
 
 ## 0.49.0
 
