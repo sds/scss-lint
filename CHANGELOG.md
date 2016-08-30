@@ -1,5 +1,10 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix default `style` configuration for `SpaceAfterComment` to `one_space` and
+  to be disabled by default
+
 ## 0.50.1
 
 * Fix regression in `scss_files` option processing where option was ignored
