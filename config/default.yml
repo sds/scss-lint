@@ -182,8 +182,8 @@ linters:
     style: one_space # or 'no_space', or 'at_least_one_space'
 
   SpaceAfterComment:
-    enabled: true
-    style: at_least_one_space # or 'no_space', or 'at_least_one_space'
+    enabled: false
+    style: one_space # or 'no_space', or 'at_least_one_space'
     allow_empty_comments: true
 
   SpaceAfterPropertyColon:
