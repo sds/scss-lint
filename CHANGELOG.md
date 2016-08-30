@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.50.2
 
 * Fix default `style` configuration for `SpaceAfterComment` to `one_space` and
   to be disabled by default
