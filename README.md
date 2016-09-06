@@ -555,7 +555,7 @@ require 'scss_lint/rake_task'
 SCSSLint::RakeTask.new do |t|
   t.config = 'custom/config.yml'
   t.args = ['--format', 'JSON', '--out', 'results.txt']
-  t.files = ['app/assets', 'custom/*.scss']
+  t.files = Dir.glob(['app/assets', 'custom/*.scss'])
 end
 ```
 
@@ -564,11 +564,11 @@ allowed by the `scss-lint` Ruby binary script. Each argument must be passed as
 an Array element, rather than one String with spaces.
 
 You can also use this custom configuration with a set of files specified via
-the command line:
+the command line (note that this will not expand glob patterns):
 
 ```bash
 # Single quotes prevent shell glob expansion
-rake 'scss_lint[app/assets, custom/*.scss]'
+rake 'scss_lint[app/assets, custom/file-with-a-literal-asterisk-*.scss]'
 ```
 
 Files specified in this manner take precedence over the `files` attribute
