@@ -43,6 +43,10 @@ margin-bottom
 margin-left
 
 outline
+outline-offset
+outline-width
+outline-style
+outline-color
 
 border
 border-top
