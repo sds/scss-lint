@@ -176,6 +176,17 @@ describe SCSSLint::Linter::SpaceAfterComment do
 
       it { should report_lint line: 1 }
     end
+
+    context 'when an indented block has comments on multiple lines' do
+      let(:scss) { <<-SCSS }
+        p {
+          // Comment one
+          // Comment two
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
   end
 
   context 'when no spaces are allowed' do
@@ -326,6 +337,17 @@ describe SCSSLint::Linter::SpaceAfterComment do
 
       it { should report_lint line: 1 }
     end
+
+    context 'when an indented block has comments on multiple lines' do
+      let(:scss) { <<-SCSS }
+        p {
+          //Comment one
+          //Comment two
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
   end
 
   context 'when at least one space is preferred' do
@@ -475,6 +497,17 @@ describe SCSSLint::Linter::SpaceAfterComment do
       SCSS
 
       it { should_not report_lint line: 1 }
+    end
+
+    context 'when an indented block has comments on multiple lines' do
+      let(:scss) { <<-SCSS }
+        p {
+          // Comment one
+          //  Comment two
+        }
+      SCSS
+
+      it { should_not report_lint }
     end
   end
 end

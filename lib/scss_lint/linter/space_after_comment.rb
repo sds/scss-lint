@@ -14,7 +14,7 @@ module SCSSLint
     def check_silent_comment(node, source)
       source.split("\n").each_with_index do |line, index|
         next if config['allow_empty_comments'] && line.strip.length <= 2
-        whitespace = whitespace_after_comment(line, 2)
+        whitespace = whitespace_after_comment(line.lstrip, 2)
         check_for_space(node.line + index, whitespace)
       end
     end
