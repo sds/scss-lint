@@ -8,6 +8,19 @@ right
 bottom
 left
 
+flex
+flex-basis
+flex-direction
+flex-flow
+flex-grow
+flex-shrink
+flex-wrap
+align-content
+align-items
+align-self
+justify-content
+order
+
 columns
 column-gap
 column-fill
