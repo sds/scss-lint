@@ -80,6 +80,7 @@ pointer-events
 cursor
 background
 background-attachment
+background-clip
 background-color
 background-image
 background-position

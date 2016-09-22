@@ -93,6 +93,8 @@ border-left-color
 box-shadow
 
 background
+background-attachment
+background-clip
 background-color
 background-image
 background-repeat
