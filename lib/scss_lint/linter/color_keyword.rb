@@ -42,9 +42,8 @@ module SCSSLint
     end
 
     def in_allowed_function_call?(node)
-      if (funcall = node_ancestor(node, 2)).is_a?(Sass::Script::Tree::Funcall)
+      (funcall = node_ancestor(node, 2)).is_a?(Sass::Script::Tree::Funcall) &&
         FUNCTIONS_ALLOWING_COLOR_KEYWORD_ARGS.include?(funcall.name)
-      end
     end
   end
 end

@@ -107,11 +107,11 @@ module SCSSLint
 
       return false unless node_to_look_in.node_parent
 
+      return unless node_to_look_in.node_parent
+
       # We did not find a match yet, and haven't reached the top of the branch,
       # so recurse.
-      if node_to_look_in.node_parent
-        node_defined_earlier_in_branch?(node_to_look_in.node_parent, looking_for)
-      end
+      node_defined_earlier_in_branch?(node_to_look_in.node_parent, looking_for)
     end
 
     def private?(node)
