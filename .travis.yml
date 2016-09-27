@@ -23,5 +23,7 @@ before_script:
 
 script:
   - bundle exec rspec
+  # Skip Overcommit run on JRuby since it's unstable and doesn't test actual functionality
+  - '[[ $TRAVIS_RUBY_VERSION =~ ^jruby ]] && exit || true'
   - bundle exec overcommit --sign
   - bundle exec overcommit --run
