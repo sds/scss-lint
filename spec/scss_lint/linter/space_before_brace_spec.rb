@@ -494,6 +494,29 @@ describe SCSSLint::Linter::SpaceBeforeBrace do
     end
   end
 
+  context 'with an @if/@else statement' do
+    context 'when brace is preceded by space' do
+      let(:scss) { <<-SCSS }
+        @if some_expression {
+        } @else {
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when brace is not preceded by space' do
+      let(:scss) { <<-SCSS }
+        @if some_expression{
+        } @else{
+        }
+      SCSS
+
+      it { should report_lint line: 1 }
+      it { should report_lint line: 2 }
+    end
+  end
+
   context 'with a mixin include with braces' do
     context 'with arguments' do
       context 'when brace is preceded by a space' do

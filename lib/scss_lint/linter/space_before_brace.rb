@@ -14,6 +14,11 @@ module SCSSLint
       yield
     end
 
+    def visit_if(node, &block)
+      check_node(node, &block)
+      check_node(node.else, &block) if node.else
+    end
+
     alias visit_function check_node
     alias visit_each check_node
     alias visit_for check_node
