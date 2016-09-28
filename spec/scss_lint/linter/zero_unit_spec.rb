@@ -110,4 +110,14 @@ describe SCSSLint::Linter::ZeroUnit do
 
     it { should_not report_lint }
   end
+
+  context 'when calc expression with zero value has units' do
+    let(:scss) { <<-SCSS }
+      p {
+        width: calc(0px + 1.5em);
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
 end
