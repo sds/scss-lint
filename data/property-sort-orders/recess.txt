@@ -151,7 +151,6 @@ transition-delay
 transition-duration
 transition-property
 transition-timing-function
-background-clip
 backface-visibility
 resize
 appearance
