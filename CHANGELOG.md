@@ -1,5 +1,15 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Add outline, flexbox, background clip, and attachment properties to
+  `concentric` `PropertySort` sort order
+* Add background clip and attachment properties to `recess` `PropertySort`
+  sort order
+* Fix `SpaceAfterComment` handling of consecutive comments
+* Fix `SpaceBeforeBrace` to check `@if` / `@else` statements
+* Fix `ZeroUnit` to not report zero values with units in `calc` expressions
+
 ## 0.50.2
 
 * Fix default `style` configuration for `SpaceAfterComment` to `one_space` and
