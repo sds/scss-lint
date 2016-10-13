@@ -114,10 +114,14 @@ Configuration Option | Description
 
 ## BorderZero
 
-Prefer the terser `border: 0` over `border: none`.
+Prefer the terser `border: 0` over `border: none`, as it is usually what is intended.
 
 You can specify preferring `border: none` over `border: 0` by setting the
 `convention` option.
+
+*WARNING*: `border: 0` and `border: none` are fundamentally different, as they
+are both shorthands. The intent of this linter is to enforce consistency,
+rather than define which is "better."
 
 Configuration Option | Description
 ---------------------|---------------------------------------------------------
