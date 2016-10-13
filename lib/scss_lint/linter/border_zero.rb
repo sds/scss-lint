@@ -17,7 +17,11 @@ module SCSSLint
     ].freeze
 
     def visit_root(_node)
-      @preference = CONVENTION_TO_PREFERENCE[config['convention']]
+      @preference = CONVENTION_TO_PREFERENCE[config['convention'].to_s]
+      unless @preference
+        raise "Invalid `convention` specified: #{config['convention']}." \
+              "Must be one of [#{CONVENTION_TO_PREFERENCE.keys.join(', ')}]"
+      end
       yield # Continue linting children
     end
 
