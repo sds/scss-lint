@@ -366,7 +366,7 @@ There are also formatters that integrate with third-party tools which are availa
 Outputs an XML document with `<checkstyle>`, `<file>`, and `<error>` tags.
 Suitable for consumption by tools like
 [Jenkins](http://jenkins-ci.org/) with the
-[Checkstyle plugin](https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin).
+[Checkstyle plugin](https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin) or [Bamboo](https://www.atlassian.com/software/bamboo) with the [View Checkstyle addon](https://marketplace.atlassian.com/plugins/eu.markusschulte.atlassian.bamboo.plugin.report-checkstyle/).
 
 ```bash
 gem install scss_lint_reporter_checkstyle
