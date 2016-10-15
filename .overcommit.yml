@@ -19,9 +19,5 @@ PreCommit:
   TrailingWhitespace:
     enabled: true
 
-  TravisLint:
-    enabled: true
-    flags: ['lint', '--skip-version-check']
-
   YamlSyntax:
     enabled: true
