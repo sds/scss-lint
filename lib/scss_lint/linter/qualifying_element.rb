@@ -1,5 +1,5 @@
 module SCSSLint
-  # Checks for element selectors qualifying id, classe, or attribute selectors.
+  # Checks for element selectors qualifying id, classes, or attribute selectors.
   class Linter::QualifyingElement < Linter
     include LinterRegistry
 
