@@ -75,7 +75,7 @@ module SCSSLint
 
     def find_any_control_commands
       @any_control_commands =
-        @lines.any? { |line| line['scss-lint:disable'] || line['scss-line:enable'] }
+        @lines.any? { |line| line['scss-lint:disable'] || line['scss-lint:enable'] }
     end
 
     def preprocess_contents # rubocop:disable CyclomaticComplexity

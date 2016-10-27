@@ -9,6 +9,7 @@
 * Fix `SpaceAfterComment` handling of consecutive comments
 * Fix `SpaceBeforeBrace` to check `@if` / `@else` statements
 * Fix `ZeroUnit` to not report zero values with units in `calc` expressions
+* Fix detection of control comments when `scss-lint:enable` is used
 
 ## 0.50.2
 
