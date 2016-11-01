@@ -4,7 +4,7 @@ module SCSSLint
     include LinterRegistry
 
     def visit_comment(node)
-      add_lint(node, 'Use `//` comments everywhere') unless valid_comment?(node)
+      add_lint(node, message) unless valid_comment?(node)
     end
 
   private
@@ -30,6 +30,14 @@ module SCSSLint
       re = Regexp.new(config['allowed'])
 
       node.value.join.match(re)
+    end
+
+    def message
+      if config.fetch('style', 'silent') == 'silent'
+        'Use `//` comments everywhere'
+      else
+        'Use `/* */` comments everywhere'
+      end
     end
   end
 end
