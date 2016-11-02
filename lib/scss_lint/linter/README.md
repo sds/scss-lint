@@ -679,6 +679,8 @@ Configuration Option | Description
 
 ## LengthVariable
 
+**Disabled by default**
+
 Prefer length literals (numbers with units) to be used only in
 variable declarations. They should be referred to via variables,
 or calculations using variables, everywhere else.
