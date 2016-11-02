@@ -506,10 +506,18 @@ immediately exit with an error.
 
 For example, `preprocess_command: "cat"` specifies a simple no-op preprocessor
 (on Unix-like systems). `cat` simply writes the contents of STDIN back out to
-STDOUT. To preprocess SCSS files with
-[Jekyll front matter](http://jekyllrb.com/docs/assets/), you can use
-`preprocess_command: "sed '1,2s/---//'"`. This will strip out any Jekyll front
-matter, but preserve line numbers.
+STDOUT.
+
+Metadata codeblocks like [Jekyll Front Matter](http://jekyllrb.com/docs/assets/)
+at the beginning of SCSS files can cause a syntax error when SCSS-Lint does not
+encounter Sass at the first line of the file, e.g.
+`Invalid CSS after "@charset "utf-8"": expected "{", was ";"`.
+To search the first line for front matter's triple dash delimiter `---`,
+strip out the YAML codeblock and pass the result to SCSS-Lint with line
+numbers preserved, you can use
+`preprocess_command: "sed '1{/^---$/{:a N;/---$/!ba;d}}'"` -- please note this
+sed command is valid for gnu-sed. If you are using the FreeBSD version of sed that
+ships with Mac OS X by default, it will throw an EOF error.
 
 If only some SCSS files need to be preprocessed, you may use the
 `preprocess_files` option to specify a list of file globs that need
