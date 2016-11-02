@@ -493,8 +493,8 @@ For example, `preprocess_command: "cat"` specifies a simple no-op preprocessor
 (on Unix-like systems). `cat` simply writes the contents of STDIN back out to
 STDOUT. To preprocess SCSS files with
 [Jekyll front matter](http://jekyllrb.com/docs/assets/), you can use
-`preprocess_command: "sed '1,2s/---//'"`. This will strip out any Jekyll front
-matter, but preserve line numbers.
+`preprocess_command: "sed '1{/^---$/!q};1,/^---$/d'"`. This will strip out any
+Jekyll front matter, but preserve line numbers.
 
 If only some SCSS files need to be preprocessed, you may use the
 `preprocess_files` option to specify a list of file globs that need
