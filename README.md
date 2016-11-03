@@ -24,7 +24,8 @@ implementation, this means it will eventually not support the latest Sass
 features and bug fixes.
 
 Two alternatives worthy of consideration are [stylelint](http://stylelint.io/)
-and [sass-lint](https://github.com/sasstools/sass-lint).
+and [sass-lint](https://github.com/sasstools/sass-lint), with sass-lint having
+closer feature parity to SCSS-lint.
 
 The SCSS-Lint project will continue to accept pull requests and provide basic
 support on the issue tracker.
