@@ -495,7 +495,7 @@ STDOUT.
 
 Metadata codeblocks like [Jekyll Front Matter](http://jekyllrb.com/docs/assets/)
 at the beginning of SCSS files can cause a syntax error when SCSS-Lint does not
-Sass on the first line of the file, e.g.
+encounter Sass at the first line of the file, e.g.
 `Invalid CSS after "@charset "utf-8"": expected "{", was ";"`.
 To search the first line for front matter's triple dash delimiter `---`,
 strip out the YAML codeblock and pass the result to SCSS-Lint with line
