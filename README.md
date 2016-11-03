@@ -15,6 +15,20 @@ configurable [linter rules](lib/scss_lint/linter/README.md). You can run it
 manually from the command line, or integrate it into your
 [SCM hooks](https://github.com/brigade/overcommit).
 
+# NOTICE: Consider other tools before adopting SCSS-Lint
+
+The Sass core team is now building Sass in [Dart instead of Ruby](http://blog.sass-lang.com/posts/1022316-announcing-dart-sass),
+and will no longer be maintaining the Ruby implementation unless a maintainer
+steps up to help. Since the SCSS-Lint project relies on the Ruby Sass
+implementation, this means it will eventually not support the latest Sass
+features and bug fixes.
+
+Two alternatives worthy of consideration are [stylelint](http://stylelint.io/)
+and [sass-lint](https://github.com/sasstools/sass-lint).
+
+The SCSS-Lint project will continue to accept pull requests and provide basic
+support on the issue tracker.
+
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [Usage](#usage)
