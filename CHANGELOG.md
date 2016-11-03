@@ -2,14 +2,15 @@
 
 ## master (unreleased)
 
-* Add outline, flexbox, background clip, and attachment properties to
-  `concentric` `PropertySort` sort order
+* Add outline, flexbox, background clip, attachment, word-wrap, and work-break
+  properties to `concentric` `PropertySort` sort order
 * Add background clip and attachment properties to `recess` `PropertySort`
   sort order
 * Fix `SpaceAfterComment` handling of consecutive comments
 * Fix `SpaceBeforeBrace` to check `@if` / `@else` statements
 * Fix `ZeroUnit` to not report zero values with units in `calc` expressions
 * Fix detection of control comments when `scss-lint:enable` is used
+* Fix `Comment` linter message when using `loud` style comments
 
 ## 0.50.2
 
