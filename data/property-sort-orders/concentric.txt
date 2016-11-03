@@ -137,6 +137,8 @@ text-shadow
 text-overflow
 
 line-height
+word-break
+word-wrap
 word-spacing
 letter-spacing
 white-space
