@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.50.3
 
 * Add outline, flexbox, background clip, attachment, word-wrap, and work-break
   properties to `concentric` `PropertySort` sort order
