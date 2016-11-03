@@ -57,6 +57,7 @@ module SCSSLint
       when Sass::Script::Funcall
         value.name
       when Sass::Script::String
+        nil
       when Sass::Script::Tree::Literal
         value.value
       when Sass::Script::Tree::ListLiteral
@@ -69,13 +70,13 @@ module SCSSLint
     def ignore_consecutive_of?(prop)
       case @ignore_consecutive
       when true
-        return true
+        true
       when false
-        return false
+        false
       when nil
-        return false
+        false
       when Array
-        return @ignore_consecutive.include?(prop.name.join)
+        @ignore_consecutive.include?(prop.name.join)
       else
         raise SCSSLint::Exceptions::LinterError,
               "#{@ignore_consecutive.inspect} is not a valid value for ignore_consecutive."

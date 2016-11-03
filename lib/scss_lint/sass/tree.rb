@@ -122,9 +122,11 @@ module Sass::Tree
 
       # Keyword mapping is String -> Expr, so convert the string to a variable
       # node that supports lint reporting
-      keyword_exprs = keywords.as_stored.map do |var_name, var_expr|
-        [create_variable(var_name), var_expr]
-      end if keywords.any?
+      if keywords.any?
+        keyword_exprs = keywords.as_stored.map do |var_name, var_expr|
+          [create_variable(var_name), var_expr]
+        end
+      end
 
       concat_expr_lists super, args, keyword_exprs, splat
     end

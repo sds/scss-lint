@@ -87,6 +87,7 @@ module SCSSLint
         Sass::Tree::RuleNode,
         Sass::Tree::CommentNode
         # Ignore
+        nil
       else
         unless engine.lines[node.line - 2].strip.empty?
           add_lint(node.line, MESSAGE_FORMAT % [type, 'preceded'])

@@ -82,8 +82,10 @@ module SCSSLint
     def check_shorthand(prop, node, values)
       values = shorthand_values(values)
 
-      add_lint(node, "Shorthands of length `#{values.count}` are not allowed. " \
-                     "Value was `#{values.join(' ')}`") unless allowed?(values.count)
+      unless allowed?(values.count)
+        add_lint(node, "Shorthands of length `#{values.count}` are not allowed. " \
+                       "Value was `#{values.join(' ')}`")
+      end
 
       return unless (2..4).member?(values.count)
 
@@ -140,7 +142,7 @@ module SCSSLint
     # @param right [String]
     # @param left [String]
     # @return [Boolean]
-    def condense_to_three_values?(_, right, __, left)
+    def condense_to_three_values?(_, right, _, left)
       return unless allowed?(3)
 
       right == left
