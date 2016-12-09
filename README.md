@@ -553,7 +553,7 @@ Install and enable both [scss-mode](https://github.com/antonj/scss-mode) and [fl
 ### TextMate 2
 
 If you use `TextMate 2`, you can install the [SCSS-Lint.tmbundle](https://github.com/jjuliano/SCSS-Lint.tmbundle) bundle.
- 
+
 ## Git Integration
 
 If you'd like to integrate `scss-lint` into your Git workflow, check out our
