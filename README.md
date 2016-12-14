@@ -550,6 +550,10 @@ Install the [Atom scss-lint plugin](https://atom.io/packages/linter-scss-lint). 
 
 Install and enable both [scss-mode](https://github.com/antonj/scss-mode) and [flycheck-mode](https://github.com/flycheck/flycheck). You can enable automatic linting for scss-mode buffers with `(add-hook 'scss-mode-hook 'flycheck-mode)` in your `init.el`.
 
+### TextMate 2
+
+If you use `TextMate 2`, you can install the [SCSS-Lint.tmbundle](https://github.com/jjuliano/SCSS-Lint.tmbundle) bundle.
+
 ## Git Integration
 
 If you'd like to integrate `scss-lint` into your Git workflow, check out our
