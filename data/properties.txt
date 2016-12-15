@@ -149,6 +149,7 @@ column-rule-width
 column-span
 column-width
 columns
+contain
 content
 counter-increment
 counter-reset
