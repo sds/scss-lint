@@ -29,6 +29,7 @@ module SCSSLint
 
     alias visit_rule check_properties
     alias visit_mixindef check_properties
+    alias visit_media check_properties
 
   private
 

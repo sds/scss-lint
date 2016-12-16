@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Fix `DuplicateProperty` to report duplicate properties inside media queries
+
 ## 0.50.3
 
 * Add outline, flexbox, background clip, attachment, word-wrap, and work-break

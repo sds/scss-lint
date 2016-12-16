@@ -242,4 +242,18 @@ describe SCSSLint::Linter::DuplicateProperty do
       it { should report_lint line: 3 }
     end
   end
+
+  context 'when media query contains duplicates' do
+    let(:scss) { <<-SCSS }
+      p {
+        @media (min-width: 400px) {
+          margin: 0;
+          padding: 0;
+          margin: 1em;
+        }
+      }
+    SCSS
+
+    it { should report_lint line: 5 }
+  end
 end
