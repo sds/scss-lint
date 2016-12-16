@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.51.0
 
 * Add `contain` to list of properties allowed by `PropertySpelling`
 * Fix `DuplicateProperty` to report duplicate properties inside media queries
