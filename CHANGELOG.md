@@ -4,6 +4,7 @@
 
 * Add `contain` to list of properties allowed by `PropertySpelling`
 * Fix `DuplicateProperty` to report duplicate properties inside media queries
+* Relax gem dependency constraints to allow rake 12.x
 
 ## 0.50.3
 
