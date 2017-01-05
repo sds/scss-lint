@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## 0.52.0
+
+* Load configuration files found in plugin directories
+
 ## 0.51.0
 
 * Add `contain` to list of properties allowed by `PropertySpelling`
