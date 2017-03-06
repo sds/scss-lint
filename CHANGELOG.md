@@ -403,7 +403,7 @@
 * Fix infinite loop in control comment processor when dealing with parse nodes
   with no children with line numbers
 * Change `VendorPrefix` config options `include` and `exclude` to
-  `additional_identifers` and `excluded_identifers`, respectively
+  `additional_identifiers` and `excluded_identifiers`, respectively
 * Rename `VendorPrefixes` to `VendorPrefix`
 * Add `animation*` properties to concentric.txt
 * Fix bug where attempting to lint a non-existent file would result in a crash
