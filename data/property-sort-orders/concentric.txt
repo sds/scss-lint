@@ -33,6 +33,7 @@ float
 clear
 
 transform
+transform-origin
 transition
 
 animation
