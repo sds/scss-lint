@@ -31,6 +31,16 @@ describe SCSSLint::Linter::UrlFormat do
 
       it { should_not report_lint }
     end
+
+    context 'when URL contains a variable' do
+      let(:scss) { <<-SCSS }
+        .block {
+          background: url('${url}');
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
   end
 
   context 'when URL is enclosed in quotes' do
