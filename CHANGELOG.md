@@ -1,5 +1,11 @@
 # SCSS-Lint Changelog
 
+## 0.53.0
+
+* Update smacss order
+* Add missing transform-origin property to concentric order
+* Ignore URLs with variables in UrlFormatter
+
 ## 0.52.0
 
 * Load configuration files found in plugin directories
