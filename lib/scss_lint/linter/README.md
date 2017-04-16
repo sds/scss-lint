@@ -522,7 +522,7 @@ Configuration Option | Description
 
 ## HexValidation
 
-Ensure hexadecimal colors are valid (either three or six digits).
+Ensure hexadecimal colors are valid (either three or six characters).
 
 **Bad**
 ```scss
