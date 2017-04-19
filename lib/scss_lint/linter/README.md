@@ -252,7 +252,7 @@ Configuration Option | Description
 `scss-lint` includes a set of linters for codebases which use the
 [Compass](http://compass-style.org/) framework.
 
-###[» Compass Linters Documentation](./compass/README.md)
+### [» Compass Linters Documentation](./compass/README.md)
 
 ## DebugStatement
 
