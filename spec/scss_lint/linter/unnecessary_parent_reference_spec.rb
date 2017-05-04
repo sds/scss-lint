@@ -31,6 +31,16 @@ describe SCSSLint::Linter::UnnecessaryParentReference do
     it { should_not report_lint }
   end
 
+  context 'when an amperand is chained with class' do
+    let(:scss) { <<-SCSS }
+      p {
+        & .foo {}
+      }
+    SCSS
+
+    it { should_not report_lint }
+  end
+
   context 'when an amperand follows a direct descendant operator' do
     let(:scss) { <<-SCSS }
       p {
