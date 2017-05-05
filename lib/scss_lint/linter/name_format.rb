@@ -10,6 +10,7 @@ module SCSSLint
       translateX translateY translateZ
       linear-gradient repeating-linear-gradient
       radial-gradient repeating-radial-gradient
+      cubic-bezier
     ].to_set.freeze
 
     SCSS_FUNCTION_WHITELIST = %w[
