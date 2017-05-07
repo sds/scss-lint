@@ -75,6 +75,10 @@ module SCSSLint
                  line_source.length - range.start_pos.offset + 1
                end
 
+      # Workaround for https://github.com/brigade/scss-lint/issues/887 to acount for
+      # https://github.com/sass/sass/issues/2284.
+      length = 1 if length < 1
+
       Location.new(range.start_pos.line, range.start_pos.offset, length)
     end
 
