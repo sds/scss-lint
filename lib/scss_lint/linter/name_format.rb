@@ -11,6 +11,7 @@ module SCSSLint
       linear-gradient repeating-linear-gradient
       radial-gradient repeating-radial-gradient
       cubic-bezier
+      fit-content
     ].to_set.freeze
 
     SCSS_FUNCTION_WHITELIST = %w[
