@@ -87,5 +87,10 @@ module SCSSLint
       @contents, status = Open3.capture2(@preprocess_command, stdin_data: @contents)
       raise SCSSLint::Exceptions::PreprocessorError if status != 0
     end
+
+    def find_any_control_commands
+      @any_control_commands =
+        @lines.any? { |line| line['scss-lint:disable'] || line['scss-line:enable'] }
+    end
   end
 end
