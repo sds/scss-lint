@@ -98,7 +98,7 @@ module SCSSLint
 
     def visit_import(node)
       prev = previous_node(node)
-      return if prev.is_a?(Sass::Tree::ImportNode) && source_from_range(prev.source_range) =~ /,$/
+      return unless engine.lines[node.line - 1] =~ /@import/
       check_indentation(node)
     end
 
