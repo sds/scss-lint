@@ -238,6 +238,16 @@ describe SCSSLint::Linter::Indentation do
     it { should_not report_lint }
   end
 
+  context 'when an @import spans multiple lines and leads with a newline' do
+    let(:scss) { <<-SCSS }
+      @import
+          'foo',
+          'bar';
+    SCSS
+
+    it { should_not report_lint }
+  end
+
   context 'when tabs are preferred' do
     let(:linter_config) { { 'character' => 'tab', 'width' => 1 } }
 
