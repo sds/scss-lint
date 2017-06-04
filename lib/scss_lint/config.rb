@@ -59,7 +59,7 @@ module SCSSLint
 
         begin
           options =
-            if yaml = YAML.safe_load(file_contents)
+            if yaml = YAML.load(file_contents)
               yaml.to_hash
             else
               {}

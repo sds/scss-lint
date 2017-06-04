@@ -111,6 +111,10 @@ SignalException:
 SingleLineBlockParams:
   Enabled: false
 
+# YAML.safe_load isn't available on Ruby 2.0.0, which we still support
+Security/YAMLLoad:
+  Enabled: false
+
 Style/NumericPredicate:
   Enabled: false
 
