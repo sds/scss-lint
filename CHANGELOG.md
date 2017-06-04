@@ -6,6 +6,7 @@
 * Allow triple-slash (`///`) comments in `SpaceAfterComment`
 * Add new grid spec properties to `PropertySpelling`
 * Add workaround for [negative source range lengths](https://github.com/sass/sass/issues/2284) returned by the Sass parser
+* Fix `Indentation` linter to work with `@import` statements which spanned multiple lines
 
 ## 0.53.0
 
