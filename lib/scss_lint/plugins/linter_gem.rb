@@ -12,7 +12,7 @@ module SCSSLint
         require @name
         @config = plugin_config
         self
-      rescue Gem::LoadError, LoadError
+      rescue LoadError
         raise SCSSLint::Exceptions::PluginGemLoadError,
               "Unable to load linter plugin gem '#{@name}'. Try running " \
               "`gem install #{@name}`, or adding it to your Gemfile and " \

@@ -52,6 +52,19 @@ HandleExceptions:
 IfUnlessModifier:
   Enabled: false
 
+Layout/ExtraSpacing:
+  Exclude:
+    - '*.gemspec'
+
+Layout/IndentArray:
+  Enabled: false
+
+Layout/IndentHeredoc:
+  Enabled: false
+
+Layout/MultilineOperationIndentation:
+  Enabled: false
+
 LineLength:
   Max: 100
 
@@ -64,6 +77,10 @@ MethodLength:
 
 Metrics/AbcSize:
   Max: 20
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
 
 PerceivedComplexity:
   Max: 8
@@ -92,16 +109,6 @@ SignalException:
 # Forcing a particular name (e.g. |a, e|) for inject methods prevents you from
 # choosing intention-revealing names.
 SingleLineBlockParams:
-  Enabled: false
-
-Style/ExtraSpacing:
-  Exclude:
-    - '*.gemspec'
-
-Style/IndentArray:
-  Enabled: false
-
-Style/MultilineOperationIndentation:
   Enabled: false
 
 Style/NumericPredicate:

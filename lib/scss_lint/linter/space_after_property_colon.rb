@@ -47,7 +47,7 @@ module SCSSLint
     end
 
     def check_for_one_space_or_newline(node, whitespace)
-      return if whitespace == [' '] || whitespace == ["\n"]
+      return if [[' '], ["\n"]].include?(whitespace)
       return if whitespace[0] == "\n" && whitespace[1..-1].uniq == [' ']
       add_lint(node, 'Colon after property should be followed by one space or a newline')
     end
