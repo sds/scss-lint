@@ -430,7 +430,7 @@ Should you want to customize the checks run against your code, you can do so by
 editing your [configuration file](#configuration) to match your
 preferred style.
 
-###[» Linters Documentation](lib/scss_lint/linter/README.md)
+### [» Linters Documentation](lib/scss_lint/linter/README.md)
 
 ## Custom Linters
 
