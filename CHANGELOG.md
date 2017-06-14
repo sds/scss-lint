@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.54.0
 
 * Add `cubic-bezier` to `NameFormat` whitelist
 * Allow triple-slash (`///`) comments in `SpaceAfterComment`
