@@ -110,6 +110,7 @@ before
 content
 first-letter
 first-line
+ng-deep
 placeholder
 selection
 shadow
