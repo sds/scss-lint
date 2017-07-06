@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Add `ng-deep` to the list recognized by the `PseudoElement` linter
+
 ## 0.54.0
 
 * Add `cubic-bezier` to `NameFormat` whitelist
