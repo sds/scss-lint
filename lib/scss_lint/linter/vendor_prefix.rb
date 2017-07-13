@@ -16,8 +16,8 @@ module SCSSLint
       check_identifier(node, name.sub(/^@/, ''))
 
       # Check for values
-      return unless node.respond_to?(:value) && node.value.respond_to?(:source_range)
-      check_identifier(node, source_from_range(node.value.source_range))
+      return unless node.respond_to?(:value) && node.value.first.respond_to?(:source_range)
+      check_identifier(node, source_from_range(node.value.first.source_range))
     end
 
     alias visit_prop check_node

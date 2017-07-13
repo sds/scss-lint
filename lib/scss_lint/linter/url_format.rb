@@ -17,8 +17,8 @@ module SCSSLint
     end
 
     def visit_prop(node)
-      if url_literal?(node.value)
-        url = node.value.to_sass.sub(/^url\((.*)\)$/, '\\1')
+      if url_literal?(node.value.first)
+        url = node.value.first.to_sass.sub(/^url\((.*)\)$/, '\\1')
         check_url(url, node)
       end
 

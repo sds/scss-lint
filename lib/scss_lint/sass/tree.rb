@@ -134,6 +134,8 @@ module Sass::Tree
 
   class PropNode
     def children
+      # TODO: fix custom properties
+      return [] if custom_property?
       concat_expr_lists super, extract_script_nodes(name), add_line_number(value)
     end
   end

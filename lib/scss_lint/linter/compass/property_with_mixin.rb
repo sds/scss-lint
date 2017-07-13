@@ -33,7 +33,7 @@ module SCSSLint
     def check_for_inline_block(node)
       prop_name = node.name.join
       return unless prop_name == 'display' &&
-                    node.value.to_sass == 'inline-block' &&
+                    node.value.first.to_sass == 'inline-block' &&
                     !ignore_compass_mixin?('inline-block')
 
       add_lint node,

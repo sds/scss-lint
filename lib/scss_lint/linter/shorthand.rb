@@ -22,11 +22,11 @@ module SCSSLint
 
       end
 
-      case node.value
+      case node.value.first
       when Sass::Script::Tree::Literal
-        check_script_literal(property_name, node.value)
+        check_script_literal(property_name, node.value.first)
       when Sass::Script::Tree::ListLiteral
-        check_script_list(property_name, node.value)
+        check_script_list(property_name, node.value.first)
       end
     end
 
