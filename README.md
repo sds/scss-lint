@@ -308,10 +308,10 @@ Outputs JSON with filenames and an array of issue objects.
 ```json
 {
   "test.css": [
-    {"line": 2, "severity": "warning", "reason": "Prefer single quoted strings"},
-    {"line": 2, "severity": "warning", "reason": "Line should be indented 0 spaces, but was indented 1 spaces"},
-    {"line": 5, "severity": "warning", "reason": "Prefer single quoted strings"},
-    {"line": 6, "severity": "warning", "reason": "URLs should be enclosed in quotes"}
+    {"line": 2, "column": 1, "length": 2, "severity": "warning", "reason": "Prefer single quoted strings", "linter": "StringQuotes"},
+    {"line": 2, "column": 1, "length": 1, "severity": "warning", "reason": "Line should be indented 0 spaces, but was indented 1 spaces", "linter": "Indentation"},
+    {"line": 5, "column": 5, "length": 2, "severity": "warning", "reason": "Prefer single quoted strings", "linter": "StringQuotes"},
+    {"line": 6, "column": 4, "length": 9, "severity": "warning", "reason": "URLs should be enclosed in quotes", "linter": "UrlQuotes"}
   ]
 }
 ```
