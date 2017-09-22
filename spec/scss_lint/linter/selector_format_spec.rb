@@ -454,6 +454,88 @@ describe SCSSLint::Linter::SelectorFormat do
     end
   end
 
+  context 'when the classic_BEM convention is specified' do
+    let(:linter_config) { { 'convention' => 'classic_BEM' } }
+
+    context 'when a name contains no underscores or hyphens' do
+      let(:scss) { '.block {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains single hyphen' do
+      let(:scss) { '.b-block {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains multiple hyphens' do
+      let(:scss) { '.b-block-name {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name contains multiple hyphens in a row' do
+      let(:scss) { '.b-block--modifier {}' }
+
+      it { should report_lint }
+    end
+
+    context 'when a name contains a single underscore' do
+      let(:scss) { '.block_modifier {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a block has name-value modifier' do
+      let(:scss) { '.block_modifier_value {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a block has name-value modifier with lots of hyphens' do
+      let(:scss) { '.b-block-name_modifier-name-here_value-name-here {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when a name has double underscores' do
+      let(:scss) { '.b-block__element {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when element goes after block with modifier' do
+      let(:scss) { '.block_modifier_value__element {}' }
+
+      it { should report_lint }
+    end
+
+    context 'when element has modifier' do
+      let(:scss) { '.block__element_modifier_value {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when element has not paired modifier' do
+      let(:scss) { '.block__element_modifier {}' }
+
+      it { should_not report_lint }
+    end
+
+    context 'when element has hypenated modifier' do
+      let(:scss) { '.block__element--modifier {}' }
+
+      it { should report_lint }
+    end
+
+    context 'when element has hypenated paired modifier' do
+      let(:scss) { '.block__element--modifier_value {}' }
+
+      it { should report_lint }
+    end
+  end
+
   context 'when the strict_BEM convention is specified' do
     let(:linter_config) { { 'convention' => 'strict_BEM' } }
 

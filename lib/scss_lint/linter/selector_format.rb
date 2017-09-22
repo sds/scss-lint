@@ -53,6 +53,16 @@ module SCSSLint
         explanation: 'should be written in camelCase format',
         validator: ->(name) { name =~ /^[a-z][a-zA-Z0-9]*$/ },
       },
+      'classic_BEM' => {
+        explanation: 'should be written in classic BEM (Block Element Modifier) format',
+        validator: lambda do |name|
+          name =~ /
+            ^[a-z]([-]?[a-z0-9]+)*
+            (__[a-z0-9]([-]?[a-z0-9]+)*)?
+            ((_[a-z0-9]([-]?[a-z0-9]+)*){1,2})?$
+          /x
+        end
+      },
       'hyphenated_BEM' => {
         explanation: 'should be written in hyphenated BEM (Block Element Modifier) format',
         validator: ->(name) { name !~ /[A-Z]|-{3}|_{3}|[^_]_[^_]/ },
