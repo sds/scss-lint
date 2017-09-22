@@ -3,6 +3,7 @@
 ## master (unreleased)
 
 * Add `ng-deep` to the list recognized by the `PseudoElement` linter
+* Add `classic_BEM` convention for `SelectorFormat`
 
 ## 0.54.0
 
