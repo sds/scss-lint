@@ -4,6 +4,8 @@
 
 * Add `ng-deep` to the list recognized by the `PseudoElement` linter
 * Add `classic_BEM` convention for `SelectorFormat`
+* Deprecate `strict_BEM` convention for `SelectorFormat`.
+  Use `classic_BEM` instead.
 
 ## 0.54.0
 
