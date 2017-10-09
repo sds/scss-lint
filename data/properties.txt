@@ -186,6 +186,7 @@ flood-opacity
 flow-from
 flow-into
 font
+font-display
 font-family
 font-feature-settings
 font-kerning
