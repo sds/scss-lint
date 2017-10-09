@@ -245,6 +245,7 @@ inline-box-align
 inline-size
 isolation
 justify-content
+justify-items
 justify-self
 kerning
 left
