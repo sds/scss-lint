@@ -6,6 +6,8 @@
 * Add `classic_BEM` convention for `SelectorFormat`
 * Deprecate `strict_BEM` convention for `SelectorFormat`.
   Use `classic_BEM` instead.
+* Add `font-display` and `justify-items` properties to `PropertySpelling` linter
+* Add `fr` unit to `PropertyUnits` linter
 
 ## 0.54.0
 
