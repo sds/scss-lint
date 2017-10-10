@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.55.0
 
 * Add `ng-deep` to the list recognized by the `PseudoElement` linter
 * Add `classic_BEM` convention for `SelectorFormat`
