@@ -22,11 +22,12 @@ module SCSSLint
 
       end
 
-      case node.value
+      value = node.value.to_sass_value
+      case value
       when Sass::Script::Tree::Literal
-        check_script_literal(property_name, node.value)
+        check_script_literal(property_name, value)
       when Sass::Script::Tree::ListLiteral
-        check_script_list(property_name, node.value)
+        check_script_list(property_name, value)
       end
     end
 

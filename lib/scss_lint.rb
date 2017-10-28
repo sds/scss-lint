@@ -31,3 +31,28 @@ require 'scss_lint/reporter'
 Dir[File.expand_path('scss_lint/reporter/**/*.rb', File.dirname(__FILE__))].sort.each do |file|
   require file
 end
+
+# Sass::Tree::PropNode#value returns an array in new versions. Here is note from docs:
+#
+#   For most properties, this will just contain a single Node. However, for
+#   CSS variables, it will contain multiple strings and nodes representing
+#   interpolation.
+#
+# This monkey-patch allows us use scss-lint with new versions of sass.
+Array.class_eval do
+  def to_sass_value
+    raise 'This proxy does not support css variables' unless size == 1
+    first
+  end
+
+  def to_sass
+    to_sass_value.to_sass
+  end
+end
+
+Sass::Script::Tree::Node.class_eval do
+  # We use #to_sass_value to keep it compatible to sass < 3.5.
+  def to_sass_value
+    self
+  end
+end
