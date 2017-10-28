@@ -16,8 +16,12 @@ module SCSSLint
       check_identifier(node, name.sub(/^@/, ''))
 
       # Check for values
-      return unless node.respond_to?(:value) && node.value.respond_to?(:source_range)
-      check_identifier(node, source_from_range(node.value.source_range))
+      return unless node.respond_to?(:value)
+      value = node.value
+      # TODO: should this be fixed to support arrays with multiple values?
+      value = value.first if value.is_a?(Array)
+      return unless value.respond_to?(:source_range)
+      check_identifier(node, source_from_range(value.source_range))
     end
 
     alias visit_prop check_node

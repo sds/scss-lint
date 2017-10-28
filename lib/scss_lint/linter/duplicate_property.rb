@@ -54,6 +54,7 @@ module SCSSLint
     end
 
     def value_as_string(value)
+      value = value.to_sass_value
       case value
       when Sass::Script::Funcall
         value.name
