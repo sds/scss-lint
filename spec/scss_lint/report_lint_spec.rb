@@ -32,7 +32,7 @@ describe 'report_lint' do
 
       expect do
         should_not report_lint
-      end.to fail_with 'expected that a lint would not be reported'
+      end.to fail_with(/expected that a lint would not be reported/)
     end
   end
 
@@ -58,7 +58,7 @@ describe 'report_lint' do
 
       expect do
         should_not report_lint line: 1
-      end.to fail_with 'expected that a lint would not be reported'
+      end.to fail_with(/expected that a lint would not be reported/)
     end
   end
 
@@ -84,7 +84,7 @@ describe 'report_lint' do
 
       expect do
         should report_lint
-      end.to fail_with 'expected that a lint would be reported'
+      end.to fail_with 'expected that a lint would be reported, but got nothing'
     end
   end
 
@@ -110,7 +110,7 @@ describe 'report_lint' do
 
       expect do
         should report_lint line: 1
-      end.to fail_with 'expected that a lint would be reported on line 1'
+      end.to fail_with('expected that a lint would be reported on line 1, but got nothing')
     end
 
     it 'fails to match lints on the wrong line with a meaningful message' do
@@ -137,7 +137,7 @@ describe 'report_lint' do
 
       expect do
         should report_lint count: 1
-      end.to fail_with 'expected that exactly 1 lint would be reported'
+      end.to fail_with 'expected that exactly 1 lint would be reported, but got nothing'
     end
 
     it 'fails to match multiple lints with a meaningful message' do
@@ -173,7 +173,7 @@ describe 'report_lint' do
 
       expect do
         should report_lint count: 2
-      end.to fail_with 'expected that exactly 2 lints would be reported'
+      end.to fail_with 'expected that exactly 2 lints would be reported, but got nothing'
     end
 
     it 'fails to match one lint with a meaningful message' do
@@ -181,7 +181,7 @@ describe 'report_lint' do
 
       expect do
         should report_lint count: 2
-      end.to fail_with 'expected that exactly 2 lints would be reported'
+      end.to fail_with 'expected that exactly 2 lints would be reported, but got nothing'
     end
 
     it 'fails to match lints on the wrong line with a meaningful message' do
@@ -208,7 +208,7 @@ describe 'report_lint' do
 
       expect do
         should report_lint line: 1, count: 1
-      end.to fail_with 'expected that exactly 1 lint would be reported on line 1'
+      end.to fail_with 'expected that exactly 1 lint would be reported on line 1, but got nothing'
     end
 
     it 'fails to match multiple lints with a meaningful message' do
@@ -244,7 +244,7 @@ describe 'report_lint' do
 
       expect do
         should report_lint line: 1, count: 2
-      end.to fail_with 'expected that exactly 2 lints would be reported on line 1'
+      end.to fail_with 'expected that exactly 2 lints would be reported on line 1, but got nothing'
     end
 
     it 'fails to match one lint with a meaningful message' do

@@ -21,7 +21,7 @@ RSpec::Matchers.define :report_lint do |options|
       (expected_line ? " on line #{expected_line}" : '') +
       case linter.lints.count
       when 0
-        ''
+        ', but got nothing'
       when 1
         ", but one lint was reported on line #{linter.lints.first.location.line}"
       else
@@ -30,8 +30,9 @@ RSpec::Matchers.define :report_lint do |options|
       end
   end
 
-  failure_message_when_negated do
-    'expected that a lint would not be reported'
+  failure_message_when_negated do |linter|
+    reports = linter.lints.map(&:description).join("\n  ")
+    "expected that a lint would not be reported, got:\n  #{reports}"
   end
 
   description do
