@@ -19,7 +19,7 @@ module SCSSLint
     end
 
     def ==(other)
-      [:line, :column, :length].all? do |attr|
+      %i[line column length].all? do |attr|
         send(attr) == other.send(attr)
       end
     end
@@ -27,7 +27,7 @@ module SCSSLint
     alias eql? ==
 
     def <=>(other)
-      [:line, :column, :length].each do |attr|
+      %i[line column length].each do |attr|
         result = send(attr) <=> other.send(attr)
         return result unless result == 0
       end

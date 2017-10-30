@@ -33,7 +33,7 @@ module SCSSLint
       @linters.each do |linter|
         begin
           run_linter(linter, engine, file[:path])
-        rescue => error
+        rescue StandardError => error
           raise SCSSLint::Exceptions::LinterError,
                 "#{linter.class} raised unexpected error linting file #{file[:path]}: " \
                 "'#{error.message}'",

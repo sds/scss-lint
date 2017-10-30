@@ -15,6 +15,7 @@ module Sass::Tree
     # Sass::Script::Variable nodes with no line numbers. This adds the line
     # numbers back in so lint reporting works for those nodes.
     def add_line_numbers_to_args(arg_list)
+      # rubocop:disable Performance/HashEachMethods (FALSE POSITIVE v0.51.0)
       arg_list.each do |variable, _default_expr|
         add_line_number(variable)
       end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SCSSLint::Reporter::ConfigReporter do
-  subject { YAML.load(result) }
+  subject { YAML.safe_load(result) }
   let(:result) { described_class.new(lints, [], nil).report_lints }
 
   describe '#report_lints' do
