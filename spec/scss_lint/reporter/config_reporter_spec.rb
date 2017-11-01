@@ -16,11 +16,11 @@ describe SCSSLint::Reporter::ConfigReporter do
     context 'when there are lints' do
       let(:linters) do
         [SCSSLint::Linter::FinalNewline, SCSSLint::Linter::BorderZero,
-         SCSSLint::Linter::BorderZero, nil]
+         SCSSLint::Linter::BorderZero]
       end
       let(:lints) do
         linters.each.map do |linter|
-          SCSSLint::Lint.new(linter ? linter.new : nil, '',
+          SCSSLint::Lint.new(linter.new, '',
                              SCSSLint::Location.new, '')
         end
       end

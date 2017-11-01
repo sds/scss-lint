@@ -24,7 +24,7 @@ module SCSSLint
     end
 
     def message(lint)
-      linter_name = log.green("#{lint.linter.name}: ") if lint.linter
+      linter_name = log.green("#{lint.linter.name}: ")
       "#{linter_name}#{lint.description}"
     end
   end

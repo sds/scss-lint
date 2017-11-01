@@ -95,10 +95,8 @@ module SCSSLint
         'column' => lint.location.column,
       }
 
-      if lint.linter
-        test_line_description += " #{lint.linter.name}" if lint.linter
-        data['name'] = lint.linter.name
-      end
+      test_line_description += " #{lint.linter.name}"
+      data['name'] = lint.linter.name
 
       data_yaml = data.to_yaml.strip.gsub(/^/, '  ')
 

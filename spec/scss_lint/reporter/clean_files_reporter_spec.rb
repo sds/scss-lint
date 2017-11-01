@@ -39,7 +39,7 @@ describe SCSSLint::Reporter::CleanFilesReporter do
 
       let(:lints) do
         dirty_files.map do |file|
-          SCSSLint::Lint.new(nil, file, SCSSLint::Location.new, '')
+          SCSSLint::Lint.new(SCSSLint::Linter::Comment.new, file, SCSSLint::Location.new, '')
         end
       end
 
@@ -61,7 +61,7 @@ describe SCSSLint::Reporter::CleanFilesReporter do
 
       let(:lints) do
         files.map do |file|
-          SCSSLint::Lint.new(nil, file, SCSSLint::Location.new, '')
+          SCSSLint::Lint.new(SCSSLint::Linter::Comment.new, file, SCSSLint::Location.new, '')
         end
       end
 
