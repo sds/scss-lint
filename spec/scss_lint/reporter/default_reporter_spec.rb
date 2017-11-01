@@ -22,7 +22,7 @@ describe SCSSLint::Reporter::DefaultReporter do
         filenames.each_with_index.map do |filename, index|
           line, column = locations[index]
           location = SCSSLint::Location.new(line, column, 10)
-          SCSSLint::Lint.new(nil, filename, location, descriptions[index],
+          SCSSLint::Lint.new(SCSSLint::Linter::Comment, filename, location, descriptions[index],
                              severities[index])
         end
       end

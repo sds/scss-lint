@@ -59,15 +59,51 @@ describe SCSSLint::Runner do
 
     context 'when the engine raises a FileEncodingError' do
       let(:error) do
-        SCSSLint::FileEncodingError.new('Some error message')
+        SCSSLint::FileEncodingError.new('File encoding error!')
       end
 
       before do
         SCSSLint::Engine.stub(:new).and_raise(error)
+        subject
       end
 
-      it 'records the error as a lint' do
-        subject.count.should == 2
+      it 'records the error as an Encoding lint' do
+        expect(runner.lints).to(
+          be_all { |lint| lint.linter.is_a?(SCSSLint::Linter::Encoding) }
+        )
+      end
+
+      it 'records the error with the error message' do
+        expect(runner.lints).to(
+          be_all { |lint| lint.description == error.message }
+        )
+      end
+    end
+
+    context 'when the engine raises a Sass::SyntaxError' do
+      let(:error) do
+        Sass::SyntaxError.new('Syntax error!', line: 42)
+      end
+
+      before do
+        SCSSLint::Engine.stub(:new).and_raise(error)
+        subject
+      end
+
+      it 'records the error as a Syntax lint' do
+        expect(runner.lints).to(
+          be_all { |lint| lint.linter.is_a?(SCSSLint::Linter::Syntax) }
+        )
+      end
+
+      it 'records the error with the error message' do
+        expect(runner.lints).to(
+          be_all { |lint| lint.description == "Syntax Error: #{error.message}" }
+        )
+      end
+
+      it 'records the error with the line number' do
+        expect(runner.lints).to(be_all { |lint| lint.location.line == 42 })
       end
     end
 
