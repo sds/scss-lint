@@ -11,15 +11,6 @@ module Sass::Tree
     # Stores node for which this node is a direct child
     attr_accessor :node_parent
 
-    # The `args` field of some Sass::Tree::Node classes returns
-    # Sass::Script::Variable nodes with no line numbers. This adds the line
-    # numbers back in so lint reporting works for those nodes.
-    def add_line_numbers_to_args(arg_list)
-      arg_list.each do |variable, _default_expr|
-        add_line_number(variable)
-      end
-    end
-
     # The Sass parser sometimes doesn't assign line numbers in cases where it
     # should. This is a helper to easily correct that.
     def add_line_number(node)
@@ -96,8 +87,6 @@ module Sass::Tree
 
   class FunctionNode
     def children
-      add_line_numbers_to_args(args)
-
       concat_expr_lists super, args, splat
     end
   end
@@ -110,16 +99,12 @@ module Sass::Tree
 
   class MixinDefNode
     def children
-      add_line_numbers_to_args(args)
-
       concat_expr_lists super, args, splat
     end
   end
 
   class MixinNode
     def children
-      add_line_numbers_to_args(args)
-
       # Keyword mapping is String -> Expr, so convert the string to a variable
       # node that supports lint reporting
       if keywords.any?
