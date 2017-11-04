@@ -20,12 +20,12 @@ describe SCSSLint::Reporter::TAPReporter do
       let(:lints) { [] }
 
       it 'returns the TAP version, plan, and ok test lines' do
-        subject.report_lints.should eq(<<-EOS)
+        subject.report_lints.should eq(<<-LINES)
 TAP version 13
 1..2
 ok 1 - file.scss
 ok 2 - another-file.scss
-        EOS
+        LINES
       end
     end
 
@@ -59,7 +59,7 @@ ok 2 - another-file.scss
       end
 
       it 'returns the TAP version, plan, and correct test lines' do
-        subject.report_lints.should eq(<<-EOS)
+        subject.report_lints.should eq(<<-LINES)
 TAP version 13
 1..5
 ok 1 - ok1.scss
@@ -91,7 +91,7 @@ not ok 4 - not-ok2.scss:21:3 SCSSLint::Linter::PrivateNamingConvention
   name: SCSSLint::Linter::PrivateNamingConvention
   ...
 ok 5 - ok2.scss
-        EOS
+        LINES
       end
     end
   end

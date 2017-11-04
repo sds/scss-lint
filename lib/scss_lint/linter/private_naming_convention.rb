@@ -132,7 +132,7 @@ module SCSSLint
     def after_visit_all
       return unless @private_definitions
 
-      @private_definitions.each do |_, nodes|
+      @private_definitions.each_value do |nodes|
         nodes.each do |node_text, node_info|
           next if node_info[:times_used] > 0
           node_type = humanize_node_class(node_info[:node])

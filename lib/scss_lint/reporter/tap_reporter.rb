@@ -102,11 +102,11 @@ module SCSSLint
 
       data_yaml = data.to_yaml.strip.gsub(/^/, '  ')
 
-      <<-EOS.strip
+      <<-LINES.strip
 not ok #{test_number} - #{test_line_description}
 #{data_yaml}
   ...
-      EOS
+      LINES
     end
 
     # @param output [Array<String>]
