@@ -2,7 +2,6 @@
 
 ## master (unreleased)
 
-* Drop support for Ruby 2.0
 * Add support for Sass 3.5. [Custom properties are not yet supported](https://github.com/brigade/scss-lint/pull/927).
 
 ## 0.55.0
