@@ -52,7 +52,7 @@ support on the issue tracker.
 ## Requirements
 
 * Ruby 2.0.0+
-* Sass 3.4.20+ (`scss-lint` 0.27.0 was the last version to support Sass 3.3)
+* Sass 3.5.3+
 * Files you wish to lint must be written in SCSS (not Sass) syntax
 
 ## Installation
