@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.56.0
 
 * Add support for Sass 3.5. [Custom properties are not yet supported](https://github.com/brigade/scss-lint/pull/927).
 * Modify all output formats to include a linter even for syntax or encoding errors
