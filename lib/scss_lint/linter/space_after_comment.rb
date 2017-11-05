@@ -58,8 +58,8 @@ module SCSSLint
     def whitespace_after_comment(source, offset)
       whitespace = 0
 
-      # Allow for comments that start with `/// `.
-      offset += 1 if source[offset] == '/'
+      offset += 1 if source[offset] == '/' # Allow for triple-slash comments
+      offset += 1 if source[offset] == '/' # Allow for quadruple-slash comments
 
       while [' ', "\t"].include? source[offset]
         whitespace += 1
