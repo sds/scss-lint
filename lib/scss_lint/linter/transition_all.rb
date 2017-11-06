@@ -12,7 +12,7 @@ module SCSSLint
       property = node.name.first.to_s
       return unless TRANSITION_PROPERTIES.include?(property)
 
-      check_transition(node, property, node.value.to_sass)
+      check_transition(node, property, node.value.first.to_sass)
     end
 
   private

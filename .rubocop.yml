@@ -1,5 +1,6 @@
 AllCops:
-  TargetRubyVersion: 1.9 # Oldest version of Ruby we support
+  DisplayCopNames: true
+  TargetRubyVersion: 2.0 # Oldest version of Ruby we support
 
 AccessModifierIndentation:
   EnforcedStyle: outdent
@@ -24,9 +25,6 @@ Documentation:
   Exclude:
     - 'spec/scss_lint/**/*'
     - 'spec/scss_lint/linter/**/*'
-
-Encoding:
-  EnforcedStyle: when_needed
 
 Eval:
   Exclude:
@@ -66,10 +64,10 @@ Layout/MultilineOperationIndentation:
   Enabled: false
 
 LineLength:
-  Max: 100
+  Max: 102
 
-# Reports false positives for `CONSTANT % ['value', 'value']` (RuboCop 0.33.0)
-Lint/FormatParameterMismatch:
+# Reports false positives for `'.one #{$interpolated-string} .two .three {}'` (RuboCop v0.50.0)
+Lint/InterpolationCheck:
   Enabled: false
 
 MethodLength:
@@ -103,9 +101,6 @@ PercentLiteralDelimiters:
 PredicateName:
   Enabled: false
 
-SignalException:
-  Enabled: false
-
 # Forcing a particular name (e.g. |a, e|) for inject methods prevents you from
 # choosing intention-revealing names.
 SingleLineBlockParams:
@@ -122,7 +117,4 @@ Style/TrailingCommaInArguments:
   Enabled: false
 
 Style/TrailingCommaInLiteral:
-  Enabled: false
-
-UselessAccessModifier:
   Enabled: false

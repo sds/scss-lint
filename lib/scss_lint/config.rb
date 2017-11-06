@@ -64,7 +64,7 @@ module SCSSLint
             else
               {}
             end
-        rescue => ex
+        rescue StandardError => ex
           raise SCSSLint::Exceptions::InvalidConfiguration,
                 "Invalid configuration: #{ex.message}"
         end
@@ -95,12 +95,15 @@ module SCSSLint
       def merge_wildcard_linter_options(options)
         options = options.dup
 
+        # rubocop:disable Performance/HashEachMethods (FALSE POSITIVE)
+        # Cannot use `each_key` because the cycle adds new keys during iteration
         options.fetch('linters', {}).keys.each do |class_name|
           next unless class_name.include?('*')
 
           wildcard_options = options['linters'].delete(class_name)
           apply_options_to_matching_linters(class_name, options, wildcard_options)
         end
+        # rubocop:enable Performance/HashEachMethods
 
         options
       end
@@ -124,7 +127,7 @@ module SCSSLint
 
         options['linters'] ||= {}
 
-        options['linters'].keys.each do |linter_name|
+        options['linters'].each_key do |linter_name|
           options['linters'][linter_name] =
             ensure_exclude_paths_are_absolute(options['linters'][linter_name], original_file)
         end
@@ -264,7 +267,7 @@ module SCSSLint
     end
 
     def disable_all_linters
-      @options['linters'].values.each do |linter_config|
+      @options['linters'].each_value do |linter_config|
         linter_config['enabled'] = false
       end
     end
@@ -316,7 +319,7 @@ module SCSSLint
     def validate_linters
       return unless linters = @options['linters']
 
-      linters.keys.each do |name|
+      linters.each_key do |name|
         begin
           Linter.const_get(name)
         rescue NameError

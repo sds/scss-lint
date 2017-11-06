@@ -13,7 +13,7 @@ describe SCSSLint::Linter do
         end
 
         def visit_prop(node)
-          return unless node.value.to_sass.strip == 'fail1'
+          return unless node.value.first.to_sass.strip == 'fail1'
           add_lint(node, 'everything offends me')
         end
 
@@ -29,7 +29,7 @@ describe SCSSLint::Linter do
               .select { |child| child.is_a?(Sass::Tree::PropNode) }
               .reject { |prop| prop.name.any? { |item| item.is_a?(Sass::Script::Node) } }
               .each do |prop|
-                add_lint(prop, 'everything offends me 2') if prop.value.to_sass.strip == 'fail2'
+                add_lint(prop, 'everything offends me 2') if prop.value.first.to_sass.strip == 'fail2'
               end
 
           yield

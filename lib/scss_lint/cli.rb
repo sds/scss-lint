@@ -31,7 +31,7 @@ module SCSSLint
     def run(args)
       options = SCSSLint::Options.new.parse(args)
       act_on_options(options)
-    rescue => ex
+    rescue StandardError => ex
       handle_runtime_exception(ex, options)
     end
 

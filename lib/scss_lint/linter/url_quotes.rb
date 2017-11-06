@@ -4,11 +4,11 @@ module SCSSLint
     include LinterRegistry
 
     def visit_prop(node)
-      case node.value
+      case node.value.first
       when Sass::Script::Tree::Literal
-        check(node, node.value.value.to_s)
+        check(node, node.value.first.value.to_s)
       when Sass::Script::Tree::ListLiteral
-        node.value
+        node.value.first
             .children
             .select { |child| child.is_a?(Sass::Script::Tree::Literal) }
             .each { |child| check(node, child.value.to_s) }

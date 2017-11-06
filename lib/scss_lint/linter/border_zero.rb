@@ -27,7 +27,7 @@ module SCSSLint
 
     def visit_prop(node)
       return unless BORDER_PROPERTIES.include?(node.name.first.to_s)
-      check_border(node, node.name.first.to_s, node.value.to_sass.strip)
+      check_border(node, node.name.first.to_s, node.value.first.to_sass.strip)
     end
 
   private

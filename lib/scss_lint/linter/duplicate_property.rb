@@ -43,7 +43,7 @@ module SCSSLint
     # for purposes of uniqueness.
     def property_key(prop)
       prop_key = prop.name.join
-      prop_value = value_as_string(prop.value)
+      prop_value = value_as_string(prop.value.first)
 
       # Differentiate between values for different vendor prefixes
       prop_value.to_s.scan(/^(-[^-]+-.+)/) do |vendor_keyword|

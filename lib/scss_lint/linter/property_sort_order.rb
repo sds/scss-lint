@@ -38,6 +38,7 @@ module SCSSLint
     alias visit_rule check_order
     alias visit_prop check_order
 
+    # rubocop:disable Lint/DuplicateMethods (FALSE POSITIVE v0.50.0)
     def visit_prop(node, &block)
       # Handle nested properties by appending the parent property they are
       # nested under to the name
@@ -45,6 +46,7 @@ module SCSSLint
       check_order(node, &block)
       @nested_under = nil
     end
+    # rubocop:enable Lint/DuplicateMethods
 
     def visit_if(node, &block)
       check_order(node, &block)

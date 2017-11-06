@@ -35,7 +35,7 @@ describe SCSSLint::Reporter::JSONReporter do
 
       let(:lints) do
         filenames.each_with_index.map do |filename, index|
-          SCSSLint::Lint.new(nil, filename, locations[index],
+          SCSSLint::Lint.new(SCSSLint::LinterRegistry.linters.sample, filename, locations[index],
                              descriptions[index], severities[index])
         end
       end

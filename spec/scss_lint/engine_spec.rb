@@ -14,6 +14,18 @@ describe SCSSLint::Engine do
     end
   end
 
+  context 'when a custom property is present' do
+    let(:scss) { <<-SCSS }
+      :root {
+        --my-font-family: Helvetica;
+      }
+    SCSS
+
+    it 'has a parse tree' do
+      engine.tree.should_not be_nil
+    end
+  end
+
   context 'when the file being linted has an invalid byte sequence' do
     let(:scss) { "\xC0\u0001" }
 

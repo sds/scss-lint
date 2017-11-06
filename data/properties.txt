@@ -186,6 +186,7 @@ flood-opacity
 flow-from
 flow-into
 font
+font-display
 font-family
 font-feature-settings
 font-kerning
@@ -244,6 +245,7 @@ inline-box-align
 inline-size
 isolation
 justify-content
+justify-items
 justify-self
 kerning
 left

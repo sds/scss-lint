@@ -1,11 +1,19 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.56.0
+
+* Add support for Sass 3.5. [Custom properties are not yet supported](https://github.com/brigade/scss-lint/pull/927).
+* Modify all output formats to include a linter even for syntax or encoding errors
+* Fix `SpaceAfterComment` to not report lints for [file-level annotation comments](http://sassdoc.com/file-level-annotations/)
+
+## 0.55.0
 
 * Add `ng-deep` to the list recognized by the `PseudoElement` linter
 * Add `classic_BEM` convention for `SelectorFormat`
 * Deprecate `strict_BEM` convention for `SelectorFormat`.
   Use `classic_BEM` instead.
+* Add `font-display` and `justify-items` properties to `PropertySpelling` linter
+* Add `fr` unit to `PropertyUnits` linter
 
 ## 0.54.0
 

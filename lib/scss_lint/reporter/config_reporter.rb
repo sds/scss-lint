@@ -19,7 +19,6 @@ module SCSSLint
     end
 
     def linter_name(linter)
-      return unless linter
       linter.class.to_s.split('::').last
     end
   end

@@ -95,18 +95,16 @@ module SCSSLint
         'column' => lint.location.column,
       }
 
-      if lint.linter
-        test_line_description += " #{lint.linter.name}" if lint.linter
-        data['name'] = lint.linter.name
-      end
+      test_line_description += " #{lint.linter.name}"
+      data['name'] = lint.linter.name
 
       data_yaml = data.to_yaml.strip.gsub(/^/, '  ')
 
-      <<-EOS.strip
+      <<-LINES.strip
 not ok #{test_number} - #{test_line_description}
 #{data_yaml}
   ...
-      EOS
+      LINES
     end
 
     # @param output [Array<String>]

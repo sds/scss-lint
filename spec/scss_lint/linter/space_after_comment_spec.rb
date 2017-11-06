@@ -46,6 +46,14 @@ describe SCSSLint::Linter::SpaceAfterComment do
       it { should_not report_lint }
     end
 
+    context 'when silent four-slash comment' do
+      let(:scss) { <<-SCSS }
+        //// File-level annotations
+      SCSS
+
+      it { should_not report_lint }
+    end
+
     context 'when inline silent comment and no space' do
       let(:scss) { <<-SCSS }
         p {

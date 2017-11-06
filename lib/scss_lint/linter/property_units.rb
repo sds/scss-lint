@@ -32,8 +32,8 @@ module SCSSLint
         property = "#{@nested_under}-#{property}"
       end
 
-      if node.value.respond_to?(:value)
-        node.value.value.to_s.scan(NUMBER_WITH_UNITS_REGEX).each do |matches|
+      if node.value.first.respond_to?(:value)
+        node.value.first.value.to_s.scan(NUMBER_WITH_UNITS_REGEX).each do |matches|
           is_quoted_value = !matches[0].nil?
           next if is_quoted_value
           units = matches[1]

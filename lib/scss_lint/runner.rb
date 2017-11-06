@@ -33,7 +33,7 @@ module SCSSLint
       @linters.each do |linter|
         begin
           run_linter(linter, engine, file[:path])
-        rescue => error
+        rescue StandardError => error
           raise SCSSLint::Exceptions::LinterError,
                 "#{linter.class} raised unexpected error linting file #{file[:path]}: " \
                 "'#{error.message}'",
@@ -41,10 +41,10 @@ module SCSSLint
         end
       end
     rescue Sass::SyntaxError => ex
-      @lints << Lint.new(nil, ex.sass_filename, Location.new(ex.sass_line),
+      @lints << Lint.new(Linter::Syntax.new, ex.sass_filename, Location.new(ex.sass_line),
                          "Syntax Error: #{ex}", :error)
     rescue FileEncodingError => ex
-      @lints << Lint.new(nil, file[:path], Location.new, ex.to_s, :error)
+      @lints << Lint.new(Linter::Encoding.new, file[:path], Location.new, ex.to_s, :error)
     end
 
     # For stubbing in tests.

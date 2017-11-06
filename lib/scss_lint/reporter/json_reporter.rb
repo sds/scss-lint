@@ -23,7 +23,7 @@ module SCSSLint
         'severity' => lint.severity,
         'reason' => lint.description,
       }.tap do |hash|
-        hash['linter'] = lint.linter.name if lint.linter
+        hash['linter'] = lint.linter.name
       end
     end
   end

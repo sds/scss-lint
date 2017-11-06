@@ -17,7 +17,7 @@ describe SCSSLint::Reporter::FilesReporter do
 
       let(:lints) do
         filenames.map do |filename|
-          SCSSLint::Lint.new(nil, filename, SCSSLint::Location.new, '')
+          SCSSLint::Lint.new(SCSSLint::Linter::Comment.new, filename, SCSSLint::Location.new, '')
         end
       end
 
