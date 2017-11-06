@@ -445,6 +445,7 @@ text-combine
 text-decoration
 text-decoration-color
 text-decoration-line
+text-decoration-skip
 text-decoration-style
 text-decorations-in-effect
 text-emphasis
