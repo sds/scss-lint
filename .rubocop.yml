@@ -64,7 +64,7 @@ Layout/MultilineOperationIndentation:
   Enabled: false
 
 LineLength:
-  Max: 102
+  Max: 103
 
 # Reports false positives for `'.one #{$interpolated-string} .two .three {}'` (RuboCop v0.50.0)
 Lint/InterpolationCheck:

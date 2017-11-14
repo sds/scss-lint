@@ -76,3 +76,5 @@ module Sass::Script
     end
   end
 end
+
+# rubocop:enable Documentation

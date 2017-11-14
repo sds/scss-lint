@@ -165,4 +165,6 @@ module Sass::Tree
       self.class == other.class && imported_filename == other.imported_filename && super
     end
   end
+
+  # rubocop:enable Documentation
 end

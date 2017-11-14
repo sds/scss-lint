@@ -1,6 +1,4 @@
 module SCSSLint
-  # rubocop:disable Metrics/AbcSize
-
   # Checks for the presence of spaces between parentheses.
   class Linter::SpaceBetweenParens < Linter
     include LinterRegistry
@@ -33,7 +31,7 @@ module SCSSLint
 
     TRAILING_WHITESPACE = /\s*$/
 
-    def check(node, source) # rubocop:disable Metrics/MethodLength
+    def check(node, source) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       @spaces = config['spaces']
       source = trim_right_paren(source)
       return if source.count('(') != source.count(')')
@@ -71,7 +69,7 @@ module SCSSLint
     # An expression enclosed in parens will include or not include each paren, depending
     # on whitespace. Here we feel out for enclosing parens, and return them as the new
     # source for the node.
-    def feel_for_enclosing_parens(node) # rubocop:disable Metrics/CyclomaticComplexity
+    def feel_for_enclosing_parens(node) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
       range = node.source_range
       original_source = source_from_range(range)
       left_offset = -1
