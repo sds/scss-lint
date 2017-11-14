@@ -24,7 +24,7 @@ module SCSSLint
 
     def visit_root(node)
       # Register all top-level function, mixin, and variable definitions.
-      node.children.each_with_object([]) do |child_node|
+      node.children.each do |child_node|
         if DEFINITIONS.key?(child_node.class)
           register_node child_node
         end
@@ -97,7 +97,7 @@ module SCSSLint
     def node_defined_earlier_in_branch?(node_to_look_in, looking_for)
       # Look at all of the children of this node and return true if we find a
       # defining node that matches in name and type.
-      node_to_look_in.children.each_with_object([]) do |child_node|
+      node_to_look_in.children.each do |child_node|
         break unless before?(child_node, looking_for[:location])
         next unless child_node.class == looking_for[:defined_by]
         next unless child_node.name == looking_for[:node].name

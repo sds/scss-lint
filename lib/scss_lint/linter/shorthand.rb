@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/CyclomaticComplexity
 module SCSSLint
   # Checks for the use of the shortest form for properties that can be written
   # in shorthand.
@@ -119,7 +118,7 @@ module SCSSLint
     # @param bottom [String]
     # @param left [String]
     # @return [Boolean]
-    def condense_to_one_value?(top, right, bottom, left)
+    def condense_to_one_value?(top, right, bottom, left) # rubocop:disable Metrics/CyclomaticComplexity
       return unless allowed?(1)
       return unless top == right
 
