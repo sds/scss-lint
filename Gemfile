@@ -8,6 +8,6 @@ gem 'rspec', '~> 3.7'
 gem 'overcommit', '~> 0.41.0'
 
 # Pin tool versions (which are executed by Overcommit) for Travis builds
-gem 'rubocop', '0.50.0'
+gem 'rubocop', '~> 0.52.1'
 
 gem 'coveralls', require: false
