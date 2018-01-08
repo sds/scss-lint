@@ -110,6 +110,9 @@ SingleLineBlockParams:
 Security/YAMLLoad:
   Enabled: false
 
+Style/FormatStringToken:
+  Enabled: false
+
 Style/NumericPredicate:
   Enabled: false
 
