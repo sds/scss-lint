@@ -22,7 +22,7 @@ module Sass::Script
     types.each do |type|
       node_name = type.downcase
 
-      eval <<-DECL
+      eval <<-DECL, binding, __FILE__, __LINE__ + 1
         class #{namespace}::#{type}
           def self.node_name
             :script_#{node_name}
