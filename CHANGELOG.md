@@ -1,5 +1,12 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Add `text-decoration-skip` property to `PropertySpelling`
+* Drop support for Ruby 2.0
+* Require `sass` gem 3.5.5 or newer
+* Add grid properties to SMACSS sort order for `PropertySortOrder`
+
 ## 0.56.0
 
 * Add support for Sass 3.5. [Custom properties are not yet supported](https://github.com/brigade/scss-lint/pull/927).
