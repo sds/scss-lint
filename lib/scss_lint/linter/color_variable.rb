@@ -55,11 +55,13 @@ module SCSSLint
     def in_variable_declaration?(node)
       parent = node.node_parent
       parent.is_a?(Sass::Script::Tree::Literal) &&
-        parent.node_parent.is_a?(Sass::Tree::VariableNode)
+        (parent.node_parent.is_a?(Sass::Tree::VariableNode) ||
+         parent.node_parent.node_parent.is_a?(Sass::Tree::VariableNode))
     end
 
     def function_in_variable_declaration?(node)
-      node.node_parent.is_a?(Sass::Tree::VariableNode)
+      node.node_parent.is_a?(Sass::Tree::VariableNode) ||
+        node.node_parent.node_parent.is_a?(Sass::Tree::VariableNode)
     end
 
     def in_rgba_function_call?(node)

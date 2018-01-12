@@ -4,6 +4,7 @@ describe SCSSLint::Linter::ColorVariable do
   context 'when a color literal is used in a variable declaration' do
     let(:scss) { <<-SCSS }
       $my-color: #f00;
+      $my-shadow: 2px 2px 2px #f00;
     SCSS
 
     it { should_not report_lint }
@@ -12,6 +13,7 @@ describe SCSSLint::Linter::ColorVariable do
   context 'when a color function containing literals is used in a variable declaration' do
     let(:scss) { <<-SCSS }
       $my-color: rgba(0, 0, 0, 0.2);
+      $my-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
     SCSS
 
     it { should_not report_lint }
