@@ -14,7 +14,7 @@ describe SCSSLint::Reporter::CleanFilesReporter do
     end
 
     context 'when there are no lints but some files were linted' do
-      let(:files) { %w[c.scss b.scss a.scss] }
+      let(:files) { [{ 'path' => 'c.scss' }, { 'path' => 'b.scss' }, { 'path' => 'a.scss' }] }
       let(:lints) { [] }
 
       it 'prints each file on its own line' do
@@ -33,25 +33,25 @@ describe SCSSLint::Reporter::CleanFilesReporter do
     end
 
     context 'when there are lints in some files' do
-      let(:dirty_files) { %w[a.scss b.scss] }
-      let(:clean_files) { %w[c.scss d.scss] }
+      let(:dirty_files) { [{ 'path' => 'a.scss' }, { 'path' => 'b.scss' }] }
+      let(:clean_files) { [{ 'path' => 'c.scss' }, { 'path' => 'd.scss' }] }
       let(:files) { dirty_files + clean_files }
 
       let(:lints) do
         dirty_files.map do |file|
-          SCSSLint::Lint.new(SCSSLint::Linter::Comment.new, file, SCSSLint::Location.new, '')
+          SCSSLint::Lint.new(SCSSLint::Linter::Comment.new, file['path'], SCSSLint::Location.new, '')
         end
       end
 
       it 'prints the file for each lint' do
         clean_files.each do |file|
-          subject.report_lints.scan(file).count.should == 1
+          subject.report_lints.scan(file['path']).count.should == 1
         end
       end
 
       it 'does not print clean files' do
         dirty_files.each do |file|
-          subject.report_lints.scan(file).count.should == 0
+          subject.report_lints.scan(file['path']).count.should == 0
         end
       end
     end
