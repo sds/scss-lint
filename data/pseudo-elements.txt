@@ -47,6 +47,7 @@
 -webkit-calendar-picker-indicator
 -webkit-color-swatch
 -webkit-color-swatch-wrapper
+-webkit-contacts-auto-fill-button
 -webkit-datetime-edit
 -webkit-datetime-edit-day-field
 -webkit-datetime-edit-fields-wrapper
