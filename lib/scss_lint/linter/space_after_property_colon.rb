@@ -24,6 +24,8 @@ module SCSSLint
         check_for_at_least_one_space(node, whitespace)
       when 'one_space_or_newline'
         check_for_one_space_or_newline(node, whitespace)
+      when 'at_least_one_space_or_newline'
+        check_for_at_least_one_space_or_newline(node, whitespace)
       end
 
       yield # Continue linting children
@@ -50,6 +52,12 @@ module SCSSLint
       return if [[' '], ["\n"]].include?(whitespace)
       return if whitespace[0] == "\n" && whitespace[1..-1].uniq == [' ']
       add_lint(node, 'Colon after property should be followed by one space or a newline')
+    end
+
+    def check_for_at_least_one_space_or_newline(node, whitespace)
+      return if [[' '], ["\n"]].include?(whitespace.uniq)
+      return if whitespace[0] == "\n" && whitespace[1..-1].uniq == [' ']
+      add_lint(node, 'Colon after property should be followed by at least one space or newline')
     end
 
     def check_properties_alignment(rule_node)
