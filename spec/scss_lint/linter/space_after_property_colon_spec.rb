@@ -266,11 +266,108 @@ describe SCSSLint::Linter::SpaceAfterPropertyColon do
       it { should_not report_lint }
     end
 
+    context 'when the colon after a property is followed by multiple spaces' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin:  bold;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
     context 'when the colon after a property is followed by a newline and spaces' do
       let(:scss) { <<-SCSS }
         p {
           background-image:
               url(https://something.crazy.long/with/paths?and=queries)
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when the colon after a property is followed by a newline and no spaces' do
+      let(:scss) { <<-SCSS }
+        p {
+          background-image:
+url(https://something.crazy.long/with/paths?and=queries)
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when the colon after a property is followed by a space and then a newline' do
+      let(:scss) { <<-SCSS }
+        p {
+          background-image:\s
+url(https://something.crazy.long/with/paths?and=queries)
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+  end
+
+  context 'when at least one space or newline is preferred' do
+    let(:style) { 'at_least_one_space_or_newline' }
+
+    context 'when the colon after a property is not followed by space' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin:0;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'when the colon after a property is followed by a space' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin: 0;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when the colon after a property is surrounded by spaces' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin : bold;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when the colon after a property is followed by multiple spaces' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin:  bold;
+        }
+      SCSS
+
+      it { should_not report_lint }
+    end
+
+    context 'when the colon after a property is followed by multiple spaces and a tab' do
+      let(:scss) { <<-SCSS }
+        p {
+          margin:  \tbold;
+        }
+      SCSS
+
+      it { should report_lint line: 2 }
+    end
+
+    context 'when the colon after a property is followed by a newline and spaces' do
+      let(:scss) { <<-SCSS }
+        p {
+          background-image:
+            url(https://something.crazy.long/with/paths?and=queries)
         }
       SCSS
 
