@@ -2,6 +2,8 @@
 
 ## master (unreleased)
 
+## 0.57.0
+
 * Add `text-decoration-skip` property to `PropertySpelling`
 * Drop support for Ruby 2.0
 * Require `sass` gem 3.5.5 or newer
