@@ -17,7 +17,7 @@ manually from the command line, or integrate it into your
 
 # NOTICE: Consider other tools before adopting SCSS-Lint
 
-The Sass core team is now building Sass in [Dart instead of Ruby](http://blog.sass-lang.com/posts/1022316-announcing-dart-sass),
+The Sass core team is now building Sass in [Dart instead of Ruby](http://sass.logdown.com/posts/1022316-announcing-dart-sass),
 and will no longer be maintaining the Ruby implementation unless a maintainer
 steps up to help. Since the SCSS-Lint project relies on the Ruby Sass
 implementation, this means it will eventually not support the latest Sass
