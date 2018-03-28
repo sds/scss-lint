@@ -363,6 +363,9 @@ overflow-style
 overflow-wrap
 overflow-x
 overflow-y
+overscroll-behavior
+overscroll-behavior-x
+overscroll-behavior-y
 padding
 padding-after
 padding-before
