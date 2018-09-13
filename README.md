@@ -554,6 +554,10 @@ Install and enable both [scss-mode](https://github.com/antonj/scss-mode) and [fl
 
 If you use `TextMate 2`, you can install the [SCSS-Lint.tmbundle](https://github.com/jjuliano/SCSS-Lint.tmbundle) bundle.
 
+### Visual Studio Code
+
+If you use `Visual Studio Code`, you can install the [scss-lint](https://marketplace.visualstudio.com/items?itemName=adamwalzer.scss-lint) extension
+
 ## Git Integration
 
 If you'd like to integrate `scss-lint` into your Git workflow, check out our
