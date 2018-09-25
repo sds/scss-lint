@@ -39,6 +39,7 @@ support on the issue tracker.
 * [Linters](#linters)
 * [Custom Linters](#custom-linters)
 * [Preprocessing](#preprocessing)
+* [Automated Code Review](#automated-code-review)
 * [Editor Integration](#editor-integration)
 * [Git Integration](#git-integration)
 * [Rake Integration](#rake-integration)
@@ -523,6 +524,14 @@ If only some SCSS files need to be preprocessed, you may use the
 `preprocess_files` option to specify a list of file globs that need
 preprocessing. Preprocessing only a subset of files should make scss-lint more
 performant.
+
+## Automated Code Review
+
+### Codacy
+
+[Codacy](https://www.codacy.com/) automates code reviews and monitors code quality on every commit and pull request.
+With Codacy you have scss-lint analysis out-of-the-box, and it is free for open source projects.
+It gives visibility into the technical debt and it can track code style and security issues, code coverage, code duplication, cyclomatic complexity and enforce best practices.
 
 ## Editor Integration
 
