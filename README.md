@@ -3,7 +3,6 @@
 [![Code Climate](https://codeclimate.com/github/brigade/scss-lint.svg)](https://codeclimate.com/github/brigade/scss-lint)
 [![Coverage Status](https://coveralls.io/repos/brigade/scss-lint/badge.svg)](https://coveralls.io/r/brigade/scss-lint)
 [![Inline docs](http://inch-ci.org/github/brigade/scss-lint.svg?branch=master)](http://inch-ci.org/github/brigade/scss-lint)
-[![Dependency Status](https://gemnasium.com/brigade/scss-lint.svg)](https://gemnasium.com/brigade/scss-lint)
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/brigade/scss-lint/master/logo/horizontal.png" width="40%" alt="SCSS-Lint Logo"/>
