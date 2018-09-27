@@ -1,6 +1,8 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.57.1
+
+* Relax Sass gem dependency to allow 3.6.x
 
 ## 0.57.0
 
