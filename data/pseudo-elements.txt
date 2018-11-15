@@ -29,6 +29,7 @@
 -moz-viewport
 -moz-viewport-scroll
 -moz-xul-anonymous-block
+-ms-backdrop
 -ms-browse
 -ms-check
 -ms-clear
