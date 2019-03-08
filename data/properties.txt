@@ -125,7 +125,7 @@ break-before
 break-inside
 buffered-rendering
 caption-side
-carat-color
+caret-color
 clear
 clip
 clip-path
