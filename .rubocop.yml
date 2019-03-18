@@ -1,6 +1,6 @@
 AllCops:
   DisplayCopNames: true
-  TargetRubyVersion: 2.1 # Oldest version of Ruby we support
+  TargetRubyVersion: 2.3 # Oldest version of Ruby we support
 
 AccessModifierIndentation:
   EnforcedStyle: outdent
