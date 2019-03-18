@@ -124,3 +124,6 @@ Style/TrailingCommaInLiteral:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Style/SafeNavigation:
+  Enabled: false
