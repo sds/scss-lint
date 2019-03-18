@@ -121,3 +121,6 @@ Style/TrailingCommaInArguments:
 
 Style/TrailingCommaInLiteral:
   Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
