@@ -127,3 +127,6 @@ Style/FrozenStringLiteralComment:
 
 Style/SafeNavigation:
   Enabled: false
+
+Style/RedundantFreeze:
+  Enabled: false
