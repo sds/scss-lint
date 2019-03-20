@@ -55,6 +55,7 @@
 -webkit-datetime-edit-month-field
 -webkit-datetime-edit-text
 -webkit-datetime-edit-year-field
+-webkit-details-marker
 -webkit-file-upload-button
 -webkit-full-page-media
 -webkit-inner-spin-button
