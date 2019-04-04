@@ -199,6 +199,7 @@ font-stretch
 font-style
 font-variant
 font-variant-ligatures
+font-variant-numeric
 font-weight
 glyph-orientation-horizontal
 glyph-orientation-vertical
