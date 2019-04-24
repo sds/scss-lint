@@ -416,6 +416,7 @@ ruby-overhang
 ruby-position
 ruby-span
 scroll-behavior
+scrollbar-width
 shape-image-threshold
 shape-inside
 shape-margin
