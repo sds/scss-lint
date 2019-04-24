@@ -517,7 +517,9 @@ strip out the YAML codeblock and pass the result to SCSS-Lint with line
 numbers preserved, you can use
 `preprocess_command: "sed '1{/^---$/{:a N;/---$/!ba;d}}'"` -- please note this
 sed command is valid for gnu-sed. If you are using the FreeBSD version of sed that
-ships with Mac OS X by default, it will throw an EOF error.
+ships with Mac OS X by default, it will throw an EOF error. You may solve this 
+error by installing [Homebrew](https://brew.sh), running `brew install gnu-sed`,
+and then substituting `gsed` for `sed` in the `preprocess_command`.
 
 If only some SCSS files need to be preprocessed, you may use the
 `preprocess_files` option to specify a list of file globs that need
