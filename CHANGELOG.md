@@ -299,7 +299,7 @@
 
 ### Changes
 
-* Improve `SingleLinePerSelector` to report selectors with descendent selectors
+* Improve `SingleLinePerSelector` to report selectors with descendant selectors
   on separate lines
 
 ### Bug Fixes
