@@ -156,6 +156,8 @@ counter-increment
 counter-reset
 crop
 cursor
+cx
+cy
 direction
 display
 dominant-baseline
@@ -398,6 +400,7 @@ position
 print-color-adjust
 punctuation-trim
 quotes
+r
 region-break-after
 region-break-before
 region-break-inside
@@ -415,6 +418,8 @@ ruby-align
 ruby-overhang
 ruby-position
 ruby-span
+rx
+ry
 scroll-behavior
 scrollbar-width
 shape-image-threshold
@@ -528,5 +533,7 @@ word-wrap
 wrap-flow
 wrap-through
 writing-mode
+x
+y
 z-index
 zoom
