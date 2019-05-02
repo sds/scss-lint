@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.license          = 'MIT'
   s.summary          = 'SCSS lint tool'
   s.description      = 'Configurable tool for writing clean and consistent SCSS'
-  s.authors          = ['Brigade Engineering', 'Shane da Silva']
-  s.email            = ['eng@brigade.com', 'shane@dasilva.io']
+  s.authors          = ['Shane da Silva']
+  s.email            = ['shane@dasilva.io']
   s.homepage         = SCSSLint::REPO_URL
 
   s.require_paths    = ['lib']

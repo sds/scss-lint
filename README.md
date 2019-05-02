@@ -1,18 +1,18 @@
 [![Gem Version](https://badge.fury.io/rb/scss_lint.svg)](http://badge.fury.io/rb/scss_lint)
-[![Build Status](https://travis-ci.org/brigade/scss-lint.svg?branch=master)](https://travis-ci.org/brigade/scss-lint)
-[![Code Climate](https://codeclimate.com/github/brigade/scss-lint.svg)](https://codeclimate.com/github/brigade/scss-lint)
-[![Coverage Status](https://coveralls.io/repos/brigade/scss-lint/badge.svg)](https://coveralls.io/r/brigade/scss-lint)
-[![Inline docs](http://inch-ci.org/github/brigade/scss-lint.svg?branch=master)](http://inch-ci.org/github/brigade/scss-lint)
+[![Build Status](https://travis-ci.org/sds/scss-lint.svg?branch=master)](https://travis-ci.org/sds/scss-lint)
+[![Code Climate](https://codeclimate.com/github/sds/scss-lint.svg)](https://codeclimate.com/github/sds/scss-lint)
+[![Coverage Status](https://coveralls.io/repos/sds/scss-lint/badge.svg)](https://coveralls.io/r/sds/scss-lint)
+[![Inline docs](http://inch-ci.org/github/sds/scss-lint.svg?branch=master)](http://inch-ci.org/github/sds/scss-lint)
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/brigade/scss-lint/master/logo/horizontal.png" width="40%" alt="SCSS-Lint Logo"/>
+  <img src="https://raw.githubusercontent.com/sds/scss-lint/master/logo/horizontal.png" width="40%" alt="SCSS-Lint Logo"/>
 </p>
 
 `scss-lint` is a tool to help keep your [SCSS](http://sass-lang.com) files
 clean and readable by running it against a collection of
 configurable [linter rules](lib/scss_lint/linter/README.md). You can run it
 manually from the command line, or integrate it into your
-[SCM hooks](https://github.com/brigade/overcommit).
+[SCM hooks](https://github.com/sds/overcommit).
 
 # NOTICE: Consider other tools before adopting SCSS-Lint
 
@@ -415,7 +415,7 @@ Exit Status | Description
 `64`        | Command line usage error (invalid flag, etc.)
 `66`        | One or more files specified were not found
 `69`        | Required library specified via `-r`/`--require` flag was not found
-`70`        | Unexpected error (i.e. a bug); please [report it](https://github.com/brigade/scss-lint/issues)
+`70`        | Unexpected error (i.e. a bug); please [report it](https://github.com/sds/scss-lint/issues)
 `78`        | Invalid configuration file; your [YAML](http://www.yaml.org/) is likely incorrect
 `80`        | Files glob patterns specified did not match any files.
 
@@ -571,7 +571,7 @@ If you use `Visual Studio Code`, you can install the [scss-lint](https://marketp
 ## Git Integration
 
 If you'd like to integrate `scss-lint` into your Git workflow, check out our
-Git hook manager, [overcommit](https://github.com/brigade/overcommit).
+Git hook manager, [overcommit](https://github.com/sds/overcommit).
 
 ## Rake Integration
 
@@ -633,7 +633,7 @@ installation of `ruby` or `scss-lint` is not required.
 
 [Code documentation] is generated with [YARD] and hosted by [RubyDoc.info].
 
-[Code documentation]: http://rdoc.info/github/brigade/scss-lint/master/frames
+[Code documentation]: http://rdoc.info/github/sds/scss-lint/master/frames
 [YARD]: http://yardoc.org/
 [RubyDoc.info]: http://rdoc.info/
 
@@ -659,7 +659,7 @@ bundle exec bin/scss-lint
 ## Community
 
 All major discussion surrounding SCSS-Lint happens on the
-[GitHub issues page](https://github.com/brigade/scss-lint/issues).
+[GitHub issues page](https://github.com/sds/scss-lint/issues).
 
 You can also follow [@scss_lint on Twitter](https://twitter.com/scss_lint).
 
@@ -673,7 +673,7 @@ of `scss-lint`, read the [SCSS-Lint Changelog](CHANGELOG.md).
 This project adheres to the [Open Code of Conduct][code-of-conduct]. By
 participating, you are expected to honor this code.
 
-[code-of-conduct]: https://github.com/brigade/code-of-conduct
+[code-of-conduct]: https://github.com/civiccc/code-of-conduct
 
 ## License
 

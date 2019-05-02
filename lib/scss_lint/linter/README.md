@@ -1142,7 +1142,7 @@ linters:
 ```
 
 If you're sure the property in question is valid,
-[submit a request](https://github.com/brigade/scss-lint/issues/new)
+[submit a request](https://github.com/sds/scss-lint/issues/new)
 to add it to the
 [default whitelist](../../../data/properties.txt).
 
@@ -1192,7 +1192,7 @@ two colons. Pseudo-classes, like `:hover` and `:first-child`, should be
 declared with one colon.
 
 If you're sure the pseudo-element in question is valid,
-[submit a request](https://github.com/brigade/scss-lint/issues/new)
+[submit a request](https://github.com/sds/scss-lint/issues/new)
 to add it to the
 [default whitelist](../../../data/pseudo-elements.txt).
 
