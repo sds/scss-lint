@@ -45,7 +45,7 @@ module SCSSLint
 
     def visit_import(node)
       # Ignore all but the last import for comma-separated @imports
-      return if source_from_range(node.source_range) =~ /,\s*$/
+      return if source_from_range(node.source_range).match?(/,\s*$/)
       check_semicolon(node)
     end
 

@@ -13,7 +13,7 @@ module SCSSLint
       # (only selectors?), the source ranges are offset by two (probably not
       # accounting for the `#{`. Slide everything to the left by 2, and maybe
       # things will look sane this time.
-      unless operation_sources.operator_source =~ Sass::Script::Lexer::REGULAR_EXPRESSIONS[:op]
+      unless operation_sources.operator_source.match?(Sass::Script::Lexer::REGULAR_EXPRESSIONS[:op])
         operation_sources.adjust_for_interpolation
         operation_sources.adjust_sources
       end

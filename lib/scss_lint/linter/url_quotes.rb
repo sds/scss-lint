@@ -20,8 +20,8 @@ module SCSSLint
   private
 
     def check(node, string)
-      return unless string =~ /^\s*url\(\s*[^"']/
-      return if string =~ /^\s*url\(\s*data:/ # Ignore data URIs
+      return unless string.match?(/^\s*url\(\s*[^"']/)
+      return if string.match?(/^\s*url\(\s*data:/) # Ignore data URIs
 
       add_lint(node, 'URLs should be enclosed in quotes')
     end

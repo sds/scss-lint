@@ -27,7 +27,7 @@ module SCSSLint
   private
 
     def check_identifier(node, identifier)
-      return unless identifier =~ /^[_-]/
+      return unless identifier.match?(/^[_-]/)
 
       # Strip vendor prefix to check against identifiers.
       # (Also strip closing parentheticals from values like linear-gradient.)

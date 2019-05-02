@@ -51,7 +51,7 @@ support on the issue tracker.
 
 ## Requirements
 
-* Ruby 2.3+
+* Ruby 2.4+
 * Sass 3.5.5+
 * Files you wish to lint must be written in SCSS (not Sass) syntax
 

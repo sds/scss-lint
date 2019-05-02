@@ -5,7 +5,7 @@ module SCSSLint
 
     def visit_root(_node)
       engine.lines.each_with_index do |line, index|
-        next unless line =~ /[ \t]+$/
+        next unless line.match?(/[ \t]+$/)
 
         add_lint(index + 1, 'Line contains trailing whitespace')
       end

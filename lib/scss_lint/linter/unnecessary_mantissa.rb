@@ -8,7 +8,7 @@ module SCSSLint
 
     def visit_script_string(node)
       return unless node.type == :identifier
-      return if node.value =~ /^'|"/
+      return if node.value.match?(/^'|"/)
       return if url_literal?(node)
 
       node.value.scan(REAL_NUMBER_REGEX) do |number, integer, mantissa, units|

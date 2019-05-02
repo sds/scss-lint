@@ -98,7 +98,7 @@ module SCSSLint
 
     def visit_import(node)
       previous_node(node)
-      return unless engine.lines[node.line - 1] =~ /@import/
+      return unless engine.lines[node.line - 1].match?(/@import/)
       check_indentation(node)
     end
 

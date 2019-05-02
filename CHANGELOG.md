@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Drop support for Ruby 2.3 or older
+
 ## 0.57.1
 
 * Relax Sass gem dependency to allow 3.6.x

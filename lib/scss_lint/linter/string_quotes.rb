@@ -66,7 +66,7 @@ module SCSSLint
         if string =~ /(?<! \\) \\'/x && string !~ /"/
           add_lint(node, 'Use double-quoted strings when writing single ' \
                          'quotes to avoid having to escape the single quotes')
-        elsif string =~ /(?<! \\) \\"/x
+        elsif string.match?(/(?<! \\) \\"/x)
           add_lint(node, "Don't escape double quotes in single-quoted strings")
         end
       elsif string !~ /"/

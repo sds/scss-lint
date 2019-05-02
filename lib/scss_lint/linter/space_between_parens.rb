@@ -90,7 +90,7 @@ module SCSSLint
       # those parens may be part of a parent function call. We don't care about
       # such parens. This depends on whether the preceding character is part of
       # a function name.
-      return original_source if character_at(range.start_pos, left_offset - 1) =~ /[A-Za-z0-9_]/
+      return original_source if character_at(range.start_pos, left_offset - 1).match?(/[A-Za-z0-9_]/)
 
       range.start_pos.offset += left_offset
       range.end_pos.offset += right_offset

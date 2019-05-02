@@ -6,7 +6,7 @@ module SCSSLint
     def visit_sequence(sequence)
       line_offset = 0
       sequence.members.each do |member|
-        line_offset += 1 if member =~ /\n/
+        line_offset += 1 if member =~ /\n/ # rubocop:disable Performance/RegexpMatch
         next unless chained_class?(member)
         add_lint(member.line + line_offset,
                  'Prefer using a distinct class over chained classes ' \

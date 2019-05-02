@@ -7,7 +7,7 @@ module SCSSLint
       # No lint if the first line of the comment is not a command (because then
       # either this comment has no commands, or the first line serves as a the
       # reason for a command on a later line).
-      if comment_lines(node).first.match(COMMAND_REGEX)
+      if comment_lines(node).first.match?(COMMAND_REGEX)
         visit_command_comment(node)
       else
         @previous_comment = node
@@ -21,7 +21,7 @@ module SCSSLint
       end
 
       # Not a "disable linter reason" if the last line of the previous comment is a command.
-      if comment_lines(@previous_comment).last.match(COMMAND_REGEX)
+      if comment_lines(@previous_comment).last.match?(COMMAND_REGEX)
         report_lint(node)
         return
       end
