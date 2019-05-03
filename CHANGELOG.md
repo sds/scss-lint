@@ -4,6 +4,7 @@
 
 * Drop support for Ruby 2.3 or older
 * Add `caret-color`, `::-ms-backdrop`, `::-webkit-details-marker`, `place-content`, `font-variant-numeric`, `scrollbar-width` to known properties list
+* Add CSS SVG properties ([#977](https://github.com/sds/scss-lint/pull/977))
 
 ## 0.57.1
 
