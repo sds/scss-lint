@@ -3,6 +3,7 @@
 ## master (unreleased)
 
 * Drop support for Ruby 2.3 or older
+* Add `caret-color`, `::-ms-backdrop`, `::-webkit-details-marker`, `place-content`, `font-variant-numeric`, `scrollbar-width` to known properties list
 
 ## 0.57.1
 
