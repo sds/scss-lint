@@ -2,5 +2,5 @@
 
 # Defines the gem version.
 module SCSSLint
-  VERSION = '0.57.1'.freeze
+  VERSION = '0.58.0'.freeze
 end
