@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SCSSLint::Plugins::LinterDir do
-  let(:plugin_directory) { File.expand_path('../../fixtures/plugins', __FILE__) }
+  let(:plugin_directory) { File.expand_path('../fixtures/plugins', __dir__) }
   let(:subject) { described_class.new(plugin_directory) }
 
   describe '#load' do

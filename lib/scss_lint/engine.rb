@@ -34,12 +34,12 @@ module SCSSLint
                         .lines
       @tree = @engine.to_tree
       find_any_control_commands
-    rescue Encoding::UndefinedConversionError, Sass::SyntaxError, ArgumentError => error
-      if error.is_a?(Encoding::UndefinedConversionError) ||
-         error.message.match(/invalid.*(byte sequence|character)/i)
+    rescue Encoding::UndefinedConversionError, Sass::SyntaxError, ArgumentError => e
+      if e.is_a?(Encoding::UndefinedConversionError) ||
+         e.message.match(/invalid.*(byte sequence|character)/i)
         raise FileEncodingError,
-              "Unable to parse SCSS file: #{error}",
-              error.backtrace
+              "Unable to parse SCSS file: #{e}",
+              e.backtrace
       else
         raise
       end

@@ -64,9 +64,9 @@ module SCSSLint
             else
               {}
             end
-        rescue StandardError => ex
+        rescue StandardError => e
           raise SCSSLint::Exceptions::InvalidConfiguration,
-                "Invalid configuration: #{ex.message}"
+                "Invalid configuration: #{e.message}"
         end
 
         options = convert_single_options_to_arrays(options)
@@ -94,8 +94,6 @@ module SCSSLint
       # Merge options from wildcard linters into individual linter configs
       def merge_wildcard_linter_options(options)
         options = options.dup
-
-        # rubocop:disable Performance/HashEachMethods (FALSE POSITIVE)
         # Cannot use `each_key` because the cycle adds new keys during iteration
         options.fetch('linters', {}).keys.each do |class_name|
           next unless class_name.include?('*')
@@ -103,7 +101,6 @@ module SCSSLint
           wildcard_options = options['linters'].delete(class_name)
           apply_options_to_matching_linters(class_name, options, wildcard_options)
         end
-        # rubocop:enable Performance/HashEachMethods
 
         options
       end

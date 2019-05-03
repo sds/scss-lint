@@ -49,8 +49,8 @@ module SCSSLint
       if uri.scheme || uri.host
         add_lint(node, "URL `#{url}` should not contain protocol or domain")
       end
-    rescue URI::Error => ex
-      add_lint(node, "Invalid URL `#{url}`: #{ex}")
+    rescue URI::Error => e
+      add_lint(node, "Invalid URL `#{url}`: #{e}")
     end
   end
 end

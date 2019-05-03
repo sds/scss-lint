@@ -35,7 +35,7 @@ module SCSSLint
         (?<mantissa>\d+)
         (?<units>\w*)
       )\b
-    /ix
+    /ix.freeze
 
     MESSAGE_FORMAT = '`%s` should be written without the mantissa as `%s%s`'.freeze
 

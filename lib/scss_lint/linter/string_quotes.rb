@@ -45,7 +45,7 @@ module SCSSLint
       \s*\)?\s*;?\s*  # Sometimes the Sass parser includes a trailing ) or ;
       (//.*)?         # Exclude any trailing comments that might have snuck in
       \z
-    }x
+    }x.freeze
 
     def extract_string_without_quotes(source)
       return unless match = STRING_WITHOUT_QUOTES_REGEX.match(source)

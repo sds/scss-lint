@@ -22,7 +22,7 @@ module SCSSLint
 
   private
 
-    NUMBER_WITH_LEADING_ZERO_REGEX = /^-?(0?\.\d+)/
+    NUMBER_WITH_LEADING_ZERO_REGEX = /^-?(0?\.\d+)/.freeze
 
     CONVENTIONS = {
       'exclude_zero' => {

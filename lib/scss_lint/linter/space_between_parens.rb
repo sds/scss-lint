@@ -29,7 +29,7 @@ module SCSSLint
 
   private
 
-    TRAILING_WHITESPACE = /\s*$/
+    TRAILING_WHITESPACE = /\s*$/.freeze
 
     def check(node, source) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       @spaces = config['spaces']

@@ -23,7 +23,7 @@ module SCSSLint
         (?:#{LENGTH_UNITS.join('|')}) # unit!
       )
       (?:$|[\s+\-/*()]) # math or space separated, or end of string
-    }x
+    }x.freeze
 
     def visit_prop(node)
       return if allowed_prop?(node)

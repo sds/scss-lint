@@ -3,7 +3,7 @@ module SCSSLint
   class Linter::HexNotation < Linter
     include LinterRegistry
 
-    HEX_REGEX = /(#(\h{3}|\h{6}))(?!\h)/
+    HEX_REGEX = /(#(\h{3}|\h{6}))(?!\h)/.freeze
 
     def visit_script_color(node)
       return unless hex = source_from_range(node.source_range)[HEX_REGEX, 1]

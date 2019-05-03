@@ -35,7 +35,7 @@ module SCSSLint
       (?<!\.|\#)    # Ignore zeroes following `#` (colors) or `.` (decimals)
       (0[a-z]+)     # Zero followed by letters indicating some sort of unit
       \b
-    /ix
+    /ix.freeze
 
     MESSAGE_FORMAT = '`%s` should be written without units as `0`'.freeze
 

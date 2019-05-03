@@ -50,11 +50,20 @@ HandleExceptions:
 IfUnlessModifier:
   Enabled: false
 
+Layout/AlignHash:
+  Enabled: false
+
+Layout/ClosingHeredocIndentation:
+  Enabled: false
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
 Layout/ExtraSpacing:
   Exclude:
     - '*.gemspec'
 
-Layout/IndentArray:
+Layout/IndentFirstArrayElement:
   Enabled: false
 
 Layout/IndentHeredoc:
@@ -68,6 +77,13 @@ LineLength:
 
 # Reports false positives for `'.one #{$interpolated-string} .two .three {}'` (RuboCop v0.50.0)
 Lint/InterpolationCheck:
+  Enabled: false
+
+Lint/Void:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+Naming/UncommunicativeMethodParamName:
   Enabled: false
 
 MethodLength:
@@ -119,7 +135,10 @@ Style/NumericPredicate:
 Style/TrailingCommaInArguments:
   Enabled: false
 
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
   Enabled: false
 
 Style/FrozenStringLiteralComment:

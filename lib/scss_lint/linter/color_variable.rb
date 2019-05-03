@@ -18,13 +18,10 @@ module SCSSLint
 
     def visit_script_string(node)
       return if literal_string?(node)
-
-      # rubocop:disable Performance/HashEachMethods (FALSE POSITIVE v0.50.0)
       remove_quoted_strings(node.value)
         .scan(/(^|\s)(#[a-f0-9]+|[a-z]+)(?=\s|$)/i)
         .select { |_, word| color?(word) }
         .each   { |_, color| record_lint(node, color) }
-      # rubocop:enable Performance/HashEachMethods
     end
 
     def visit_script_funcall(node)

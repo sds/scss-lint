@@ -47,7 +47,7 @@ module SCSSLint
       # combinator, as these "combine" simple sequences such that they do not
       # increase depth.
       depth = simple_sequences.size -
-        separators.count { |item| item == '~' || item == '+' }
+        separators.count { |item| %w[~ +].include?(item) }
 
       depth +=
         if parent_selectors > 0

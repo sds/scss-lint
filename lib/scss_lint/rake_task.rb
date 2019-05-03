@@ -73,7 +73,7 @@ module SCSSLint
       end
     end
 
-    def run_cli(task_args) # rubocop:disable AbcSize
+    def run_cli(task_args)
       cli_args = ['--config', config] if config
 
       logger = quiet ? SCSSLint::Logger.silent : SCSSLint::Logger.new(STDOUT)

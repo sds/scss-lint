@@ -64,7 +64,7 @@ module SCSSLint
       (\S+\s+\S+(\s+\S+){0,2})   # Two to four values separated by spaces
       (\s+!\w+)?                 # Ignore `!important` priority overrides
       \z
-    /x
+    /x.freeze
 
     # @param prop [String]
     # @param script_string [Sass::Script::Value::String]

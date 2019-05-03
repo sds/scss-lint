@@ -31,8 +31,8 @@ module SCSSLint
     def run(args)
       options = SCSSLint::Options.new.parse(args)
       act_on_options(options)
-    rescue StandardError => ex
-      handle_runtime_exception(ex, options)
+    rescue StandardError => e
+      handle_runtime_exception(e, options)
     end
 
   private
@@ -205,9 +205,9 @@ module SCSSLint
       Array(options[:required_paths]).each do |path|
         require path
       end
-    rescue LoadError => ex
+    rescue LoadError => e
       raise SCSSLint::Exceptions::RequiredLibraryMissingError,
-            "Required library not found: #{ex.message}"
+            "Required library not found: #{e.message}"
     end
 
     def load_reporters(options)

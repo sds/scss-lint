@@ -48,7 +48,7 @@ module SCSSLint
       (?<action>disable)\s+
       (?<linters>.*?)
       \s*(?:\*/|\n) # Comment end marker or end of line
-    }x
+    }x.freeze
 
     def comment_lines(node)
       node.value.join.split("\n")

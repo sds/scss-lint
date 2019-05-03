@@ -15,7 +15,7 @@ module SCSSLint
        )
        ([a-z%]+)   # [1: units] letters or percent sign, e.g. px or %
       )
-    /ix
+    /ix.freeze
 
     def visit_root(_node)
       @globally_allowed_units = config['global'].to_set
