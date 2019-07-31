@@ -222,6 +222,7 @@ text-shadow
 text-transform
 text-wrap
 word-wrap
+overflow-wrap
 word-break
 
 text-emphasis
