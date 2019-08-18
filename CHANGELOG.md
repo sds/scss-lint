@@ -1,5 +1,9 @@
 # SCSS-Lint Changelog
 
+## master (unreleased)
+
+* Add `overflow-wrap` to `PropertySortOrder` list for SMACSS
+
 ## 0.58.0
 
 * Drop support for Ruby 2.3 or older
