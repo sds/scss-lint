@@ -348,7 +348,7 @@ describe SCSSLint::Linter::LengthVariable do
   end
 
   context 'when using a length with an allowed property' do
-    let(:linter_config) { { 'allowed_properties' => ['text-shadow', 'box-shadow'] } }
+    let(:linter_config) { { 'allowed_properties' => %w[text-shadow box-shadow] } }
     let(:scss) { <<-SCSS }
       p {
         text-shadow: 10px 10px 5px blue;

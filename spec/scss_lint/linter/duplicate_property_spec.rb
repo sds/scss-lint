@@ -217,7 +217,7 @@ describe SCSSLint::Linter::DuplicateProperty do
   end
 
   context 'when specific consecutive duplicate properties are allowed' do
-    let(:linter_config) { { 'ignore_consecutive' => ['background-color', 'transition'] } }
+    let(:linter_config) { { 'ignore_consecutive' => %w[background-color transition] } }
 
     context 'when rule set contains consecutive duplicates in whitelist' do
       let(:scss) { <<-SCSS }
