@@ -1,6 +1,6 @@
 # SCSS-Lint Changelog
 
-## master (unreleased)
+## 0.59.0
 
 * Add `overflow-wrap` to `PropertySortOrder` list for SMACSS
 * Remove dependency on `rake` gem
