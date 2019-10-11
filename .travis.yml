@@ -9,9 +9,9 @@ env:
     - "JRUBY_OPTS=--dev"
 
 rvm:
-  - 2.4.6
-  - 2.5.5
-  - 2.6.3
+  - 2.4
+  - 2.5
+  - 2.6
   - jruby-9.2.6.0
 
 before_install:
