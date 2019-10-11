@@ -5,7 +5,7 @@ gemspec
 gem 'rspec', '~> 3.8'
 
 # Run all pre-commit checks via Overcommit during CI runs
-gem 'overcommit', '0.49.1'
+gem 'overcommit', '0.51.0'
 
 # Needed to test Rake integration in specs
 gem 'rake'
