@@ -25,6 +25,5 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.4'
 
-  s.add_dependency 'rake', '>= 0.9', '< 13'
   s.add_dependency 'sass', '~> 3.5', '>= 3.5.5'
 end

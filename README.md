@@ -575,7 +575,8 @@ Git hook manager, [overcommit](https://github.com/sds/overcommit).
 
 ## Rake Integration
 
-To execute `scss-lint` via a [Rake](https://github.com/ruby/rake) task, add the
+To execute `scss-lint` via a [Rake](https://github.com/ruby/rake) task, ensure
+you have `rake` in your gem path (e.g. by adding to your `Gemfile`), and add the
 following to your `Rakefile`:
 
 ```ruby

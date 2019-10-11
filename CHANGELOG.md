@@ -3,6 +3,7 @@
 ## master (unreleased)
 
 * Add `overflow-wrap` to `PropertySortOrder` list for SMACSS
+* Remove dependency on `rake` gem
 
 ## 0.58.0
 

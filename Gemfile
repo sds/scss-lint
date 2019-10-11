@@ -7,6 +7,9 @@ gem 'rspec', '~> 3.8'
 # Run all pre-commit checks via Overcommit during CI runs
 gem 'overcommit', '0.49.1'
 
+# Needed to test Rake integration in specs
+gem 'rake'
+
 # Pin tool versions (which are executed by Overcommit) for Travis builds
 gem 'rubocop', '0.74.0'
 
