@@ -236,6 +236,18 @@ a {
 }
 ```
 
+**Disable for just one line**
+```scss
+p {
+  // No lint reported:
+  border: none; // scss-lint:disable BorderZero
+
+  a {
+    border: none; // Lint reported
+  }
+}
+```
+
 **Disable/enable all linters**
 ```scss
 // scss-lint:disable all
