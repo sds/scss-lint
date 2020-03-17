@@ -22,9 +22,9 @@ steps up to help. Since the SCSS-Lint project relies on the Ruby Sass
 implementation, this means it will eventually not support the latest Sass
 features and bug fixes.
 
-Two alternatives worthy of consideration are [stylelint](http://stylelint.io/)
-and [sass-lint](https://github.com/sasstools/sass-lint), with sass-lint having
-closer feature parity to SCSS-lint.
+One alternative worthy of consideration is [stylelint](http://stylelint.io/), which supports SCSS natively.
+If you want to use SCSS-specific rules in addition to stylelint core rules,
+you need to configure stylelint plugins like [stylelint-scss](https://github.com/kristerkari/stylelint-scss) or [stylelint-order](https://github.com/hudochenkov/stylelint-order).
 
 The SCSS-Lint project will continue to accept pull requests and provide basic
 support on the issue tracker.
