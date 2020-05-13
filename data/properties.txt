@@ -421,12 +421,12 @@ ruby-span
 rx
 ry
 scroll-behavior
-scrollbar-width
 scroll-margin
 scroll-margin-bottom
 scroll-margin-left
 scroll-margin-right
 scroll-margin-top
+scrollbar-width
 shape-image-threshold
 shape-inside
 shape-margin
