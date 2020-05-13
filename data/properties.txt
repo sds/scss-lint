@@ -422,6 +422,11 @@ rx
 ry
 scroll-behavior
 scrollbar-width
+scroll-margin
+scroll-margin-bottom
+scroll-margin-left
+scroll-margin-right
+scroll-margin-top
 shape-image-threshold
 shape-inside
 shape-margin
