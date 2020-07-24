@@ -58,6 +58,10 @@ align-self
 justify-content
 order
 
+gap
+row-gap
+column-gap
+
 width
 min-width
 max-width
