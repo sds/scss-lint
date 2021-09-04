@@ -203,6 +203,7 @@ font-variant
 font-variant-ligatures
 font-variant-numeric
 font-weight
+gap
 glyph-orientation-horizontal
 glyph-orientation-vertical
 grid
