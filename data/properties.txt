@@ -396,6 +396,7 @@ perspective-origin-x
 perspective-origin-y
 phonemes
 place-content
+place-items
 pointer-events
 position
 print-color-adjust
