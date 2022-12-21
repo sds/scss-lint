@@ -429,6 +429,11 @@ scroll-margin-bottom
 scroll-margin-left
 scroll-margin-right
 scroll-margin-top
+scroll-padding
+scroll-padding-bottom
+scroll-padding-left
+scroll-padding-right
+scroll-padding-top
 scrollbar-width
 shape-image-threshold
 shape-inside
