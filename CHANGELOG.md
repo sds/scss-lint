@@ -1,5 +1,15 @@
 # SCSS-Lint Changelog
 
+## 0.60.0
+
+* Add `scroll-margin` family of properties to allowlist
+* Add `gap` family of properties to allowlist
+* Add `text-underline-offset` property to allowlist
+* Add `place-items` property to allowlist
+* Add `accent-color` property to allowlist
+* Add `scroll-padding` family of properties to allowlist
+* Add support for Ruby 3.2
+
 ## 0.59.0
 
 * Add `overflow-wrap` to `PropertySortOrder` list for SMACSS
