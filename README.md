@@ -1,5 +1,5 @@
 [![Gem Version](https://badge.fury.io/rb/scss_lint.svg)](http://badge.fury.io/rb/scss_lint)
-[![Build Status](https://travis-ci.org/sds/scss-lint.svg?branch=master)](https://travis-ci.org/sds/scss-lint)
+[![Build Status](https://github.com/sds/scss-lint/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/sds/scss-lint/actions/workflows/ci.yml?query=branch%3Amaster)
 [![Code Climate](https://codeclimate.com/github/sds/scss-lint.svg)](https://codeclimate.com/github/sds/scss-lint)
 [![Coverage Status](https://coveralls.io/repos/sds/scss-lint/badge.svg)](https://coveralls.io/r/sds/scss-lint)
 [![Inline docs](http://inch-ci.org/github/sds/scss-lint.svg?branch=master)](http://inch-ci.org/github/sds/scss-lint)
