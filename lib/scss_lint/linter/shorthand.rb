@@ -118,7 +118,7 @@ module SCSSLint
     # @param bottom [String]
     # @param left [String]
     # @return [Boolean]
-    def condense_to_one_value?(top, right, bottom, left) # rubocop:disable Metrics/CyclomaticComplexity
+    def condense_to_one_value?(top, right, bottom, left)
       return unless allowed?(1)
       return unless top == right
 

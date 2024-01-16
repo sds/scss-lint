@@ -110,7 +110,7 @@ not ok #{test_number} - #{test_line_description}
     # @param output [Array<String>]
     # @return [String]
     def format_output(output)
-      output.join("\n") + "\n"
+      "#{output.join("\n")}\n"
     end
 
     def location(lint)

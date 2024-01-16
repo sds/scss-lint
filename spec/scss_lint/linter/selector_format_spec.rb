@@ -414,7 +414,7 @@ describe SCSSLint::Linter::SelectorFormat do
         'convention' => 'camel_case',
         'element_convention' => 'hyphenated-lowercase',
         'attribute_convention' => 'snake_case',
-        'class_convention' => /[a-z]+\-\-[a-z]+/
+        'class_convention' => /[a-z]+--[a-z]+/
       }
     end
 

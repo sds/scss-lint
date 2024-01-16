@@ -4,7 +4,7 @@ require 'tempfile'
 
 describe SCSSLint::RakeTask do
   before do
-    STDOUT.stub(:write) # Silence console output
+    $stdout.stub(:write) # Silence console output
   end
 
   after(:each) do

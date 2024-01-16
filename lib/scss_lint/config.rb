@@ -95,7 +95,7 @@ module SCSSLint
       def merge_wildcard_linter_options(options)
         options = options.dup
         # Cannot use `each_key` because the cycle adds new keys during iteration
-        options.fetch('linters', {}).keys.each do |class_name|
+        options.fetch('linters', {}).keys.each do |class_name| # rubocop:disable Style/HashEachMethods
           next unless class_name.include?('*')
 
           wildcard_options = options['linters'].delete(class_name)

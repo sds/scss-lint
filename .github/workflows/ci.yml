@@ -2,18 +2,17 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [main]
   pull_request:
     types: [synchronize, opened, reopened, ready_for_review]
 
 jobs:
   ci:
-    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        ruby-version: ['2.4', '2.5', '2.6', '3.0', '3.1', '3.2.0', jruby]
+        ruby-version: ['3.0', '3.1', '3.2', '3.3', jruby]
 
     steps:
       - uses: actions/checkout@v3

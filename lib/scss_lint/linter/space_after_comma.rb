@@ -100,7 +100,7 @@ module SCSSLint
     # source range. Thus we need to start at the indicated range, and check
     # left and right of that range, gradually moving further outward until
     # we find the comma.
-    def find_comma_position(arg) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    def find_comma_position(arg) # rubocop:disable Metrics/AbcSize
       offset = 0
       pos = arg.source_range.end_pos
 

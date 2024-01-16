@@ -4,7 +4,7 @@
 # now.
 module Sass::Tree
   # Ignore documentation lints as these aren't original implementations.
-  # rubocop:disable Documentation
+  # rubocop:disable Style/Documentation
 
   # Define some common helper code for use in the various monkey patchings.
   class Node
@@ -58,7 +58,7 @@ module Sass::Tree
     def children
       begin
         additional_children = extract_script_nodes(value)
-      rescue NotImplementedError # rubocop:disable HandleExceptions
+      rescue NotImplementedError
         # Directive nodes may not define `value`
       end
       concat_expr_lists super, additional_children
@@ -166,5 +166,5 @@ module Sass::Tree
     end
   end
 
-  # rubocop:enable Documentation
+  # rubocop:enable Style/Documentation
 end

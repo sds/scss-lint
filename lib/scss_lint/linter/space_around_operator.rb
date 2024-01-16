@@ -30,7 +30,7 @@ module SCSSLint
 
   private
 
-    def check(node, operation_sources) # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Metrics/MethodLength
+    def check(node, operation_sources) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       match = operation_sources.operator_source.match(/
         (?<left_space>\s*)
         (?<operator>\S+)

@@ -3,5 +3,5 @@
 require 'scss_lint'
 require 'scss_lint/cli'
 
-logger = SCSSLint::Logger.new(STDOUT)
+logger = SCSSLint::Logger.new($stdout)
 exit SCSSLint::CLI.new(logger).run(ARGV)

@@ -57,9 +57,9 @@ module SCSSLint
         explanation: 'should be written in classic BEM (Block Element Modifier) format',
         validator: lambda do |name|
           name =~ /
-            ^[a-z]([-]?[a-z0-9]+)*
-            (__[a-z0-9]([-]?[a-z0-9]+)*)?
-            ((_[a-z0-9]([-]?[a-z0-9]+)*){1,2})?$
+            ^[a-z](-?[a-z0-9]+)*
+            (__[a-z0-9](-?[a-z0-9]+)*)?
+            ((_[a-z0-9](-?[a-z0-9]+)*){1,2})?$
           /x
         end
       },
@@ -71,9 +71,9 @@ module SCSSLint
         explanation: 'should be written in BEM (Block Element Modifier) format',
         validator: lambda do |name|
           name =~ /
-            ^[a-z]([-]?[a-z0-9]+)*
-            (__[a-z0-9]([-]?[a-z0-9]+)*)?
-            ((_[a-z0-9]([-]?[a-z0-9]+)*){2})?$
+            ^[a-z](-?[a-z0-9]+)*
+            (__[a-z0-9](-?[a-z0-9]+)*)?
+            ((_[a-z0-9](-?[a-z0-9]+)*){2})?$
           /x
         end,
       },

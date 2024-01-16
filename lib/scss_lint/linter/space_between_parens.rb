@@ -69,7 +69,7 @@ module SCSSLint
     # An expression enclosed in parens will include or not include each paren, depending
     # on whitespace. Here we feel out for enclosing parens, and return them as the new
     # source for the node.
-    def feel_for_enclosing_parens(node) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    def feel_for_enclosing_parens(node) # rubocop:disable Metrics/AbcSize
       range = node.source_range
       original_source = source_from_range(range)
       left_offset = -1

@@ -78,7 +78,7 @@ module SCSSLint
         @lines.any? { |line| line['scss-lint:disable'] || line['scss-lint:enable'] }
     end
 
-    def preprocess_contents # rubocop:disable CyclomaticComplexity
+    def preprocess_contents # rubocop:disable Metrics/CyclomaticComplexity
       return unless @preprocess_command
       # Never preprocess :code scss if @preprocess_files is specified.
       return if @preprocess_files && @filename.nil?
