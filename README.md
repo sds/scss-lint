@@ -1,11 +1,11 @@
 [![Gem Version](https://badge.fury.io/rb/scss_lint.svg)](http://badge.fury.io/rb/scss_lint)
-[![Build Status](https://github.com/sds/scss-lint/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/sds/scss-lint/actions/workflows/ci.yml?query=branch%3Amaster)
+[![Build Status](https://github.com/sds/scss-lint/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/sds/scss-lint/actions/workflows/ci.yml?query=branch%3Amain)
 [![Code Climate](https://codeclimate.com/github/sds/scss-lint.svg)](https://codeclimate.com/github/sds/scss-lint)
 [![Coverage Status](https://coveralls.io/repos/sds/scss-lint/badge.svg)](https://coveralls.io/r/sds/scss-lint)
-[![Inline docs](http://inch-ci.org/github/sds/scss-lint.svg?branch=master)](http://inch-ci.org/github/sds/scss-lint)
+[![Inline docs](http://inch-ci.org/github/sds/scss-lint.svg?branch=main)](http://inch-ci.org/github/sds/scss-lint)
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/sds/scss-lint/master/logo/horizontal.png" width="40%" alt="SCSS-Lint Logo"/>
+  <img src="https://raw.githubusercontent.com/sds/scss-lint/main/logo/horizontal.png" width="40%" alt="SCSS-Lint Logo"/>
 </p>
 
 `scss-lint` is a tool to help keep your [SCSS](http://sass-lang.com) files
@@ -641,14 +641,6 @@ installation of `ruby` or `scss-lint` is not required.
 [maven-plugin]: https://github.com/GeoDienstenCentrum/sass-maven-plugin
 [maven-plugin-2.3]: http://www.geodienstencentrum.nl/sass-maven-plugin/releasenotes.html#a2.3_Release_Notes
 [maven-plugin-info]: https://GeoDienstenCentrum.github.io/sass-maven-plugin/plugin-info.html
-
-## Documentation
-
-[Code documentation] is generated with [YARD] and hosted by [RubyDoc.info].
-
-[Code documentation]: http://rdoc.info/github/sds/scss-lint/master/frames
-[YARD]: http://yardoc.org/
-[RubyDoc.info]: http://rdoc.info/
 
 ## Contributing
 
