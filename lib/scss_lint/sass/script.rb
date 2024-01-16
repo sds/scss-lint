@@ -1,5 +1,5 @@
 # Ignore documentation lints as these aren't original implementations.
-# rubocop:disable Documentation
+# rubocop:disable Style/Documentation
 
 module Sass::Script
   # Since the Sass library is already loaded at this point.
@@ -77,4 +77,4 @@ module Sass::Script
   end
 end
 
-# rubocop:enable Documentation
+# rubocop:enable Style/Documentation

@@ -43,7 +43,7 @@ module SCSSLint
       fixed_basename = orig_basename
 
       if config['leading_underscore']
-        fixed_basename = '_' + fixed_basename unless fixed_basename.start_with?('_')
+        fixed_basename = "_#{fixed_basename}" unless fixed_basename.start_with?('_')
       else
         fixed_basename = fixed_basename.sub(/^_/, '')
       end

@@ -33,7 +33,7 @@ module SCSSLint
 
   private
 
-    def check_property(node, prefix = nil) # rubocop:disable CyclomaticComplexity
+    def check_property(node, prefix = nil)
       return if contains_interpolation?(node)
 
       name = prefix ? "#{prefix}-" : ''

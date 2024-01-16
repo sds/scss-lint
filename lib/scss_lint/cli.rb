@@ -78,7 +78,7 @@ module SCSSLint
 
     def files_to_lint(options, config)
       if options[:stdin_file_path]
-        [{ file: STDIN, path: options[:stdin_file_path] }]
+        [{ file: $stdin, path: options[:stdin_file_path] }]
       else
         patterns = Array(options[:files]).any? ? Array(options[:files]) : config.scss_files
         FileFinder.new(config).find(patterns).map do |file_path|
@@ -87,7 +87,7 @@ module SCSSLint
       end
     end
 
-    def handle_runtime_exception(exception, options) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/LineLength, Metrics/MethodLength
+    def handle_runtime_exception(exception, options) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
       case exception
       when SCSSLint::Exceptions::InvalidCLIOption
         log.error exception.message
@@ -213,7 +213,7 @@ module SCSSLint
     def load_reporters(options)
       options[:reporters].map! do |reporter_name, output_file|
         begin
-          reporter = SCSSLint::Reporter.const_get(reporter_name + 'Reporter')
+          reporter = SCSSLint::Reporter.const_get("#{reporter_name}Reporter")
         rescue NameError
           raise SCSSLint::Exceptions::InvalidCLIOption,
                 "Invalid output format specified: #{reporter_name}"

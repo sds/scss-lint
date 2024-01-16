@@ -210,12 +210,12 @@ describe SCSSLint::CLI do
       let(:flags) { ['--stdin-file-path', 'some-fake-file-path.scss'] }
 
       before do
-        STDIN.stub(:read).and_return('// Nothing interesting')
+        $stdin.stub(:read).and_return('// Nothing interesting')
       end
 
       it 'passes STDIN and the file path as a file tuple to the runner' do
         SCSSLint::Runner.any_instance.should_receive(:run)
-                        .with([file: STDIN, path: 'some-fake-file-path.scss'])
+                        .with([file: $stdin, path: 'some-fake-file-path.scss'])
         safe_run
       end
     end

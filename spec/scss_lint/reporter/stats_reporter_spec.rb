@@ -5,8 +5,8 @@ describe SCSSLint::Reporter::StatsReporter do
   class SCSSLint::Linter::FakeLinter2 < SCSSLint::Linter; end
 
   let(:logger) { SCSSLint::Logger.new($stdout) }
-  let(:linter_1) { SCSSLint::Linter::FakeLinter1.new }
-  let(:linter_2) { SCSSLint::Linter::FakeLinter2.new }
+  let(:linter1) { SCSSLint::Linter::FakeLinter1.new }
+  let(:linter2) { SCSSLint::Linter::FakeLinter2.new }
   subject { SCSSLint::Reporter::StatsReporter.new(lints, [], logger) }
 
   def new_lint(linter, filename, line)
@@ -24,7 +24,7 @@ describe SCSSLint::Reporter::StatsReporter do
 
     context 'when there are lints from one linter in one file' do
       let(:lints) do
-        [new_lint(linter_1, 'a.scss', 10), new_lint(linter_1, 'a.scss', 20)]
+        [new_lint(linter1, 'a.scss', 10), new_lint(linter1, 'a.scss', 20)]
       end
 
       it 'prints one line per linter with lints, plus 2 summary lines' do
@@ -32,7 +32,7 @@ describe SCSSLint::Reporter::StatsReporter do
       end
 
       it 'prints the name of each linter with lints' do
-        subject.report_lints.should include linter_1.name
+        subject.report_lints.should include linter1.name
       end
 
       it 'prints the number of lints per linter' do
@@ -50,9 +50,9 @@ describe SCSSLint::Reporter::StatsReporter do
 
     context 'when there are lints from multiple linters in one file' do
       let(:lints) do
-        [new_lint(linter_1, 'a.scss', 10),
-         new_lint(linter_1, 'a.scss', 20),
-         new_lint(linter_2, 'a.scss', 30)]
+        [new_lint(linter1, 'a.scss', 10),
+         new_lint(linter1, 'a.scss', 20),
+         new_lint(linter2, 'a.scss', 30)]
       end
 
       it 'prints one line per linter with lints, plus 2 summary lines' do
@@ -60,8 +60,8 @@ describe SCSSLint::Reporter::StatsReporter do
       end
 
       it 'prints the name of each linter with lints' do
-        subject.report_lints.scan(linter_1.name).count.should eq 1
-        subject.report_lints.scan(linter_2.name).count.should eq 1
+        subject.report_lints.scan(linter1.name).count.should eq 1
+        subject.report_lints.scan(linter2.name).count.should eq 1
       end
 
       it 'prints the number of lints per linter' do
@@ -80,12 +80,12 @@ describe SCSSLint::Reporter::StatsReporter do
 
     context 'when there are lints from multiple linters in multiple files' do
       let(:lints) do
-        [new_lint(linter_1, 'a.scss', 10),
-         new_lint(linter_1, 'a.scss', 20),
-         new_lint(linter_2, 'a.scss', 30),
-         new_lint(linter_1, 'b.scss', 15),
-         new_lint(linter_2, 'b.scss', 25),
-         new_lint(linter_1, 'c.scss', 100)]
+        [new_lint(linter1, 'a.scss', 10),
+         new_lint(linter1, 'a.scss', 20),
+         new_lint(linter2, 'a.scss', 30),
+         new_lint(linter1, 'b.scss', 15),
+         new_lint(linter2, 'b.scss', 25),
+         new_lint(linter1, 'c.scss', 100)]
       end
 
       it 'prints one line per linter with lints, plus 2 summary lines' do
@@ -93,8 +93,8 @@ describe SCSSLint::Reporter::StatsReporter do
       end
 
       it 'prints the name of each linter with lints' do
-        subject.report_lints.scan(linter_1.name).count.should eq 1
-        subject.report_lints.scan(linter_2.name).count.should eq 1
+        subject.report_lints.scan(linter1.name).count.should eq 1
+        subject.report_lints.scan(linter2.name).count.should eq 1
       end
 
       it 'prints the number of lints per linter' do

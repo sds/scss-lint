@@ -1,6 +1,6 @@
 module SCSSLint
   # Checks for consistent indentation of nested declarations and rule sets.
-  class Linter::Indentation < Linter # rubocop:disable ClassLength
+  class Linter::Indentation < Linter # rubocop:disable Metrics/ClassLength
     include LinterRegistry
 
     def visit_root(_node)
@@ -165,11 +165,9 @@ module SCSSLint
     # as it's a multiple of the indent width
     def check_root_ruleset_indent(node, actual_indent)
       # Whether node is a ruleset not nested within any other ruleset.
-      if @indent == 0 && node.is_a?(Sass::Tree::RuleNode)
-        unless actual_indent % @indent_width == 0
-          add_lint(node.line, lint_message("a multiple of #{@indent_width}", actual_indent))
-          return true
-        end
+      if @indent == 0 && node.is_a?(Sass::Tree::RuleNode) && actual_indent % @indent_width != 0
+        add_lint(node.line, lint_message("a multiple of #{@indent_width}", actual_indent))
+        return true
       end
 
       false

@@ -1,56 +1,62 @@
+inherit_from: .rubocop_todo.yml
+
 AllCops:
   DisplayCopNames: true
   TargetRubyVersion: 2.4 # Oldest version of Ruby we support
+  NewCops: disable
 
-AccessModifierIndentation:
+Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
 
-AssignmentInCondition:
+Lint/AssignmentInCondition:
   Enabled: false
 
 # Enforcing this results in a lot of unnecessary indentation.
-ClassAndModuleChildren:
+Style/ClassAndModuleChildren:
   Enabled: false
 
-ClassLength:
+Metrics/ClassLength:
   Exclude:
     - 'lib/scss_lint/config.rb'
     - 'lib/scss_lint/cli.rb'
 
-CollectionMethods:
+Style/OptionalBooleanParameter:
+  Enabled: false
+
+Style/CollectionMethods:
   PreferredMethods:
     reduce: inject
 
-Documentation:
+Style/Documentation:
   Exclude:
     - 'spec/scss_lint/**/*'
     - 'spec/scss_lint/linter/**/*'
 
-Eval:
+Security/Eval:
   Exclude:
     - 'lib/scss_lint/sass/script.rb'
 
-FormatString:
+Style/FormatString:
   Enabled: false
 
-FileName:
+Naming/FileName:
   Exclude:
     - 'bin/scss-lint'
     - 'Gemfile'
     - 'Rakefile'
     - '*.gemspec'
 
-GuardClause:
+Style/GuardClause:
   Enabled: true
 
-HandleExceptions:
+Lint/SuppressedException:
   Exclude:
     - 'spec/scss_lint/cli_spec.rb'
 
-IfUnlessModifier:
+Style/IfUnlessModifier:
   Enabled: false
 
-Layout/AlignHash:
+Layout/HashAlignment:
   Enabled: false
 
 Layout/ClosingHeredocIndentation:
@@ -63,16 +69,16 @@ Layout/ExtraSpacing:
   Exclude:
     - '*.gemspec'
 
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   Enabled: false
 
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   Enabled: false
 
 Layout/MultilineOperationIndentation:
   Enabled: false
 
-LineLength:
+Layout/LineLength:
   Max: 103
 
 # Reports false positives for `'.one #{$interpolated-string} .two .three {}'` (RuboCop v0.50.0)
@@ -83,10 +89,10 @@ Lint/Void:
   Exclude:
     - 'spec/**/*_spec.rb'
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: false
 
-MethodLength:
+Metrics/MethodLength:
   Max: 20
 
 Metrics/AbcSize:
@@ -96,11 +102,11 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
 
-PerceivedComplexity:
+Metrics/PerceivedComplexity:
   Max: 8
 
 # Prefer curly braces except for %i/%w/%W, since those return arrays.
-PercentLiteralDelimiters:
+Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     '%': '{}'
     '%i': '[]'
@@ -114,12 +120,12 @@ PercentLiteralDelimiters:
 
 # Renaming `has_something?` to `something?` obfuscates whether it is a "is-a" or
 # a "has-a" relationship.
-PredicateName:
+Naming/PredicateName:
   Enabled: false
 
 # Forcing a particular name (e.g. |a, e|) for inject methods prevents you from
 # choosing intention-revealing names.
-SingleLineBlockParams:
+Style/SingleLineBlockParams:
   Enabled: false
 
 # YAML.safe_load isn't available on Ruby 2.0.0, which we still support

@@ -57,7 +57,7 @@ module SCSSLint
           //\s*scss-lint:
           (?<action>disable|enable)\s+
           (?<linters>.*?)
-          \s*($|\*\/) # End of line
+          \s*($|\*/) # End of line
         }x.match(comment_line)
 
         commands << {

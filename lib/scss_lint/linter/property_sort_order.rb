@@ -1,6 +1,6 @@
 module SCSSLint
   # Checks the declaration order of properties.
-  class Linter::PropertySortOrder < Linter # rubocop:disable ClassLength
+  class Linter::PropertySortOrder < Linter # rubocop:disable Metrics/ClassLength
     include LinterRegistry
 
     def visit_root(_node)
@@ -90,7 +90,7 @@ module SCSSLint
       end
     end
 
-    def check_group_separation(sortable_prop_info) # rubocop:disable AbcSize
+    def check_group_separation(sortable_prop_info) # rubocop:disable Metrics/AbcSize
       group_number = @group[sortable_prop_info.first[:property]]
 
       sortable_prop_info[0..-2].zip(sortable_prop_info[1..-1]).each do |first, second|

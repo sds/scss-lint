@@ -1,7 +1,7 @@
 module SCSSLint
   # Verifies that variables, functions, and mixins that follow the private
   # naming convention are defined and used within the same file.
-  class Linter::PrivateNamingConvention < Linter # rubocop:disable ClassLength
+  class Linter::PrivateNamingConvention < Linter # rubocop:disable Metrics/ClassLength
     include LinterRegistry
 
     DEFINITIONS = {
@@ -19,7 +19,7 @@ module SCSSLint
       },
     }.freeze
 
-    HUMAN_NODE_NAMES = Hash[DEFINITIONS.map { |k, v| [k, v[:human_name]] }].freeze
+    HUMAN_NODE_NAMES = DEFINITIONS.transform_values { |v| v[:human_name] }.freeze
     DEFINED_BYS = Hash[DEFINITIONS.map { |k, v| [v[:defines], k] }].freeze
 
     def visit_root(node)
@@ -99,7 +99,7 @@ module SCSSLint
       # defining node that matches in name and type.
       node_to_look_in.children.each do |child_node|
         break unless before?(child_node, looking_for[:location])
-        next unless child_node.class == looking_for[:defined_by]
+        next unless child_node.instance_of?(looking_for[:defined_by])
         next unless child_node.name == looking_for[:node].name
 
         return true # We found a match, so we are done

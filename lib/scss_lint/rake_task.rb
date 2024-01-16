@@ -76,7 +76,7 @@ module SCSSLint
     def run_cli(task_args)
       cli_args = ['--config', config] if config
 
-      logger = quiet ? SCSSLint::Logger.silent : SCSSLint::Logger.new(STDOUT)
+      logger = quiet ? SCSSLint::Logger.silent : SCSSLint::Logger.new($stdout)
       run_args = Array(cli_args) + Array(args) + files_to_lint(task_args)
       result = SCSSLint::CLI.new(logger).run(run_args)
 
@@ -95,7 +95,7 @@ module SCSSLint
     end
 
     def files_to_lint(task_args)
-      # Note: we're abusing Rake's argument handling a bit here. We call the
+      # NOTE: we're abusing Rake's argument handling a bit here. We call the
       # first argument `files` but it's actually only the first file--we pull
       # the rest out of the `extras` from the task arguments. This is so we
       # can specify an arbitrary list of files separated by commas on the

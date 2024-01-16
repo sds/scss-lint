@@ -4,9 +4,7 @@ module SCSSLint
     def report_lints
       return unless lints.any?
 
-      lints.map do |lint|
-        "#{location(lint)} #{type(lint)} #{message(lint)}"
-      end.join("\n") + "\n"
+      "#{lints.map { |lint| "#{location(lint)} #{type(lint)} #{message(lint)}" }.join("\n")}\n"
     end
 
   private
